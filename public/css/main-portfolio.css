@@ -1,0 +1,79 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.ribbon {
+  position: fixed;
+  top: 72px;
+  height: 52px;
+  width: 100vw;
+  background-color: var(--left-background-color);
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  text-align: center;
+  display: none;
+  z-index: 1000;
+}
+
+.ribbon a {
+  display: block;
+}
+
+.ribbon img {
+  height: 20px;
+  width: 20px;
+  display: inline-block;
+  margin-top: 1rem;
+}
+.ribbon svg {
+  height: 24px;
+  width: 24px;
+  display: inline-block;
+  margin-top: 0.9rem;
+  color: rgb(117, 117, 117);
+}
+
+.ribbon-left {
+  height: inherit;
+  width: 50vw;
+}
+.ribbon-right {
+  height: inherit;
+  width: 50vw;
+}
+
+.ribbon-left:hover {
+  text-shadow: 2px 2px 5px #00000024;
+  background-color: #f4f4f4;
+}
+.ribbon-right:hover {
+  text-shadow: 2px 2px 5px #00000024;
+  background-color: #f4f4f4;
+}
+
+#portfolio {
+  display: grid;
+  grid-template-columns: 26% 61%;
+  /* grid-template-columns: 350px auto; */
+  grid-gap: 1rem;
+  position: relative;
+  top: 72px;
+}
+
+#left-sidebar {
+  /* width: 350px; */
+  background-color: var(--left-background-color);
+  position: relative;
+  top: 0px;
+  min-height: 100vh;
+}
+
+#main-grid {
+  width: inherit;
+  position: relative;
+  top: 0;
+  left: 0%;
+  margin: 0 1.5rem;
+}
