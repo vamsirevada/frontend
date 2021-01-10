@@ -28,7 +28,7 @@ const EditButton = ({ profile }) => {
                 {" "}
                 <a
                   id="share-port-1"
-                  href={`mailto:?subject=I wanted you to see this profile&body=Hi,Check out this portfolio ${" "} https://cryptic-plains-21045.herokuapp.com/portfolio/${profile}`}
+                  href={`mailto:?subject=I wanted you to see this profile&body=Hi,Check out this portfolio ${" "} http://138.197.98.173/portfolio/${profile}`}
                 >
                   <img src={share} alt="zx" /> Via Email
                 </a>
@@ -36,7 +36,7 @@ const EditButton = ({ profile }) => {
               <hr />
               <li>
                 <a
-                  href={`sms:?body=Check out this portfolio https://cryptic-plains-21045.herokuapp.com/portfolio/${profile}`}
+                  href={`sms:?body=Check out this portfolio http://138.197.98.173/portfolio/${profile}`}
                   // className='share-port1'
                   id="share-port-1"
                 >
