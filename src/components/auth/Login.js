@@ -46,7 +46,7 @@ const Login = ({ login, isAuthenticated }) => {
               </p>
               <p className="signup-para invite">
                 {" "}
-                <Link to="/login/invite">
+                <Link to="/invite">
                   <span className="referral-request-1">Invite friends</span>
                 </Link>
               </p>
@@ -80,7 +80,7 @@ const Login = ({ login, isAuthenticated }) => {
               </div>
 
               <div className="fgt">
-                <Link to="/login/forgot-password" className="fgt-1">
+                <Link to="/forgot-password" className="fgt-1">
                   Forgot Password
                 </Link>
                 <Link to="/register">

@@ -132,25 +132,9 @@ const Navbar = ({ logout }) => {
                       <li>
                         <Link to="/profile"> View Profile</Link>
                       </li>
-                      {/* <li>
-                        <Link to='/friends'> Friends</Link>
-                      </li> */}
-
-                      {/* <li>
-                        <a href='#!'>Create New Project</a>
-                      </li>
                       <li>
-                        <a href='#!'>Current Project</a>
-                        <ul>
-                          <li>
-                            <a href='#!'>Project wildlife</a>
-                          </li>
-                          <li>
-                            <a href='#!'>Project wildlife</a>
-                          </li>
-                        </ul>
-                      </li> */}
-
+                        <Link to="/invite"> Invite Friends</Link>
+                      </li>
                       <li>
                         <a onClick={logout} className="signOut" href="#!">
                           Log out

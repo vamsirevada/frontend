@@ -1,13 +1,10 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import Spinner from "../layout/Spinner";
-import setting from "../../images/icons/noun_Settings_3144389.svg";
-import share from "../../images/icons/noun_Share_3136056 copy.svg";
 import loc from "../../images/icons/noun_Location_3139654.svg";
 import logo from "../../images/image29@2.png";
 
 const MiniPortfolio = ({ profile, loading }) => {
-  const [displayShare, toogleShare] = useState(false);
 
   console.log(profile);
 
@@ -18,20 +15,6 @@ const MiniPortfolio = ({ profile, loading }) => {
       {profile !== null ? (
         <Fragment>
           <div className="left-container">
-            <div>
-              <a href="#!" onClick={() => toogleShare(!displayShare)}>
-                <img className="setting setting-f" src={setting} alt="" />
-              </a>
-
-              {displayShare && (
-                <Fragment>
-                  <a href="#!" className="share-port" id="share-port-1">
-                    <img src={share} alt="zx" /> Share Portfolio
-                  </a>
-                </Fragment>
-              )}
-            </div>
-
             <div className="left-heading heading-1">
               <img
                 className="display-pic"

@@ -45,16 +45,16 @@ const App = () => {
                 <Route exact path="/register" component={Register} />
                 <Route exact path="/groupregister" component={Groupregister} />
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/login/forgot-password" component={Forgot} />
+                <Route exact path="/forgot-password" component={Forgot} />
                 <Route
                   exact
-                  path="/login/reset-password/:resetPasswordToken"
+                  path="/reset-password/:resetPasswordToken"
                   component={Reset}
                 />
-                <Route exact path="/login/invite" component={Invite} />
+                <Route exact path="/invite" component={Invite} />
                 <Route
                   exact
-                  path="/register/referral"
+                  path="referral"
                   component={ReferralPage}
                 />
                 <Route exact path="/writerlogin" component={WriterLogin} />

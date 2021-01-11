@@ -77,7 +77,9 @@ const Createprofile = ({ createProfile, history }) => {
                 hidden={true}
                 ref={fileInput}
               />
-              <img className="display-pic" src={avatar} alt="" />
+              <div className="display-pic">
+                <img className="display-pic" src={avatar} alt="" />
+              </div>
               <button className="btn-yellow" onClick={onOpenFileDialog}>
                 Upload Picture
               </button>

@@ -81,7 +81,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
               <div className="usergroup">
                 <label htmlFor="referral-code" className="signup-label">
                   Enter the referral code <span className="blue">*</span>
-                  <Link to="/register/referral">
+                  <Link to="/referral">
                     <span className="referral-request">
                       Don't have a referral-code?
                     </span>
