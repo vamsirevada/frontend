@@ -1,11 +1,9 @@
-import React, { Fragment, useEffect } from 'react';
-import ProjectItem from './Project';
-import Spinner from '../layout/Spinner';
-// import loc from '../../images/noun_Location_3139654.svg';
-import search from '../../images/searchIcon1.svg';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { getProfileById } from '../../actions/profile';
+import React, { Fragment, useEffect } from "react";
+import Project from "./Project";
+import Spinner from "../layout/Spinner";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
+import { getProfileById } from "../../actions/profile";
 // import briefcase from '../../images/icons/nounBriefcase.svg';
 
 const Projects = ({ match, getProfileById, profile: { profile, loading } }) => {
@@ -16,75 +14,68 @@ const Projects = ({ match, getProfileById, profile: { profile, loading } }) => {
     <Spinner />
   ) : (
     <Fragment>
-      <div className='c-list'>
-        <div className='c-list-container c-1'>
-          <div className='c-list-head'>
-            <div className='flex'>
-              <div className='display-pic'></div>
-              <h2 className='name name-f'>
-                {profile.user.fullName && profile.user.fullName}
+      <div className="c-list">
+        <div className="c-list-container c-1">
+          <div className="c-list-head">
+            <div className="flex">
+              <div className="display-pic">
+                <img className="display-pic" src={profile.avatar} alt="" />
+              </div>
+              <h2 className="name name-f">
+                {profile?.user.fullName && profile?.user.fullName}
               </h2>
-              <h2 className='name name-f'>
-                {profile.user.groupName && profile.user.groupName}
+              <h2 className="name name-f">
+                {profile?.user.groupName && profile?.user.groupName}
               </h2>
             </div>
             <div>
-              <p className='blue'>{profile.status && profile.status}</p>
+              <p className="blue">{profile?.status && profile?.status}</p>
             </div>
             <div>
               <p>
                 {/* <img className='resize' src={loc} alt='' />{' '} */}
-                <span className='gray'>
-                  {' '}
-                  {profile.location && profile.location}
+                <span className="gray">
+                  {" "}
+                  {profile?.location && profile?.location}
                 </span>
               </p>
             </div>
 
-            <div className='profile-info-box'>
-              <Link to={`/friends/${profile.user._id}`} href='#'>
-                <p className='border-1'>
-                  <span className='f-1'>
-                    {profile.buddies && profile.buddies.length}
+            <div className="profile-info-box">
+              <Link to={`/friends/${profile?.user._id}`} href="#">
+                <p className="border-1">
+                  <span className="f-1">
+                    {profile?.buddies && profile?.buddies.length}
                   </span>
                   <br /> Connections
                 </p>
               </Link>
-              <Link to={`/projects/${profile.user._id}`} href='#'>
+              <Link to={`/projects/${profile?.user._id}`} href="#">
                 <p>
-                  <span className='f-1'>
-                    {profile.experience && profile.experience.length}
+                  <span className="f-1">
+                    {profile?.experience && profile?.experience.length}
                   </span>
-                  <br /> Projects Completed{' '}
+                  <br /> Projects Completed{" "}
                 </p>
               </Link>
             </div>
           </div>
-          <div className='search-flex search-flex-1'>
+          <div className="search-flex search-flex-1">
             <div>
-              <h1 className='name name-f'>Projects</h1>
-            </div>
-            <div className='search'>
-              <input
-                type='text'
-                className='search-btn'
-                placeholder='search connections'
-              />
-              <br />
-              <img src={search} alt='search' />
+              <h1 className="name name-f">Projects</h1>
             </div>
           </div>
-          <hr className='hori' />
-          <div className='project'>
-            <div className='project-container'>
-              {profile.experience.length > 0 ? (
+          <hr className="hori" />
+          <div className="project">
+            <div className="project-container">
+              {profile?.experience.length > 0 ? (
                 <Fragment>
-                  {profile.experience.length > 0 && (
+                  {profile?.experience.length > 0 && (
                     <div>
-                      {profile.experience.length > 0 ? (
+                      {profile?.experience.length > 0 ? (
                         <Fragment>
-                          {profile.experience.map((experience) => (
-                            <ProjectItem
+                          {profile?.experience.map((experience) => (
+                            <Project
                               key={experience._id}
                               experience={experience}
                             />
@@ -97,7 +88,7 @@ const Projects = ({ match, getProfileById, profile: { profile, loading } }) => {
                   )}
                 </Fragment>
               ) : (
-                <h3>No Experience </h3>
+                <h3 style={{ textAlign: "center" }}>None </h3>
               )}
             </div>
           </div>

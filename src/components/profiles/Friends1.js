@@ -2,7 +2,6 @@ import React, { Fragment, useState, useEffect } from "react";
 import axios from "axios";
 import Friend from "./Friend";
 import Spinner from "../layout/Spinner";
-import search from "../../images/searchIcon1.svg";
 import { getProfileById } from "../../actions/profile";
 import { setAlert } from "../../actions/alert";
 import { connect } from "react-redux";
@@ -114,15 +113,6 @@ const Friends1 = ({ profile: { profile, loading }, getProfileById, match }) => {
           <div className="search-flex search-flex-1">
             <div>
               <h1 className="name name-f">Friends</h1>
-            </div>
-            <div className="search">
-              <input
-                type="text"
-                className="search-btn"
-                placeholder="search friends"
-              />
-              <br />
-              <img src={search} alt="search" />
             </div>
           </div>
           <hr className="hori" />

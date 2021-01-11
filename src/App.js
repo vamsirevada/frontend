@@ -22,6 +22,7 @@ import SingleArticle from "./components/article/SingleArticle";
 import { SearchProvider } from "./context/search.provider";
 import { ProfileProvider } from "./context/profile/profile.provider";
 import "./App.css";
+import ReferralPage from "./components/auth/ReferralPage";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -51,6 +52,11 @@ const App = () => {
                   component={Reset}
                 />
                 <Route exact path="/login/invite" component={Invite} />
+                <Route
+                  exact
+                  path="/register/referral"
+                  component={ReferralPage}
+                />
                 <Route exact path="/writerlogin" component={WriterLogin} />
                 <Route
                   exact

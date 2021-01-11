@@ -11,14 +11,14 @@ const PortfolioRightTop = ({
 }) => (
   <div className="main-grid-top">
     <div className="profile-info-box p-black">
-      <Link to={`/friends/${_id}`} href="#!">
+      <Link to={`/friends/${_id}`}>
         <p className="border-1">
           <span className="f-1">{buddies && buddies.length}</span>
           {/* <span className='f-1'>2</span> */}
           <br /> Connections
         </p>
       </Link>
-      <Link to={`/projects/${_id}`} href="#!">
+      <Link to={`/projects/${_id}`}>
         <p>
           <span className="f-1">{experience && experience.length}</span>
           <br /> Projects{" "}

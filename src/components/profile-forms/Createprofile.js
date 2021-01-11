@@ -1,12 +1,14 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { createProfile } from "../../actions/profile";
 import { projectStorage } from "../../firebase/config";
+import { ProfileContext } from "../../context/profile/profile.context";
 
 const Createprofile = ({ createProfile, history }) => {
   let fileInput = React.createRef();
+  const { img, setImg } = useContext(ProfileContext);
 
   const [formData, setFormData] = useState({
     location: "",
@@ -43,6 +45,8 @@ const Createprofile = ({ createProfile, history }) => {
       ...formData,
       avatar: await fileRef.getDownloadURL(),
     });
+
+    setImg(await fileRef.getDownloadURL());
 
     createProfile(
       { ...formData, avatar: await fileRef.getDownloadURL() },

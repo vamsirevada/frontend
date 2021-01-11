@@ -2579,10 +2579,14 @@ input.search-btn:focus {
     line-height: 2.5rem;
     width: 75%;
   }
-  .ft-para {
+  .ft-para1 {
     text-align: justify;
     margin-bottom: 20px;
     display: none;
+  }
+  .ft-para {
+    text-align: justify;
+    margin-bottom: 20px;
   }
   .btn.yellow {
     display: none;
@@ -2594,6 +2598,8 @@ input.search-btn:focus {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
+    bottom: -40px;
   }
   .hide div {
     width: 100%;
@@ -2872,11 +2878,17 @@ input.search-btn:focus {
     line-height: 2.5rem;
     width: 75%;
   }
-  .ft-para {
+  .ft-para1 {
     font-size: 0.8rem;
     text-align: justify;
     margin-bottom: 10px;
     display: none;
+  }
+
+  .ft-para {
+    font-size: 0.8rem;
+    text-align: justify;
+    margin-bottom: 10px;
   }
   .btn.yellow {
     display: none;
@@ -2888,6 +2900,8 @@ input.search-btn:focus {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
+    bottom: -40px;
   }
   .hide div {
     width: 100%;
@@ -3101,11 +3115,17 @@ input.search-btn:focus {
     width: 75%;
     margin-bottom: 5px;
   }
-  .ft-para {
+  .ft-para1 {
     font-size: 0.7rem;
     text-align: justify;
     margin-bottom: 10px;
     display: none;
+  }
+
+  .ft-para {
+    font-size: 0.7rem;
+    text-align: justify;
+    margin-bottom: 10px;
   }
   .btn.yellow {
     display: none;
@@ -3117,6 +3137,8 @@ input.search-btn:focus {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: relative;
+    bottom: -40px;
   }
   .hide div {
     width: 100%;
@@ -3128,7 +3150,7 @@ input.search-btn:focus {
     margin-bottom: 10px;
     border-radius: 10px;
     font-family: "Raleway", sans-serif;
-    font-size: 0.5rem;
+    font-size: 0.8rem;
     width: 100%;
     height: 40px;
     z-index: 10;

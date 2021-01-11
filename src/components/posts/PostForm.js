@@ -57,9 +57,15 @@ const PostForm = ({ addPost, setAlert }) => {
 
   const _onupload = (e) => {
     e.preventDefault();
-    addPost({ text: text, url, type: filetype });
-    setText("");
-    setShow(false);
+    if (url !== null) {
+      addPost({ text: text, url, type: filetype });
+      setText("");
+      setShow(false);
+    } else {
+      addPost({ text });
+      setText("");
+      setShow(false);
+    }
   };
 
   return (

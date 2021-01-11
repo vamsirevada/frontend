@@ -152,9 +152,6 @@ const Navbar = ({ logout }) => {
                       </li> */}
 
                       <li>
-                        <a href="#!">Settings</a>
-                      </li>
-                      <li>
                         <a onClick={logout} className="signOut" href="#!">
                           Log out
                         </a>

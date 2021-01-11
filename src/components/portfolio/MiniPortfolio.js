@@ -9,6 +9,8 @@ import logo from "../../images/image29@2.png";
 const MiniPortfolio = ({ profile, loading }) => {
   const [displayShare, toogleShare] = useState(false);
 
+  console.log(profile);
+
   return loading && profile === null ? (
     <Spinner />
   ) : (
@@ -55,38 +57,11 @@ const MiniPortfolio = ({ profile, loading }) => {
               <p>{profile.bio}</p>
             </div>
 
-            {/* <hr className='hori' /> */}
-            {/* <!-- Professional Experience --> */}
-            {/* <div className='prof-exp'>
-              <div className='prof-exp-heading'>
-                <h3>
-                  <a href='#!'>Professional Experience :</a>{' '}
-                </h3>
-              </div>
-
-              <div className='prof-btn'>
-                <div className='prof-btn-flex'>
-                  <div className='prof-top'>
-                    <div className='prof-pic p1 '></div>
-                    <div>
-                      <p>
-                        <span className='bold bold-1'>Assitant Director</span>{' '}
-                        <br />
-                        <span className='secod-bold'>Zee Studios</span> <br />
-                        <span className='third-bold'>
-                          July 2010 - Sept 2011
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
             <hr className="hori" />
 
             <div className="connect-info">
               <div>
-                <Link to="/friends" href="#!">
+                <Link to="/friends">
                   <p className="border-1">
                     <span className="f-1">{profile.buddies.length}</span>
                     <br /> Connections
@@ -94,14 +69,14 @@ const MiniPortfolio = ({ profile, loading }) => {
                 </Link>
               </div>
               <div>
-                <a href="#!">
+                <Link to={`/projects/${profile.user._id}`}>
                   <p>
                     <span className="f-1">
                       {profile.experience && profile.experience.length}
                     </span>
                     <br /> Projects Completed{" "}
                   </p>
-                </a>
+                </Link>
               </div>
             </div>
             <hr className="hori" />

@@ -145,12 +145,6 @@ const ImageGrid = ({ type, setSelectedImg, id }) => {
                 {edit === doc.url && (
                   <ul className='edit-text-box'>
                     <li>
-                      <a className='edit-text' href='#!'>
-                        Edit Project
-                      </a>
-                    </li>
-                    <hr />
-                    <li>
                       <a
                         href='#!'
                         className='edit-text'
@@ -158,7 +152,7 @@ const ImageGrid = ({ type, setSelectedImg, id }) => {
                           _remove(doc);
                         }}
                       >
-                        Remove Project
+                        Remove
                       </a>
                     </li>
                   </ul>
@@ -226,8 +220,6 @@ const ImageGrid = ({ type, setSelectedImg, id }) => {
 
                     {edit === doc.url && (
                       <div className='edit-text-box'>
-                        <div className='edit-text'>Edit Project</div>
-                        <hr />
                         <div
                           className='edit-text'
                           onClick={() => {
@@ -282,7 +274,6 @@ const ImageGrid = ({ type, setSelectedImg, id }) => {
 
                 {edit === doc.url && (
                   <div className='edit-text-box'>
-                    <div className='edit-text-m'>Edit Project</div>
                     <div
                       className='edit-text'
                       onClick={() => {
@@ -336,7 +327,6 @@ const ImageGrid = ({ type, setSelectedImg, id }) => {
 
                 {edit === doc.url && (
                   <div className='edit-text-box'>
-                    <div className='edit-text-m'>Edit Project</div>
                     <div
                       className='edit-text'
                       onClick={() => {

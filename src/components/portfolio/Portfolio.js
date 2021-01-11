@@ -76,7 +76,7 @@ const Portfolio = ({
                       <div className="left-container">
                         {/* <PortfolioLeftTopIcons /> */}
                         <PortfolioLeftTop profile={profile} />
-                        <EditButton profile={profile?.user?._id} />
+                        <EditButton profile={profile} />
                         <PortfolioLeftAbout profile={profile} />
                         {profile.founder.length > 0 && (
                           <div className="prof-exp">

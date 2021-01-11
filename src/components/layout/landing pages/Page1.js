@@ -29,7 +29,7 @@ const Page1 = () => {
                 <h1 className="ft-heading">
                   Networking platform for Media & Entertainment community
                 </h1>
-                <p className="ft-para">
+                <p className="ft-para1">
                   Vanity is an Professional networking platform for the Media &
                   Entertainment community, with an aim to bring entertainment
                   industry professionals under one roof and facilitate them with

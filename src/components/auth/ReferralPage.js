@@ -5,9 +5,9 @@ import vlogo from "../../images/vanitylogo3.png";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { setAlert } from "../../actions/alert";
-import { sendInvite } from "../../actions/auth";
+import { sendReferral } from "../../actions/auth";
 
-const Invite = ({ isAuthenticated, sendInvite, setAlert }) => {
+const ReferralPage = ({ isAuthenticated, sendReferral, setAlert }) => {
   const [formData, setFormData] = useState({
     email: "",
     phone: "",
@@ -23,9 +23,33 @@ const Invite = ({ isAuthenticated, sendInvite, setAlert }) => {
     if (email === "") {
       setAlert("Email is required", "danger", 2000);
     } else {
-      sendInvite({ email });
+      sendReferral({ email });
     }
+    // const body = JSON.stringify({
+    //   email: email,
+    // });
+    // console.log(email, "email");
+
+    // await axios
+    //   .post("/api/auth/send-referral", body)
+    //   .then((res) => {
+    //     // setAlert(res.data.message,"danger",2000)
+    //     // console.log(res.data.message);
+    //     alert(res.data.message)
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //     alert(JSON.stringify(err))
+    //   });
+    // console.log(res,"resresres")
+
+    // login(email, password);
   };
+
+//   Redirect if logged in
+//   if (isAuthenticated) {
+//     return <Redirect to='/portfolio' />;
+//   }
 
   return (
     <Fragment>
@@ -41,14 +65,12 @@ const Invite = ({ isAuthenticated, sendInvite, setAlert }) => {
         <div className="column-l2">
           <div className="login-column">
             <div className="signup-top">
-              <h3 className="signup-heading">Send Invites to your Friends</h3>
               <p className="signup-para">
-                Enter your friends/colleagues Email-ids, so we send them
-                referral code to join us!
+                Enter your Email-id:
               </p>
             </div>
             <br />
-            <div style={{ display: "none" }}></div>
+            <div style={{ display : "none"}}></div>
             <form className="flex-form-l1" onSubmit={(e) => onSubmit(e)}>
               <div className="usergroup">
                 <label htmlFor="email" className="signup-label">
@@ -62,6 +84,28 @@ const Invite = ({ isAuthenticated, sendInvite, setAlert }) => {
                   className="btn-light"
                 />
               </div>
+              {/* <p className="middle">---or---</p>
+              <div className="usergroup">
+                <label htmlFor="phone" className="signup-label">
+                  Phone Number
+                </label>
+                <input
+                  type="number"
+                  name="phone"
+                  value={phone}
+                  onChange={(e) => onChange(e)}
+                  className="btn-light"
+                />
+              </div> */}
+
+              {/* <div className='fgt'>
+                <Link to='/register'>
+                  <span className='referral-request'>
+                    Don't have an account?
+                  </span>
+                </Link>
+              </div>
+              <br /> */}
               <button type="Submit" className="btn-yellow">
                 {" "}
                 Invite
@@ -75,14 +119,14 @@ const Invite = ({ isAuthenticated, sendInvite, setAlert }) => {
   );
 };
 
-Invite.propTypes = {
+ReferralPage.propTypes = {
   isAuthenticated: PropTypes.bool,
   setAlert: PropTypes.func.isRequired,
-  sendInvite: PropTypes.func.isRequired,
+  sendReferral: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { setAlert, sendInvite })(Invite);
+export default connect(mapStateToProps, { setAlert, sendReferral })(ReferralPage);

@@ -1,20 +1,21 @@
-import React, { Fragment, useState } from 'react';
-import { connect } from 'react-redux';
-import { Link, Redirect } from 'react-router-dom';
-import vlogo from '../../images/vanitylogo3.png';
-import { setAlert } from '../../actions/alert';
-import { groupRegister } from '../../actions/auth';
-import PropTypes from 'prop-types';
+import React, { Fragment, useState } from "react";
+import { connect } from "react-redux";
+import { Link, Redirect } from "react-router-dom";
+import vlogo from "../../images/vanitylogo3.png";
+import { setAlert } from "../../actions/alert";
+import { groupRegister } from "../../actions/auth";
+import PropTypes from "prop-types";
 
 const Groupregister = ({ setAlert, groupRegister, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    groupName: '',
-    userName: '',
-    email: '',
-    password: '',
-    password2: '',
+    groupName: "",
+    userName: "",
+    email: "",
+    password: "",
+    password2: "",
     isGroup: true,
     userpermission: false,
+    code: "",
   });
 
   const {
@@ -25,6 +26,7 @@ const Groupregister = ({ setAlert, groupRegister, isAuthenticated }) => {
     password2,
     isGroup,
     userpermission,
+    code
   } = formData;
 
   const onChange = (e) =>
@@ -33,7 +35,7 @@ const Groupregister = ({ setAlert, groupRegister, isAuthenticated }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      setAlert('Password do not match', 'danger');
+      setAlert("Password do not match", "danger");
     } else {
       groupRegister({
         groupName,
@@ -42,85 +44,105 @@ const Groupregister = ({ setAlert, groupRegister, isAuthenticated }) => {
         password,
         isGroup,
         userpermission,
+        code
       });
-      setAlert('User Registered Successful', 'success');
+      setAlert("User Registered Successful", "success");
     }
   };
 
   //Redirect if logged in
   if (isAuthenticated) {
-    return <Redirect to='/create-group-profile' />;
+    return <Redirect to="/create-group-profile" />;
   }
 
   return (
     <Fragment>
-      <div id='signup' className='signup'>
-        <div className='column-1 group'>
-          <div className='logo-black'>
-            <Link to='/'>
-              <img src={vlogo} alt='' />
+      <div id="signup" className="signup">
+        <div className="column-1 group">
+          <div className="logo-black">
+            <Link to="/">
+              <img src={vlogo} alt="" />
             </Link>
           </div>
         </div>
 
-        <div className='column-2'>
-          <div className='signup-column'>
-            <div className='signup-top'>
-              <h3 className='signup-heading'>Sign up to Vanity</h3>
+        <div className="column-2">
+          <div className="signup-column">
+            <div className="signup-top">
+              <h3 className="signup-heading">Sign up to Vanity</h3>
             </div>
 
-            <div className='signup-usertype'>
-              <h4 className='signup-label'>
+            <div className="signup-usertype">
+              <h4 className="signup-label">
                 Do you want to create an individual or Group account?
               </h4>
-              <div className='ut-flexform'>
-                <Link to='/register' className='ut-btn-light'>
+              <div className="ut-flexform">
+                <Link to="/register" className="ut-btn-light">
                   individual
                 </Link>
                 <br />
-                <Link to='/groupregister' className='ut-btn-light-border'>
+                <Link to="/groupregister" className="ut-btn-light-border">
                   Group
                 </Link>
               </div>
             </div>
 
-            <form className='flex-form-1' onSubmit={(e) => onSubmit(e)}>
-              <div className='usergroup'>
-                <label htmlFor='groupName' className='signup-label'>
+            <form className="flex-form-1" onSubmit={(e) => onSubmit(e)}>
+              <div className="usergroup">
+                <label htmlFor="referral-code" className="signup-label">
+                  Enter the referral code <span className="blue">*</span>
+                  <Link to="/register/referral">
+                    <span className="referral-request">
+                      Don't have a referral-code?
+                    </span>
+                  </Link>
+                </label>
+                <input
+                  type="text"
+                  name="code"
+                  placeholder="Referal Code is required"
+                  className="btn-light"
+                  value={code}
+                  required
+                  onChange={(e) => onChange(e)}
+                />
+              </div>
+              <div className="usergroup">
+                <label htmlFor="groupName" className="signup-label">
                   Group Name
                 </label>
                 <input
-                  type='text'
-                  name='groupName'
+                  type="text"
+                  name="groupName"
                   value={groupName}
                   onChange={(e) => onChange(e)}
-                  className='btn-light'
+                  className="btn-light"
                 />
               </div>
 
-              <div className='usergroup'>
-                <label htmlFor='userName' className='signup-label'>
+              <div className="usergroup">
+                <label htmlFor="userName" className="signup-label">
                   UserName
                 </label>
                 <input
-                  type='text'
-                  name='userName'
+                  type="text"
+                  name="userName"
                   value={userName}
                   onChange={(e) => onChange(e)}
-                  className='btn-light'
+                  className="btn-light"
                 />
               </div>
 
-              <div className='usergroup'>
-                <label htmlFor='email' className='signup-label'>
+              <div className="usergroup">
+                <label htmlFor="email" className="signup-label">
                   Email
                 </label>
                 <input
-                  type='email'
-                  name='email'
+                  type="email"
+                  name="email"
                   value={email}
                   onChange={(e) => onChange(e)}
-                  className='btn-light'
+                  className="btn-light"
                 />
               </div>
 
@@ -136,66 +158,66 @@ const Groupregister = ({ setAlert, groupRegister, isAuthenticated }) => {
                 <input type='text' name='code' className='btn-light' />
               </div> */}
 
-              <div className='usergroup'>
-                <label htmlFor='create-password' className='signup-label'>
+              <div className="usergroup">
+                <label htmlFor="create-password" className="signup-label">
                   Create Password
                 </label>
                 <input
-                  type='password'
-                  name='password'
+                  type="password"
+                  name="password"
                   value={password}
                   onChange={(e) => onChange(e)}
-                  className='btn-light'
+                  className="btn-light"
                 />
               </div>
 
-              <div className='usergroup'>
-                <label htmlFor='create-password' className='signup-label'>
+              <div className="usergroup">
+                <label htmlFor="create-password" className="signup-label">
                   Retype Password
                 </label>
                 <input
-                  type='password'
-                  name='password2'
+                  type="password"
+                  name="password2"
                   value={password2}
                   onChange={(e) => onChange(e)}
-                  className='btn-light'
+                  className="btn-light"
                 />
               </div>
 
-              <div className='user-permission usergroup'>
-                Already have an account?{' '}
-                <Link to='/login' className='referral-request'>
+              <div className="user-permission usergroup">
+                Already have an account?{" "}
+                <Link to="/login" className="referral-request">
                   Login
                 </Link>
               </div>
 
-              <div className='user-permission usergroup'>
+              <div className="user-permission usergroup">
                 <input
-                  type='checkbox'
-                  name='userpermission'
+                  type="checkbox"
+                  name="userpermission"
                   value={userpermission}
-                  id='permission'
+                  id="permission"
                   onChange={(e) => {
                     setFormData({
                       ...formData,
                       userpermission: !userpermission,
                     });
                   }}
-                />{' '}
-                Creating an account means you’re agree with our{' '}
-                <a className='referral-request' href='#!'>
+                />{" "}
+                Creating an account means you’re agree with our{" "}
+                <a className="referral-request" href="#!">
                   Terms of Service
                 </a>
                 ,
-                <a className='referral-request' href='#!'>
-                  {' '}
+                <a className="referral-request" href="#!">
+                  {" "}
                   Privacy Policy
                 </a>
                 , and our default Notification Settings.
               </div>
 
-              <button type='Submit' className='btn-yellow'>
-                {' '}
+              <button type="Submit" className="btn-yellow">
+                {" "}
                 Sign Up
               </button>
               <br />

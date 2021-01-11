@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { addLike, removeLike, deletePost } from "../../actions/post";
 import Moment from "react-moment";
-import share from "../../images/icons/noun_Share_3136056 copy.svg";
 import path from "../../images/path.svg";
 import heart from "../../images/heart.svg";
 import yheart from "../../images/liked.png";
@@ -72,6 +71,7 @@ const PostItem = ({
           </a>
         </div>
         <a
+          style={{ display: userName === auth.user.userName ? "" : "none" }}
           href="#!"
           onClick={() => toogleDot(!displayDot)}
           className="three-dots"
@@ -80,26 +80,9 @@ const PostItem = ({
         </a>
         {displayDot && (
           <Fragment>
-            <div className="no-post-dis" id="post-dis">
-              <ul>
-                {/* <li>
-                  <a href='#!'>Hide from feed</a>
-                </li>
-                <hr />
-                <li>
-                  <a href='#!'>Hide all posts by sara</a>
-                </li>
-                <hr /> */}
-                <li>
-                  <a href="#!">Report post</a>
-                </li>
-                <hr />
-                {/* <li>
-                  <a onClick={(e) => deletePost(_id)} href='#!'>
-                    Delete post
-                  </a>
-                </li> */}
-                {userName === auth.user.userName && (
+            {userName === auth.user.userName && (
+              <div className="no-post-dis" id="post-dis">
+                <ul>
                   <Fragment>
                     <li>
                       <a onClick={(e) => deletePost(_id)} href="#!">
@@ -107,9 +90,9 @@ const PostItem = ({
                       </a>
                     </li>
                   </Fragment>
-                )}
-              </ul>
-            </div>
+                </ul>
+              </div>
+            )}
           </Fragment>
         )}
       </div>
@@ -186,24 +169,6 @@ const PostItem = ({
               <img className="r-1" src={com} alt="" />
               <span className="d-1">Comment</span>
             </div>
-            <div>
-              {/* <div
-              style={{ display: "flex", flexDirection: "row", marginRight: 50 }}
-            > */}
-              {/* <div style={{ display: "flex", justifyContent: "center" }}> */}
-              <div>
-                <img className="r-1" src={share} alt="" />
-                <span className="d-1">Share</span>
-              </div>
-              {/* </div> */}
-              {/* </div> */}
-            </div>
-            {/* </div> */}
-            <div>
-              {/* <div
-              style={{ display: "flex", flexDirection: "row", marginRight: 10 }}
-            > */}
-            </div>
           </div>
           <div className="des-right">
             <a href="#!" className="d-1">
@@ -223,15 +188,10 @@ const PostItem = ({
               </span>{" "}
               Comment
             </Link>
-            <a href="#!" className="d-1">
-              <span className="f-1">1.3K</span> Share
-            </a>
           </div>
-          {/* </div> */}
         </div>
       ) : (
-        <div className="post-pic">
-          <div className="flex">
+          <div className="flex-des">
             <div className="pic-des-1">
               <div onClick={(e) => onLike(e)}>
                 {displayLbtn ? (
@@ -254,10 +214,6 @@ const PostItem = ({
                 <img className="r-1" src={com} alt="" />
                 <span className="d-1">Comment</span>
               </div>
-              <div>
-                <img className="r-1" src={share} alt="" />
-                <span className="d-1">Share</span>
-              </div>
             </div>
             <div className="des-right">
               <a href="#!" className="d-1">
@@ -277,12 +233,8 @@ const PostItem = ({
                 </span>{" "}
                 Comment
               </Link>
-              <a href="#!" className="d-1">
-                <span className="f-1">1.3K</span> Share
-              </a>
             </div>
           </div>
-        </div>
       )}
       {displayComment && (
         <div className="comments">

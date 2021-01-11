@@ -89,7 +89,7 @@ const Portfolio1 = ({
                           </Fragment>
                         ) : (
                           <Fragment>
-                            <EditButton profile={profile?.user?._id} />
+                            <EditButton profile={profile} />
                           </Fragment>
                         )}
                         <PortfolioLeftAbout

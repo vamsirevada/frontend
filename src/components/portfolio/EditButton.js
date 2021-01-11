@@ -5,6 +5,8 @@ import share from "../../images/icons/noun_Share_3136056 copy.svg";
 const EditButton = ({ profile }) => {
   const [displayAdd, toogleAdd] = useState(false);
 
+  console.log(profile);
+
   return (
     <Fragment>
       <div className="btns">
@@ -28,7 +30,17 @@ const EditButton = ({ profile }) => {
                 {" "}
                 <a
                   id="share-port-1"
-                  href={`mailto:?subject=I wanted you to see this profile&body=Hi,Check out this portfolio ${" "} http://138.197.98.173/portfolio/${profile}`}
+                  href={`mailto:?subject=Vanity Portfilo&body=Hi,%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
+                  ${"       "} Myself ${profile?.user.fullName} and I'm a ${
+                    profile?.status
+                  } I noticed on [name of the website] that you’re looking [ for so and so role] I’d be happy to help you out with the process. You can also view my portfolio to see my work. %20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
+                   Check out this portfolio ${" "} http://138.197.98.173/portfolio/${
+                    profile._id
+                  } 
+                  ${"     "}%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
+                  %20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
+                  Kind Regards
+                  `}
                 >
                   <img src={share} alt="zx" /> Via Email
                 </a>
@@ -36,7 +48,16 @@ const EditButton = ({ profile }) => {
               <hr />
               <li>
                 <a
-                  href={`sms:?body=Check out this portfolio http://138.197.98.173/portfolio/${profile}`}
+                  href={`sms:?body=Hi,%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
+                  ${"       "} Myself ${profile?.user.fullName} and I'm a ${
+                    profile?.status
+                  } I noticed on [name of the website] that you’re looking [ for so and so role] I’d be happy to help you out with the process. You can also view my portfolio to see my work. %20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
+                   Check out this portfolio ${" "} http://138.197.98.173/portfolio/${
+                    profile._id
+                  } 
+                  ${"     "}%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
+                  %20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
+                  Kind Regards`}
                   // className='share-port1'
                   id="share-port-1"
                 >

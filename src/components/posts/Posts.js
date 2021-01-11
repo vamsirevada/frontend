@@ -17,7 +17,7 @@ const Posts = ({
     getOwnPosts(id);
   }, [getBuddyPosts, getOwnPosts, id]);
 
-  return loading ? (
+  return loading ? (  
     <Spinner />
   ) : (
     <Fragment>
