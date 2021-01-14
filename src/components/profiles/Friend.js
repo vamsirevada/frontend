@@ -94,7 +94,7 @@ const Friend = ({
             filter.slice(0, 4).map(
               (doc) =>
                 meta(doc.url) !== ".mp3" && (
-                  <div className="pic-1">
+                  <div className="pic-1" key={doc.id}>
                     {meta(doc.url) === ".mp4" ? (
                       <motion.video
                         controls
