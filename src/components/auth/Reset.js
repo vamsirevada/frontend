@@ -58,7 +58,7 @@ export default class ResetPassword extends Component {
               <div className="signup-top">
                 <h3 className="signup-heading">Password Reset Screen</h3>
                 <p className="signup-para">Not recieved yet ?</p>
-                <Link to="/login/forgot-password">Send</Link>
+                <Link to="/forgot-password">Send</Link>
               </div>
             </div>
           </div>
@@ -115,7 +115,7 @@ export default class ResetPassword extends Component {
                 <p style={{ marginTop: 11 }} className="signup-para">
                   Not recieved yet ?
                 </p>
-                <Link to="/login/forgot-password">Send</Link>
+                <Link to="/forgot-password">Send</Link>
               </div>
             </div>
           </div>
