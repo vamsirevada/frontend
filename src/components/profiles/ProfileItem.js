@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import add from "../../images/noun_Add Friend_2987727 (2).svg";
 import mail from "../../images/noun_Mail_681595.svg";
+import logo from "../../images/dummyimage.jpg";
 import { connect } from "react-redux";
 import { sendBuddyRequest } from "../../actions/profile";
 import { motion } from "framer-motion";
@@ -39,7 +40,9 @@ const ProfileItem = ({
         <div className="connect-left-top">
           <div
             style={{
-              background: `url(${avatar}) no-repeat center center/cover`,
+              background: `url(${
+                avatar ? avatar : logo
+              }) no-repeat center center/cover`,
             }}
             className="display-pic"
           ></div>
@@ -95,7 +98,7 @@ const ProfileItem = ({
                 meta(doc.url) !== ".mp3" && (
                   <a href="#!" key={doc.id}>
                     <div className="pic-1">
-                      {(doc.type) === "video" ? (
+                      {doc.type === "video" ? (
                         <motion.video
                           controls
                           src={doc.url}
