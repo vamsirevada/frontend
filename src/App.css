@@ -2849,6 +2849,7 @@ input.search-btn:focus {
     margin: 20px auto;
     display: flex;
     flex-direction: column;
+    grid-gap: 1.5rem;
   }
 }
 
