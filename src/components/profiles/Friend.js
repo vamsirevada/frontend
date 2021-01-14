@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import { sendBuddyRequest } from "../../actions/profile";
 import { motion } from "framer-motion";
 
-const ProfileItem = ({
+const Friend = ({
   profile: { _id, avatar, user, status, location, buddies, requests },
   sendBuddyRequest,
   displayAdd,
@@ -28,7 +28,7 @@ const ProfileItem = ({
     return ext;
   };
 
-  const documents = docs && docs.filter((doc) => doc?.userId === user._id);
+  const documents = docs && docs.filter((doc) => doc?.userId === user?._id);
   const filter = documents.filter(
     (doc) => doc?.type !== "audio" || doc?.type !== "blog"
   );
@@ -46,12 +46,12 @@ const ProfileItem = ({
           <div className="flex-c">
             <p>
               <span className="bold">
-                {user.fullName && user.fullName}
-                {user.groupName && user.groupName}
+                {user?.fullName && user?.fullName}
+                {user?.groupName && user?.groupName}
               </span>{" "}
               <br />
               <span className="second-bold">
-                {user.userName && user.userName}
+                {user?.userName && user?.userName}
               </span>{" "}
               <br />
               <span className="second-bold">{status}</span> <br />
@@ -67,7 +67,7 @@ const ProfileItem = ({
         <div className="connect-left-bottom">
           <div className="btn-b">
             {" "}
-            <Link to={`/portfolio/${user._id}`} className="btn-blue">
+            <Link to={`/portfolio/${user?._id}`} className="btn-blue">
               {/* <img src={add} alt='' /> */}
               View Profile
             </Link>
@@ -125,4 +125,4 @@ ProfileItem.propTypes = {
   sendBuddyRequest: PropTypes.func.isRequired,
 };
 
-export default connect(null, { sendBuddyRequest })(ProfileItem);
+export default connect(null, { sendBuddyRequest })(Friend);

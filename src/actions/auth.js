@@ -171,6 +171,7 @@ export const groupRegister = ({
   password,
   isGroup,
   userpermission,
+  code
 }) => async (dispatch) => {
   const config = {
     headers: {
@@ -185,6 +186,7 @@ export const groupRegister = ({
     password,
     isGroup,
     userpermission,
+    code
   });
 
   try {
