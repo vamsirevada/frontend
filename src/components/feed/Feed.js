@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getCurrentProfile } from "../../actions/profile";
-import { getPosts } from "../../actions/post";
+import { getBuddyPosts } from "../../actions/post";
 import { connect } from "react-redux";
 import MiniPortfolio from "../portfolio/MiniPortfolio";
 import Posts from "../posts/Posts";
@@ -10,16 +10,17 @@ import notify from "../../images/noun_notification_887294.svg";
 import BallotIcon from "@material-ui/icons/Ballot";
 
 const Feed = ({
-  getPosts,
+  getBuddyPosts,
   getCurrentProfile,
   auth,
   profile: { profile, loading },
   post,
+  id,
 }) => {
   useEffect(() => {
     getCurrentProfile();
-    getPosts();
-  }, [getCurrentProfile, getPosts]);
+    getBuddyPosts(id);
+  }, [getCurrentProfile, getBuddyPosts, id]);
 
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
@@ -79,5 +80,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getCurrentProfile,
-  getPosts,
+  getBuddyPosts,
 })(Feed);

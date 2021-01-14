@@ -95,7 +95,7 @@ const Friend = ({
               (doc) =>
                 meta(doc.url) !== ".mp3" && (
                   <div className="pic-1" key={doc.id}>
-                    {meta(doc.url) === ".mp4" ? (
+                    {(doc.type) === "video" ? (
                       <motion.video
                         controls
                         src={doc.url}

@@ -4,9 +4,6 @@ import share from "../../images/icons/noun_Share_3136056 copy.svg";
 
 const EditButton = ({ profile }) => {
   const [displayAdd, toogleAdd] = useState(false);
-
-  console.log(profile);
-
   return (
     <Fragment>
       <div className="btns">

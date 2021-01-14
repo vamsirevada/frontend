@@ -95,7 +95,7 @@ const ProfileItem = ({
                 meta(doc.url) !== ".mp3" && (
                   <a href="#!" key={doc.id}>
                     <div className="pic-1">
-                      {meta(doc.url) === ".mp4" ? (
+                      {(doc.type) === "video" ? (
                         <motion.video
                           controls
                           src={doc.url}
