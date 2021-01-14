@@ -33,7 +33,7 @@ const ProgressBar = ({
       initial={{ width: 0 }}
       animate={{ width: progress + "%" }}
     >
-      {progress + "%"}
+      {Math.round(progress) + "%"}
     </motion.div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../../images/Vanity_logo-02.png";
+import logo from "../../../images/Vanity_logo-01.png";
 
 const Page1 = () => {
   return (
