@@ -120,7 +120,7 @@ const Friend = ({
   );
 };
 
-ProfileItem.propTypes = {
+Friend.propTypes = {
   profile: PropTypes.object.isRequired,
   sendBuddyRequest: PropTypes.func.isRequired,
 };
