@@ -252,6 +252,7 @@ p {
 
 .left-heading .display-pic {
   margin-bottom: 1rem;
+  object-fit: cover;
 }
 
 .left-heading .display-pic-g {

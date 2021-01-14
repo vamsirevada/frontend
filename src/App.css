@@ -1517,6 +1517,7 @@ input.search-btn:focus {
   background: url(./images/dummyimage.jpg) no-repeat center center/cover;
   position: relative;
   top: 10px;
+  object-fit: cover;
 }
 
 .navbar .nav-icons .dis:hover {
