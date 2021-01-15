@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import gps from "../../images/icons/noun_Location_3139654 copy.svg";
-import logo from "../../images/dummyimage.jpg";
+// import logo from "../../images/dummyimage.jpg";
+import logo from "../../images/image29@2.png";
 
 const PortfolioLeftTop = ({ profile: { location, status, user, avatar } }) => {
   return (
