@@ -69,41 +69,41 @@ const Friends1 = ({ profile: { profile, loading }, getProfileById, match }) => {
           <div className="c-list-head">
             <div className="flex">
               <div className="display-pic">
-                <img className="display-pic" src={profile.avatar} alt="" />
+                <img className="display-pic" src={profile?.avatar} alt="" />
               </div>
               <h2 className="name name-f">
-                {profile.user.fullName && profile.user.fullName}
+                {profile?.user.fullName && profile?.user.fullName}
               </h2>
               <h2 className="name name-f">
-                {profile.user.groupName && profile.user.groupName}
+                {profile?.user.groupName && profile?.user.groupName}
               </h2>
             </div>
             <div>
-              <p className="blue">{profile.status && profile.status}</p>
+              <p className="blue">{profile?.status && profile?.status}</p>
             </div>
             <div>
               <p>
                 {/* <img className='resize' src={loc} alt='' />{' '} */}
                 <span className="gray">
                   {" "}
-                  {profile.location && profile.location}
+                  {profile?.location && profile?.location}
                 </span>
               </p>
             </div>
 
             <div className="profile-info-box">
-              <Link to={`/friends/${profile.user._id}`} href="#">
+              <Link to={`/friends/${profile?.user._id}`} href="#">
                 <p className="border-1">
                   <span className="f-1">
-                    {profile.buddies && profile.buddies.length}
+                    {profile?.buddies && profile?.buddies.length}
                   </span>
                   <br /> Connections
                 </p>
               </Link>
-              <Link to={`/projects/${profile.user._id}`} href="#">
+              <Link to={`/projects/${profile?.user._id}`} href="#">
                 <p>
                   <span className="f-1">
-                    {profile.experience && profile.experience.length}
+                    {profile?.experience && profile?.experience.length}
                   </span>
                   <br /> Projects Completed{" "}
                 </p>
