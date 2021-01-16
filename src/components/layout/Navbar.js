@@ -12,6 +12,7 @@ import { SearchContext } from "../../context/search.context";
 import { ProfileContext } from "../../context/profile/profile.context";
 import ArtTrackIcon from "@material-ui/icons/ArtTrack";
 import { grey } from "@material-ui/core/colors";
+import logo from "../../images/dummyimage.jpg";
 
 const Navbar = ({ logout }) => {
   const history = useHistory();
@@ -112,7 +113,7 @@ const Navbar = ({ logout }) => {
               <li>
                 <img
                   className="dis"
-                  src={img}
+                  src={img ? img : logo}
                   onClick={() => {
                     toogleMenu(true);
                     setTimeout(() => {

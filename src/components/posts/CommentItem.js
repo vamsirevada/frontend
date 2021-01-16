@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import Moment from "react-moment";
 import nounPlus from "../../images/icons/noun_Plus_2310779.svg";
 import { deleteComment } from "../../actions/post";
-import logo from "../../images/image29@2.png";
+import logo from "../../images/dummyimage.jpg";
 
 const CommentItem = ({
   postId,
@@ -17,9 +17,8 @@ const CommentItem = ({
       <div className="display-pic">
         <img
           className="display-pic"
-          src={avatar}
+          src={avatar ? avatar : logo}
           alt=""
-          onError={(i) => (i.target.src = `${logo}`)}
         />
       </div>
       <div className="postForm">

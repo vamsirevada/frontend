@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import Spinner from "../layout/Spinner";
 import loc from "../../images/icons/noun_Location_3139654.svg";
-import logo from "../../images/image29@2.png";
+import logo from "../../images/dummyimage.jpg";
 
 const MiniPortfolio = ({ profile, loading }) => {
 
@@ -18,9 +18,8 @@ const MiniPortfolio = ({ profile, loading }) => {
             <div className="left-heading heading-1">
               <img
                 className="display-pic"
-                src={profile?.avatar}
+                src={profile?.avatar ? profile?.avatar : logo}
                 alt=""
-                onError={(i) => (i.target.src = `${logo}`)}
               />
               <h2 className="name name-f">
                 {profile.user.fullName && profile.user.fullName}
