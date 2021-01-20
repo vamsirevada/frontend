@@ -473,15 +473,7 @@ const Portfolio = ({
                             </div>
                           </div>
                         )}
-                        {profile.founder.length === 0 ||
-                        profile.teammembers.length === 0 ||
-                        profile.experience.length === 0 ||
-                        profile.education.length === 0 ||
-                        profile.partners.length === 0 ||
-                        profile.clients.length === 0 ||
-                        profile.awards.length === 0 ||
-                        profile.skills.length === 0 ||
-                        profile.events.length === 0 ? (
+                        {profile.experience.length === 0 ? (
                           <div className="add-profile">
                             <hr />
                             <p>
