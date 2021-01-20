@@ -15,7 +15,7 @@
 a {
   text-decoration: none;
   color: var(--font-black-color);
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
 }
 
 h1,
@@ -24,7 +24,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   /* margin-bottom: 0.5rem; */
 }
 
@@ -40,7 +40,7 @@ h4 {
 }
 
 p {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 .blue {
@@ -61,13 +61,13 @@ p {
   width: 5rem;
   height: 5rem;
   border-radius: 20px;
-  background: url('../img/dummyimage.jpg') no-repeat center center/cover;
+  background: url("../img/dummyimage.jpg") no-repeat center center/cover;
 }
 
 /* Buttons */
 
 .btn-yellow {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   cursor: pointer;
   display: inline-block;
   background-color: var(--yellow-color);
@@ -83,7 +83,7 @@ p {
 }
 
 .btn-white {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   cursor: pointer;
   display: inline-block;
   background-color: #fff;
@@ -94,7 +94,7 @@ p {
 }
 
 .btn-blue {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   cursor: pointer;
   display: inline-block;
   background-color: var(--blue-color);
@@ -128,7 +128,6 @@ p {
 .btn-gf img {
   display: block;
   width: 90%;
-  vertical-align: top;
 }
 
 .f-right {
@@ -225,7 +224,7 @@ ul {
 
 #c-profile .create-container .dp a {
   display: inline-block;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 0.95rem;
 }
 
@@ -237,14 +236,14 @@ ul {
   width: 5rem;
   height: 5rem;
   border-radius: 20px;
-  background: url('../img/dummyimage.jpg') no-repeat center center/cover;
+  background: url("../img/dummyimage.jpg") no-repeat center center/cover;
 }
 
 #c-profile .create-container .display-pic-g {
   width: 6rem;
   height: 6rem;
   border-radius: 20px;
-  background: url('../images/elegacy-events---logo-design_1x.png') no-repeat
+  background: url("../images/elegacy-events---logo-design_1x.png") no-repeat
     center center/cover;
 }
 
@@ -255,7 +254,7 @@ ul {
 
 #c-profile .c-form label {
   display: block;
-  font-family: 'lato', sans-serif;
+  font-family: "lato", sans-serif;
   font-weight: Bold;
   line-height: 2rem;
 }
@@ -263,7 +262,7 @@ ul {
 #c-profile .c-form input,
 #c-profile .c-form textarea,
 #c-profile .c-form select {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   color: #272727;
   width: 100%;
   padding: 1rem 0.55rem;
@@ -289,8 +288,8 @@ ul {
   appearance: none;
 }
 
-input[type='date']::-webkit-inner-spin-button,
-input[type='date']::-webkit-calendar-picker-indicator {
+input[type="date"]::-webkit-inner-spin-button,
+input[type="date"]::-webkit-calendar-picker-indicator {
   display: none;
   -webkit-appearance: none;
 }
@@ -342,7 +341,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
   padding: 0.5rem 2rem;
   margin: 0.5rem;
   font-size: 0.8rem;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-weight: 600;
   color: #5d5d5d;
   position: relative;
@@ -356,7 +355,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
   border-radius: 15px;
   position: relative;
   font-size: 0.8rem;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-weight: bolder;
   opacity: 1;
 }
@@ -367,7 +366,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
   border-radius: 15px;
   position: relative;
   font-size: 0.8rem;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-weight: bolder;
   opacity: 1;
 }
@@ -398,7 +397,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 
 .prof-btn .prof-btn-grid-3 .flex-1 p {
   font-size: 0.8rem;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-weight: 600;
 }
 
@@ -436,7 +435,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
   /* width: 120px; */
   width: 40%;
   height: 63px;
-  background: url('../images/Image\ 127.png') no-repeat center center/cover;
+  background: url("../images/Image\ 127.png") no-repeat center center/cover;
   /* margin-right: 1rem; */
 }
 
@@ -445,14 +444,14 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 .font-dark {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   color: #5d5d5d;
   font-size: 0.9rem;
   font-weight: 600;
 }
 
 .font-light {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 0.9rem;
   font-weight: 500;
 }
@@ -521,7 +520,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 .prof-exp-container .prof-heading h4 {
   display: inline-block;
   font-size: 1rem;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-weight: 500;
   vertical-align: top;
 }
@@ -541,7 +540,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 
 .prof-box .prof-left input,
 .prof-box .prof-left textarea {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 0.8rem;
 }
 
@@ -552,7 +551,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 .prof-box .prof-flex label {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 14px;
   font-weight: 600;
   display: block;
@@ -647,7 +646,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 
 .prof-box .prof-flex .grid-1 p {
   display: inline-block;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 16px;
 }
 
@@ -694,14 +693,14 @@ input[type='date']::-webkit-calendar-picker-indicator {
   width: 80px;
   height: 70px;
   border-radius: 15px;
-  background: url('../images/Image\ 118@2x.png') no-repeat center center/cover;
+  background: url("../images/Image\ 118@2x.png") no-repeat center center/cover;
   margin-right: 1rem;
 }
 .prof-btn .prof-btn-grid .btn-gray-g .display-pic-2 {
   width: 80px;
   height: 70px;
   border-radius: 15px;
-  background: url('../images/Image\ 119.png') no-repeat center center/cover;
+  background: url("../images/Image\ 119.png") no-repeat center center/cover;
   margin-right: 1rem;
   /* padding: 1rem 0.55rem; */
 }
@@ -795,7 +794,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 .profile-flex .profile-flex-left .heading-2 {
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-size: 27px;
   font-weight: 700;
   line-height: 1.9rem;
@@ -814,12 +813,12 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 .profile-flex p {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 16px;
   font-weight: 500;
 }
 .profile-flex a {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 16px;
   font-weight: 500;
   color: #fff;
@@ -856,7 +855,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 .f-1 {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: 400;
 }
 
@@ -876,7 +875,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 .profile-des .prof-container p {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 16px;
   line-height: 1.75rem;
   text-align: left;
@@ -895,13 +894,13 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 .font-bold {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: 700;
   color: #5d5d5d;
 }
 
 .f-1 {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: 400;
 }
 

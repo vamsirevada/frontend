@@ -2392,6 +2392,9 @@ input.search-btn:focus {
 }
 /* iphone6.7.8 potrait */
 @media (max-width: 420px) {
+  .main-add .main-left .btn-gray {
+    width: inherit;
+  }
   .left-container .share-port {
     color: #272727;
     background-color: #f2f2f2;
@@ -2851,9 +2854,21 @@ input.search-btn:focus {
     flex-direction: column;
     justify-content: space-evenly;
   }
+  .img-wrap {
+    margin-bottom: 1.5rem;
+  }
+  .backdrop {
+    top: 124px;
+  }
+  .main-add .main-right .main-right-container .box1 {
+    display: none;
+  }
 }
 
 @media (max-width: 375px) {
+  .main-add .main-left .btn-gray {
+    width: inherit;
+  }
   #page-1 .nav .logo {
     width: 130px;
   }
@@ -2942,9 +2957,21 @@ input.search-btn:focus {
     top: -5rem;
     left: 0%;
   }
+  .img-wrap {
+    margin-bottom: 1.5rem;
+  }
+  .backdrop {
+    top: 124px;
+  }
+  .main-add .main-right .main-right-container .box1 {
+    display: none;
+  }
 }
 
 @media (max-width: 320px) {
+  .main-add .main-left .btn-gray {
+    width: inherit;
+  }
   .post-some-grid .btn-blue {
     padding: 0.6rem 1rem;
     font-size: 10px;
@@ -3199,5 +3226,14 @@ input.search-btn:focus {
   .profile-info-box p {
     font-family: "Raleway", sans-serif;
     font-size: 9px;
+  }
+  .img-wrap {
+    margin-bottom: 1.5rem;
+  }
+  .backdrop {
+    top: 124px;
+  }
+  .main-add .main-right .main-right-container .box1 {
+    display: none;
   }
 }

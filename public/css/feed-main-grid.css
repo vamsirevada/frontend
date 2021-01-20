@@ -4,10 +4,6 @@
   box-sizing: border-box;
 }
 
-#feed-main {
-  /* width: 50%; */
-}
-
 #feed-main .feed-main-container {
   width: 100%;
   margin: auto;
@@ -49,7 +45,7 @@
   width: 100%;
   color: #5d5d5d;
   font-size: 1rem;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   padding: 1.5rem;
   background-color: #f8f8f8;
   border: none;
@@ -73,7 +69,7 @@
 .post {
   background-color: #fcfcfc;
   /* background-color: #f8f8f8; */
-  border-radius: 15px;
+  border-radius: 15px 15px 0px 0px;
 }
 
 .post .post-heading {
@@ -88,7 +84,7 @@
   width: 56px;
   height: 56px;
   border-radius: 15px;
-  background: url('../img/dummyimage.jpg') no-repeat center center/cover;
+  background: url("../img/dummyimage.jpg") no-repeat center center/cover;
 }
 
 .post-heading .flex {
@@ -129,7 +125,7 @@
 }
 
 .post-heading .no-post-dis {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 14px;
   color: #272727;
   background-color: #f2f2f2;
@@ -158,26 +154,26 @@
 
 .post .post-description {
   padding: 0 1.5rem;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-family: 1rem;
   color: #5d5d5d;
 }
 
 .d-1 {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 14px;
   /* margin-left: 0.3rem; */
   color: #5d5d5d;
 }
 
 .d-2 {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 12px;
   /* margin-left: 0.3rem; */
   color: #5d5d5d;
 }
 .d-3 {
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 14px;
   /* margin-left: 0.3rem; */
   color: #5d5d5d;
@@ -210,7 +206,7 @@
   display: grid;
   grid-template-columns: repeat(2, 50%);
   align-items: center;
-  width: 101%;
+  width: 100%;
   height: 70px;
   background-color: #fcfcfc;
   position: absolute;
@@ -230,14 +226,15 @@
 }
 .flex-des .pic-des-1 {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: flex-start;
+  grid-gap: 1rem;
   align-items: center;
   position: relative;
 }
 
 .post-pic .pic-des-1 .no-post-dis {
   display: none;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   font-size: 14px;
   color: #272727;
   width: 100%;
@@ -266,10 +263,6 @@
   border-bottom: 1px solid #c9c9c9;
   opacity: 0.5;
   margin: 0.5rem 0;
-}
-
-.post-pic .pic-des-1 .no-post-dis li {
-  padding: ;
 }
 
 .post-pic .pic-des-1 .r-1,
@@ -328,7 +321,7 @@
   width: 46px;
   height: 46px;
   border-radius: 15px;
-  background: url('../images/elegacy-events---logo-design_1x.png') no-repeat
+  background: url("../images/elegacy-events---logo-design_1x.png") no-repeat
     center center/cover;
 }
 
@@ -353,13 +346,13 @@
   width: 46px;
   height: 46px;
   border-radius: 15px;
-  background: url('../img/dummyimage.jpg') no-repeat center center/cover;
+  background: url("../img/dummyimage.jpg") no-repeat center center/cover;
 }
 .join-grp-flex .display-pic-3 {
   width: 46px;
   height: 46px;
   border-radius: 15px;
-  background: url('../images/rekha-thapar.svg') no-repeat center center/cover;
+  background: url("../images/rekha-thapar.svg") no-repeat center center/cover;
 }
 
 /* Comment */
@@ -375,7 +368,7 @@
   width: 100%;
   color: #5d5d5d;
   font-size: 1rem;
-  font-family: 'Raleway', sans-serif;
+  font-family: "Raleway", sans-serif;
   padding: 1rem 0;
   background-color: #f8f8f8;
   border: none;

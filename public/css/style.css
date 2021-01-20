@@ -110,10 +110,6 @@ a{
   /* z-index: 15; */
 }
 
-.flex-content .container1{
-  /* max-width: var(--max-width); */
-}
-
 
 #page-1 .flex-content .container1{
   display: flex;
