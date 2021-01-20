@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import AddPhoto from './AddPhoto';
-import AddVideo from './AddVideos';
-import AddSound from './AddSoundTracks';
-import AddBlog from './AddBlog';
-import { connect } from 'react-redux';
+import React, { useState } from "react";
+import AddPhoto from "./AddPhoto";
+import AddVideo from "./AddVideos";
+import AddSound from "./AddSoundTracks";
+import AddBlog from "./AddBlog";
+import { connect } from "react-redux";
 
 const AddPortfolio = ({ auth: { user } }) => {
   const [displayPhoto, tooglePhoto] = useState(true);
@@ -38,18 +38,18 @@ const AddPortfolio = ({ auth: { user } }) => {
   };
 
   return (
-    <div className='add-portfolio'>
-      <div className='container'>
-        <div className='add-heading'>
-          <div className='container'>
-            <div className='heading-container'>
+    <div className="add-portfolio">
+      <div className="container">
+        <div className="add-heading">
+          <div className="container">
+            <div className="heading-container">
               {/* <div className='btn-yellow'>
                 <a href='#!'>Preview</a>
               </div> */}
-              <div className='middle-heading'>
+              <div className="middle-heading">
                 <h1>Starting adding Files</h1>
                 <p>
-                  <span className='blue-text'> {user && user.fullName}</span>
+                  <span className="blue-text"> {user && user.fullName}</span>
                 </p>
               </div>
               {/* <div>
@@ -63,41 +63,41 @@ const AddPortfolio = ({ auth: { user } }) => {
               </div> */}
             </div>
 
-            <hr className='new1' />
+            <hr className="new1" />
           </div>
         </div>
 
-        <div id='add'>
-          <div className='container'>
-            <div className='main-add'>
-              <div className='main-left'>
+        <div id="add">
+          <div className="container">
+            <div className="main-add">
+              <div className="main-left">
                 <ul>
-                  <a onClick={(e) => onClick1(e)} href='#!'>
-                    <li className='btn-gray'>
+                  <a onClick={(e) => onClick1(e)} href="#!">
+                    <li className="btn-gray">
                       Images
                       <br />
-                      <span className='card'>JPG,GIFs,PNG</span>
+                      <span className="card">JPG,GIFs,PNG</span>
                     </li>
                   </a>
-                  <a href='#!' onClick={(e) => onClick2(e)}>
-                    <li className='btn-gray'>
+                  <a href="#!" onClick={(e) => onClick2(e)}>
+                    <li className="btn-gray">
                       Videos
                       <br />
-                      <span className='card'>JPG,GIFs,PNG</span>
+                      <span className="card">Mp4</span>
                     </li>
                   </a>
-                  <a href='#!' onClick={(e) => onClick3(e)}>
-                    <li className='btn-gray'>
+                  <a href="#!" onClick={(e) => onClick3(e)}>
+                    <li className="btn-gray">
                       SoundTracks
                       <br />
-                      <span className='card'>JPG,GIFs,PNG</span>
+                      <span className="card">Mp3</span>
                     </li>
                   </a>
-                  <a href='#!' onClick={(e) => onClick4(e)}>
-                    <li className='btn-gray '>
-                      Blog Posts
+                  <a href="#!" onClick={(e) => onClick4(e)}>
+                    <li className="btn-gray ">
+                      Blog
                       <br />
-                      <span className='card'>Urls</span>
+                      <span className="card">Urls</span>
                     </li>
                   </a>
                 </ul>
