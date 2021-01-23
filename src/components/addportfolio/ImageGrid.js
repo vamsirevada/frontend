@@ -1,23 +1,25 @@
-import React, { useState } from 'react';
-import UseFirestore from './UseFireStore';
-import axios from 'axios';
-import { motion } from 'framer-motion';
-import path from '../../images/path.svg';
-import { projectFirestore, projectStorage } from '../../firebase/config';
-import './Gallery.css';
-import Audio from '../../images/audio.svg';
+import React, { useState } from "react";
+import UseFirestore from "./UseFireStore";
+import axios from "axios";
+import { motion } from "framer-motion";
+import path from "../../images/path.svg";
+import { projectFirestore, projectStorage } from "../../firebase/config";
+import "./Gallery.css";
+import Audio from "../../images/audio.svg";
+import Modal from "./Modal";
 
-const ImageGrid = ({ type, setSelectedImg, id }) => {
-  const [edit, setEdit] = useState('');
-  const { docs } = UseFirestore('images');
+const ImageGrid = ({ id, profile }) => {
+  const [edit, setEdit] = useState("");
+  const { docs } = UseFirestore("images");
   const [viewAllImg, setViewAllImg] = useState(false);
   const [viewAllVideo, setViewAllVideo] = useState(false);
+  const modalRef = React.useRef();
 
   const _remove = async (name, type) => {
-    if (type === 'blog') {
-      const collectionRef = projectFirestore.collection('images');
+    if (type === "blog") {
+      const collectionRef = projectFirestore.collection("images");
       collectionRef
-        .where('Id', '==', name?.Id)
+        .where("Id", "==", name?.Id)
         .get()
         .then((i) => {
           i.forEach((d) => {
@@ -30,9 +32,9 @@ const ImageGrid = ({ type, setSelectedImg, id }) => {
     } else {
       const storageRef = projectStorage.refFromURL(name?.url);
       storageRef.delete();
-      const collectionRef = projectFirestore.collection('images');
+      const collectionRef = projectFirestore.collection("images");
       collectionRef
-        .where('Id', '==', name?.Id)
+        .where("Id", "==", name?.Id)
         .get()
         .then((i) => {
           i.forEach((d) => {
@@ -46,108 +48,72 @@ const ImageGrid = ({ type, setSelectedImg, id }) => {
   };
 
   const meta = (url) => {
-    var new_url = url.substring(0, url.indexOf('?alt'));
-    const ext = new_url.substring(new_url.lastIndexOf('.'));
+    var new_url = url.substring(0, url.indexOf("?alt"));
+    const ext = new_url.substring(new_url.lastIndexOf("."));
     return ext;
   };
 
   const videos =
-    docs && docs.filter((i) => i.userId === id && i?.type === 'video');
+    docs && docs.filter((i) => i.userId === id && i?.type === "video");
   const image =
-    docs && docs.filter((i) => i?.userId === id && i?.type === 'photo');
+    docs && docs.filter((i) => i?.userId === id && i?.type === "photo");
   const audio =
-    docs && docs.filter((i) => i?.userId === id && i?.type === 'audio');
-
+    docs && docs.filter((i) => i?.userId === id && i?.type === "audio");
   const blog =
-    docs && docs.filter((i) => i?.userId === id && i?.type === 'blog');
+    docs && docs.filter((i) => i?.userId === id && i?.type === "blog");
+
+  const openModal = () => {
+    modalRef.current.openModal();
+  };
 
   return (
-    // <div className="img-grid">
-    //   {docs &&
-    //     docs.map(
-    //       (doc) =>
-    //         doc.userId === id && (
-    //           <motion.div
-    //             className="img-wrap"
-    //             key={doc.id}
-    //             layout
-    //             whileHover={{ opacity: 1 }}
-    //           >
-    //             {meta(doc.url) === ".mp4" ? (
-    //               <motion.video
-    //                 onClick={() =>
-    //                   setSelectedImg({ selectedImg: doc.url, type: "video" })
-    //                 }
-    //                 controls
-    //                 src={doc.url}
-    //                 alt="uploaded pic"
-    //                 initial={{ opacity: 0 }}
-    //                 animate={{ opacity: 1 }}
-    //                 transition={{ delay: 1 }}
-    //               />
-    //             ) : (
-    //               <motion.img
-    //                 onClick={() =>
-    //                   setSelectedImg({ selectedImg: doc.url, type: "image" })
-    //                 }
-    //                 src={doc.url}
-    //                 alt="uploaded pic"
-    //                 initial={{ opacity: 0 }}
-    //                 animate={{ opacity: 1 }}
-    //                 transition={{ delay: 1 }}
-    //               />
-    //             )}
-    //           </motion.div>
-    //         )
-    //     )}
-    // </div>
-    // ) : (
-    <>
+    <span>
+      <Modal image={image} videos={videos} profile={profile} ref={modalRef} />
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          alignItems: 'center',
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "row",
+          alignItems: "center",
         }}
       >
         <h3>
-          Videos <span style={{ color: '#5d67cc' }}>({videos.length})</span>
+          Videos <span style={{ color: "#5d67cc" }}>({videos.length})</span>
         </h3>
         <div
           onClick={() => {
             setViewAllVideo(!viewAllVideo);
           }}
-          style={{ color: '#5d67cc', cursor: 'pointer' }}
+          style={{ color: "#5d67cc", cursor: "pointer" }}
         >
           View All
         </div>
       </div>
-      <div className='img-grid'>
+      <div className="img-grid">
         {videos &&
           videos.slice(0, viewAllVideo ? videos.length : 3).map((doc) => (
             <motion.div
-              className='img-wrap'
+              className="img-wrap"
               key={doc.id}
               layout
               whileHover={{ opacity: 1 }}
             >
-              <div className='edit-container'>
+              <div className="edit-container">
                 <div
                   onClick={() => {
-                    setEdit(edit === doc.url ? '' : doc.url);
+                    setEdit(edit === doc.url ? "" : doc.url);
                   }}
-                  className='edit'
+                  className="edit"
                 >
-                  <img src={path} className='resize' alt='' />
+                  <img src={path} className="resize" alt="" />
                 </div>
 
                 {edit === doc.url && (
-                  <ul className='edit-text-box'>
+                  <ul className="edit-text-box">
                     <li>
                       <a
-                        href='#!'
-                        className='edit-text'
+                        href="#!"
+                        className="edit-text"
                         onClick={() => {
                           _remove(doc);
                         }}
@@ -159,15 +125,9 @@ const ImageGrid = ({ type, setSelectedImg, id }) => {
                 )}
               </div>
               <motion.video
-                onClick={() =>
-                  setSelectedImg({
-                    selectedImg: doc.url,
-                    type: 'video',
-                    description: doc?.description,
-                  })
-                }
+                onClick={openModal}
                 src={doc.url}
-                alt='uploaded pic'
+                alt="uploaded pic"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
@@ -178,50 +138,50 @@ const ImageGrid = ({ type, setSelectedImg, id }) => {
 
       <div
         style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          alignItems: 'center',
+          display: "flex",
+          justifyContent: "space-between",
+          flexDirection: "row",
+          alignItems: "center",
         }}
       >
         <h3>
-          Pictures <span style={{ color: '#5d67cc' }}>({image.length})</span>
+          Pictures <span style={{ color: "#5d67cc" }}>({image.length})</span>
         </h3>
         <div
           onClick={() => {
             setViewAllImg(!viewAllImg);
           }}
-          style={{ color: '#5d67cc', cursor: 'pointer' }}
+          style={{ color: "#5d67cc", cursor: "pointer" }}
         >
           View All
         </div>
       </div>
 
-      <div className='img-grid'>
+      <div className="img-grid">
         {image &&
           image.slice(0, viewAllImg ? image.length : 3).map(
             (doc) =>
-              meta(doc.url) !== '.mp4' && (
+              meta(doc.url) !== ".mp4" && (
                 <motion.div
-                  className='img-wrap'
+                  className="img-wrap"
                   key={doc.id}
                   layout
                   whileHover={{ opacity: 1 }}
                 >
-                  <div className='edit-container'>
+                  <div className="edit-container">
                     <div
                       onClick={() => {
-                        setEdit(edit === doc.url ? '' : doc.url);
+                        setEdit(edit === doc.url ? "" : doc.url);
                       }}
-                      className='edit'
+                      className="edit"
                     >
-                      <img src={path} className='resize' alt='' />
+                      <img src={path} className="resize" alt="" />
                     </div>
 
                     {edit === doc.url && (
-                      <div className='edit-text-box'>
+                      <div className="edit-text-box">
                         <div
-                          className='edit-text'
+                          className="edit-text"
                           onClick={() => {
                             _remove(doc);
                           }}
@@ -232,15 +192,9 @@ const ImageGrid = ({ type, setSelectedImg, id }) => {
                     )}
                   </div>
                   <motion.img
-                    onClick={() =>
-                      setSelectedImg({
-                        selectedImg: doc.url,
-                        type: 'image',
-                        description: doc?.description,
-                      })
-                    }
+                    onClick={openModal}
                     src={doc.url}
-                    alt='uploaded pic'
+                    alt="uploaded pic"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1 }}
@@ -251,31 +205,31 @@ const ImageGrid = ({ type, setSelectedImg, id }) => {
       </div>
 
       <h3>
-        Audio <span style={{ color: '#5d67cc' }}>({audio.length})</span>
+        Audio <span style={{ color: "#5d67cc" }}>({audio.length})</span>
       </h3>
-      <div className='img-grid'>
+      <div className="img-grid">
         {audio &&
           audio.map((doc) => (
             <motion.div
-              className='img-wrap'
+              className="img-wrap"
               key={doc.id}
               layout
               whileHover={{ opacity: 1 }}
             >
-              <div className='edit-container'>
+              <div className="edit-container">
                 <div
                   onClick={() => {
-                    setEdit(edit === doc.url ? '' : doc.url);
+                    setEdit(edit === doc.url ? "" : doc.url);
                   }}
-                  className='edit'
+                  className="edit"
                 >
-                  <img src={path} className='resize' alt='' />
+                  <img src={path} className="resize" alt="" />
                 </div>
 
                 {edit === doc.url && (
-                  <div className='edit-text-box'>
+                  <div className="edit-text-box">
                     <div
-                      className='edit-text'
+                      className="edit-text"
                       onClick={() => {
                         _remove(doc);
                       }}
@@ -285,17 +239,10 @@ const ImageGrid = ({ type, setSelectedImg, id }) => {
                   </div>
                 )}
               </div>
-              <motion.video
-                onClick={() =>
-                  setSelectedImg({
-                    selectedImg: doc.url,
-                    type: 'audio',
-                    description: doc?.description,
-                  })
-                }
+              <motion.audio
                 poster={Audio}
                 src={doc.url}
-                alt='uploaded pic'
+                alt="uploaded pic"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
@@ -304,33 +251,33 @@ const ImageGrid = ({ type, setSelectedImg, id }) => {
           ))}
       </div>
       <h3>
-        Blog <span style={{ color: '#5d67cc' }}>({blog.length})</span>
+        Blog <span style={{ color: "#5d67cc" }}>({blog.length})</span>
       </h3>
-      <div className='img-grid'>
+      <div className="img-grid">
         {blog &&
           blog.map((doc) => (
             <motion.div
-              className='img-wrap'
+              className="img-wrap"
               key={doc.id}
               layout
               whileHover={{ opacity: 1 }}
             >
-              <div className='edit-container'>
+              <div className="edit-container">
                 <div
                   onClick={() => {
-                    setEdit(edit === doc.url ? '' : doc.url);
+                    setEdit(edit === doc.url ? "" : doc.url);
                   }}
-                  className='edit'
+                  className="edit"
                 >
-                  <img src={path} className='resize' alt='' />
+                  <img src={path} className="resize" alt="" />
                 </div>
 
                 {edit === doc.url && (
-                  <div className='edit-text-box'>
+                  <div className="edit-text-box">
                     <div
-                      className='edit-text'
+                      className="edit-text"
                       onClick={() => {
-                        _remove(doc, 'blog');
+                        _remove(doc, "blog");
                       }}
                     >
                       Remove Project
@@ -339,14 +286,9 @@ const ImageGrid = ({ type, setSelectedImg, id }) => {
                 )}
               </div>
               <motion.a
-                // onClick={() =>
-                //   setSelectedImg({ selectedImg: doc.url, type: "audio" })
-                // }
                 href={doc.url}
-                // poster={Audio}
-                target='_blank'
-                // src={doc.url}
-                alt='uploaded pic'
+                target="_blank"
+                alt="uploaded pic"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
@@ -356,7 +298,7 @@ const ImageGrid = ({ type, setSelectedImg, id }) => {
             </motion.div>
           ))}
       </div>
-    </>
+    </span>
   );
 };
 

@@ -1,44 +1,131 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import './Gallery.css';
+import React, { useState, forwardRef, useImperativeHandle } from "react";
+import logo from "../../images/dummyimage.jpg";
+import backward from "../../images/Group 6054.svg";
+import forward from "../../images/Group 6056.svg";
+import close from "../../images/close.svg";
+import Moment from "react-moment";
 
-const Modal = ({ setSelectedImg, selectedImg, type, description }) => {
-  const handleClick = (e) => {
-    if (e.target.classList.contains('backdrop')) {
-      setSelectedImg({
-        type: '',
-        selectedImg: '',
-        description: '',
-      });
+const Modal = forwardRef(
+  ({ profile: { avatar, user }, image, videos }, ref) => {
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [current, setCurrent] = useState(0);
+    const files = image.concat(videos);
+    const length = files.length;
+
+    console.log(files);
+
+    const handleShow = () => {
+      setModalIsOpen(true);
+    };
+
+    const handleClose = () => {
+      setModalIsOpen(false);
+    };
+
+    useImperativeHandle(ref, () => {
+      return {
+        openModal: () => handleShow(),
+        close: () => handleClose(),
+      };
+    });
+
+    const nextSlide = () => {
+      setCurrent(current === length - 1 ? 0 : current + 1);
+    };
+
+    const prevSlide = () => {
+      setCurrent(current === 0 ? length - 1 : current - 1);
+    };
+
+    if (!Array.isArray(files) || files.length <= 0) {
+      return null;
     }
-  };
 
-  return (
-    <motion.div
-      className='backdrop'
-      onClick={handleClick}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-    >
-      {type === 'image' ? (
-        <motion.img
-          src={selectedImg}
-          alt='enlarged pic'
-          initial={{ y: '-100vh' }}
-          animate={{ y: 0 }}
-        />
-      ) : (
-        <motion.video
-          controls
-          src={selectedImg}
-          alt='enlarged pic'
-          initial={{ y: '-100vh' }}
-          animate={{ y: 0 }}
-        />
-      )}
-      <h3 className='text-dec'>{description}</h3>
-    </motion.div>
-  );
-};
-
+    return (
+      <main className="post-pop-up">
+        {modalIsOpen &&
+          files.map((file, index) => (
+            <div
+              key={index}
+              className={index === current ? "slide active" : "slide"}
+            >
+              {index === current && (
+                <div className="post-pop-up-container">
+                  <div>
+                    <div className="flex">
+                      <div className="flex-left">
+                        <div className="flex-1">
+                          <div
+                            className="display-pic"
+                            style={{
+                              background: `url(${
+                                avatar ? avatar : logo
+                              }) no-repeat center center/cover`,
+                            }}
+                          ></div>
+                          <div>
+                            <h2 className="modal-title w-100">
+                              {file.description}
+                            </h2>
+                            <br />
+                            <p>
+                              by <span className="blue">{user.fullName}</span>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex-right">
+                        <img src={close} onClick={handleClose} alt="" />
+                      </div>
+                    </div>
+                    <hr className="hori" />
+                  </div>
+                  <div className="main-post-container">
+                    <div className="main-post-top">
+                      <img onClick={prevSlide} src={backward} alt="" />
+                      <div className="post-pic">
+                        {file.type === "photo" ? (
+                          <img className="post-pic" src={file.url} alt="" />
+                        ) : (
+                          <video
+                            controls
+                            className="post-pic"
+                            src={file.url}
+                            alt=""
+                          />
+                        )}
+                      </div>
+                      <img onClick={nextSlide} src={forward} alt="" />
+                    </div>
+                  </div>
+                  <div className="main-post-container-2">
+                    <div className="post-des-flex-s">
+                      <div className="post-des-flex-left ">
+                        <div className="flex flex-s">
+                          <div className="des-right">
+                            <a href="#!">
+                              <p>
+                                Posted on{": "}
+                                <Moment format="DD MMM YY">
+                                  {file.createdAt.toDate()}
+                                </Moment>{" "}
+                                {", "}
+                                <Moment format="hh:mm A">
+                                  {file.createdAt.toDate()}
+                                </Moment>
+                              </p>
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
+      </main>
+    );
+  }
+);
 export default Modal;

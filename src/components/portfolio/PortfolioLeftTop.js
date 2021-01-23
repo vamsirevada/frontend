@@ -7,7 +7,7 @@ const PortfolioLeftTop = ({ profile: { location, status, user, avatar } }) => {
   return (
     <div className="left-heading">
       <div className="pp">
-        <img className="display-pic" src={avatar ? avatar : logo} alt="" />
+        <img className="pp" src={avatar ? avatar : logo} alt="" />
       </div>
       <h2 className="name">
         {user.groupName && user.groupName} {user.fullName && user.fullName}

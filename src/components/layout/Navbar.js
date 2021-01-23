@@ -88,27 +88,11 @@ const Navbar = ({ logout }) => {
                 </Link>
               </li>
 
-              {/* <li>
-                <a className='nb icon' href='#!'>
-                  NB
-                </a>
-              </li> */}
               <li>
                 <Link to="/profiles" className="calendar icon">
                   <img src={all} alt="home" />
                 </Link>
               </li>
-              {/* <li>
-                <a className='notif icon' href='#!'>
-                  <img src={notify} alt='home' />
-                </a>
-              </li> */}
-
-              {/* <li>
-                <a className='chat icon' href='#!'>
-                  <img src={chat} alt='home' />
-                </a>
-              </li> */}
 
               <li>
                 <img
