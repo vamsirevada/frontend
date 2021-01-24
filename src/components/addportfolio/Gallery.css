@@ -206,6 +206,5 @@
 
 .slide.active {
   opacity: 1;
-  transition-duration: 1s;
-  transform: scale(0.9);
+  transform: scale(1);
 }

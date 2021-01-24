@@ -30,6 +30,16 @@ p {
   opacity: 50%;
 }
 
+.post-pop-up {
+  position: fixed;
+  top: 72px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  z-index: 1;
+}
+
 .post-pop-up-container {
   width: 90%;
   margin: auto;

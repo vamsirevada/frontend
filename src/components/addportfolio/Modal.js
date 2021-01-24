@@ -43,83 +43,86 @@ const Modal = forwardRef(
       <>
         {modalIsOpen &&
           files.map((file, index) => (
-            <main key={index} className="post-pop-up">
-              <div className={index === current ? "slide active" : "slide"}>
-                {index === current && (
-                  <div className="post-pop-up-container">
-                    <div>
-                      <div className="flex">
-                        <div className="flex-left">
-                          <div className="flex-1">
-                            <div
-                              className="display-pic"
-                              style={{
-                                background: `url(${
-                                  avatar ? avatar : logo
-                                }) no-repeat center center/cover`,
-                              }}
-                            ></div>
-                            <div>
-                              <h2 className="modal-title w-100">
-                                {file.description}
-                              </h2>
-                              <br />
-                              <p>
-                                by <span className="blue">{user.fullName}</span>
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="flex-right">
-                          <img src={close} onClick={handleClose} alt="" />
+            <div
+              key={index}
+              className={`post-pop-up ${
+                index === current ? "slide active" : "slide"
+              }`}
+            >
+              <div className="post-pop-up-container">
+                <div>
+                  <div className="flex">
+                    <div className="flex-left">
+                      <div className="flex-1">
+                        <div
+                          className="display-pic"
+                          style={{
+                            background: `url(${
+                              avatar ? avatar : logo
+                            }) no-repeat center center/cover`,
+                          }}
+                        ></div>
+                        <div>
+                          <h2 className="modal-title w-100">
+                            {file.description}
+                          </h2>
+                          <br />
+                          <p>
+                            by <span className="blue">{user.fullName}</span>
+                          </p>
                         </div>
                       </div>
-                      <hr className="hori" />
                     </div>
-                    <div className="main-post-container">
-                      <div className="main-post-top">
-                        <img onClick={prevSlide} src={backward} alt="" />
-                        <div className="post-pic">
-                          {file.type === "photo" ? (
-                            <img className="post-pic" src={file.url} alt="" />
-                          ) : (
-                            <video
-                              controls
-                              className="post-pic"
-                              src={file.url}
-                              alt=""
-                            />
-                          )}
-                        </div>
-                        <img onClick={nextSlide} src={forward} alt="" />
-                      </div>
+                    <div className="flex-right">
+                      <img src={close} onClick={handleClose} alt="" />
                     </div>
-                    <div className="main-post-container-2">
-                      <div className="post-des-flex-s">
-                        <div className="post-des-flex-left ">
-                          <div className="flex flex-s">
-                            <div className="des-right">
-                              <a href="#!">
-                                <p>
-                                  Posted on{": "}
-                                  <Moment format="DD MMM YY">
-                                    {file.createdAt.toDate()}
-                                  </Moment>{" "}
-                                  {", "}
-                                  <Moment format="hh:mm A">
-                                    {file.createdAt.toDate()}
-                                  </Moment>
-                                </p>
-                              </a>
-                            </div>
-                          </div>
+                  </div>
+                  <hr className="hori" />
+                </div>
+
+                <div className="main-post-container">
+                  <div className="main-post-top">
+                    <img onClick={prevSlide} src={backward} alt="" />
+                    <div className="post-pic">
+                      {file.type === "photo" ? (
+                        <img className="post-pic" src={file.url} alt="" />
+                      ) : (
+                        <video
+                          controls
+                          className="post-pic"
+                          src={file.url}
+                          alt=""
+                        />
+                      )}
+                    </div>
+                    <img onClick={nextSlide} src={forward} alt="" />
+                  </div>
+                </div>
+
+                <div className="main-post-container-2">
+                  <div className="post-des-flex-s">
+                    <div className="post-des-flex-left ">
+                      <div className="flex flex-s">
+                        <div className="des-right">
+                          <a href="#!">
+                            <p>
+                              Posted on{": "}
+                              <Moment format="DD MMM YY">
+                                {file.createdAt.toDate()}
+                              </Moment>{" "}
+                              {", "}
+                              <Moment format="hh:mm A">
+                                {file.createdAt.toDate()}
+                              </Moment>
+                            </p>
+                          </a>
                         </div>
                       </div>
                     </div>
                   </div>
-                )}
+                </div>
               </div>
-            </main>
+            </div>
           ))}
       </>
     );
