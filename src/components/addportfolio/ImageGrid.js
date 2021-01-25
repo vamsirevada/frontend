@@ -56,7 +56,7 @@ const ImageGrid = ({ id, profile }) => {
 
   const videos =
     docs && docs.filter((i) => i.userId === id && i?.type === "video");
-  const image =
+  const images =
     docs && docs.filter((i) => i?.userId === id && i?.type === "photo");
   const audio =
     docs && docs.filter((i) => i?.userId === id && i?.type === "audio");
@@ -67,7 +67,7 @@ const ImageGrid = ({ id, profile }) => {
     <span>
       <Modal
         selectedImg={selectedImg}
-        image={image}
+        images={images}
         videos={videos}
         profile={profile}
         ref={modalRef}
@@ -153,7 +153,7 @@ const ImageGrid = ({ id, profile }) => {
         }}
       >
         <h3>
-          Pictures <span style={{ color: "#5d67cc" }}>({image.length})</span>
+          Pictures <span style={{ color: "#5d67cc" }}>({images.length})</span>
         </h3>
         <div
           onClick={() => {
@@ -166,8 +166,8 @@ const ImageGrid = ({ id, profile }) => {
       </div>
 
       <div className="img-grid">
-        {image &&
-          image.slice(0, viewAllImg ? image.length : 3).map(
+        {images &&
+          images.slice(0, viewAllImg ? images.length : 3).map(
             (doc, index) =>
               meta(doc.url) !== ".mp4" && (
                 <motion.div

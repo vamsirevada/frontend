@@ -6,10 +6,10 @@ import close from "../../images/close.svg";
 import Moment from "react-moment";
 
 const Modal = forwardRef(
-  ({ profile: { avatar, user }, image, videos, selectedImg }, ref) => {
+  ({ profile: { avatar, user }, images, videos, selectedImg }, ref) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [current, setCurrent] = useState(0);
-    const files = image.concat(videos);
+    const files = images.concat(videos);
     const length = files.length;
 
     console.log(selectedImg);
