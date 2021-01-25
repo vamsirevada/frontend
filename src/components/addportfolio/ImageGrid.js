@@ -14,6 +14,7 @@ const ImageGrid = ({ id, profile }) => {
   const [viewAllImg, setViewAllImg] = useState(false);
   const [viewAllVideo, setViewAllVideo] = useState(false);
   const modalRef = React.useRef();
+  const [selectedImg, setSelectedImg] = useState(0);
 
   const _remove = async (name, type) => {
     if (type === "blog") {
@@ -62,13 +63,15 @@ const ImageGrid = ({ id, profile }) => {
   const blog =
     docs && docs.filter((i) => i?.userId === id && i?.type === "blog");
 
-  const openModal = () => {
-    modalRef.current.openModal();
-  };
-
   return (
     <span>
-      <Modal image={image} videos={videos} profile={profile} ref={modalRef} />
+      <Modal
+        selectedImg={selectedImg}
+        image={image}
+        videos={videos}
+        profile={profile}
+        ref={modalRef}
+      />
       <div
         style={{
           display: "flex",
@@ -91,49 +94,54 @@ const ImageGrid = ({ id, profile }) => {
       </div>
       <div className="img-grid">
         {videos &&
-          videos.slice(0, viewAllVideo ? videos.length : 3).map((doc) => (
-            <motion.div
-              className="img-wrap"
-              key={doc.id}
-              layout
-              whileHover={{ opacity: 1 }}
-            >
-              <div className="edit-container">
-                <div
-                  onClick={() => {
-                    setEdit(edit === doc.url ? "" : doc.url);
-                  }}
-                  className="edit"
-                >
-                  <img src={path} className="resize" alt="" />
-                </div>
+          videos
+            .slice(0, viewAllVideo ? videos.length : 3)
+            .map((doc, index) => (
+              <motion.div
+                className="img-wrap"
+                key={doc.id}
+                layout
+                whileHover={{ opacity: 1 }}
+              >
+                <div className="edit-container">
+                  <div
+                    onClick={() => {
+                      setEdit(edit === doc.url ? "" : doc.url);
+                    }}
+                    className="edit"
+                  >
+                    <img src={path} className="resize" alt="" />
+                  </div>
 
-                {edit === doc.url && (
-                  <ul className="edit-text-box">
-                    <li>
-                      <a
-                        href="#!"
-                        className="edit-text"
-                        onClick={() => {
-                          _remove(doc);
-                        }}
-                      >
-                        Remove
-                      </a>
-                    </li>
-                  </ul>
-                )}
-              </div>
-              <motion.video
-                onClick={openModal}
-                src={doc.url}
-                alt="uploaded pic"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-              />
-            </motion.div>
-          ))}
+                  {edit === doc.url && (
+                    <ul className="edit-text-box">
+                      <li>
+                        <a
+                          href="#!"
+                          className="edit-text"
+                          onClick={() => {
+                            _remove(doc);
+                          }}
+                        >
+                          Remove
+                        </a>
+                      </li>
+                    </ul>
+                  )}
+                </div>
+                <motion.video
+                  onClick={() => {
+                    setSelectedImg(index);
+                    modalRef.current.openModal();
+                  }}
+                  src={doc.url}
+                  alt="uploaded pic"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1 }}
+                />
+              </motion.div>
+            ))}
       </div>
 
       <div
@@ -160,7 +168,7 @@ const ImageGrid = ({ id, profile }) => {
       <div className="img-grid">
         {image &&
           image.slice(0, viewAllImg ? image.length : 3).map(
-            (doc) =>
+            (doc, index) =>
               meta(doc.url) !== ".mp4" && (
                 <motion.div
                   className="img-wrap"
@@ -192,7 +200,10 @@ const ImageGrid = ({ id, profile }) => {
                     )}
                   </div>
                   <motion.img
-                    onClick={openModal}
+                    onClick={() => {
+                      setSelectedImg(index);
+                      modalRef.current.openModal();
+                    }}
                     src={doc.url}
                     alt="uploaded pic"
                     initial={{ opacity: 0 }}
