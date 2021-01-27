@@ -52,11 +52,7 @@ const App = () => {
                   component={Reset}
                 />
                 <Route exact path="/invite" component={Invite} />
-                <Route
-                  exact
-                  path="referral"
-                  component={ReferralPage}
-                />
+                <Route exact path="/referral" component={ReferralPage} />
                 <Route exact path="/writerlogin" component={WriterLogin} />
                 <Route
                   exact
