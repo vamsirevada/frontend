@@ -9,7 +9,7 @@ import attach from "../../images/attach.svg";
 import path from "../../images/path 2.svg";
 import io from "socket.io-client";
 
-import "./Chat.css";
+// import "./Chat.css";
 import axios from "axios";
 
 const socket = io(process.env.REACT_APP_API_URL, { transports: ["websocket"] });
