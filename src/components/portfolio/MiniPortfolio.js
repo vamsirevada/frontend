@@ -6,7 +6,6 @@ import logo from "../../images/dummyimage.jpg";
 
 const MiniPortfolio = ({ profile, loading }) => {
 
-  console.log(profile);
 
   return loading && profile === null ? (
     <Spinner />

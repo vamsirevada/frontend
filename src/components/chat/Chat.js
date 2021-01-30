@@ -12,7 +12,9 @@ import io from "socket.io-client";
 import "./Chat.css";
 import axios from "axios";
 
-const socket = io(process.env.REACT_APP_API_URL, { transports: ["websocket"] });
+const socket = io("http://localhost:5000", { transports: ["websocket"] });
+
+console.log(socket);
 
 function Chat({ getChats, afterPostMessage, auth, profile, chat: { chats } }) {
   const dummy = useRef();
