@@ -95,8 +95,7 @@ const ProfileItem = ({
           {filter &&
             filter.slice(0, 4).map(
               (doc) =>
-                meta(doc.url) !== ".mp3" &&
-                meta(doc.url) !== "" && (
+                meta(doc.url) !== ".mp3" && (
                   <a href="#!" key={doc.id}>
                     <div className="pic-1">
                       {doc.type === "video" ? (

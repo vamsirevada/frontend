@@ -99,7 +99,7 @@ const ImageGrid = ({ id, profile }) => {
             .map((doc, index) => (
               <motion.div
                 className="img-wrap"
-                key={index}
+                key={doc.id}
                 layout
                 whileHover={{ opacity: 1 }}
               >
@@ -172,7 +172,7 @@ const ImageGrid = ({ id, profile }) => {
               meta(doc.url) !== ".mp4" && (
                 <motion.div
                   className="img-wrap"
-                  key={index}
+                  key={doc.id}
                   layout
                   whileHover={{ opacity: 1 }}
                 >

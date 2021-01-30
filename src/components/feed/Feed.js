@@ -6,7 +6,6 @@ import MiniPortfolio from "../portfolio/MiniPortfolio";
 import Posts from "../posts/Posts";
 import PostForm from "../posts/PostForm";
 import FriendRequests from "./FriendRequests";
-import Chat from "../chat/Chat";
 import notify from "../../images/noun_notification_887294.svg";
 import BallotIcon from "@material-ui/icons/Ballot";
 
@@ -65,7 +64,6 @@ const Feed = ({
           {displayRight && (
             <div className="right">
               <FriendRequests />
-              <Chat profile={profile} />
             </div>
           )}
         </div>

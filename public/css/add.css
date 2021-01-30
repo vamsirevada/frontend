@@ -70,15 +70,15 @@
 }
 
 .main-add .main-left .card {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 0.8rem;
   font-weight: normal;
 }
 
 .main-add .main-right {
-  padding: 3rem;
-  margin: 1rem;
-  width: 100%;
+  padding: 1.6rem;
+  margin: auto;
+  width: 85%;
   position: relative;
 }
 
@@ -88,7 +88,7 @@
 }
 
 .main-add .main-right h2 {
-  font-size: 20px;
+  font-size: 1rem;
 }
 
 .main-add .main-right p {
@@ -114,16 +114,17 @@
 }
 
 .main-add .main-right .main-right-container .pos {
-  position: relative;
-  top: 50px;
-  margin-bottom: 0.55rem;
+  padding: 8px 30px;
+  font-size: 14px;
+  margin: 0px;
+  border-radius: 10px;
 }
 
 .main-add .main-right .main-right-container {
   display: grid;
   grid-template-columns: repeat(2, 50%);
-  grid-gap: 1.5rem;
-  width: 100%;
+  grid-gap: 1rem;
+  width: 80%;
 }
 
 .main-add .main-right .main-right-container.blog {
@@ -132,7 +133,7 @@
 .main-add .main-right .main-right-container.blog input {
   width: 100%;
   color: #707070;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 1rem;
   background: transparent;
   outline: none;
@@ -143,15 +144,14 @@
 
 /* picture area */
 
-.main-add .main-right .main-right-container .box1 {
+.main-add .main-right .main-right-container .preview {
   width: 250px;
   height: 150px;
-  /* background-color: var(--blue-color); */
   border-radius: 10px;
-  background: url("../img/fcd94e9024ab18f362f31a42434fafa7@2x.png") center
-    center/cover;
+  border-color: #fff;
+  background-color: transparent;
+  object-fit: contain;
   margin: auto;
-  /* margin-left: 10px; */
 }
 
 .main-add .main-right .main-right-container .box2 {
@@ -196,14 +196,20 @@
 }
 
 .main-add .main-right .main-right-container > *:last-child {
-  /* background-color: var(--font-black-color); */
   grid-column: 1 / span 2;
-  padding: 1rem 0;
-  margin-top: 1rem;
+  /* padding: 1rem 0;
+  margin-top: 1rem; */
   line-height: 1rem;
-  width: 90%;
-  position: absolute;
-  top: 68%;
+  width: 100%;
+}
+
+.main-add .main-right .main-right-container .des {
+  padding: 0rem;
+}
+.main-add .main-right .main-right-container .select {
+  justify-self: flex-end;
+  align-self: flex-end;
+  margin-bottom: 0.5rem;
 }
 
 .main-add .main-right .main-right-container .float-numb {
@@ -211,13 +217,15 @@
   color: #707070;
 }
 
+.main-add .main-right .main-right-container input,
 .main-add .main-right .main-right-container textarea {
   width: 100%;
   color: #707070;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 1rem;
   background: transparent;
   outline: none;
   border: none;
   border-bottom: 2px solid #c9c9c9;
+  padding: 1rem 1rem 1rem 0rem;
 }
