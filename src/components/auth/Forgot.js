@@ -98,7 +98,7 @@ export default class ForgotPassword extends Component {
                   </Link>
                 </div>
                 <br />
-                <button type="Submit" className="btn-yellow">
+                <button type="submit" className="btn-yellow">
                   {" "}
                   Send reset Link
                 </button>

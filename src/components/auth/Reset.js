@@ -24,7 +24,6 @@ export default class ResetPassword extends Component {
   resetPassword = async (e) => {
     e.preventDefault();
     this.setState({ message: "", error: "" });
-
     await axios
       .put("/api/password/reset-password", {
         newPassword: this.state.password,
@@ -88,7 +87,7 @@ export default class ResetPassword extends Component {
               </div>
             )}
             <div style={{ display: this.state.message.length ? "none" : "" }}>
-              <form className="profile-form" onSubmit={this.updatePassword}>
+              <form onSubmit={this.resetPassword} className="profile-form">
                 <input
                   type="password"
                   name="password"
@@ -102,11 +101,7 @@ export default class ResetPassword extends Component {
                   }
                   className="btn-light"
                 />
-                <button
-                  type="Submit"
-                  onClick={this.resetPassword}
-                  className="btn-yellow"
-                >
+                <button type="submit" className="btn-yellow">
                   {" "}
                   Update Password
                 </button>
