@@ -122,7 +122,7 @@ const CreateGroupProfile = ({ createProfile, history }) => {
                   ></textarea>
                 </div>
                 <br />
-                <button type="Submit" className="btn-blue f-right">
+                <button type="submit" className="btn-blue f-right">
                   {" "}
                   Save changes
                 </button>

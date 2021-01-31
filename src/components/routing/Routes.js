@@ -10,7 +10,6 @@ import AddEducation from "../profile-forms/AddEducation";
 import AddEvents from "../profile-forms/AddEvents";
 import AddSkills from "../profile-forms/AddSkills";
 import AddAward from "../profile-forms/AddAward";
-// import Profile from '../profile/Profile';
 import Profiles from "../profiles/Profiles";
 import Profile2 from "../profile/Profile2";
 import Posts from "../posts/Posts";
@@ -24,6 +23,7 @@ import Project from "../profiles/Project";
 import AddPortfolio from "../addportfolio/AddPortfolio";
 import PrivateRoute from "./PrivateRoute";
 import NotFound from "../NotFound";
+import ChatPage from "../chat/ChatPage";
 
 const Routes = (props) => {
   return (
@@ -47,11 +47,11 @@ const Routes = (props) => {
         <PrivateRoute exact path="/add-award" component={AddAward} />
         <PrivateRoute exact path="/add-events" component={AddEvents} />
         <PrivateRoute exact path="/add-skills" component={AddSkills} />
-        {/* <PrivateRoute exact path='/profile/:id' component={Profile} /> */}
         <PrivateRoute exact path="/posts" component={Posts} />
         <PrivateRoute exact path="/posts/:id" component={Post} />
         <PrivateRoute exact path="/feed" component={Feed} />
         <PrivateRoute exact path="/friends" component={Friends} />
+        <PrivateRoute exact path="/chat" component={ChatPage} />
         <PrivateRoute exact path="/friends/:id" component={Friends1} />
         <PrivateRoute exact path="/projects/:id" component={Projects} />
         <PrivateRoute exact path="/project" component={Project} />
