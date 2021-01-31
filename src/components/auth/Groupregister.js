@@ -26,7 +26,7 @@ const Groupregister = ({ setAlert, groupRegister, isAuthenticated }) => {
     password2,
     isGroup,
     userpermission,
-    code
+    code,
   } = formData;
 
   const onChange = (e) =>
@@ -44,7 +44,7 @@ const Groupregister = ({ setAlert, groupRegister, isAuthenticated }) => {
         password,
         isGroup,
         userpermission,
-        code
+        code,
       });
       setAlert("User Registered Successful", "success");
     }
@@ -91,7 +91,7 @@ const Groupregister = ({ setAlert, groupRegister, isAuthenticated }) => {
               <div className="usergroup">
                 <label htmlFor="referral-code" className="signup-label">
                   Enter the referral code <span className="blue">*</span>
-                  <Link to="/register/referral">
+                  <Link to="/referral">
                     <span className="referral-request">
                       Don't have a referral-code?
                     </span>

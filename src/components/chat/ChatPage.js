@@ -47,6 +47,7 @@ const ChatPage = ({
     e.preventDefault();
     const chatMessage = formValue;
     const userId = auth.user._id;
+    const reciever = userUid;
     const userName = auth.user.userName;
     const userImage = auth.user.avatar;
     const nowTime = moment();
@@ -54,6 +55,7 @@ const ChatPage = ({
     socket.emit("Input Chat Message", {
       chatMessage,
       userId,
+      reciever,
       userName,
       userImage,
       nowTime,
@@ -143,7 +145,7 @@ const ChatPage = ({
                       onClick={() => {
                         setChatStarted(true);
                         setChatUser(profile?.user?.fullName);
-                        setUserUid(profile._id);
+                        setUserUid(profile.user._id);
                         setChatUserImage(profile.avatar);
                       }}
                       className="fullchat-chatgrid"

@@ -1,20 +1,21 @@
-import React, { Fragment, useContext, useState } from 'react';
-import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { createProfile } from '../../actions/profile';
-import { ProfileContext } from '../../context/profile/profile.context';
-import { projectStorage } from '../../firebase/config';
+import React, { Fragment, useContext, useState } from "react";
+import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { createProfile } from "../../actions/profile";
+import { ProfileContext } from "../../context/profile/profile.context";
+import { projectStorage } from "../../firebase/config";
+import logo from "../../images/dummyimage.jpg";
 
 const CreateGroupProfile = ({ createProfile, history }) => {
   let fileInput = React.createRef();
   const { img, setImg } = useContext(ProfileContext);
   const [formData, setFormData] = useState({
-    location: '',
-    avatar: '',
-    status: '',
-    bio: '',
-    founder: '',
+    location: "",
+    avatar: "",
+    status: "",
+    bio: "",
+    founder: "",
   });
 
   const { location, avatar, status, bio, founder } = formData;
@@ -25,7 +26,7 @@ const CreateGroupProfile = ({ createProfile, history }) => {
 
   const onFileChange = async (e) => {
     const file = e.target.files[0];
-    const storageRef = projectStorage.ref('profilepictures');
+    const storageRef = projectStorage.ref("profilepictures");
     const fileRef = storageRef.child(file.name);
     await fileRef.put(file);
     setFormData({
@@ -52,84 +53,83 @@ const CreateGroupProfile = ({ createProfile, history }) => {
 
   return (
     <Fragment>
-      <div id='c-profile'>
-        <div className='container'>
-          <div className='create-container'>
+      <div id="c-profile">
+        <div className="container">
+          <div className="create-container">
             <h2>Create your Profile</h2>
-            <div className='dp'>
+            <div className="dp">
               <input
-                type='file'
+                type="file"
                 onChange={onFileChange}
                 hidden={true}
                 ref={fileInput}
               />
-              <img className='display-pic' src={avatar} alt='' />
-              <button className='btn-yellow' onClick={onOpenFileDialog}>
+              <img
+                className="display-pic"
+                src={avatar ? avatar : logo}
+                alt=""
+              />
+              <button className="btn-yellow" onClick={onOpenFileDialog}>
                 Upload Picture
               </button>
             </div>
 
-            <div className='c-form'>
+            <div className="c-form">
               <form onSubmit={(e) => onSubmit(e)}>
                 <div>
-                  <label htmlFor='Type'>
-                    Group Type <span className='blue'>*</span>
+                  <label htmlFor="Type">
+                    Group Type <span className="blue">*</span>
                   </label>
                   <input
-                    type='text'
-                    name='status'
+                    type="text"
+                    name="status"
                     value={status}
                     onChange={(e) => onChange(e)}
-                    placeholder='Production House, Casting Agency, Institute...'
+                    placeholder="Production House, Casting Agency, Institute..."
                     required
                   />
                 </div>
                 <div>
-                  <label htmlFor='founder'>
-                    Founder <span className='blue'>*</span>
+                  <label htmlFor="founder">
+                    Founder <span className="blue">*</span>
                   </label>
                   <input
-                    type='text'
-                    name='founder'
+                    type="text"
+                    name="founder"
                     value={founder}
                     onChange={(e) => onChange(e)}
                     required
                   />
                 </div>
                 <div>
-                  <label htmlFor='location'>
-                    Location <span className='blue'>*</span>
+                  <label htmlFor="location">
+                    Location <span className="blue">*</span>
                   </label>
                   <input
-                    type='text'
-                    name='location'
+                    type="text"
+                    name="location"
                     // id='location'
                     value={location}
                     onChange={(e) => onChange(e)}
-                    placeholder='Enter Your Location'
+                    placeholder="Enter Your Location"
                     required
                   />
                 </div>
                 <div>
-                  <label htmlFor='about'>About</label>
+                  <label htmlFor="about">About</label>
                   <textarea
-                    name='bio'
-                    id='messages'
-                    rows='10'
+                    name="bio"
+                    id="messages"
+                    rows="10"
                     value={bio}
                     onChange={(e) => onChange(e)}
-                    placeholder='Write Something about yourself'
+                    placeholder="Write Something about yourself"
                     required
                   ></textarea>
                 </div>
                 <br />
-<<<<<<< HEAD
-                <button type='Submit' className='btn-blue f-right'>
-                  {' '}
-=======
                 <button type="submit" className="btn-blue f-right">
                   {" "}
->>>>>>> 92518aff17cd7d855ee371c94c6920022d8ac0ba
                   Save changes
                 </button>
                 <br />
