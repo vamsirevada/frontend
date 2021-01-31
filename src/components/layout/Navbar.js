@@ -3,6 +3,7 @@ import axios from "axios";
 import maskGroup from "../../images/maskGroup.svg";
 import searchIcon from "../../images/searchIcon.svg";
 import home from "../../images/Home.svg";
+import chat from "../../images/chat.svg";
 import all from "../../images/noun_Friend_2987728.svg";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -87,13 +88,16 @@ const Navbar = ({ logout }) => {
                   />
                 </Link>
               </li>
-
               <li>
                 <Link to="/profiles" className="calendar icon">
                   <img src={all} alt="home" />
                 </Link>
               </li>
-
+              <li>
+                <Link to="/chat" className="chat icon">
+                  <img src={chat} alt="chat" />
+                </Link>
+              </li>
               <li>
                 <img
                   className="dis"
@@ -110,10 +114,6 @@ const Navbar = ({ logout }) => {
                 {displayMenu && (
                   <Fragment>
                     <ul className="no-dis" id="dis-dd">
-                      {/* <li>
-                        <a href='#!'>{user.firstName + ' ' + user.lastName}</a>
-                      </li> */}
-
                       <li>
                         <Link to="/profile"> View Profile</Link>
                       </li>

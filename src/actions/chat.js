@@ -19,6 +19,8 @@ export const getChats = () => async (dispatch) => {
   }
 };
 
+export const getChatById = () => async (dispatch) => {};
+
 export const afterPostMessage = (data) => async (dispatch) => {
   dispatch({
     type: AFTER_POST_MESSAGE,

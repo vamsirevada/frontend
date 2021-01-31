@@ -43,26 +43,13 @@ const AddPortfolio = ({ auth: { user } }) => {
         <div className="add-heading">
           <div className="container">
             <div className="heading-container">
-              {/* <div className='btn-yellow'>
-                <a href='#!'>Preview</a>
-              </div> */}
               <div className="middle-heading">
                 <h1>Starting adding Files</h1>
                 <p>
                   <span className="blue-text"> {user && user.fullName}</span>
                 </p>
               </div>
-              {/* <div>
-                <a className='btn-blue' href='#!'>
-                  Publish Now
-                </a>
-                <a className='btn-gray' href='#!'>
-                  {' '}
-                  cancel
-                </a>
-              </div> */}
             </div>
-
             <hr className="new1" />
           </div>
         </div>

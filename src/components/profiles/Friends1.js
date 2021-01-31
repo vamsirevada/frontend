@@ -1,64 +1,36 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
+import PropTypes from "prop-types";
 import axios from "axios";
 import Friend from "./Friend";
 import Spinner from "../layout/Spinner";
-import { getProfileById } from "../../actions/profile";
+import { getBuddiesById, getProfileById } from "../../actions/profile";
 import { setAlert } from "../../actions/alert";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import UseFirestore from "../addportfolio/UseFireStore";
 
-const Friends1 = ({ profile: { profile, loading }, getProfileById, match }) => {
-  useEffect(() => {
-    getProfileById(match.params.id);
-  }, [getProfileById, match.params.id]);
-
-  const [budProfiles, setBudProfiles] = useState({
-    profiles: null,
-    empty: null,
-  });
-
+const Friends1 = ({
+  getBuddiesById,
+  getProfileById,
+  profile: { profile, buddies, loading },
+  match,
+}) => {
   const { docs } = UseFirestore("images");
-
-  const getBuddies = async () => {
-    try {
-      const res = await axios.get(
-        `/api/profile/buddyProfiles/${match.params.id}`
-      );
-      let empty = true;
-      if (res.data.length > 0) {
-        empty = false;
-      }
-
-      setBudProfiles({
-        profiles: res.data,
-        empty,
-      });
-      console.log(budProfiles);
-    } catch (err) {
-      return (
-        <div className="card-md buddy-card">
-          <h2> Problem Loading Buddies </h2>
-        </div>
-      );
-    }
-  };
 
   const remove = async (profileid) => {
     try {
       await axios.delete(`api/profile/buddy/${profileid}`);
-
       setAlert("Successfully removed", "success");
-      getBuddies();
+      getBuddiesById(match.params.id);
     } catch (err) {
       setAlert(err.response.data.msg, "danger");
     }
   };
 
   useEffect(() => {
-    getBuddies();
-    //eslint-disable-next-line
-  }, []);
+    getProfileById(match.params.id);
+    getBuddiesById(match.params.id);
+  }, [getBuddiesById, getProfileById, match.params.id]);
 
   return loading && profile === null ? (
     <Spinner />
@@ -94,9 +66,7 @@ const Friends1 = ({ profile: { profile, loading }, getProfileById, match }) => {
             <div className="profile-info-box">
               <Link to={`/friends/${profile?.user._id}`} href="#">
                 <p className="border-1">
-                  <span className="f-1">
-                    {profile?.buddies && profile?.buddies.length}
-                  </span>
+                  <span className="f-1">{buddies && buddies.length}</span>
                   <br /> Connections
                 </p>
               </Link>
@@ -116,18 +86,18 @@ const Friends1 = ({ profile: { profile, loading }, getProfileById, match }) => {
             </div>
           </div>
           <hr className="hori" />
-          {budProfiles.empty === null ? (
+          {buddies.empty === null ? (
             // <h3>Loading </h3>
             <Spinner />
           ) : (
             <Fragment>
-              {budProfiles.empty ? (
+              {buddies.empty ? (
                 <Fragment>
                   <h2> You have no buddies </h2>
                 </Fragment>
               ) : (
                 <Fragment>
-                  {budProfiles.profiles.map((profile) => (
+                  {buddies.map((profile) => (
                     <Friend
                       key={profile._id}
                       profile={profile}
@@ -146,8 +116,14 @@ const Friends1 = ({ profile: { profile, loading }, getProfileById, match }) => {
   );
 };
 
+Friends1.propTypes = {
+  getBuddiesById: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getProfileById })(Friends1);
+export default connect(mapStateToProps, { getProfileById, getBuddiesById })(
+  Friends1
+);

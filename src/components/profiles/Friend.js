@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import add from "../../images/noun_Add Friend_2987727 (2).svg";
-import mail from "../../images/noun_Mail_681595.svg";
+import mail from "../../images/chat.svg";
 import { connect } from "react-redux";
 import { sendBuddyRequest } from "../../actions/profile";
 import { motion } from "framer-motion";

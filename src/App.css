@@ -1247,7 +1247,6 @@ a {
   height: 72px;
   background-color: #212121;
   display: flex;
-  /* position: relative; */
   position: fixed;
   top: 0px;
   left: 0px;

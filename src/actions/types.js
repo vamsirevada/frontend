@@ -42,3 +42,5 @@ export const REFERRAL_SUCESS = "REFERRAL_SUCESS";
 export const GET_CHATS = "GET_CHATS";
 export const AFTER_POST_MESSAGE = "AFTER_POST_MESSAGE";
 export const CHAT_ERROR = "CHAT_ERROR";
+export const GET_BUDDIES = "GET_BUDDIES";
+export const GET_BUDDIES_ERROR = "GET_BUDDIES_ERROR";

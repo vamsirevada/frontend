@@ -5,11 +5,14 @@ import {
   CLEAR_PROFILE,
   UPDATE_PROFILE,
   BUDDY_REQUEST_SENT,
-} from '../actions/types';
+  GET_BUDDIES,
+  GET_BUDDIES_ERROR,
+} from "../actions/types";
 
 const initialState = {
   profile: null,
   profiles: [],
+  buddies: [],
   groupprofiles: [],
   loading: true,
   error: {},
@@ -27,12 +30,6 @@ export default function (state = initialState, action) {
         profile: payload,
         loading: false,
       };
-    // case GET_GROUP_PROFILE:
-    //   return {
-    //     ...state,
-    //     groupprofile: payload,
-    //     loading: false,
-    //   };
     case BUDDY_REQUEST_SENT:
       return {
         ...state,
@@ -54,6 +51,19 @@ export default function (state = initialState, action) {
     case CLEAR_PROFILE:
       return {
         ...state,
+        profile: null,
+        loading: false,
+      };
+    case GET_BUDDIES:
+      return {
+        ...state,
+        buddies: payload,
+        loading: false,
+      };
+    case GET_BUDDIES_ERROR:
+      return {
+        ...state,
+        error: payload,
         profile: null,
         loading: false,
       };
