@@ -123,13 +123,8 @@ const CreateGroupProfile = ({ createProfile, history }) => {
                   ></textarea>
                 </div>
                 <br />
-<<<<<<< HEAD
-                <button type='Submit' className='btn-blue f-right'>
+                <button type='submit' className='btn-blue f-right'>
                   {' '}
-=======
-                <button type="submit" className="btn-blue f-right">
-                  {" "}
->>>>>>> 92518aff17cd7d855ee371c94c6920022d8ac0ba
                   Save changes
                 </button>
                 <br />
