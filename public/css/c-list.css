@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.white {
+  color: #fff;
+}
+
 .c-list {
   width: 100%;
   position: relative;
@@ -64,7 +68,7 @@
 }
 
 .c-list-head .gray {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 16px;
   padding-right: 2rem;
   /* padding-left: 0.25rem; */
@@ -84,7 +88,7 @@
 }
 
 .profile-info-box p {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 14px;
 }
 
@@ -96,6 +100,9 @@
   padding-right: 1rem;
   margin-right: 1rem;
   border-right: 2px solid #000;
+}
+.profile-info-box .border-1.white {
+  border-right: 2px solid #fff;
 }
 
 .c-list-container .search-flex {
@@ -133,7 +140,7 @@
 .search-flex .search.search-1 {
   align-self: flex-start;
   margin-left: 1rem;
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   border: none;
   color: #939393;
   display: none;
@@ -142,7 +149,7 @@
 .search-flex .search .search-btn {
   color: #787878;
   padding: 0.55rem;
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 16px;
   background: transparent;
   margin-right: 1rem;
@@ -198,13 +205,13 @@
 }
 
 .connect-main .connect-left-top .flex-c .second-bold {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 14px;
   color: #5d5d5d;
 }
 
 .connect-main .connect-left-top .flex-c .third-bold {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 12px;
   color: #5d5d5d;
 }
@@ -348,7 +355,7 @@
 .connect-right .pic-1 {
   width: 200px;
   height: 160px;
-  background: url("../images/photo-1554825203-68321ddde262.png") no-repeat
+  background: url('../images/photo-1554825203-68321ddde262.png') no-repeat
     center center/cover;
   border: 10px solid #e2edef;
   border-radius: 15px;
@@ -356,7 +363,7 @@
 .connect-right .pic-2 {
   width: 200px;
   height: 160px;
-  background: url("../images/Component\ 33\ –\ 1.svg") no-repeat center center;
+  background: url('../images/Component\ 33\ –\ 1.svg') no-repeat center center;
   background-size: 30%;
   border: 10px solid #e2edef;
   border-radius: 15px;
@@ -365,7 +372,7 @@
 .connect-right .pic-3 {
   width: 200px;
   height: 160px;
-  background: url("../images/photo-1491406213019-05b162a72c20.png") no-repeat
+  background: url('../images/photo-1491406213019-05b162a72c20.png') no-repeat
     center center/cover;
   border: 10px solid #e2edef;
   border-radius: 15px;
@@ -373,7 +380,7 @@
 .connect-right .pic-4 {
   width: 200px;
   height: 160px;
-  background: url("../images/photo-1504083898675-c896ecdae86e.png") no-repeat
+  background: url('../images/photo-1504083898675-c896ecdae86e.png') no-repeat
     center center/cover;
   border: 10px solid #e2edef;
   border-radius: 15px;
@@ -410,11 +417,11 @@
 }
 
 .project-container .projectitem .project-head .list {
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   font-size: 1rem;
 }
 .project-container .projectitem .project-head .list-4 {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 1rem;
 }
 .project-container .projectitem .project-head .list.list-1 {
@@ -464,11 +471,19 @@
   .list-4,
 .project-container .projectitem .project-body .project-body-container .list-4 {
   color: #5d5d5d;
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 1rem;
 }
 .project-container .projectitem .project-body .project-body-container .list-5 {
   /* padding: 0.75rem 1rem; */
-  font-family: "Lato", sans-serif;
+  font-family: 'Lato', sans-serif;
   margin: 0px 12px;
+}
+
+.profile-flex .profile-right {
+  line-height: 1.75rem;
+}
+
+.profile-right .resize img {
+  display: none;
 }

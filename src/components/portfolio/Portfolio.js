@@ -1,31 +1,31 @@
-import React, { Fragment, useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { getCurrentProfile } from "../../actions/profile";
-import Spinner from "../layout/Spinner";
-import briefcase from "../../images/icons/nounBriefcase.svg";
-import nounEducation from "../../images/icons/noun_education_2177318.svg";
-import nounSkill from "../../images/icons/noun_skill_1863702.svg";
-import nounevent from "../../images/icons/noun_event_1828492.svg";
-import nounAwards from "../../images/icons/noun_Trophy_2135552.svg";
-import f124 from "../../images/Image124.png";
-import EditButton from "./EditButton";
-import PortfolioLeftTop from "./PortfolioLeftTop";
-import PortfolioLeftAbout from "./PortfolioLeftAbout";
-import PortfolioLeftExperience from "./PortfolioLeftExperience";
-import PortfolioLeftEducation from "./PortfolioLeftEducation";
-import PortfolioLeftAwards from "./PortfolioLeftAwards";
-import PortfolioLeftSkill from "./PortfolioLeftSkill";
-import PortfolioLeftEvent from "./PortfolioLeftEvent";
-import PortfolioRightTop from "./PortfolioRightTop";
-import PortfolioRightBody from "./PortfolioRightBody";
-import GPortfolioLeftTeam from "./GPortfolioLeftTeam";
-import GPortfolioLeftPartner from "./GPortfolioLeftPartner";
-import GPortfolioLeftClient from "./GPortfolioLeftClient";
-import GPortfolioLeftContact from "./GPortfolioLeftContact";
-import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
-import InsertPhotoIcon from "@material-ui/icons/InsertPhoto";
-import { Link } from "react-router-dom";
+import React, { Fragment, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getCurrentProfile } from '../../actions/profile';
+import Spinner from '../layout/Spinner';
+import briefcase from '../../images/icons/nounBriefcase.svg';
+import nounEducation from '../../images/icons/noun_education_2177318.svg';
+import nounSkill from '../../images/icons/noun_skill_1863702.svg';
+import nounevent from '../../images/icons/noun_event_1828492.svg';
+import nounAwards from '../../images/icons/noun_Trophy_2135552.svg';
+import f124 from '../../images/Image124.png';
+import EditButton from './EditButton';
+import PortfolioLeftTop from './PortfolioLeftTop';
+import PortfolioLeftAbout from './PortfolioLeftAbout';
+import PortfolioLeftExperience from './PortfolioLeftExperience';
+import PortfolioLeftEducation from './PortfolioLeftEducation';
+import PortfolioLeftAwards from './PortfolioLeftAwards';
+import PortfolioLeftSkill from './PortfolioLeftSkill';
+import PortfolioLeftEvent from './PortfolioLeftEvent';
+import PortfolioRightTop from './PortfolioRightTop';
+import PortfolioRightBody from './PortfolioRightBody';
+import GPortfolioLeftTeam from './GPortfolioLeftTeam';
+import GPortfolioLeftPartner from './GPortfolioLeftPartner';
+import GPortfolioLeftClient from './GPortfolioLeftClient';
+import GPortfolioLeftContact from './GPortfolioLeftContact';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+import { Link } from 'react-router-dom';
 
 const Portfolio = ({
   getCurrentProfile,
@@ -55,11 +55,11 @@ const Portfolio = ({
 
   return (
     <>
-      <div className="ribbon">
-        <a href="#!" onClick={(e) => onClick1(e)} className="ribbon-left">
+      <div className='ribbon'>
+        <a href='#!' onClick={(e) => onClick1(e)} className='ribbon-left'>
           <AssignmentIndIcon />
         </a>
-        <a href="#!" onClick={(e) => onClick2(e)} className="ribbon-right">
+        <a href='#!' onClick={(e) => onClick2(e)} className='ribbon-right'>
           <InsertPhotoIcon />
         </a>
       </div>
@@ -69,33 +69,33 @@ const Portfolio = ({
         <Fragment>
           {profile !== null ? (
             <Fragment>
-              <div id="portfolio">
+              <div id='portfolio'>
                 {displayLeft && (
-                  <div className="portfolio-left">
-                    <div id="left-sidebar">
-                      <div className="left-container">
+                  <div className='portfolio-left'>
+                    <div id='left-sidebar'>
+                      <div className='left-container'>
                         {/* <PortfolioLeftTopIcons /> */}
                         <PortfolioLeftTop profile={profile} />
                         <EditButton profile={profile} />
                         <PortfolioLeftAbout profile={profile} />
                         {profile.founder.length > 0 && (
-                          <div className="prof-exp">
-                            <div className="prof-exp-heading">
+                          <div className='prof-exp'>
+                            <div className='prof-exp-heading'>
                               <h3> Founder </h3>
                             </div>
-                            <hr className="hori" />
+                            <hr className='hori' />
 
-                            <div className="prof-btn">
-                              <div className="prof-btn-flex">
-                                <div className="prof-top prof-top-edu">
-                                  <div className="prof-pic">
-                                    <img src={f124} alt="" />
+                            <div className='prof-btn'>
+                              <div className='prof-btn-flex'>
+                                <div className='prof-top prof-top-edu'>
+                                  <div className='prof-pic'>
+                                    <img src={f124} alt='' />
                                   </div>
                                   <div>
                                     <p>
-                                      <a href="#!" className="bold bold-1">
+                                      <a href='#!' className='bold bold-1'>
                                         {profile.founder}
-                                      </a>{" "}
+                                      </a>{' '}
                                       <br />
                                     </p>
                                   </div>
@@ -105,18 +105,18 @@ const Portfolio = ({
                           </div>
                         )}
                         {profile.teammembers.length > 0 && (
-                          <div className="prof-exp">
-                            <div className="prof-exp-heading">
+                          <div className='prof-exp'>
+                            <div className='prof-exp-heading'>
                               <h3> Team Members </h3>
-                              <a className="text-blue" href="#!">
+                              <a className='text-blue' href='#!'>
                                 View all
                               </a>
                             </div>
 
-                            <hr className="hori" />
+                            <hr className='hori' />
 
-                            <div className="prof-btn">
-                              <div className="prof-btn-flex">
+                            <div className='prof-btn'>
+                              <div className='prof-btn-flex'>
                                 {profile.teammembers.length > 0 ? (
                                   <Fragment>
                                     {profile.teammembers.map((team) => (
@@ -134,15 +134,15 @@ const Portfolio = ({
                           </div>
                         )}
                         {profile.experience.length > 0 && (
-                          <div className="prof-exp">
-                            <div className="prof-exp-heading">
+                          <div className='prof-exp'>
+                            <div className='prof-exp-heading'>
                               <h3>
-                                {" "}
+                                {' '}
                                 <img
-                                  className="resize"
+                                  className='resize'
                                   src={briefcase}
-                                  alt=""
-                                />{" "}
+                                  alt=''
+                                />{' '}
                                 Professional Experience
                               </h3>
                               <div
@@ -151,20 +151,20 @@ const Portfolio = ({
                                 }}
                                 style={{
                                   display:
-                                    profile.experience.length > 2 ? "" : "none",
-                                  color: "#8D4EFF",
-                                  cursor: "pointer",
+                                    profile.experience.length > 2 ? '' : 'none',
+                                  color: '#8D4EFF',
+                                  cursor: 'pointer',
                                 }}
-                                className="text-blue"
+                                className='text-blue'
                               >
                                 See more
                               </div>
                             </div>
 
-                            <hr className="hori" />
+                            <hr className='hori' />
 
-                            <div className="prof-btn">
-                              <div className="prof-btn-flex">
+                            <div className='prof-btn'>
+                              <div className='prof-btn-flex'>
                                 {profile.experience.length > 0 ? (
                                   <Fragment>
                                     {profile.experience
@@ -188,15 +188,15 @@ const Portfolio = ({
                         )}
 
                         {profile.education.length > 0 && (
-                          <div className="prof-exp">
-                            <div className="prof-exp-heading">
+                          <div className='prof-exp'>
+                            <div className='prof-exp-heading'>
                               <h3>
-                                {" "}
+                                {' '}
                                 <img
-                                  className="resize-1"
+                                  className='resize-1'
                                   src={nounEducation}
-                                  alt=""
-                                />{" "}
+                                  alt=''
+                                />{' '}
                                 Education
                               </h3>
                               <div
@@ -205,17 +205,17 @@ const Portfolio = ({
                                 }}
                                 style={{
                                   display:
-                                    profile.education.length > 2 ? "" : "none",
-                                  color: "#8D4EFF",
-                                  cursor: "pointer",
+                                    profile.education.length > 2 ? '' : 'none',
+                                  color: '#8D4EFF',
+                                  cursor: 'pointer',
                                 }}
-                                className="text-blue"
+                                className='text-blue'
                               >
                                 See more
                               </div>
                             </div>
 
-                            <hr className="hori" />
+                            <hr className='hori' />
 
                             {profile.education.length > 0 ? (
                               <Fragment>
@@ -238,18 +238,18 @@ const Portfolio = ({
                         )}
 
                         {profile.partners.length > 0 && (
-                          <div className="prof-exp">
-                            <div className="prof-exp-heading">
+                          <div className='prof-exp'>
+                            <div className='prof-exp-heading'>
                               <h3>Our Partners</h3>
-                              <a className="text-blue" href="#!">
+                              <a className='text-blue' href='#!'>
                                 See more
                               </a>
                             </div>
 
-                            <hr className="hori" />
+                            <hr className='hori' />
 
-                            <div className="prof-btn">
-                              <div className="prof-btn-flex">
+                            <div className='prof-btn'>
+                              <div className='prof-btn-flex'>
                                 {profile.partners.length > 0 ? (
                                   <Fragment>
                                     {profile.partners.map((partner) => (
@@ -268,18 +268,18 @@ const Portfolio = ({
                         )}
 
                         {profile.clients.length > 0 && (
-                          <div className="prof-exp">
-                            <div className="prof-exp-heading">
+                          <div className='prof-exp'>
+                            <div className='prof-exp-heading'>
                               <h3> Our Cilents</h3>
-                              <a className="text-blue" href="#!">
+                              <a className='text-blue' href='#!'>
                                 See more
                               </a>
                             </div>
 
-                            <hr className="hori" />
+                            <hr className='hori' />
 
-                            <div className="prof-btn">
-                              <div className="prof-btn-flex">
+                            <div className='prof-btn'>
+                              <div className='prof-btn-flex'>
                                 {profile.clients.length > 0 ? (
                                   <Fragment>
                                     {profile.clients.map((client) => (
@@ -298,15 +298,15 @@ const Portfolio = ({
                         )}
 
                         {profile.awards.length > 0 && (
-                          <div className="prof-exp">
-                            <div className="prof-exp-heading">
+                          <div className='prof-exp'>
+                            <div className='prof-exp-heading'>
                               <h3>
-                                {" "}
+                                {' '}
                                 <img
-                                  className="resize"
+                                  className='resize'
                                   src={nounAwards}
-                                  alt=""
-                                />{" "}
+                                  alt=''
+                                />{' '}
                                 Awards & Honours
                               </h3>
                               <div
@@ -315,17 +315,17 @@ const Portfolio = ({
                                 }}
                                 style={{
                                   display:
-                                    profile.awards.length > 2 ? "" : "none",
-                                  color: "#8D4EFF",
-                                  cursor: "pointer",
+                                    profile.awards.length > 2 ? '' : 'none',
+                                  color: '#8D4EFF',
+                                  cursor: 'pointer',
                                 }}
-                                className="text-blue"
+                                className='text-blue'
                               >
                                 See more
                               </div>
                             </div>
 
-                            <hr className="hori" />
+                            <hr className='hori' />
                             {profile.awards.length > 0 ? (
                               <Fragment>
                                 {profile.awards
@@ -347,15 +347,15 @@ const Portfolio = ({
                         )}
 
                         {profile.skills.length > 0 && (
-                          <div className="prof-exp">
-                            <div className="prof-exp-heading">
+                          <div className='prof-exp'>
+                            <div className='prof-exp-heading'>
                               <h3>
-                                {" "}
+                                {' '}
                                 <img
-                                  className="resize-1"
+                                  className='resize-1'
                                   src={nounSkill}
-                                  alt=""
-                                />{" "}
+                                  alt=''
+                                />{' '}
                                 Skills
                               </h3>
                               <div
@@ -364,20 +364,20 @@ const Portfolio = ({
                                 }}
                                 style={{
                                   display:
-                                    profile.skills.length > 2 ? "" : "none",
-                                  color: "#8D4EFF",
-                                  cursor: "pointer",
+                                    profile.skills.length > 2 ? '' : 'none',
+                                  color: '#8D4EFF',
+                                  cursor: 'pointer',
                                 }}
-                                className="text-blue"
+                                className='text-blue'
                               >
                                 See more
                               </div>
                             </div>
 
-                            <hr className="hori" />
+                            <hr className='hori' />
 
-                            <div className="prof-btn">
-                              <div className="prof-btn-flex">
+                            <div className='prof-btn'>
+                              <div className='prof-btn-flex'>
                                 {profile.skills.length > 0 && (
                                   <Fragment>
                                     {profile.skills
@@ -398,15 +398,15 @@ const Portfolio = ({
                           </div>
                         )}
                         {profile.events.length > 0 && (
-                          <div className="prof-exp">
-                            <div className="prof-exp-heading">
+                          <div className='prof-exp'>
+                            <div className='prof-exp-heading'>
                               <h3>
-                                {" "}
+                                {' '}
                                 <img
-                                  className="resize-1"
+                                  className='resize-1'
                                   src={nounevent}
-                                  alt=""
-                                />{" "}
+                                  alt=''
+                                />{' '}
                                 Events
                               </h3>
                               <div
@@ -415,20 +415,20 @@ const Portfolio = ({
                                 }}
                                 style={{
                                   display:
-                                    profile.events.length > 2 ? "" : "none",
-                                  color: "#8D4EFF",
-                                  cursor: "pointer",
+                                    profile.events.length > 2 ? '' : 'none',
+                                  color: '#8D4EFF',
+                                  cursor: 'pointer',
                                 }}
-                                className="text-blue"
+                                className='text-blue'
                               >
                                 See more
                               </div>
                             </div>
 
-                            <hr className="hori" />
+                            <hr className='hori' />
 
-                            <div className="prof-btn">
-                              <div className="prof-btn-flex">
+                            <div className='prof-btn'>
+                              <div className='prof-btn-flex'>
                                 {profile.events.length > 0 && (
                                   <Fragment>
                                     {profile.events
@@ -449,19 +449,19 @@ const Portfolio = ({
                           </div>
                         )}
                         {profile.contactus.length > 0 && (
-                          <div className="prof-exp">
-                            <div className="prof-exp-heading">
+                          <div className='prof-exp'>
+                            <div className='prof-exp-heading'>
                               <h3>Contact Us:</h3>
-                              <a className="text-blue" href="#!">
+                              <a className='text-blue' href='#!'>
                                 See more
                               </a>
                             </div>
 
-                            <hr className="hori" />
+                            <hr className='hori' />
 
-                            <div className="prof-btn">
-                              <div className="prof-btn-flex">
-                                <div className="profile-table profile-table-1">
+                            <div className='prof-btn'>
+                              <div className='prof-btn-flex'>
+                                <div className='profile-table profile-table-1'>
                                   {profile.contactus.map((contactus) => (
                                     <GPortfolioLeftContact
                                       key={contactus._id}
@@ -473,19 +473,20 @@ const Portfolio = ({
                             </div>
                           </div>
                         )}
-                        {profile.experience.length === 0 ? (
-                          <div className="add-profile">
+                        {profile.experience.length === 0 &&
+                        profile.founder.length === 0 ? (
+                          <div className='add-profile'>
                             <hr />
                             <p>
                               To add Experience/ Education/ Skills/
                               Team-Members/ Awards etc., Click Add to Profile
                             </p>
-                            <Link to="/profile" className="btn-white">
+                            <Link to='/profile' className='btn-white'>
                               Add Profile
                             </Link>
                           </div>
                         ) : (
-                          <p className="hide"> noting</p>
+                          <p className='hide'> noting</p>
                         )}
                       </div>
                     </div>
@@ -493,13 +494,13 @@ const Portfolio = ({
                 )}
 
                 {displayRight && (
-                  <div className="portfolio-right">
-                    <div id="main-grid" className="port-grid">
-                      <div className="main-grid-container">
+                  <div className='portfolio-right'>
+                    <div id='main-grid' className='port-grid'>
+                      <div className='main-grid-container'>
                         {profile !== null && (
                           <PortfolioRightTop profile={profile} />
                         )}
-                        <div className="main-grid-body">
+                        <div className='main-grid-body'>
                           {profile !== null && (
                             <PortfolioRightBody profile={profile} />
                           )}
