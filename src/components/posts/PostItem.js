@@ -57,7 +57,7 @@ const PostItem = ({
             />
           </div>
 
-          <a href="#!" className="bold bold-1">
+          <a className="bold bold-1">
             {" "}
             {fullName && fullName} {groupName && groupName} (
             {userName && userName})<br />{" "}
@@ -72,7 +72,6 @@ const PostItem = ({
         </div>
         <a
           style={{ display: userName === auth.user.userName ? "" : "none" }}
-          href="#!"
           onClick={() => toogleDot(!displayDot)}
           className="three-dots"
         >
@@ -85,9 +84,7 @@ const PostItem = ({
                 <ul>
                   <Fragment>
                     <li>
-                      <a onClick={(e) => deletePost(_id)} href="#!">
-                        Delete post
-                      </a>
+                      <a onClick={(e) => deletePost(_id)}>Delete post</a>
                     </li>
                   </Fragment>
                 </ul>
@@ -171,7 +168,7 @@ const PostItem = ({
             </div>
           </div>
           <div className="des-right">
-            <a href="#!" className="d-1">
+            <a className="d-1">
               <span className="f-1">{likes.length > 0 && likes.length}</span>{" "}
               Likes
             </a>
@@ -191,50 +188,50 @@ const PostItem = ({
           </div>
         </div>
       ) : (
-          <div className="flex-des">
-            <div className="pic-des-1">
-              <div onClick={(e) => onLike(e)}>
-                {displayLbtn ? (
-                  <Fragment>
-                    <div onClick={(e) => removeLike(_id)}>
-                      <img className="r-1" src={yheart} alt="" />
-                      <span className="d-1">Liked</span>
-                    </div>
-                  </Fragment>
-                ) : (
-                  <Fragment>
-                    <div onClick={(e) => addLike(_id)}>
-                      <img className="r-1" src={heart} alt="" />
-                      <span className="d-1">Like</span>
-                    </div>
-                  </Fragment>
-                )}
-              </div>
-              <div onClick={() => toogleAddCmt(!displayAddCmt)}>
-                <img className="r-1" src={com} alt="" />
-                <span className="d-1">Comment</span>
-              </div>
+        <div className="flex-des">
+          <div className="pic-des-1">
+            <div onClick={(e) => onLike(e)}>
+              {displayLbtn ? (
+                <Fragment>
+                  <div onClick={(e) => removeLike(_id)}>
+                    <img className="r-1" src={yheart} alt="" />
+                    <span className="d-1">Liked</span>
+                  </div>
+                </Fragment>
+              ) : (
+                <Fragment>
+                  <div onClick={(e) => addLike(_id)}>
+                    <img className="r-1" src={heart} alt="" />
+                    <span className="d-1">Like</span>
+                  </div>
+                </Fragment>
+              )}
             </div>
-            <div className="des-right">
-              <a href="#!" className="d-1">
-                <span className="f-1">{likes.length > 0 && likes.length}</span>{" "}
-                Likes
-              </a>
-              <Link
-                to={`/posts/${_id}`}
-                onClick={() => {
-                  toogleComment(!displayComment);
-                  toogleAddCmt(!displayAddCmt);
-                }}
-                className="d-1"
-              >
-                <span className="f-1">
-                  {comments.length > 0 && comments.length}
-                </span>{" "}
-                Comment
-              </Link>
+            <div onClick={() => toogleAddCmt(!displayAddCmt)}>
+              <img className="r-1" src={com} alt="" />
+              <span className="d-1">Comment</span>
             </div>
           </div>
+          <div className="des-right">
+            <a className="d-1">
+              <span className="f-1">{likes.length > 0 && likes.length}</span>{" "}
+              Likes
+            </a>
+            <Link
+              to={`/posts/${_id}`}
+              onClick={() => {
+                toogleComment(!displayComment);
+                toogleAddCmt(!displayAddCmt);
+              }}
+              className="d-1"
+            >
+              <span className="f-1">
+                {comments.length > 0 && comments.length}
+              </span>{" "}
+              Comment
+            </Link>
+          </div>
+        </div>
       )}
       {displayComment && (
         <div className="comments">
@@ -250,21 +247,6 @@ const PostItem = ({
       )}
 
       {displayAddCmt && <CommentForm postId={_id} />}
-
-      {/* <!-- comment box --> */}
-      {/* <div className='comment-box'>
-        <div>
-          <input
-            className='cmt-1'
-            type='text'
-            name='comment'
-            placeholder='Write a Comment...'
-          />
-        </div>
-        <a href='#!' className='btn-blue'>
-          <img src={plane} alt='' />
-        </a>
-      </div> */}
     </div>
   );
 };

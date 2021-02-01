@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -64,13 +65,13 @@ const Friends1 = ({
             </div>
 
             <div className="profile-info-box">
-              <Link to={`/friends/${profile?.user._id}`} href="#">
+              <Link to={`/friends/${profile?.user._id}`}>
                 <p className="border-1">
                   <span className="f-1">{buddies && buddies.length}</span>
                   <br /> Connections
                 </p>
               </Link>
-              <Link to={`/projects/${profile?.user._id}`} href="#">
+              <Link to={`/projects/${profile?.user._id}`}>
                 <p>
                   <span className="f-1">
                     {profile?.experience && profile?.experience.length}
@@ -87,7 +88,6 @@ const Friends1 = ({
           </div>
           <hr className="hori" />
           {buddies.empty === null ? (
-            // <h3>Loading </h3>
             <Spinner />
           ) : (
             <Fragment>

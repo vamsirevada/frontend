@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
@@ -146,18 +147,6 @@ const Groupregister = ({ setAlert, groupRegister, isAuthenticated }) => {
                 />
               </div>
 
-              {/* <div className='usergroup'>
-                <label for='referral-code' className='signup-label'>
-                  Enter the referral code{' '}
-                  <a href='referral.html'>
-                    <span className='referral-request'>
-                      Don't have a referral-code?
-                    </span>
-                  </a>
-                </label>
-                <input type='text' name='code' className='btn-light' />
-              </div> */}
-
               <div className='usergroup'>
                 <label htmlFor='create-password' className='signup-label'>
                   Create Password
@@ -205,15 +194,9 @@ const Groupregister = ({ setAlert, groupRegister, isAuthenticated }) => {
                   }}
                 />{' '}
                 Creating an account means you’re agree with our{' '}
-                <a className='referral-request' href='#!'>
-                  Terms of Service
-                </a>
-                ,
-                <a className='referral-request' href='#!'>
-                  {' '}
-                  Privacy Policy
-                </a>
-                , and our default Notification Settings.
+                <a className='referral-request'>Terms of Service</a>,
+                <a className='referral-request'> Privacy Policy</a>, and our
+                default Notification Settings.
               </div>
 
               <button type='Submit' className='btn-yellow'>

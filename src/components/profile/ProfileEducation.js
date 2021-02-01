@@ -1,28 +1,29 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Moment from 'react-moment';
-import { deleteEducation } from '../../actions/profile';
-import { connect } from 'react-redux';
-import nounPlus from '../../images/icons/noun_Plus_2310779.svg';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React from "react";
+import PropTypes from "prop-types";
+import Moment from "react-moment";
+import { deleteEducation } from "../../actions/profile";
+import { connect } from "react-redux";
+import nounPlus from "../../images/icons/noun_Plus_2310779.svg";
 
 const ProfileEducation = ({
   education: { _id, school, degree, fieldofstudy, from, to },
   deleteEducation,
 }) => (
-  <div className='btn-gray'>
-    <div className='flex-1'>
+  <div className="btn-gray">
+    <div className="flex-1">
       {/* <div className='prof-dp'></div> */}
-      <div className='m-1'>
+      <div className="m-1">
         {school}
         <br />
         {degree}, {fieldofstudy}
-        <a href='#!' className='cross-2' onClick={() => deleteEducation(_id)}>
-          <img src={nounPlus} alt='' />
+        <a className="cross-2" onClick={() => deleteEducation(_id)}>
+          <img src={nounPlus} alt="" />
         </a>
         <br />
-        <span className='font-light'>
-          <Moment format='MMM YYYY'>{from}</Moment> -{' '}
-          {to === null ? 'Now' : <Moment format='MMM YYYY'>{to}</Moment>}
+        <span className="font-light">
+          <Moment format="MMM YYYY">{from}</Moment> -{" "}
+          {to === null ? "Now" : <Moment format="MMM YYYY">{to}</Moment>}
         </span>
       </div>
     </div>

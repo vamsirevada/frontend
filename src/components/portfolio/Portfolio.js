@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -26,6 +27,37 @@ import GPortfolioLeftContact from './GPortfolioLeftContact';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import { Link } from 'react-router-dom';
+=======
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { Fragment, useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { getCurrentProfile } from "../../actions/profile";
+import Spinner from "../layout/Spinner";
+import briefcase from "../../images/icons/nounBriefcase.svg";
+import nounEducation from "../../images/icons/noun_education_2177318.svg";
+import nounSkill from "../../images/icons/noun_skill_1863702.svg";
+import nounevent from "../../images/icons/noun_event_1828492.svg";
+import nounAwards from "../../images/icons/noun_Trophy_2135552.svg";
+import f124 from "../../images/Image124.png";
+import EditButton from "./EditButton";
+import PortfolioLeftTop from "./PortfolioLeftTop";
+import PortfolioLeftAbout from "./PortfolioLeftAbout";
+import PortfolioLeftExperience from "./PortfolioLeftExperience";
+import PortfolioLeftEducation from "./PortfolioLeftEducation";
+import PortfolioLeftAwards from "./PortfolioLeftAwards";
+import PortfolioLeftSkill from "./PortfolioLeftSkill";
+import PortfolioLeftEvent from "./PortfolioLeftEvent";
+import PortfolioRightTop from "./PortfolioRightTop";
+import PortfolioRightBody from "./PortfolioRightBody";
+import GPortfolioLeftTeam from "./GPortfolioLeftTeam";
+import GPortfolioLeftPartner from "./GPortfolioLeftPartner";
+import GPortfolioLeftClient from "./GPortfolioLeftClient";
+import GPortfolioLeftContact from "./GPortfolioLeftContact";
+import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
+import InsertPhotoIcon from "@material-ui/icons/InsertPhoto";
+import { Link } from "react-router-dom";
+>>>>>>> 9d08fede18260942a8410a3ee91ea8c40531ffc5
 
 const Portfolio = ({
   getCurrentProfile,
@@ -55,11 +87,19 @@ const Portfolio = ({
 
   return (
     <>
+<<<<<<< HEAD
       <div className='ribbon'>
         <a href='#!' onClick={(e) => onClick1(e)} className='ribbon-left'>
           <AssignmentIndIcon />
         </a>
         <a href='#!' onClick={(e) => onClick2(e)} className='ribbon-right'>
+=======
+      <div className="ribbon">
+        <a onClick={(e) => onClick1(e)} className="ribbon-left">
+          <AssignmentIndIcon />
+        </a>
+        <a onClick={(e) => onClick2(e)} className="ribbon-right">
+>>>>>>> 9d08fede18260942a8410a3ee91ea8c40531ffc5
           <InsertPhotoIcon />
         </a>
       </div>
@@ -93,7 +133,11 @@ const Portfolio = ({
                                   </div>
                                   <div>
                                     <p>
+<<<<<<< HEAD
                                       <a href='#!' className='bold bold-1'>
+=======
+                                      <a className="bold bold-1">
+>>>>>>> 9d08fede18260942a8410a3ee91ea8c40531ffc5
                                         {profile.founder}
                                       </a>{' '}
                                       <br />
@@ -108,9 +152,13 @@ const Portfolio = ({
                           <div className='prof-exp'>
                             <div className='prof-exp-heading'>
                               <h3> Team Members </h3>
+<<<<<<< HEAD
                               <a className='text-blue' href='#!'>
                                 View all
                               </a>
+=======
+                              <a className="text-blue">View all</a>
+>>>>>>> 9d08fede18260942a8410a3ee91ea8c40531ffc5
                             </div>
 
                             <hr className='hori' />
@@ -241,9 +289,13 @@ const Portfolio = ({
                           <div className='prof-exp'>
                             <div className='prof-exp-heading'>
                               <h3>Our Partners</h3>
+<<<<<<< HEAD
                               <a className='text-blue' href='#!'>
                                 See more
                               </a>
+=======
+                              <a className="text-blue">See more</a>
+>>>>>>> 9d08fede18260942a8410a3ee91ea8c40531ffc5
                             </div>
 
                             <hr className='hori' />
@@ -271,9 +323,13 @@ const Portfolio = ({
                           <div className='prof-exp'>
                             <div className='prof-exp-heading'>
                               <h3> Our Cilents</h3>
+<<<<<<< HEAD
                               <a className='text-blue' href='#!'>
                                 See more
                               </a>
+=======
+                              <a className="text-blue">See more</a>
+>>>>>>> 9d08fede18260942a8410a3ee91ea8c40531ffc5
                             </div>
 
                             <hr className='hori' />
@@ -452,9 +508,13 @@ const Portfolio = ({
                           <div className='prof-exp'>
                             <div className='prof-exp-heading'>
                               <h3>Contact Us:</h3>
+<<<<<<< HEAD
                               <a className='text-blue' href='#!'>
                                 See more
                               </a>
+=======
+                              <a className="text-blue">See more</a>
+>>>>>>> 9d08fede18260942a8410a3ee91ea8c40531ffc5
                             </div>
 
                             <hr className='hori' />

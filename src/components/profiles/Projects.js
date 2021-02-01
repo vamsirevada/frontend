@@ -42,7 +42,7 @@ const Projects = ({ match, getProfileById, profile: { profile, loading } }) => {
             </div>
 
             <div className="profile-info-box">
-              <Link to={`/friends/${profile?.user._id}`} href="#">
+              <Link to={`/friends/${profile?.user._id}`}>
                 <p className="border-1">
                   <span className="f-1">
                     {profile?.buddies && profile?.buddies.length}
@@ -50,7 +50,7 @@ const Projects = ({ match, getProfileById, profile: { profile, loading } }) => {
                   <br /> Connections
                 </p>
               </Link>
-              <Link to={`/projects/${profile?.user._id}`} href="#">
+              <Link to={`/projects/${profile?.user._id}`}>
                 <p>
                   <span className="f-1">
                     {profile?.experience && profile?.experience.length}

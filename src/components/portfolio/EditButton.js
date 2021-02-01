@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import share from "../../images/icons/noun_Share_3136056 copy.svg";
@@ -8,14 +9,9 @@ const EditButton = ({ profile }) => {
     <Fragment>
       <div className="btns">
         <Link to="profile" className={`btn-white `}>
-          {/* <img className='resize' src={add} alt='' /> */}
           Add/Edit Profile
         </Link>
-        <a
-          href="#!"
-          onClick={() => toogleAdd(!displayAdd)}
-          className="btn-yellow"
-        >
+        <a onClick={() => toogleAdd(!displayAdd)} className="btn-yellow">
           <img className="resize" src={share} alt="" />
           Share
         </a>

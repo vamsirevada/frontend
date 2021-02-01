@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from "react";
 import { getCurrentProfile } from "../../actions/profile";
 import { getBuddyPosts } from "../../actions/post";
@@ -5,7 +6,7 @@ import { connect } from "react-redux";
 import MiniPortfolio from "../portfolio/MiniPortfolio";
 import Posts from "../posts/Posts";
 import PostForm from "../posts/PostForm";
-import Chat from "../chat/Chat";
+// import Chat from "../chat/Chat";
 import FriendRequests from "./FriendRequests";
 import notify from "../../images/noun_notification_887294.svg";
 import BallotIcon from "@material-ui/icons/Ballot";
@@ -38,10 +39,10 @@ const Feed = ({
   return (
     <>
       <div className="ribbon">
-        <a href="#!" onClick={(e) => onClick1(e)} className="ribbon-left">
+        <a onClick={(e) => onClick1(e)} className="ribbon-left">
           <BallotIcon />
         </a>
-        <a href="#!" onClick={(e) => onClick2(e)} className="ribbon-right">
+        <a onClick={(e) => onClick2(e)} className="ribbon-right">
           <img src={notify} alt="portfolioe" />
         </a>
       </div>
@@ -65,7 +66,7 @@ const Feed = ({
           {displayRight && (
             <div className="right">
               <FriendRequests />
-              <Chat />
+              {/* <Chat /> */}
             </div>
           )}
         </div>

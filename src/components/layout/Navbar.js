@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, Fragment, useEffect, useContext } from "react";
 import axios from "axios";
 import maskGroup from "../../images/maskGroup.svg";
@@ -15,7 +16,7 @@ import ArtTrackIcon from "@material-ui/icons/ArtTrack";
 import { grey } from "@material-ui/core/colors";
 import logo from "../../images/dummyimage.jpg";
 
-const Navbar = ({ logout }) => {
+const Navbar = ({ auth, logout }) => {
   const history = useHistory();
   const [displayMenu, toogleMenu] = useState(false);
   const { Addsearch, clearSearch } = useContext(SearchContext);
@@ -44,7 +45,7 @@ const Navbar = ({ logout }) => {
     <Fragment>
       <div className="navbar">
         <div className="s-logo">
-          <a href="#!">
+          <a>
             <img src={maskGroup} alt="Vanity" />
           </a>
         </div>
@@ -94,7 +95,7 @@ const Navbar = ({ logout }) => {
                 </Link>
               </li>
               <li>
-                <Link to="/chat" className="chat icon">
+                <Link to={`/chats/${auth.user._id}`} className="chat icon">
                   <img src={chat} alt="chat" />
                 </Link>
               </li>
@@ -121,7 +122,7 @@ const Navbar = ({ logout }) => {
                         <Link to="/invite"> Invite Friends</Link>
                       </li>
                       <li>
-                        <a onClick={logout} className="signOut" href="#!">
+                        <a onClick={logout} className="signOut" type="button">
                           Log out
                         </a>
                       </li>
@@ -141,4 +142,8 @@ Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
 };
 
-export default connect(null, { logout })(Navbar);
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logout })(Navbar);

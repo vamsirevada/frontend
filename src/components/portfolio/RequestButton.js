@@ -1,8 +1,9 @@
-import React, { useState, useEffect, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import add from '../../images/noun_Add Friend_2987727 (2) 2.svg';
-import { connect } from 'react-redux';
-import { sendBuddyRequest, getProfileById } from '../../actions/profile';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useState, useEffect, Fragment } from "react";
+import PropTypes from "prop-types";
+import add from "../../images/noun_Add Friend_2987727 (2) 2.svg";
+import { connect } from "react-redux";
+import { sendBuddyRequest, getProfileById } from "../../actions/profile";
 
 const RequestButton = ({
   peerid,
@@ -13,7 +14,7 @@ const RequestButton = ({
   isGroup,
   user,
 }) => {
-  const [btn, setBtn] = useState({ text: 'Button Loading', disabled: true });
+  const [btn, setBtn] = useState({ text: "Button Loading", disabled: true });
 
   const findRequestState = () => {
     let { requests, buddies } = profile;
@@ -24,7 +25,7 @@ const RequestButton = ({
     exists = buddies.filter((buddy) => buddy === user._id);
     if (exists.length > 0) {
       return setBtn({
-        text: 'friend',
+        text: "friend",
         disabled: true,
       });
     }
@@ -42,14 +43,14 @@ const RequestButton = ({
     exists = requests.filter((request) => request === user._id);
     if (exists.length > 0) {
       return setBtn({
-        text: 'requested',
+        text: "requested",
         disabled: true,
       });
     }
 
     // Set to default
     return setBtn({
-      text: 'Connect',
+      text: "Connect",
       disabled: false,
     });
   };
@@ -72,14 +73,13 @@ const RequestButton = ({
 
   return (
     <Fragment>
-      <div className='btns'>
+      <div className="btns">
         <a
-          href='#!'
           className={`btn-white ${btn.text}`}
           disabled={btn.disabled}
           onClick={() => onClick()}
         >
-          <img className='resize' src={add} alt='' />
+          <img className="resize" src={add} alt="" />
           {btn.text}
         </a>
       </div>

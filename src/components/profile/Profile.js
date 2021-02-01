@@ -1,30 +1,31 @@
-import React, { Fragment, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import Spinner from '../layout/Spinner';
-import { connect } from 'react-redux';
-import { getProfileById } from '../../actions/profile';
-import briefcase from '../../images/icons/nounBriefcase.svg';
-import nounEducation from '../../images/icons/noun_education_2177318.svg';
-import nounAwards from '../../images/icons/noun_Trophy_2135552.svg';
-import nounSkill from '../../images/icons/noun_skill_1863702.svg';
-import nounevent from '../../images/icons/noun_event_1828492.svg';
-import part from '../../images/specialisation.svg';
-import cli from '../../images/client.svg';
-import ProfileTop from './ProfileTop';
-import ProfileAbout from './ProfileAbout';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { Fragment, useEffect } from "react";
+import PropTypes from "prop-types";
+import Spinner from "../layout/Spinner";
+import { connect } from "react-redux";
+import { getProfileById } from "../../actions/profile";
+import briefcase from "../../images/icons/nounBriefcase.svg";
+import nounEducation from "../../images/icons/noun_education_2177318.svg";
+import nounAwards from "../../images/icons/noun_Trophy_2135552.svg";
+import nounSkill from "../../images/icons/noun_skill_1863702.svg";
+import nounevent from "../../images/icons/noun_event_1828492.svg";
+import part from "../../images/specialisation.svg";
+import cli from "../../images/client.svg";
+import ProfileTop from "./ProfileTop";
+import ProfileAbout from "./ProfileAbout";
 // import ProfileExperience from './ProfileExperience';
-import ProfileEducation from './ProfileEducation';
-import ProfileAward from './ProfileAward';
-import ProfileSkill from './ProfileSkill';
-import ProfileEvent from './ProfileEvent';
-import GroupProfileFound from './GroupProfileFound';
-import GroupTeamMember from './GroupTeamMember';
-import GroupPartner from './GroupPartner';
-import GroupClient from './GroupClient';
-import GroupContact from './GroupContact';
-import { deleteExperience } from '../../actions/profile';
-import Moment from 'react-moment';
-import nounPlus from '../../images/icons/noun_Plus_2310779.svg';
+import ProfileEducation from "./ProfileEducation";
+import ProfileAward from "./ProfileAward";
+import ProfileSkill from "./ProfileSkill";
+import ProfileEvent from "./ProfileEvent";
+import GroupProfileFound from "./GroupProfileFound";
+import GroupTeamMember from "./GroupTeamMember";
+import GroupPartner from "./GroupPartner";
+import GroupClient from "./GroupClient";
+import GroupContact from "./GroupContact";
+import { deleteExperience } from "../../actions/profile";
+import Moment from "react-moment";
+import nounPlus from "../../images/icons/noun_Plus_2310779.svg";
 
 const Profile = ({
   getProfileById,
@@ -43,24 +44,24 @@ const Profile = ({
         <Spinner />
       ) : (
         <Fragment>
-          <div id='c-profile'>
-            <div className='container'>
-              <div className='create-container'>
-                <div className='profile'>
-                  <div className='prof-heading'>
-                    <h2 className='heading-1'>
-                      <span className='m-1'>Profile Details</span>{' '}
+          <div id="c-profile">
+            <div className="container">
+              <div className="create-container">
+                <div className="profile">
+                  <div className="prof-heading">
+                    <h2 className="heading-1">
+                      <span className="m-1">Profile Details</span>{" "}
                     </h2>
                   </div>
                 </div>
                 <ProfileTop profile={profile} />
                 <ProfileAbout profile={profile} />
-                <hr className='new' />
+                <hr className="new" />
                 {profile.founder.length > 0 && (
-                  <div id='prof-exp'>
-                    <div className='prof-exp-container'>
-                      <div className='prof-btn'>
-                        <div className='prof-btn-grid'>
+                  <div id="prof-exp">
+                    <div className="prof-exp-container">
+                      <div className="prof-btn">
+                        <div className="prof-btn-grid">
                           {profile.founder.length > 0 && (
                             <Fragment>
                               {profile.founder.map((founder) => (
@@ -74,25 +75,25 @@ const Profile = ({
                         </div>
                       </div>
                     </div>
-                    <hr className='new'></hr>
+                    <hr className="new"></hr>
                   </div>
                 )}
                 {profile.experience.length > 0 && (
-                  <div id='prof-exp'>
-                    <div className='prof-exp-container'>
-                      <div className='prof-heading'>
+                  <div id="prof-exp">
+                    <div className="prof-exp-container">
+                      <div className="prof-heading">
                         <h3>
                           <img
-                            className='breifcase'
+                            className="breifcase"
                             src={briefcase}
-                            alt='briefcase'
-                          />{' '}
-                          <span className='m-1'>Professional Experience</span>{' '}
+                            alt="briefcase"
+                          />{" "}
+                          <span className="m-1">Professional Experience</span>{" "}
                         </h3>
                       </div>
 
-                      <div className='prof-btn'>
-                        <div className='prof-btn-grid'>
+                      <div className="prof-btn">
+                        <div className="prof-btn-grid">
                           {profile.experience.length > 0 ? (
                             <Fragment>
                               {profile.experience.map((experience) => (
@@ -100,30 +101,29 @@ const Profile = ({
                                 //   key={experience._id}
                                 //   experience={experience}
                                 // />
-                                <div className='btn-gray'>
+                                <div className="btn-gray">
                                   <div>
                                     {experience.title}
                                     {experience._id}
                                     <a
-                                      href='#!'
-                                      className='cross-1'
+                                      className="cross-1"
                                       onClick={() =>
                                         deleteExperience(experience._id)
                                       }
                                     >
-                                      <img src={nounPlus} alt='' />
+                                      <img src={nounPlus} alt="" />
                                     </a>
                                     <br />
                                     {experience.company} <br />
-                                    <span className='font-light'>
-                                      <Moment format='MMM YYYY'>
+                                    <span className="font-light">
+                                      <Moment format="MMM YYYY">
                                         {experience.from}
-                                      </Moment>{' '}
-                                      -{' '}
+                                      </Moment>{" "}
+                                      -{" "}
                                       {experience.to === null ? (
-                                        'Now'
+                                        "Now"
                                       ) : (
-                                        <Moment format='MMM YYYY'>
+                                        <Moment format="MMM YYYY">
                                           {experience.to}
                                         </Moment>
                                       )}
@@ -138,26 +138,26 @@ const Profile = ({
                         </div>
                       </div>
                     </div>
-                    <hr className='new' />
+                    <hr className="new" />
                   </div>
                 )}
 
                 {profile.education.length > 0 && (
-                  <div id='prof-exp'>
-                    <div className='prof-exp-container'>
-                      <div className='prof-heading'>
+                  <div id="prof-exp">
+                    <div className="prof-exp-container">
+                      <div className="prof-heading">
                         <h3>
                           <img
-                            className='breifcase'
+                            className="breifcase"
                             src={nounEducation}
-                            alt='edu'
-                          />{' '}
-                          <span className='m-1'>Education</span>{' '}
+                            alt="edu"
+                          />{" "}
+                          <span className="m-1">Education</span>{" "}
                         </h3>
                       </div>
 
-                      <div className='prof-btn-1'>
-                        <div className='prof-btn-grid-1'>
+                      <div className="prof-btn-1">
+                        <div className="prof-btn-grid-1">
                           {profile.education.length > 0 ? (
                             <Fragment>
                               {profile.education.map((education) => (
@@ -173,25 +173,25 @@ const Profile = ({
                         </div>
                       </div>
                     </div>
-                    <hr className='new'></hr>
+                    <hr className="new"></hr>
                   </div>
                 )}
                 {profile.awards.length > 0 && (
-                  <div id='prof-exp'>
-                    <div className='prof-exp-container'>
-                      <div className='prof-heading'>
+                  <div id="prof-exp">
+                    <div className="prof-exp-container">
+                      <div className="prof-heading">
                         <h3>
                           <img
-                            className='breifcase'
+                            className="breifcase"
                             src={nounAwards}
-                            alt='edu'
-                          />{' '}
-                          <span className='m-1'>Awards & honours</span>{' '}
+                            alt="edu"
+                          />{" "}
+                          <span className="m-1">Awards & honours</span>{" "}
                         </h3>
                       </div>
 
-                      <div className='prof-btn-1'>
-                        <div className='prof-btn-grid-1'>
+                      <div className="prof-btn-1">
+                        <div className="prof-btn-grid-1">
                           {profile.awards.length > 0 && (
                             <Fragment>
                               {profile.awards.map((awards) => (
@@ -205,26 +205,26 @@ const Profile = ({
                         </div>
                       </div>
                     </div>
-                    <hr className='new' />
+                    <hr className="new" />
                   </div>
                 )}
 
                 {profile.skills.length > 0 && (
-                  <div id='prof-exp'>
-                    <div className='prof-exp-container'>
-                      <div className='prof-heading'>
+                  <div id="prof-exp">
+                    <div className="prof-exp-container">
+                      <div className="prof-heading">
                         <h3>
                           <img
-                            className='breifcase'
+                            className="breifcase"
                             src={nounSkill}
-                            alt='edu'
-                          />{' '}
-                          <span className='m-1'>Specialised in</span>{' '}
+                            alt="edu"
+                          />{" "}
+                          <span className="m-1">Specialised in</span>{" "}
                         </h3>
                       </div>
 
-                      <div className='prof-btn'>
-                        <div className='prof-btn-grid'>
+                      <div className="prof-btn">
+                        <div className="prof-btn-grid">
                           {profile.skills.length > 0 && (
                             <Fragment>
                               {profile.skills.map((skills) => (
@@ -238,21 +238,21 @@ const Profile = ({
                         </div>
                       </div>
                     </div>
-                    <hr className='new'></hr>
+                    <hr className="new"></hr>
                   </div>
                 )}
 
                 {profile.teammembers.length > 0 && (
-                  <div id='prof-exp'>
-                    <div className='prof-exp-container'>
-                      <div className='prof-heading'>
+                  <div id="prof-exp">
+                    <div className="prof-exp-container">
+                      <div className="prof-heading">
                         <h3>
-                          <span className='m-1'>Team Members </span>{' '}
+                          <span className="m-1">Team Members </span>{" "}
                         </h3>
                       </div>
 
-                      <div className='prof-btn prof-btn-2'>
-                        <div className='prof-btn-grid'>
+                      <div className="prof-btn prof-btn-2">
+                        <div className="prof-btn-grid">
                           {profile.teammembers.length > 0 ? (
                             <Fragment>
                               {profile.teammembers.map((teammember) => (
@@ -268,26 +268,26 @@ const Profile = ({
                         </div>
                       </div>
                     </div>
-                    <hr className='new'></hr>
+                    <hr className="new"></hr>
                   </div>
                 )}
 
                 {profile.events.length > 0 && (
-                  <div id='prof-exp'>
-                    <div className='prof-exp-container'>
-                      <div className='prof-heading'>
+                  <div id="prof-exp">
+                    <div className="prof-exp-container">
+                      <div className="prof-heading">
                         <h3>
                           <img
-                            className='breifcase'
+                            className="breifcase"
                             src={nounevent}
-                            alt='edu'
-                          />{' '}
-                          <span className='m-1'>Events :</span>{' '}
+                            alt="edu"
+                          />{" "}
+                          <span className="m-1">Events :</span>{" "}
                         </h3>
                       </div>
 
-                      <div className='prof-btn-1'>
-                        <div className='prof-btn-grid-1'>
+                      <div className="prof-btn-1">
+                        <div className="prof-btn-grid-1">
                           {profile.events.length > 0 && (
                             <Fragment>
                               {profile.events.map((events) => (
@@ -301,21 +301,21 @@ const Profile = ({
                         </div>
                       </div>
                     </div>
-                    <hr className='new' />
+                    <hr className="new" />
                   </div>
                 )}
                 {profile.partners.length > 0 && (
-                  <div id='prof-exp'>
-                    <div className='prof-exp-container'>
-                      <div className='prof-heading'>
+                  <div id="prof-exp">
+                    <div className="prof-exp-container">
+                      <div className="prof-heading">
                         <h3>
-                          <img className='breifcase' src={part} alt='edu' />{' '}
-                          <span className='m-1'>Our Partners</span>{' '}
+                          <img className="breifcase" src={part} alt="edu" />{" "}
+                          <span className="m-1">Our Partners</span>{" "}
                         </h3>
                       </div>
 
-                      <div className='prof-btn'>
-                        <div className='prof-btn-grid'>
+                      <div className="prof-btn">
+                        <div className="prof-btn-grid">
                           {profile.partners.length > 0 && (
                             <Fragment>
                               {profile.partners.map((partner) => (
@@ -329,21 +329,21 @@ const Profile = ({
                         </div>
                       </div>
                     </div>
-                    <hr className='new'></hr>
+                    <hr className="new"></hr>
                   </div>
                 )}
                 {profile.clients.length > 0 && (
-                  <div id='prof-exp'>
-                    <div className='prof-exp-container'>
-                      <div className='prof-heading'>
+                  <div id="prof-exp">
+                    <div className="prof-exp-container">
+                      <div className="prof-heading">
                         <h3>
-                          <img className='breifcase' src={cli} alt='edu' />{' '}
-                          <span className='m-1'>Our Clients</span>{' '}
+                          <img className="breifcase" src={cli} alt="edu" />{" "}
+                          <span className="m-1">Our Clients</span>{" "}
                         </h3>
                       </div>
 
-                      <div className='prof-btn'>
-                        <div className='prof-btn-grid'>
+                      <div className="prof-btn">
+                        <div className="prof-btn-grid">
                           {profile.clients.length > 0 && (
                             <Fragment>
                               {profile.clients.map((client) => (
@@ -354,20 +354,20 @@ const Profile = ({
                         </div>
                       </div>
                     </div>
-                    <hr className='new'></hr>
+                    <hr className="new"></hr>
                   </div>
                 )}
                 {profile.contactus.length > 0 && (
-                  <div id='prof-exp'>
-                    <div className='prof-exp-container'>
-                      <div className='prof-heading'>
+                  <div id="prof-exp">
+                    <div className="prof-exp-container">
+                      <div className="prof-heading">
                         <h3>
-                          <span className='m-1'>Contact Us </span>{' '}
+                          <span className="m-1">Contact Us </span>{" "}
                         </h3>
                       </div>
 
-                      <div className='prof-btn prof-btn-2'>
-                        <div className='prof-btn-grid prof-btn-grid-g'>
+                      <div className="prof-btn prof-btn-2">
+                        <div className="prof-btn-grid prof-btn-grid-g">
                           {profile.contactus.length > 0 ? (
                             <Fragment>
                               {profile.contactus.map((contactus) => (
