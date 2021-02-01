@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
@@ -56,10 +57,10 @@ const Portfolio = ({
   return (
     <>
       <div className="ribbon">
-        <a href="#!" onClick={(e) => onClick1(e)} className="ribbon-left">
+        <a onClick={(e) => onClick1(e)} className="ribbon-left">
           <AssignmentIndIcon />
         </a>
-        <a href="#!" onClick={(e) => onClick2(e)} className="ribbon-right">
+        <a onClick={(e) => onClick2(e)} className="ribbon-right">
           <InsertPhotoIcon />
         </a>
       </div>
@@ -93,7 +94,7 @@ const Portfolio = ({
                                   </div>
                                   <div>
                                     <p>
-                                      <a href="#!" className="bold bold-1">
+                                      <a className="bold bold-1">
                                         {profile.founder}
                                       </a>{" "}
                                       <br />
@@ -108,9 +109,7 @@ const Portfolio = ({
                           <div className="prof-exp">
                             <div className="prof-exp-heading">
                               <h3> Team Members </h3>
-                              <a className="text-blue" href="#!">
-                                View all
-                              </a>
+                              <a className="text-blue">View all</a>
                             </div>
 
                             <hr className="hori" />
@@ -241,9 +240,7 @@ const Portfolio = ({
                           <div className="prof-exp">
                             <div className="prof-exp-heading">
                               <h3>Our Partners</h3>
-                              <a className="text-blue" href="#!">
-                                See more
-                              </a>
+                              <a className="text-blue">See more</a>
                             </div>
 
                             <hr className="hori" />
@@ -271,9 +268,7 @@ const Portfolio = ({
                           <div className="prof-exp">
                             <div className="prof-exp-heading">
                               <h3> Our Cilents</h3>
-                              <a className="text-blue" href="#!">
-                                See more
-                              </a>
+                              <a className="text-blue">See more</a>
                             </div>
 
                             <hr className="hori" />
@@ -452,9 +447,7 @@ const Portfolio = ({
                           <div className="prof-exp">
                             <div className="prof-exp-heading">
                               <h3>Contact Us:</h3>
-                              <a className="text-blue" href="#!">
-                                See more
-                              </a>
+                              <a className="text-blue">See more</a>
                             </div>
 
                             <hr className="hori" />

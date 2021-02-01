@@ -29,32 +29,6 @@ const Page5 = () => {
             </h3>
           </div>
         </div>
-
-        {/* <div className='box-4'>
-          <ul>
-            <li className='item'>
-              <a href='#'></a>
-            </li>
-            <li className='item'>
-              <a href='#'></a>
-            </li>
-            <li className='item'>
-              <a href='#'></a>
-            </li>
-            <li className='item'>
-              <a href='#'></a>
-            </li>
-            <li className='item'>
-              <a href='#'></a>
-            </li>
-            <li className='item'>
-              <a href='#'></a>
-            </li>
-            <li className='item'>
-              <a href='#'></a>
-            </li>
-          </ul>
-        </div> */}
       </div>
     </Fragment>
   );

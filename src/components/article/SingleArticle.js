@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect } from "react";
 import NavbarBlog from "../layout/NavbarBlog";
 import { connect } from "react-redux";
@@ -45,7 +46,7 @@ const Single = ({ article: { article }, getArticle, clearArticles, match }) => {
                 <div className="container-header">
                   <h1>
                     {" "}
-                    <a href="#!">{title}</a>
+                    <a>{title}</a>
                   </h1>
                   {/* <p>{body}</p> */}
                 </div>
@@ -53,10 +54,6 @@ const Single = ({ article: { article }, getArticle, clearArticles, match }) => {
                 <div className="flex-form">
                   <div className="flex-column1">
                     <p>
-                      {/* <img
-                      src={process.env.PUBLIC_URL + "/images/Image6.png"}
-                      alt=''
-                    />{" "} */}
                       Written By: <span className="flex-text">{author}</span>
                     </p>
                   </div>

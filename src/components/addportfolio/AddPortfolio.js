@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import AddPhoto from "./AddPhoto";
 import AddVideo from "./AddVideos";
@@ -59,28 +60,28 @@ const AddPortfolio = ({ auth: { user } }) => {
             <div className="main-add">
               <div className="main-left">
                 <ul>
-                  <a onClick={(e) => onClick1(e)} href="#!">
+                  <a onClick={(e) => onClick1(e)}>
                     <li className="btn-gray">
                       Images
                       <br />
                       <span className="card">JPG,GIFs,PNG</span>
                     </li>
                   </a>
-                  <a href="#!" onClick={(e) => onClick2(e)}>
+                  <a onClick={(e) => onClick2(e)}>
                     <li className="btn-gray">
                       Videos
                       <br />
                       <span className="card">Mp4</span>
                     </li>
                   </a>
-                  <a href="#!" onClick={(e) => onClick3(e)}>
+                  <a onClick={(e) => onClick3(e)}>
                     <li className="btn-gray">
                       SoundTracks
                       <br />
                       <span className="card">Mp3</span>
                     </li>
                   </a>
-                  <a href="#!" onClick={(e) => onClick4(e)}>
+                  <a onClick={(e) => onClick4(e)}>
                     <li className="btn-gray ">
                       Blog
                       <br />

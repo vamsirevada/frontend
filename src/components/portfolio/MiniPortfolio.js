@@ -5,7 +5,6 @@ import loc from "../../images/icons/noun_Location_3139654.svg";
 import logo from "../../images/dummyimage.jpg";
 
 const MiniPortfolio = ({ profile, loading }) => {
-
   console.log(profile);
 
   return loading && profile === null ? (
@@ -62,17 +61,6 @@ const MiniPortfolio = ({ profile, loading }) => {
               </div>
             </div>
             <hr className="hori" />
-
-            {/* <footer id='left-mini-footer'>
-              <div>
-                <p>
-                  <a href='#!'>Privacy Policy</a> |{' '}
-                  <a href='#!'>Terms of use</a> | <a href='#!'>Support</a>
-                  <br />
-                  care@vanity.com
-                </p>
-              </div>
-            </footer> */}
           </div>
         </Fragment>
       ) : (

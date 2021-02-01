@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Link } from "react-router-dom";
 import add from "../../images/noun_Add Friend_2987727 (2) 2.svg";
@@ -21,20 +22,19 @@ const FriendRequest = ({ profile, user, accept, deny }) => {
           <p>{fullName && fullName}</p>
           <p>{groupName && groupName}</p>
         </Link>
-        {/* <p className='third-bold'>{userName}</p> */}
         <p className="third-bold">{status}</p>
       </div>
 
       <div className="btn-bf">
         {" "}
-        <a href="#!" onClick={() => accept(_id)}>
+        <a onClick={() => accept(_id)}>
           <img src={add} alt="" />
         </a>
       </div>
 
       <div className="btn-gf">
         {" "}
-        <a href="#!" onClick={() => deny(_id)}>
+        <a onClick={() => deny(_id)}>
           <img src={nounPlus} alt="" />
         </a>
       </div>

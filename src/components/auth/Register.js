@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
@@ -182,15 +183,9 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                   }}
                 />{" "}
                 Creating an account means you’re agree with our{" "}
-                <a className="referral-request" href="#!">
-                  Terms of Service
-                </a>
-                ,
-                <a className="referral-request" href="#!">
-                  {" "}
-                  Privacy Policy
-                </a>
-                , and our default Notification Settings.
+                <a className="referral-request">Terms of Service</a>,
+                <a className="referral-request"> Privacy Policy</a>, and our
+                default Notification Settings.
               </div>
 
               <button type="Submit" className="btn-yellow">

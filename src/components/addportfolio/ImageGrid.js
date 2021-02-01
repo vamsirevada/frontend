@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import UseFirestore from "./UseFireStore";
 import axios from "axios";
@@ -117,7 +118,6 @@ const ImageGrid = ({ id, profile }) => {
                     <ul className="edit-text-box">
                       <li>
                         <a
-                          href="#!"
                           className="edit-text"
                           onClick={() => {
                             _remove(doc);

@@ -98,7 +98,7 @@ const PostForm = ({ addPost, setAlert }) => {
         </div>
       )}
       <div>
-        <button type="submit" href="#!" className="btn-blue" value="Post">
+        <button type="submit" className="btn-blue" value="Post">
           Post{" "}
         </button>
       </div>

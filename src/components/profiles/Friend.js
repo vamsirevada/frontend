@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -74,14 +75,14 @@ const Friend = ({
           </div>
           <div className="btn-b">
             {" "}
-            <a href="#!" className="btn-blue" onClick={() => onClick()}>
+            <a className="btn-blue" onClick={() => onClick()}>
               <img src={add} alt="" />
             </a>
           </div>
 
           <div className="btn-g">
             {" "}
-            <a href="#!" className="btn-blue g-1" onClick={() => remove(_id)}>
+            <a className="btn-blue g-1" onClick={() => remove(_id)}>
               <img src={mail} alt="" />
             </a>
           </div>
@@ -95,7 +96,7 @@ const Friend = ({
               (doc) =>
                 meta(doc.url) !== ".mp3" && (
                   <div className="pic-1" key={doc.id}>
-                    {(doc.type) === "video" ? (
+                    {doc.type === "video" ? (
                       <motion.video
                         controls
                         src={doc.url}

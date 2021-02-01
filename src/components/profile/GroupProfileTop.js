@@ -1,37 +1,37 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import gps from '../../images/icons/noun_Location_3139654.svg';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React from "react";
+import PropTypes from "prop-types";
+import gps from "../../images/icons/noun_Location_3139654.svg";
 
 const GroupProfileTop = ({ profile: { user, location, status } }) => {
-  // const { user, location, status } = profile;
   return (
-    <div className='profile-pic'>
-      <div className='profile-container'>
-        <div className='profile-flex'>
-          <div className='profile-flex-left'>
-            <div className='display-pic'></div>
-            <h2 className='heading-2'>{user.name}</h2>
+    <div className="profile-pic">
+      <div className="profile-container">
+        <div className="profile-flex">
+          <div className="profile-flex-left">
+            <div className="display-pic"></div>
+            <h2 className="heading-2">{user.name}</h2>
             <p>{status}</p>
             <p>
-              <span className='resize'>
-                {' '}
-                <img src={gps} alt='' />
-              </span>{' '}
+              <span className="resize">
+                {" "}
+                <img src={gps} alt="" />
+              </span>{" "}
               {location && <span>{location}</span>}
             </p>
           </div>
-          <div className='profile-right'>
-            <div className='profile-info-box'>
-              <a href='#!'>
-                <p className='border-1'>
-                  <span className='f-1'>3400</span>
+          <div className="profile-right">
+            <div className="profile-info-box">
+              <a>
+                <p className="border-1">
+                  <span className="f-1">3400</span>
                   <br /> Connections
                 </p>
               </a>
-              <a href='#!'>
+              <a>
                 <p>
-                  <span className='f-1'>50</span>
-                  <br /> Projects Completed{' '}
+                  <span className="f-1">50</span>
+                  <br /> Projects Completed{" "}
                 </p>
               </a>
             </div>

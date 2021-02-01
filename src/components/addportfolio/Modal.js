@@ -111,32 +111,8 @@ const Modal = forwardRef(
                       {" "}
                       <img src={forward} alt="" />
                     </div>
-                    {/* <img onClick={nextSlide} src={forward} alt='' /> */}
                   </div>
                 </div>
-
-                {/* <div className='main-post-container-2'>
-                  <div className='post-des-flex-s'>
-                    <div className='post-des-flex-left '>
-                      <div className='flex flex-s'>
-                        <div className='des-right'>
-                          <a href='#!'>
-                            <p>
-                              Posted on{': '}
-                              <Moment format='DD MMM YY'>
-                                {file.createdAt.toDate()}
-                              </Moment>{' '}
-                              {', '}
-                              <Moment format='hh:mm A'>
-                                {file.createdAt.toDate()}
-                              </Moment>
-                            </p>
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
               </div>
             </div>
           ))}
