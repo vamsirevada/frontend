@@ -17,9 +17,6 @@ const ProgressBar = ({
     setAlert,
     setUpload
   );
-
-  console.log(progress, url);
-
   useEffect(() => {
     if (url) {
       setFile(null);

@@ -1,7 +1,17 @@
-import { GET_CHATS, AFTER_POST_MESSAGE, CHAT_ERROR } from "../actions/types";
+import {
+  GET_CHATS,
+  CHAT_ERROR,
+  GET_CHATS_BY_ID,
+  SEND_MESSAGE,
+} from "../actions/types";
+
+const initialState = {
+  chats: [],
+  chatsbyid: [],
+};
 
 //eslint-disable-next-line
-export default function (state = {}, action) {
+export default function (state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case GET_CHATS:
@@ -9,10 +19,16 @@ export default function (state = {}, action) {
         ...state,
         chats: payload,
       };
-    case AFTER_POST_MESSAGE:
+    case GET_CHATS_BY_ID:
       return {
         ...state,
-        chats: state.chats.concat(payload),
+        chatsbyid: payload,
+      };
+    case SEND_MESSAGE:
+      return {
+        ...state,
+        chats: [payload, ...state.chats],
+        chatsbyid: [payload, ...state.chatsbyid],
       };
     case CHAT_ERROR:
       return {

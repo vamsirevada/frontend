@@ -23,7 +23,7 @@ import Project from "../profiles/Project";
 import AddPortfolio from "../addportfolio/AddPortfolio";
 import PrivateRoute from "./PrivateRoute";
 import NotFound from "../NotFound";
-import ChatPage from "../chat/ChatPage";
+import Chat from "../chat/Chat";
 
 const Routes = (props) => {
   return (
@@ -51,7 +51,7 @@ const Routes = (props) => {
         <PrivateRoute exact path="/posts/:id" component={Post} />
         <PrivateRoute exact path="/feed" component={Feed} />
         <PrivateRoute exact path="/friends" component={Friends} />
-        <PrivateRoute exact path="/chats/:id" component={ChatPage} />
+        <PrivateRoute exact path="/chat" component={Chat} />
         <PrivateRoute exact path="/friends/:id" component={Friends1} />
         <PrivateRoute exact path="/projects/:id" component={Projects} />
         <PrivateRoute exact path="/project" component={Project} />

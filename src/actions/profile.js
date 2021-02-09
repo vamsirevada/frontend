@@ -74,6 +74,8 @@ export const getBuddies = () => async (dispatch) => {
       type: GET_BUDDIES,
       payload: res.data,
     });
+
+    console.log(res.data);
   } catch (err) {
     dispatch({
       type: GET_BUDDIES_ERROR,

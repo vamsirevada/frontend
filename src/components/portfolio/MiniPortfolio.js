@@ -5,8 +5,6 @@ import loc from "../../images/icons/noun_Location_3139654.svg";
 import logo from "../../images/dummyimage.jpg";
 
 const MiniPortfolio = ({ profile, loading }) => {
-  console.log(profile);
-
   return loading && profile === null ? (
     <Spinner />
   ) : (
