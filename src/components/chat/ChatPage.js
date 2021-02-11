@@ -4,7 +4,7 @@ import React, { Fragment, useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import { getBuddiesById } from "../../actions/profile";
 import { getChats, afterPostMessage } from "../../actions/chat";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { connect } from "react-redux";
 import Moment from "react-moment";
 import moment from "moment";
 import sendbutton from "../../images/sendbutton.svg";
@@ -14,11 +14,7 @@ import emoji from "../../images/emoji.svg";
 import path from "../../images/path.svg";
 import call from "../../images/call.png";
 import videocall from "../../images/videocall.png";
-
-const socket = io(process.env.REACT_APP_API_URL, {
-  query: { token: localStorage.getItem("token") },
-  transports: ["websocket"],
-});
+import background from "../../images/Rectangle.png";
 
 const ChatPage = ({
   auth,
@@ -36,8 +32,10 @@ const ChatPage = ({
   const [chatUser, setChatUser] = useState("");
   const [chatUserImage, setChatUserImage] = useState(logo);
   const [userUid, setUserUid] = useState(null);
-  // const person = useSelector((state) => state.chatProfile);
-  // console.log(person);
+  const roomId = match.params.id;
+
+  const receivers =
+    chats && chats.filter((chat) => chat?.sender?._id === userUid);
 
   useEffect(() => {
     getBuddiesById(auth.user._id);
@@ -45,7 +43,8 @@ const ChatPage = ({
     setChatUser(chatProfile?.user?.fullName);
     setUserUid(chatProfile?.user?._id);
     setChatUserImage(chatProfile?.avatar);
-    socket.on("Output Chat Message", (messageFromBackend) => {
+    const socket = io(process.env.REACT_APP_API_URL);
+    socket.on("users", (messageFromBackend) => {
       afterPostMessage(messageFromBackend);
     });
   }, [
@@ -232,14 +231,12 @@ const ChatPage = ({
           <div className="fullchat-mainbody">
             <div className="fullchat-mainbody-container">
               <div className="flex-c">
-                {chats &&
-                  chats.map((chat) => (
+                {receivers &&
+                  receivers.map((chat) => (
                     <div
                       key={chat._id}
                       className={`${
-                        auth.user._id === chat.sender._id
-                          ? "flex-c-r"
-                          : "flex-c-2"
+                        auth.user._id === userUid ? "flex-c-r" : "flex-c-2"
                       }`}
                     >
                       <div className="flex-c-r-left">
@@ -294,9 +291,16 @@ const ChatPage = ({
           </div>
         </section>
       ) : (
-        <p style={{ textAlign: "center", marginTop: "40%" }}>
-          You Can Start Conversation with your Friends Here
-        </p>
+        <div style={{ background: `url(${background})` }}>
+          <p
+            style={{
+              textAlign: "center",
+              marginTop: "40%",
+            }}
+          >
+            You Can Start Conversation with your Friends Here
+          </p>
+        </div>
       )}
     </div>
   );

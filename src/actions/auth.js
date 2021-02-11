@@ -1,6 +1,7 @@
 import axios from "axios";
 import { setAlert } from "./alert";
 import setAuthToken from "../utils/setAuthToken";
+
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -18,15 +19,15 @@ import {
   REFERRAL_SUCESS,
 } from "./types";
 
+// const { enqueueSnackbar } = useSnackbar();
+
 //Load User
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
-
   try {
     const res = await axios.get("/api/auth");
-
     dispatch({
       type: USER_LOADED,
       payload: res.data,
@@ -45,7 +46,6 @@ export const loadWriter = () => async (dispatch) => {
 
   try {
     const res = await axios.get("/api/auth/writer");
-
     dispatch({
       type: WRITER_LOADED,
       payload: res.data,
@@ -123,6 +123,7 @@ export const login = (email, password) => async (dispatch) => {
     dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
+    console.log(errors);
 
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
@@ -171,7 +172,7 @@ export const groupRegister = ({
   password,
   isGroup,
   userpermission,
-  code
+  code,
 }) => async (dispatch) => {
   const config = {
     headers: {
@@ -186,7 +187,7 @@ export const groupRegister = ({
     password,
     isGroup,
     userpermission,
-    code
+    code,
   });
 
   try {

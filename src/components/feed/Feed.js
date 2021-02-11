@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import MiniPortfolio from "../portfolio/MiniPortfolio";
 import Posts from "../posts/Posts";
 import PostForm from "../posts/PostForm";
-// import Chat from "../chat/Chat";
+
 import FriendRequests from "./FriendRequests";
 import notify from "../../images/noun_notification_887294.svg";
 import BallotIcon from "@material-ui/icons/Ballot";
@@ -66,7 +66,6 @@ const Feed = ({
           {displayRight && (
             <div className="right">
               <FriendRequests />
-              {/* <Chat /> */}
             </div>
           )}
         </div>

@@ -109,8 +109,7 @@ const AddPhoto = ({ setAlert }) => {
               value={description}
               placeholder="add description"
               onChange={(e) => onChange(e)}
-            >
-            </textarea>
+            ></textarea>
           </div>
           <div className="prof-flex-btn">
             <button type="submit" className="btn-yellow">
