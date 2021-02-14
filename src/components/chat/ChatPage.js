@@ -182,7 +182,7 @@ const ChatPage = ({
                 </div>
               </div>
             </div>
-            <div className="fullchat-maintop-right">
+            {/* <div className="fullchat-maintop-right">
               <div className="m-1">
                 <a>
                   <img src={videocall} alt="" />
@@ -203,7 +203,7 @@ const ChatPage = ({
                   <img src={path} alt="" />
                 </a>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="fullchat-mainbody">
@@ -219,7 +219,7 @@ const ChatPage = ({
                     <div className="flex-c-r-left">
                       <p className="b-1">{con.formValue}</p>
                       <small className="i-1">
-                        {new Date(con?.createdAt?.toDate()).toUTCString()}
+                        {new Date(con?.createdAt?.toDate()).toLocaleString()}
                       </small>
                     </div>
 
@@ -254,12 +254,12 @@ const ChatPage = ({
                   onChange={(e) => setFormValue(e.target.value)}
                   rows="1"
                 ></textarea>
-                <a>
+                {/* <a>
                   <img src={emoji} alt="" />
                 </a>
                 <a>
                   <img src={attach} alt="" />
-                </a>
+                </a> */}
               </div>
               <div className="form-flex-right">
                 <a type="submit">
@@ -270,7 +270,7 @@ const ChatPage = ({
           </div>
         </section>
       ) : (
-        <div style={{ background: `url(${background})` }}>
+        <section id="fullchat-right" style={{ background: `url(${background})` }}>
           <p
             style={{
               textAlign: "center",
@@ -279,7 +279,7 @@ const ChatPage = ({
           >
             You Can Start Conversation with your Friends Here
           </p>
-        </div>
+        </section>
       )}
     </div>
   );
