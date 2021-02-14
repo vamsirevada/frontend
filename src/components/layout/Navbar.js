@@ -95,7 +95,7 @@ const Navbar = ({ auth, logout }) => {
                 </Link>
               </li>
               <li>
-                <Link to="/chat" className="chat icon">
+                <Link to="/chats" className="chat icon">
                   <img src={chat} alt="chat" />
                 </Link>
               </li>

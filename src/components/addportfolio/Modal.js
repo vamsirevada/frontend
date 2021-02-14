@@ -65,9 +65,7 @@ const Modal = forwardRef(
                           }}
                         ></div>
                         <div className="lh-title">
-                          <h2 className="modal-title w-100">
-                            {file.description}
-                          </h2>
+                          <h2 className="modal-title w-100">{file.title}</h2>
                           {/* <br /> */}
                           <p>
                             by <span className="blue">{user.fullName}</span>
@@ -96,15 +94,15 @@ const Modal = forwardRef(
                       <img src={backward} alt="" />
                     </div>
                     <div className="post-pic-1">
-                      {file.type === "video" ? (
+                      {file.type === "photo" ? (
+                        <img src={file.url} alt="" />
+                      ) : (
                         <video
                           controls
                           controlsList="nodownload"
                           src={file.url}
                           alt=""
                         />
-                      ) : (
-                        <img src={file.url} alt="" />
                       )}
                     </div>
                     <div onClick={nextSlide} className="prev">

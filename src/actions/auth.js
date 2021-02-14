@@ -64,7 +64,7 @@ export const register = ({
   email,
   password,
   userpermission,
-  code,
+  // code,
 }) => async (dispatch) => {
   const config = {
     headers: {
@@ -78,7 +78,7 @@ export const register = ({
     email,
     password,
     userpermission,
-    code,
+    // code,
   });
 
   try {
@@ -172,7 +172,7 @@ export const groupRegister = ({
   password,
   isGroup,
   userpermission,
-  code,
+  // code,
 }) => async (dispatch) => {
   const config = {
     headers: {
@@ -187,7 +187,7 @@ export const groupRegister = ({
     password,
     isGroup,
     userpermission,
-    code,
+    // code,
   });
 
   try {

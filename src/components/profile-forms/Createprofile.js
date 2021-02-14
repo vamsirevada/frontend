@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { createProfile } from "../../actions/profile";
 import { projectStorage } from "../../firebase/config";
 import { ProfileContext } from "../../context/profile/profile.context";
+import logo from "../../images/dummyimage.jpg";
 
 const Createprofile = ({ createProfile, history }) => {
   let fileInput = React.createRef();
@@ -78,7 +79,11 @@ const Createprofile = ({ createProfile, history }) => {
                 ref={fileInput}
               />
               <div className="display-pic">
-                <img className="display-pic" src={avatar} alt="" />
+                <img
+                  className="display-pic"
+                  src={avatar ? avatar : logo}
+                  alt=""
+                />
               </div>
               <button className="btn-yellow" onClick={onOpenFileDialog}>
                 Upload Picture

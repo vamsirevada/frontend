@@ -15,7 +15,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     password: "",
     password2: "",
     userpermission: false,
-    code: "",
+    // code: "",
   });
 
   const {
@@ -25,7 +25,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     password,
     password2,
     userpermission,
-    code,
+    // code,
   } = formData;
 
   const onChange = (e) =>
@@ -36,7 +36,8 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     if (password !== password2) {
       setAlert("Password do not match", "danger");
     } else {
-      register({ fullName, userName, email, password, userpermission, code });
+      // code also needs to be included below later
+      register({ fullName, userName, email, password, userpermission });
       setAlert("User Registered Successful", "success");
     }
   };
@@ -79,7 +80,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             </div>
 
             <form className="flex-form-1" onSubmit={(e) => onSubmit(e)}>
-              <div className="usergroup">
+              {/* <div className="usergroup">
                 <label htmlFor="referral-code" className="signup-label">
                   Enter the referral code <span className="blue">*</span>
                   <Link to="/referral">
@@ -97,7 +98,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                   required
                   onChange={(e) => onChange(e)}
                 />
-              </div>
+              </div> */}
               <div className="usergroup">
                 <label htmlFor="fullName" className="signup-label">
                   Full Name

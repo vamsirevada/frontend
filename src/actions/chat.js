@@ -1,61 +1,47 @@
-import axios from "axios";
-import { GET_CHATS, GET_CHATS_BY_ID, SEND_MESSAGE, CHAT_ERROR } from "./types";
+import { GET_CHATS } from "./types";
+import { projectFirestore } from "../firebase/config";
 
-export const getConversations = () => async (dispatch) => {
-  try {
-    const res = await axios.get("/api/messages/conversations");
-    dispatch({
-      type: GET_CHATS,
-      payload: res.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: CHAT_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
-      },
-    });
-  }
+export const updateMessage = (msgObj) => {
+  return async (dispatch) => {
+    projectFirestore
+      .collection("conversations")
+      .add({
+        ...msgObj,
+        isView: false,
+        createdAt: new Date(),
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 };
 
-export const getConversationMessages = (id) => async (dispatch) => {
-  try {
-    const res = await axios.get(
-      `/api/messages/conversations/query?userId=${id}`
-    );
-    dispatch({
-      type: GET_CHATS_BY_ID,
-      payload: res.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: CHAT_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
-      },
-    });
-  }
-};
+export const getRealtimeConversations = (user) => {
+  return async (dispatch) => {
+    projectFirestore
+      .collection("conversations")
+      .where("user_uid_1", "in", [user.uid_1, user.uid_2])
+      .orderBy("createdAt", "asc")
+      .onSnapshot((querySnapshot) => {
+        const conversations = [];
+        querySnapshot.forEach((doc) => {
+          if (
+            (doc.data().user_uid_1 === user.uid_1 &&
+              doc.data().user_uid_2 === user.uid_2) ||
+            (doc.data().user_uid_1 === user.uid_2 &&
+              doc.data().user_uid_2 === user.uid_1)
+          ) {
+            conversations.push(doc.data());
+          }
+        });
 
-export const sendConversationMessage = (id, message) => async (dispatch) => {
-  try {
-    const res = await axios.post("/api/messages/", {
-      to: id,
-      message: message,
-    });
-    dispatch({
-      type: SEND_MESSAGE,
-      payload: res.data,
-    });
-  } catch (error) {
-    dispatch({
-      type: CHAT_ERROR,
-      payload: {
-        msg: error.response.statusText,
-        status: error.response.status,
-      },
-    });
-  }
+        dispatch({
+          type: GET_CHATS,
+          payload: { conversations },
+        });
+      });
+  };
 };

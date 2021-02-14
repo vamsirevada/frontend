@@ -21,7 +21,7 @@ const parseJwt = (token) => {
 
   return JSON.parse(jsonPayload);
 };
-const UseStorage = (file, type, description, setAlert, setUpload) => {
+const UseStorage = (file, type, title, description, setAlert, setUpload) => {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
@@ -50,6 +50,7 @@ const UseStorage = (file, type, description, setAlert, setUpload) => {
 
         const body = {
           text: description,
+          title: title,
           url: `${url}`,
           type: type,
           user: userId,
@@ -61,6 +62,7 @@ const UseStorage = (file, type, description, setAlert, setUpload) => {
             await collectionRef.add({
               type,
               url,
+              title,
               description,
               createdAt,
               userId,
@@ -77,7 +79,7 @@ const UseStorage = (file, type, description, setAlert, setUpload) => {
         setUrl(url);
       }
     );
-  }, [description, file, setAlert, setUpload, type]);
+  }, [description, file, setAlert, setUpload, title, type]);
 
   return { progress, url, error };
 };

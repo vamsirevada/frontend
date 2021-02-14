@@ -1,12 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useEffect, useRef, useState } from "react";
-import io from "socket.io-client";
 import { getBuddiesById } from "../../actions/profile";
-import { getChats, afterPostMessage } from "../../actions/chat";
-import { connect } from "react-redux";
-import Moment from "react-moment";
-import moment from "moment";
+import { getRealtimeConversations, updateMessage } from "../../actions/chat";
+import { connect, useDispatch } from "react-redux";
 import sendbutton from "../../images/sendbutton.svg";
 import attach from "../../images/attach.svg";
 import logo from "../../images/dummyimage.jpg";
@@ -15,68 +12,41 @@ import path from "../../images/path.svg";
 import call from "../../images/call.png";
 import videocall from "../../images/videocall.png";
 import background from "../../images/Rectangle.png";
+import { projectFirestore } from "../../firebase/config";
 
 const ChatPage = ({
   auth,
   getBuddiesById,
-  getChats,
-  afterPostMessage,
   profile: { buddies },
-  chat: { chats },
-  match,
+  chat: { conversations },
 }) => {
-  const dummy = useRef();
+  const dispatch = useDispatch();
   const [formValue, setFormValue] = useState("");
+  const [messages, setMessages] = useState([]);
   const [chatProfile, setChatProfile] = useState("");
   const [chatStarted, setChatStarted] = useState(false);
-  const [chatUser, setChatUser] = useState("");
   const [chatUserImage, setChatUserImage] = useState(logo);
   const [userUid, setUserUid] = useState(null);
-  const roomId = match.params.id;
-
-  const receivers =
-    chats && chats.filter((chat) => chat?.sender?._id === userUid);
 
   useEffect(() => {
-    getBuddiesById(auth.user._id);
-    getChats();
-    setChatUser(chatProfile?.user?.fullName);
-    setUserUid(chatProfile?.user?._id);
-    setChatUserImage(chatProfile?.avatar);
-    const socket = io(process.env.REACT_APP_API_URL);
-    socket.on("users", (messageFromBackend) => {
-      afterPostMessage(messageFromBackend);
-    });
-  }, [
-    afterPostMessage,
-    getBuddiesById,
-    getChats,
-    auth.user._id,
-    chatProfile?.user?.fullName,
-    chatProfile?.user?._id,
-    chatProfile?.avatar,
-  ]);
+    getBuddiesById(auth?.user?._id);
+    projectFirestore
+      .collection("conversations")
+      .onSnapshot((snap) => setMessages(snap.docs.map((doc) => doc.data())));
+  }, [getBuddiesById, auth?.user?._id, buddies, conversations]);
 
   const sendMessage = async (e) => {
     e.preventDefault();
-    const chatMessage = formValue;
-    const userId = auth.user._id;
-    const reciever = userUid;
-    const userName = auth.user.userName;
-    const userImage = auth.user.avatar;
-    const nowTime = moment();
-    const type = "Text";
-    socket.emit("Input Chat Message", {
-      chatMessage,
-      userId,
-      reciever,
-      userName,
-      userImage,
-      nowTime,
-      type,
-    });
-    setFormValue("");
-    dummy.current.scrollIntoView({ behavior: "smooth" });
+    const msgObj = {
+      user_uid_1: auth?.user?._id,
+      user_uid_2: userUid,
+      formValue,
+    };
+    if (formValue !== "") {
+      dispatch(updateMessage(msgObj)).then(() => {
+        setFormValue("");
+      });
+    }
   };
 
   return (
@@ -100,11 +70,11 @@ const ChatPage = ({
           </div>
         </div>
         <div className="fullchat-leftcontainer">
-          <div className="fullchat-leftbody">
+          {/* <div className="fullchat-leftbody">
             <div className="chats">
               <div className="chats-heading">
                 <h3>
-                  Chats <span className="blue">(2)</span>
+                  Chats <span className="blue">{conversations.length}</span>
                 </h3>
                 <a type="button" className="blue">
                   See More
@@ -117,7 +87,7 @@ const ChatPage = ({
                     <a>Felecia Rower</a>
                   </div>
                   <div className="chat-body">
-                    <p>Lorem ipsum dolor sit amet.</p>
+                    <p>{messages[messages.length - 1]?.formValue}</p>
                     <div className="bubble">
                       <p>2</p>
                     </div>
@@ -140,7 +110,7 @@ const ChatPage = ({
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
 
           <div className="fullchat-leftbody">
             <div className="chats">
@@ -157,6 +127,14 @@ const ChatPage = ({
                       onClick={() => {
                         setChatProfile(profile);
                         setChatStarted(true);
+                        setUserUid(profile?.user?._id);
+                        setChatUserImage(profile?.avatar);
+                        dispatch(
+                          getRealtimeConversations({
+                            uid_1: auth?.user?._id,
+                            uid_2: profile?.user?._id,
+                          })
+                        );
                       }}
                       className="fullchat-chatgrid"
                     >
@@ -171,10 +149,10 @@ const ChatPage = ({
                           <a>{profile.user.fullName}</a>
                         </div>
                         <div className="chat-body">
-                          <p>Lorem ipsum dolor sit amet.</p>
-                          <div className="bubble">
+                          <p>{profile.location}</p>
+                          {/* <div className="bubble">
                             <p>2</p>
-                          </div>
+                          </div> */}
                         </div>
                       </div>
                     </div>
@@ -197,7 +175,7 @@ const ChatPage = ({
               ></div>
               <div className="flex-column">
                 <div className="chat-name">
-                  <a>{chatUser}</a>
+                  <a>{chatProfile?.user?.fullName}</a>
                 </div>
                 <div className="chat-body">
                   <p>Active Now</p>
@@ -231,35 +209,36 @@ const ChatPage = ({
           <div className="fullchat-mainbody">
             <div className="fullchat-mainbody-container">
               <div className="flex-c">
-                {receivers &&
-                  receivers.map((chat) => (
-                    <div
-                      key={chat._id}
-                      className={`${
-                        auth.user._id === userUid ? "flex-c-r" : "flex-c-2"
-                      }`}
-                    >
-                      <div className="flex-c-r-left">
-                        <p className="b-1">{chat.message}</p>
-                        <small className="i-1">
-                          <Moment format="DD MMM YY, hh:mm A">
-                            {chat.createdAt}
-                          </Moment>
-                        </small>
-                      </div>
-                      <span
-                        style={{
-                          background: `url(${chat.sender.avatar}) no-repeat center center/cover`,
-                        }}
-                        className={`${
-                          auth.user._id === chat.sender._id
-                            ? "dp-4-1 flex-c-r-right"
-                            : "dp-2"
-                        }`}
-                      ></span>
+                {conversations.map((con, index) => (
+                  <div
+                    key={index}
+                    className={`${
+                      auth.user._id === con.user_uid_1 ? "flex-c-r" : "flex-c-2"
+                    }`}
+                  >
+                    <div className="flex-c-r-left">
+                      <p className="b-1">{con.formValue}</p>
+                      <small className="i-1">
+                        {new Date(con?.createdAt?.toDate()).toUTCString()}
+                      </small>
                     </div>
-                  ))}
-                <div ref={dummy}></div>
+
+                    <span
+                      style={{
+                        background: `url(${
+                          auth.user._id === con.user_uid_1
+                            ? auth?.user?.avatar
+                            : chatUserImage
+                        }) no-repeat center center/cover`,
+                      }}
+                      className={`${
+                        auth.user._id === con.user_uid_1
+                          ? "dp-4-1 flex-c-r-right"
+                          : "dp-2"
+                      }`}
+                    ></span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -314,6 +293,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getBuddiesById,
-  getChats,
-  afterPostMessage,
 })(ChatPage);

@@ -6,6 +6,7 @@ const ProgressBar = ({
   file,
   setFile,
   type,
+  title,
   description,
   setAlert,
   setUpload,
@@ -13,6 +14,7 @@ const ProgressBar = ({
   const { progress, url } = UseStorage(
     file,
     type,
+    title,
     description,
     setAlert,
     setUpload

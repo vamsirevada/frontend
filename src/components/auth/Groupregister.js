@@ -16,7 +16,7 @@ const Groupregister = ({ setAlert, groupRegister, isAuthenticated }) => {
     password2: '',
     isGroup: true,
     userpermission: false,
-    code: '',
+    // code: '',
   });
 
   const {
@@ -27,7 +27,7 @@ const Groupregister = ({ setAlert, groupRegister, isAuthenticated }) => {
     password2,
     isGroup,
     userpermission,
-    code,
+    // code,
   } = formData;
 
   const onChange = (e) =>
@@ -45,7 +45,7 @@ const Groupregister = ({ setAlert, groupRegister, isAuthenticated }) => {
         password,
         isGroup,
         userpermission,
-        code,
+        // code,
       });
       setAlert('User Registered Successful', 'success');
     }
@@ -89,7 +89,7 @@ const Groupregister = ({ setAlert, groupRegister, isAuthenticated }) => {
             </div>
 
             <form className='flex-form-1' onSubmit={(e) => onSubmit(e)}>
-              <div className='usergroup'>
+              {/* <div className='usergroup'>
                 <label htmlFor='referral-code' className='signup-label'>
                   Enter the referral code <span className='blue'>*</span>
                   <Link to='/referral'>
@@ -107,7 +107,7 @@ const Groupregister = ({ setAlert, groupRegister, isAuthenticated }) => {
                   required
                   onChange={(e) => onChange(e)}
                 />
-              </div>
+              </div> */}
               <div className='usergroup'>
                 <label htmlFor='groupName' className='signup-label'>
                   Group Name
