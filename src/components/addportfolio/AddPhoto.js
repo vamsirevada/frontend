@@ -39,7 +39,6 @@ const AddPhoto = ({ setAlert }) => {
 
   const handleChange = (e) => {
     let selected = e.target.files[0];
-
     if (selected) {
       setDisplay(URL.createObjectURL(e.target.files[0]));
       setFile(selected);
@@ -65,6 +64,7 @@ const AddPhoto = ({ setAlert }) => {
                 file={file}
                 setFile={setFile}
                 type={"photo"}
+                title={formData.title}
                 description={formData.description}
                 setAlert={setAlert}
                 setUpload={setUpload}
@@ -89,7 +89,6 @@ const AddPhoto = ({ setAlert }) => {
         <form onSubmit={(e) => onSubmit(e)}>
           <div>
             <h2 className="des">Title</h2>
-
             <input
               type="text"
               className="search-btn"
@@ -101,7 +100,6 @@ const AddPhoto = ({ setAlert }) => {
           </div>
           <div>
             <h2 className="des">Description</h2>
-
             <textarea
               type="text"
               className="search-btn"
@@ -109,8 +107,7 @@ const AddPhoto = ({ setAlert }) => {
               value={description}
               placeholder="add description"
               onChange={(e) => onChange(e)}
-            >
-            </textarea>
+            ></textarea>
           </div>
           <div className="prof-flex-btn">
             <button type="submit" className="btn-yellow">

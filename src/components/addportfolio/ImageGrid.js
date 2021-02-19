@@ -15,7 +15,6 @@ const ImageGrid = ({ id, profile }) => {
   const [viewAllImg, setViewAllImg] = useState(false);
   const [viewAllVideo, setViewAllVideo] = useState(false);
   const modalRef = React.useRef();
-  const [selectedImg, setSelectedImg] = useState(0);
 
   const _remove = async (name, type) => {
     if (type === 'blog') {
@@ -69,13 +68,7 @@ const ImageGrid = ({ id, profile }) => {
 
   return (
     <span>
-      <Modal
-        selectedImg={selectedImg}
-        images={images}
-        videos={videos}
-        profile={profile}
-        ref={modalRef}
-      />
+      <Modal images={images} videos={videos} profile={profile} ref={modalRef} />
       <div
         style={{
           display: 'flex',
@@ -134,8 +127,7 @@ const ImageGrid = ({ id, profile }) => {
                 </div>
                 <motion.video
                   onClick={() => {
-                    setSelectedImg(index);
-                    modalRef.current.openModal();
+                    modalRef.current.openModal(index);
                   }}
                   src={doc.url}
                   alt='uploaded pic'
@@ -146,7 +138,6 @@ const ImageGrid = ({ id, profile }) => {
               </motion.div>
             ))}
       </div>
-
       <div
         style={{
           display: 'flex',
@@ -204,8 +195,7 @@ const ImageGrid = ({ id, profile }) => {
                   </div>
                   <motion.img
                     onClick={() => {
-                      setSelectedImg(index);
-                      modalRef.current.openModal();
+                      modalRef.current.openModal(index);
                     }}
                     src={doc.url}
                     alt='uploaded pic'
@@ -217,13 +207,12 @@ const ImageGrid = ({ id, profile }) => {
               )
           )}
       </div>
-
       <h3>
         Audio <span style={{ color: '#5d67cc' }}>({audio.length})</span>
       </h3>
       <div className='img-grid'>
         {audio &&
-          audio.map((doc) => (
+          audio.map((doc, index) => (
             <motion.div
               className='img-wrap'
               key={doc.id}
@@ -253,7 +242,10 @@ const ImageGrid = ({ id, profile }) => {
                   </div>
                 )}
               </div>
-              <motion.audio
+              <motion.video
+                onClick={() => {
+                  modalRef.current.openModal();
+                }}
                 poster={Audio}
                 src={doc.url}
                 alt='uploaded pic'

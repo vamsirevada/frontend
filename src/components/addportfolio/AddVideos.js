@@ -67,6 +67,7 @@ const AddVideos = ({ setAlert }) => {
               file={file}
               setFile={setFile}
               type={"video"}
+              title={formData.title}
               description={formData.description}
               setAlert={setAlert}
               setUpload={setUpload}
@@ -90,7 +91,6 @@ const AddVideos = ({ setAlert }) => {
         <form onSubmit={(e) => onSubmit(e)}>
           <div>
             <h2 className="des">Title</h2>
-
             <input
               type="text"
               className="search-btn"
@@ -102,7 +102,6 @@ const AddVideos = ({ setAlert }) => {
           </div>
           <div>
             <h2 className="des">Description</h2>
-
             <textarea
               type="text"
               className="search-btn"
@@ -110,10 +109,7 @@ const AddVideos = ({ setAlert }) => {
               value={description}
               placeholder="add description"
               onChange={(e) => onChange(e)}
-            >
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Suscipit, fugiat.
-            </textarea>
+            ></textarea>
           </div>
           <div className="prof-flex-btn">
             <button type="submit" className="btn-yellow">

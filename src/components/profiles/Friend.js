@@ -15,6 +15,8 @@ const Friend = ({
   remove,
   docs,
 }) => {
+  
+
   const sendRequest = async () => {
     await sendBuddyRequest(_id);
   };

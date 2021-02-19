@@ -553,6 +553,7 @@ a {
 
 #fullchat-right {
   width: 100%;
+  height: 90vh;
   overflow: auto;
 }
 

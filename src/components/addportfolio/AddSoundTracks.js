@@ -67,6 +67,7 @@ const AddSoundTracks = ({ setAlert }) => {
               file={file}
               setFile={setFile}
               type={"audio"}
+              title={formData.title}
               description={formData.description}
               setAlert={setAlert}
               setUpload={setUpload}
@@ -109,10 +110,7 @@ const AddSoundTracks = ({ setAlert }) => {
               value={description}
               placeholder="add description"
               onChange={(e) => onChange(e)}
-            >
-              Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-              Suscipit, fugiat.
-            </textarea>
+            ></textarea>
           </div>
           <div className="prof-flex-btn">
             <button type="submit" className="btn-yellow">

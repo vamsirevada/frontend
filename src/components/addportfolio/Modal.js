@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, forwardRef, useImperativeHandle } from "react";
 import logo from "../../images/dummyimage.jpg";
 import backward from "../../images/Group 6054.svg";
@@ -6,13 +7,14 @@ import close from "../../images/close.svg";
 import Moment from "react-moment";
 
 const Modal = forwardRef(
-  ({ profile: { avatar, user }, images, videos, selectedImg }, ref) => {
+  ({ profile: { avatar, user }, images, videos }, ref) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [current, setCurrent] = useState(0);
-    const files = images.concat(videos);
+    const files = videos.concat(images);
+
     const length = files.length;
 
-    const handleShow = () => {
+    const handleShow = (index) => {
       setModalIsOpen(true);
     };
 
@@ -22,7 +24,7 @@ const Modal = forwardRef(
 
     useImperativeHandle(ref, () => {
       return {
-        openModal: () => handleShow(),
+        openModal: (index) => handleShow(index),
         close: () => handleClose(),
       };
     });
@@ -63,9 +65,7 @@ const Modal = forwardRef(
                           }}
                         ></div>
                         <div className="lh-title">
-                          <h2 className="modal-title w-100">
-                            {file.description}
-                          </h2>
+                          <h2 className="modal-title w-100">{file.title}</h2>
                           {/* <br /> */}
                           <p>
                             by <span className="blue">{user.fullName}</span>
@@ -93,8 +93,6 @@ const Modal = forwardRef(
                     <div onClick={prevSlide} className="prev">
                       <img src={backward} alt="" />
                     </div>
-                    {/* <img onClick={prevSlide} src={backward} alt='' /> */}
-
                     <div className="post-pic-1">
                       {file.type === "photo" ? (
                         <img src={file.url} alt="" />
