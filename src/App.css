@@ -1346,7 +1346,7 @@ a {
 }
 
 .navbar .container .search.active {
-  width: 220px;
+  width: inherit;
   /* border-bottom: 1px #787878 solid; */
   background: #303030;
   border-radius: 10px;
