@@ -5,7 +5,7 @@ import { setAlert } from '../../actions/alert';
 import { getCurrentProfile } from '../../actions/profile';
 import NotePeople from './NotePeople';
 
-const NotePeoples = ({ setAlert, profile }) => {
+const NotePeoples = ({ setAlert, getCurrentProfile, profile }) => {
   // useEffect(() => {
   //   getCurrentProfile();
   // }, []);
@@ -76,6 +76,16 @@ const NotePeoples = ({ setAlert, profile }) => {
   //   }
   // };
 
+  // const deny = async (user) => {
+  //   try {
+  //     await axios.delete(`api/profile/unnote/${user}`);
+  //     setAlert('Unnote', 'success');
+  //     getCurrentProfile();
+  //   } catch (err) {
+  //     setAlert(err.response.data.msg, 'danger');
+  //   }
+  // };
+
   // useEffect(() => {
   //   getRequests();
   // }, []);
@@ -139,4 +149,4 @@ const NotePeoples = ({ setAlert, profile }) => {
   );
 };
 
-export default connect(null, { setAlert })(NotePeoples);
+export default connect(null, { setAlert, getCurrentProfile })(NotePeoples);

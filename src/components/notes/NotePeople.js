@@ -2,11 +2,25 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import add from '../../images/noun_Add Friend_2987727 (2) 2.svg';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
+import { getCurrentProfile } from '../../actions/profile';
 import nounPlus from '../../images/noun_Plus_2310779.svg';
 import logo from '../../images/dummyimage.jpg';
 
-const NotePeople = ({ notepeople }) => {
-  const { fullName, status, avatar, remark } = notepeople;
+const NotePeople = ({ setAlert, getCurrentProfile, notepeople }) => {
+  const { user, fullName, status, avatar, remark } = notepeople;
+
+  const deny = async (user) => {
+    try {
+      await axios.delete(`api/profile/unnote/${user}`);
+      setAlert('Unnote', 'success');
+      getCurrentProfile();
+    } catch (err) {
+      setAlert(err.response.data.msg, 'danger');
+    }
+  };
 
   return (
     <div className='join-grp-flex'>
@@ -27,21 +41,21 @@ const NotePeople = ({ notepeople }) => {
         <p className='third-bold'>{remark}</p>
       </div>
 
-      {/* <div className='btn-bf'>
+      <div className='btn-bf'>
         {' '}
-        <a onClick={() => accept(_id)}>
+        <a onClick={() => deny(user)}>
           <img src={add} alt='' />
         </a>
       </div>
 
       <div className='btn-gf'>
         {' '}
-        <a onClick={() => deny(_id)}>
+        <a onClick={() => deny(user)}>
           <img src={nounPlus} alt='' />
         </a>
-      </div> */}
+      </div>
     </div>
   );
 };
 
-export default NotePeople;
+export default connect(null, { setAlert, getCurrentProfile })(NotePeople);
