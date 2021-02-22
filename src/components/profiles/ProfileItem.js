@@ -6,12 +6,16 @@ import add from '../../images/noun_Add Friend_2987727 (2).svg';
 import mail from '../../images/chat.svg';
 import logo from '../../images/dummyimage.jpg';
 import { connect } from 'react-redux';
-import { sendBuddyRequest } from '../../actions/profile';
+import axios from 'axios';
+import { setAlert } from '../../actions/alert';
+import { sendBuddyRequest, getCurrentProfile } from '../../actions/profile';
 import { motion } from 'framer-motion';
 
 const ProfileItem = ({
   profile: { _id, user, avatar, status, location, buddies },
   sendBuddyRequest,
+  getCurrentProfile,
+  setAlert,
   displayAdd,
   docs,
 }) => {
@@ -34,6 +38,27 @@ const ProfileItem = ({
   const filter = documents.filter(
     (doc) => doc?.type !== 'audio' || doc?.type !== 'blog'
   );
+
+  const note = async (profileid) => {
+    try {
+      await axios.put(`api/profile/note/${_id}`);
+
+      setAlert('Noted', 'success');
+
+      // let empty = true;
+      // if (res.data.length > 0) {
+      //   //eslint-disable-next-line
+      //   empty = false;
+      // }
+
+      // setRefreshBuddies(true);
+      getCurrentProfile();
+    } catch (err) {
+      if (err.response.data !== undefined) {
+        setAlert(err.response.data.msg, 'danger');
+      }
+    }
+  };
 
   return (
     <div className='connect-main'>
@@ -78,6 +103,12 @@ const ProfileItem = ({
           <div className='btn-b'>
             {' '}
             <a className='btn-blue' onClick={() => onClick()}>
+              <img src={add} alt='' />
+            </a>
+          </div>
+          <div className='btn-b g'>
+            {' '}
+            <a className='btn-blue' onClick={() => note()}>
               <img src={add} alt='' />
             </a>
           </div>
@@ -134,4 +165,6 @@ ProfileItem.propTypes = {
   sendBuddyRequest: PropTypes.func.isRequired,
 };
 
-export default connect(null, { sendBuddyRequest })(ProfileItem);
+export default connect(null, { setAlert, getCurrentProfile, sendBuddyRequest })(
+  ProfileItem
+);
