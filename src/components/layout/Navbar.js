@@ -5,7 +5,8 @@ import maskGroup from '../../images/maskGroup.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import home from '../../images/Home.svg';
 import chat from '../../images/chat.svg';
-import all from '../../images/noun_Friend_2987728.svg';
+import notify from '../../images/noun_notification_887294.svg';
+import NotificationPopup from './NotificationPopup';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
@@ -16,16 +17,15 @@ import ArtTrackIcon from '@material-ui/icons/ArtTrack';
 import { grey } from '@material-ui/core/colors';
 import logo from '../../images/dummyimage.jpg';
 
-const Navbar = ({ auth, logout }) => {
+const Navbar = ({ logout }) => {
   const history = useHistory();
   const [displayMenu, toogleMenu] = useState(false);
+  const [displayNotify, toogleNotify] = useState(false);
   const [feedActive, toogleFeedActive] = useState(false);
   const [portActive, tooglePortActive] = useState(false);
   const [chatActive, toogleChatActive] = useState(false);
   const { Addsearch, clearSearch } = useContext(SearchContext);
   const { img, setImg } = useContext(ProfileContext);
-  const icon = document.getElementsByClassName('icon');
-  const tab = document.getElementsByClassName('tab');
 
   useEffect(() => {
     getProfilepic();
@@ -136,6 +136,20 @@ const Navbar = ({ auth, logout }) => {
                 <p>Chat</p>
               </Link>
             </div>
+            <div className='icon'>
+              <img
+                src={notify}
+                onClick={() => {
+                  toogleNotify(true);
+                  setTimeout(() => {
+                    toogleMenu(false);
+                  }, 5000);
+                }}
+                className='notif'
+                alt='notify'
+              />
+              {displayNotify && <NotificationPopup />}
+            </div>
             <div>
               <img
                 className='dis'
@@ -179,8 +193,4 @@ Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps, { logout })(Navbar);
+export default connect(null, { logout })(Navbar);

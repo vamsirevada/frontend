@@ -23,6 +23,7 @@ const ChatPage = ({
   const dispatch = useDispatch();
   const [formValue, setFormValue] = useState('');
   const [messages, setMessages] = useState([]);
+  const [notifications, setNotifications] = useState([]);
   const [chatProfile, setChatProfile] = useState('');
   const [chatStarted, setChatStarted] = useState(false);
   const [chatUserImage, setChatUserImage] = useState(logo);
@@ -33,7 +34,7 @@ const ChatPage = ({
     projectFirestore
       .collection('conversations')
       .onSnapshot((snap) => setMessages(snap.docs.map((doc) => doc.data())));
-  }, [getBuddiesById, auth?.user?._id, buddies, conversations]);
+  }, [getBuddiesById, auth?.user?._id]);
 
   const sendMessage = async (e) => {
     e.preventDefault();

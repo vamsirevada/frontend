@@ -13,12 +13,10 @@ const FriendRequests = ({ setAlert, getCurrentProfile }) => {
   const getRequests = async () => {
     try {
       const res = await axios.get(`api/profile/buddyRequests`);
-
       let empty = true;
       if (res.data.length > 0) {
         empty = false;
       }
-
       setReqProfiles({
         profiles: res.data,
         empty,
@@ -42,7 +40,6 @@ const FriendRequests = ({ setAlert, getCurrentProfile }) => {
         //eslint-disable-next-line
         empty = false;
       }
-
       // setRefreshBuddies(true);
       getCurrentProfile();
 

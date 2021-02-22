@@ -60,9 +60,6 @@ const ImageGrid = ({ id, profile }) => {
     docs && docs.filter((i) => i?.userId === id && i?.type === 'photo');
   const audio =
     docs && docs.filter((i) => i?.userId === id && i?.type === 'audio');
-
-  console.log(audio);
-
   const blog =
     docs && docs.filter((i) => i?.userId === id && i?.type === 'blog');
 

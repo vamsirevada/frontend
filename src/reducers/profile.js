@@ -7,12 +7,14 @@ import {
   BUDDY_REQUEST_SENT,
   GET_BUDDIES,
   GET_BUDDIES_ERROR,
-} from "../actions/types";
+  GET_BUDDY_REQUESTS,
+} from '../actions/types';
 
 const initialState = {
   profile: null,
   profiles: [],
   buddies: [],
+  requests: [],
   groupprofiles: [],
   loading: true,
   error: {},
@@ -34,6 +36,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         prompt: action.payload,
+      };
+    case GET_BUDDY_REQUESTS:
+      return {
+        ...state,
+        requests: payload,
+        loading: false,
       };
     case GET_PROFILES:
       return {
