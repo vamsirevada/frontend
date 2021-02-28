@@ -6,6 +6,7 @@ import post from './post';
 import article from './article';
 import chat from './chat';
 import notification from './notification';
+import project from './project';
 
 export default combineReducers({
   alert,
