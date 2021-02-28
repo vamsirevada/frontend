@@ -8,7 +8,7 @@ import {
   DELETE_PROJECT,
 } from './types';
 
-// Get all projects of user
+// Get all projects of user using user id
 export const getProjects = (id) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/project/${id}`);

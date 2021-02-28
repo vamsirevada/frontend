@@ -16,4 +16,5 @@ export default combineReducers({
   article,
   chat,
   notification,
+  project,
 });

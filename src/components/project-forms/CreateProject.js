@@ -82,7 +82,7 @@ const Createproject = ({ createProject, history }) => {
               </button>
             </div> */}
 
-            <div className='c-form'>
+            <div className='c-form project'>
               <form onSubmit={(e) => onSubmit(e)}>
                 <div>
                   <label htmlFor='projectname'>
@@ -116,7 +116,7 @@ const Createproject = ({ createProject, history }) => {
                   <textarea
                     name='description'
                     id='messages'
-                    rows='10'
+                    rows='8'
                     value={description}
                     onChange={(e) => onChange(e)}
                     placeholder='Write Something about project'

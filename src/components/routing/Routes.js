@@ -25,6 +25,8 @@ import AddPortfolio from '../addportfolio/AddPortfolio';
 import PrivateRoute from './PrivateRoute';
 import NotFound from '../NotFound';
 import ChatPage from '../chat/ChatPage';
+import SingleProject from '../projects/SingleProject';
+import ProjectList from '../projects/ProjectList';
 
 const Routes = (props) => {
   return (
@@ -51,11 +53,15 @@ const Routes = (props) => {
         <PrivateRoute exact path='/add-skills' component={AddSkills} />
         <PrivateRoute exact path='/posts' component={Posts} />
         <PrivateRoute exact path='/posts/:id' component={Post} />
+        <PrivateRoute exact path='/project/:id' component={SingleProject} />
         <PrivateRoute exact path='/feed' component={Feed} />
         <PrivateRoute exact path='/friends' component={Friends} />
         <PrivateRoute exact path='/chats' component={ChatPage} />
         <PrivateRoute exact path='/friends/:id' component={Friends1} />
+        {/* experience */}
         <PrivateRoute exact path='/projects/:id' component={Projects} />
+        {/* project list */}
+        <PrivateRoute exact path='/projectlist/:id' component={ProjectList} />
         <PrivateRoute exact path='/project' component={Project} />
         <Route exact path='*' component={NotFound} />
       </Switch>

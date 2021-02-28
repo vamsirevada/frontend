@@ -10,6 +10,7 @@ const initialState = {
   projects: [],
   project: null,
   error: {},
+  loading: true,
 };
 
 //eslint-disable-next-line
@@ -21,11 +22,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         projects: payload,
+        loading: false,
       };
     case GET_PROJECT:
       return {
         ...state,
         project: payload,
+        loading: false,
       };
     case CREATE_PROJECT:
       return {

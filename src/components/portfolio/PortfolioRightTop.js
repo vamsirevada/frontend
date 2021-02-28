@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const PortfolioRightTop = ({
   type,
@@ -9,29 +9,29 @@ const PortfolioRightTop = ({
     experience,
   },
 }) => (
-  <div className="main-grid-top">
-    <div className="profile-info-box p-black">
+  <div className='main-grid-top'>
+    <div className='profile-info-box p-black'>
       <Link to={`/friends/${_id}`}>
-        <p className="border-1">
-          <span className="f-1">{buddies && buddies.length}</span>
+        <p className='border-1'>
+          <span className='f-1'>{buddies && buddies.length}</span>
           {/* <span className='f-1'>2</span> */}
           <br /> Connections
         </p>
       </Link>
-      <Link to={`/projects/${_id}`}>
+      <Link to={`/projectlist/${_id}`}>
         <p>
-          <span className="f-1">{experience && experience.length}</span>
-          <br /> Projects{" "}
+          <span className='f-1'>{experience && experience.length}</span>
+          <br /> Projects{' '}
         </p>
       </Link>
     </div>
-    <div className="mutual-frds">
-      {type !== "edit" && (
-        <div className="prof-heading-flex">
+    <div className='mutual-frds'>
+      {type !== 'edit' && (
+        <div className='prof-heading-flex'>
           <div></div>
-          <Link to={"/addfiles"}>
+          <Link to={'/addfiles'}>
             <h4>
-              <span className="bg-1">Add to Portfolio</span>
+              <span className='bg-1'>Add to Portfolio</span>
             </h4>
           </Link>
         </div>

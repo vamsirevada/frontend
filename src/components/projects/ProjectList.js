@@ -1,15 +1,23 @@
 import React, { Fragment, useEffect } from 'react';
-import Project from './Project';
+import ProjectTemp from './ProjectTemp';
 import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getProfileById } from '../../actions/profile';
+import { getProjects } from '../../actions/project';
 // import briefcase from '../../images/icons/nounBriefcase.svg';
 
-const Projects = ({ match, getProfileById, profile: { profile, loading } }) => {
+const ProjectList = ({
+  match,
+  getProfileById,
+  getProjects,
+  profile: { profile, loading },
+  project: { projects },
+}) => {
   useEffect(() => {
     getProfileById(match.params.id);
-  }, [getProfileById, match.params.id]);
+    getProjects(match.params.id);
+  }, [getProfileById, getProjects, match.params.id]);
   return loading && profile === null ? (
     <Spinner />
   ) : (
@@ -62,27 +70,24 @@ const Projects = ({ match, getProfileById, profile: { profile, loading } }) => {
           </div>
           <div className='search-flex search-flex-1'>
             <div>
-              <h1 className='name name-f'>Projects</h1>
+              <h1 className='name name-f'>Projects List</h1>
             </div>
           </div>
           <hr className='hori' />
           <div className='project'>
             <div className='project-container'>
-              {profile?.experience.length > 0 ? (
+              {projects.length > 0 ? (
                 <Fragment>
-                  {profile?.experience.length > 0 && (
+                  {projects.length > 0 && (
                     <div>
-                      {profile?.experience.length > 0 ? (
+                      {projects.length > 0 ? (
                         <Fragment>
-                          {profile?.experience.map((experience) => (
-                            <Project
-                              key={experience._id}
-                              experience={experience}
-                            />
+                          {projects.map((project) => (
+                            <ProjectTemp key={project._id} project={project} />
                           ))}
                         </Fragment>
                       ) : (
-                        <h4> No experience credientials</h4>
+                        <h4> No Projects</h4>
                       )}
                     </div>
                   )}
@@ -100,6 +105,9 @@ const Projects = ({ match, getProfileById, profile: { profile, loading } }) => {
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
+  project: state.project,
 });
 
-export default connect(mapStateToProps, { getProfileById })(Projects);
+export default connect(mapStateToProps, { getProfileById, getProjects })(
+  ProjectList
+);
