@@ -1,12 +1,13 @@
-import React, { Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { getBuddyPosts, getOwnPosts } from "../../actions/post";
-import Spinner from "../layout/Spinner";
-import PostItem from "./PostItem";
+import React, { Fragment, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getBuddyPosts, getOwnPosts } from '../../actions/post';
+import Spinner from '../layout/Spinner';
+import PostItem from './PostItem';
 
 const Posts = ({
   profile: { profile },
+  auth,
   getBuddyPosts,
   getOwnPosts,
   id,
@@ -17,7 +18,7 @@ const Posts = ({
     getOwnPosts(id);
   }, [getBuddyPosts, getOwnPosts, id]);
 
-  return loading ? (  
+  return loading ? (
     <Spinner />
   ) : (
     <Fragment>
@@ -39,6 +40,7 @@ Posts.propTypes = {
 const mapStateToProps = (state) => ({
   post: state.post,
   profile: state.profile,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { getBuddyPosts, getOwnPosts })(Posts);

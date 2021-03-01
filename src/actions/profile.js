@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { projectFirestore, timestamp } from '../firebase/config';
+import { projectFirestore } from '../firebase/config';
 import { setAlert } from './alert';
 
 import {
@@ -54,10 +54,6 @@ export const sendBuddyRequest = (id) => async (dispatch) => {
 export const getBuddyRequests = () => async (dispatch) => {
   try {
     const res = await axios.get('api/profile/buddyRequests');
-    projectFirestore.collection('notifications').add({
-      profile: res.data,
-      createdAt: timestamp(),
-    });
     dispatch({
       type: GET_BUDDY_REQUESTS,
       payload: res.data,

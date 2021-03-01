@@ -8,6 +8,7 @@ import {
   GET_POST,
   ADD_COMMENT,
   REMOVE_COMMENT,
+  CLEAR_POST,
 } from '../actions/types';
 
 const initialState = {
@@ -88,6 +89,13 @@ export default function (state = initialState, action) {
             (comment) => comment._id !== payload
           ),
         },
+        loading: false,
+      };
+    case CLEAR_POST:
+      return {
+        ...state,
+        posts: null,
+        oposts: null,
         loading: false,
       };
     default:

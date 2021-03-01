@@ -1,5 +1,6 @@
-import axios from "axios";
-import { setAlert } from "./alert";
+import axios from 'axios';
+import { projectFirestore, timestamp } from '../firebase/config';
+import { setAlert } from './alert';
 import {
   DELETE_POST,
   GET_POSTS,
@@ -10,12 +11,12 @@ import {
   ADD_POST,
   ADD_COMMENT,
   REMOVE_COMMENT,
-} from "./types";
+} from './types';
 
 // Get posts
 export const getPosts = () => async (dispatch) => {
   try {
-    const res = await axios.get("/api/posts");
+    const res = await axios.get('/api/posts');
     dispatch({
       type: GET_POSTS,
       payload: res.data,
@@ -106,7 +107,7 @@ export const deletePost = (id) => async (dispatch) => {
       payload: id,
     });
 
-    dispatch(setAlert("Post Removed", "success"));
+    dispatch(setAlert('Post Removed', 'success'));
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -119,7 +120,7 @@ export const deletePost = (id) => async (dispatch) => {
 export const addPost = (formData) => async (dispatch) => {
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
   try {
@@ -130,7 +131,7 @@ export const addPost = (formData) => async (dispatch) => {
       payload: res.data,
     });
 
-    dispatch(setAlert("Post Created", "success"));
+    dispatch(setAlert('Post Created', 'success'));
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -143,7 +144,7 @@ export const addPost = (formData) => async (dispatch) => {
 export const addGroupPost = (formData) => async (dispatch) => {
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
   try {
@@ -154,7 +155,7 @@ export const addGroupPost = (formData) => async (dispatch) => {
       payload: res.data,
     });
 
-    dispatch(setAlert("Post Created", "success"));
+    dispatch(setAlert('Post Created', 'success'));
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -184,7 +185,7 @@ export const getPost = (id) => async (dispatch) => {
 export const addComment = (postId, formData) => async (dispatch) => {
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
   try {
@@ -199,7 +200,7 @@ export const addComment = (postId, formData) => async (dispatch) => {
       payload: res.data,
     });
 
-    dispatch(setAlert("Comment Added", "success"));
+    dispatch(setAlert('Comment Added', 'success'));
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -218,7 +219,7 @@ export const deleteComment = (postId, commentId) => async (dispatch) => {
       payload: commentId,
     });
 
-    dispatch(setAlert("Comment Removed", "success"));
+    dispatch(setAlert('Comment Removed', 'success'));
   } catch (err) {
     dispatch({
       type: POST_ERROR,
