@@ -1,19 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-no-target-blank */
-import React, { Fragment, useState } from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { addLike, removeLike, deletePost } from "../../actions/post";
-import Moment from "react-moment";
-import path from "../../images/path.svg";
-import heart from "../../images/heart.svg";
-import yheart from "../../images/liked.png";
-import com from "../../images/noun_comment_767203 copy.svg";
-import CommentForm from "./CommentForm";
-import CommentItem from "./CommentItem";
-import logo from "../../images/dummyimage.jpg";
-import PostType from "./PostType";
+import React, { Fragment, useState } from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { addLike, removeLike, deletePost } from '../../actions/post';
+import Moment from 'react-moment';
+import path from '../../images/path.svg';
+import heart from '../../images/heart.svg';
+import yheart from '../../images/liked.png';
+import com from '../../images/noun_comment_767203 copy.svg';
+import CommentForm from './CommentForm';
+import CommentItem from './CommentItem';
+import logo from '../../images/dummyimage.jpg';
+import PostType from './PostType';
 
 const PostItem = ({
   profile: { profile },
@@ -35,8 +35,12 @@ const PostItem = ({
   removeLike,
   deletePost,
 }) => {
+  const abc = likes.map((like) => like.user === auth?.user?._id);
+
+  const xyz = abc.find((num) => num === true);
+
   const [displayDot, toogleDot] = useState(false);
-  const [displayLbtn, toogleLbtn] = useState(false);
+  const [displayLbtn, toogleLbtn] = useState(xyz);
   const [displayAddCmt, toogleAddCmt] = useState(false);
   const [displayComment, toogleComment] = useState(false);
 
@@ -46,41 +50,41 @@ const PostItem = ({
   };
 
   return (
-    <div className="post">
-      <div className="post-heading">
-        <div className="flex">
-          <div className="display-pic">
+    <div className='post'>
+      <div className='post-heading'>
+        <div className='flex'>
+          <div className='display-pic'>
             <img
-              className="display-pic"
+              className='display-pic'
               src={user?.avatar ? user?.avatar : logo}
-              alt=""
+              alt=''
             />
           </div>
 
-          <a className="bold bold-1">
-            {" "}
+          <a className='bold bold-1'>
+            {' '}
             {fullName && fullName} {groupName && groupName} (
-            {userName && userName})<br />{" "}
-            <span className="third-bold">
-              <span className="f-1">
-                Posted on{": "}
-                <Moment format="DD MMM YY">{date}</Moment> {", "}
-                <Moment format="hh:mm A">{date}</Moment>
+            {userName && userName})<br />{' '}
+            <span className='third-bold'>
+              <span className='f-1'>
+                Posted on{': '}
+                <Moment format='DD MMM YY'>{date}</Moment> {', '}
+                <Moment format='hh:mm A'>{date}</Moment>
               </span>
             </span>
           </a>
         </div>
         <a
-          style={{ display: userName === auth.user.userName ? "" : "none" }}
+          style={{ display: userName === auth.user.userName ? '' : 'none' }}
           onClick={() => toogleDot(!displayDot)}
-          className="three-dots"
+          className='three-dots'
         >
-          <img src={path} className="resize" alt="" />
+          <img src={path} className='resize' alt='' />
         </a>
         {displayDot && (
           <Fragment>
             {userName === auth.user.userName && (
-              <div className="no-post-dis" id="post-dis">
+              <div className='no-post-dis' id='post-dis'>
                 <ul>
                   <Fragment>
                     <li>
@@ -94,82 +98,82 @@ const PostItem = ({
         )}
       </div>
 
-      {PostType(type) !== "default" && (
-        <div style={{ marginBottom: 10 }} className="post-description">
-          {PostType(type) === "blog" ? (
-            <div style={{ marginBottom: 10 }} className="post-blog">
+      {PostType(type) !== 'default' && (
+        <div style={{ marginBottom: 10 }} className='post-description'>
+          {PostType(type) === 'blog' ? (
+            <div style={{ marginBottom: 10 }} className='post-blog'>
               <a> {text}</a>
               <br />
-              <a href={url} target="_blank">
+              <a href={url} target='_blank'>
                 {url}
               </a>
             </div>
           ) : (
-            <div className="post-description">
+            <div className='post-description'>
               <p>{text}</p>
             </div>
           )}
         </div>
       )}
-      {PostType(type) === "default" && (
-        <div style={{ marginBottom: 10 }} className="post-description">
+      {PostType(type) === 'default' && (
+        <div style={{ marginBottom: 10 }} className='post-description'>
           <p>{text}</p>
         </div>
       )}
-      {PostType(type) === "photo" && (
+      {PostType(type) === 'photo' && (
         <img
-          style={{ objectFit: "contain" }}
-          className="post-pic"
+          style={{ objectFit: 'contain' }}
+          className='post-pic'
           src={url}
-          alt=""
+          alt=''
         />
       )}
 
-      {PostType(type) === "video" && (
+      {PostType(type) === 'video' && (
         <video
           style={{
-            objectFit: "cover",
+            objectFit: 'cover',
             borderRadius: 20,
-            width: "100%",
-            height: "350px",
-            background: "transparent",
+            width: '100%',
+            height: '350px',
+            background: 'transparent',
           }}
           controls
           src={url}
         />
       )}
-      {PostType(type) === "audio" && (
-        <audio className="post-audio" controls src={url} />
+      {PostType(type) === 'audio' && (
+        <audio className='post-audio' controls src={url} />
       )}
 
-      {PostType(type) !== "default" ? (
-        <div className="flex-des">
-          <div className="pic-des-1">
+      {PostType(type) !== 'default' ? (
+        <div className='flex-des'>
+          <div className='pic-des-1'>
             <div onClick={(e) => onLike(e)}>
               {displayLbtn ? (
                 <Fragment>
                   <div onClick={(e) => removeLike(_id)}>
-                    <img className="r-1" src={yheart} alt="" />
-                    <span className="d-1">Liked</span>
+                    <img className='r-1' src={yheart} alt='' />
+                    <span className='d-1'>Liked</span>
                   </div>
                 </Fragment>
               ) : (
                 <Fragment>
                   <div onClick={(e) => addLike(_id)}>
-                    <img className="r-1" src={heart} alt="" />
-                    <span className="d-1">Like</span>
+                    <img className='r-1' src={heart} alt='' />
+                    <span className='d-1'>Like</span>
                   </div>
                 </Fragment>
               )}
             </div>
             <div onClick={() => toogleAddCmt(!displayAddCmt)}>
-              <img className="r-1" src={com} alt="" />
-              <span className="d-1">Comment</span>
+              <img className='r-1' src={com} alt='' />
+              <span className='d-1'>Comment</span>
             </div>
           </div>
-          <div className="des-right">
-            <a className="d-1">
-              <span className="f-1">{likes.length > 0 && likes.length}</span>{" "}
+          <div className='des-right'>
+            <a className='d-1'>
+              <span className='f-1'>{likes.length > 0 && likes.length}</span>{' '}
               Likes
             </a>
             <Link
@@ -178,43 +182,43 @@ const PostItem = ({
                 toogleComment(!displayComment);
                 toogleAddCmt(!displayAddCmt);
               }}
-              className="d-1"
+              className='d-1'
             >
-              <span className="f-1">
+              <span className='f-1'>
                 {comments.length > 0 && comments.length}
-              </span>{" "}
+              </span>{' '}
               Comment
             </Link>
           </div>
         </div>
       ) : (
-        <div className="flex-des">
-          <div className="pic-des-1">
+        <div className='flex-des'>
+          <div className='pic-des-1'>
             <div onClick={(e) => onLike(e)}>
               {displayLbtn ? (
                 <Fragment>
                   <div onClick={(e) => removeLike(_id)}>
-                    <img className="r-1" src={yheart} alt="" />
-                    <span className="d-1">Liked</span>
+                    <img className='r-1' src={yheart} alt='' />
+                    <span className='d-1'>Liked</span>
                   </div>
                 </Fragment>
               ) : (
                 <Fragment>
                   <div onClick={(e) => addLike(_id)}>
-                    <img className="r-1" src={heart} alt="" />
-                    <span className="d-1">Like</span>
+                    <img className='r-1' src={heart} alt='' />
+                    <span className='d-1'>Like</span>
                   </div>
                 </Fragment>
               )}
             </div>
             <div onClick={() => toogleAddCmt(!displayAddCmt)}>
-              <img className="r-1" src={com} alt="" />
-              <span className="d-1">Comment</span>
+              <img className='r-1' src={com} alt='' />
+              <span className='d-1'>Comment</span>
             </div>
           </div>
-          <div className="des-right">
-            <a className="d-1">
-              <span className="f-1">{likes.length > 0 && likes.length}</span>{" "}
+          <div className='des-right'>
+            <a className='d-1'>
+              <span className='f-1'>{likes.length > 0 && likes.length}</span>{' '}
               Likes
             </a>
             <Link
@@ -223,18 +227,18 @@ const PostItem = ({
                 toogleComment(!displayComment);
                 toogleAddCmt(!displayAddCmt);
               }}
-              className="d-1"
+              className='d-1'
             >
-              <span className="f-1">
+              <span className='f-1'>
                 {comments.length > 0 && comments.length}
-              </span>{" "}
+              </span>{' '}
               Comment
             </Link>
           </div>
         </div>
       )}
       {displayComment && (
-        <div className="comments">
+        <div className='comments'>
           {comments.map((comment) => (
             <CommentItem
               profile={profile}

@@ -15,8 +15,6 @@ export const getRealtimeNotifications = () => {
           type: GET_NOTIFICATIONS,
           payload: { notifications },
         });
-
-        console.log(notifications);
       });
   };
 };

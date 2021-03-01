@@ -1,6 +1,7 @@
-import axios from "axios";
-import { setAlert } from "./alert";
-import setAuthToken from "../utils/setAuthToken";
+import axios from 'axios';
+import { setAlert } from './alert';
+import { getBuddyPosts, getOwnPosts } from './post';
+import setAuthToken from '../utils/setAuthToken';
 
 import {
   REGISTER_SUCCESS,
@@ -17,7 +18,8 @@ import {
   CLEAR_PROFILE,
   LOGOUT,
   REFERRAL_SUCESS,
-} from "./types";
+  CLEAR_POST,
+} from './types';
 
 // const { enqueueSnackbar } = useSnackbar();
 
@@ -27,7 +29,8 @@ export const loadUser = () => async (dispatch) => {
     setAuthToken(localStorage.token);
   }
   try {
-    const res = await axios.get("/api/auth");
+    const res = await axios.get('/api/auth');
+
     dispatch({
       type: USER_LOADED,
       payload: res.data,
@@ -45,7 +48,7 @@ export const loadWriter = () => async (dispatch) => {
   }
 
   try {
-    const res = await axios.get("/api/auth/writer");
+    const res = await axios.get('/api/auth/writer');
     dispatch({
       type: WRITER_LOADED,
       payload: res.data,
@@ -68,7 +71,7 @@ export const register = ({
 }) => async (dispatch) => {
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
 
@@ -82,19 +85,19 @@ export const register = ({
   });
 
   try {
-    const res = await axios.post("/api/users", body, config);
+    const res = await axios.post('/api/users', body, config);
 
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data,
     });
     dispatch(loadUser());
-    dispatch(setAlert("User Registered Successful", "success"));
+    dispatch(setAlert('User Registered Successful', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: REGISTER_FAIL,
@@ -106,27 +109,24 @@ export const register = ({
 export const login = (email, password) => async (dispatch) => {
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
-
   const body = JSON.stringify({ email, password });
-
   try {
-    const res = await axios.post("/api/auth", body, config);
-
+    const res = await axios.post('/api/auth', body, config);
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
-
     dispatch(loadUser());
+    dispatch(getOwnPosts());
+    dispatch(getBuddyPosts());
   } catch (err) {
     const errors = err.response.data.errors;
     console.log(errors);
-
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: LOGIN_FAIL,
@@ -137,14 +137,14 @@ export const login = (email, password) => async (dispatch) => {
 export const loginWriter = (email, password) => async (dispatch) => {
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
 
   const body = JSON.stringify({ email, password });
 
   try {
-    const res = await axios.post("/api/auth/writer", body, config);
+    const res = await axios.post('/api/auth/writer', body, config);
 
     dispatch({
       type: WRITER_LOGIN_SUCCESS,
@@ -156,7 +156,7 @@ export const loginWriter = (email, password) => async (dispatch) => {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: WRITER_LOGIN_FAIL,
@@ -176,7 +176,7 @@ export const groupRegister = ({
 }) => async (dispatch) => {
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
 
@@ -191,7 +191,7 @@ export const groupRegister = ({
   });
 
   try {
-    const res = await axios.post("/api/users/group", body, config);
+    const res = await axios.post('/api/users/group', body, config);
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -201,7 +201,7 @@ export const groupRegister = ({
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: REGISTER_FAIL,
@@ -215,7 +215,7 @@ export const writerRegister = ({ name, email, password }) => async (
 ) => {
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
 
@@ -226,7 +226,7 @@ export const writerRegister = ({ name, email, password }) => async (
   });
 
   try {
-    const res = await axios.post("/api/users/writer", body, config);
+    const res = await axios.post('/api/users/writer', body, config);
 
     dispatch({
       type: WRITER_REGISTER_SUCCESS,
@@ -236,7 +236,7 @@ export const writerRegister = ({ name, email, password }) => async (
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: WRITER_REGISTER_FAIL,
@@ -250,22 +250,22 @@ export const sendInvite = ({ email }) => async (dispatch) => {
   });
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
   try {
-    const res = await axios.post("/api/auth/send-invite", body, config);
+    const res = await axios.post('/api/auth/send-invite', body, config);
 
     dispatch({
       type: REFERRAL_SUCESS,
       payload: res.data.message,
     });
-    dispatch(setAlert(res.data.message, "success"));
+    dispatch(setAlert(res.data.message, 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: REGISTER_FAIL,
@@ -279,22 +279,22 @@ export const sendReferral = ({ email }) => async (dispatch) => {
   });
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
   try {
-    const res = await axios.post("/api/auth/send-referral", body, config);
+    const res = await axios.post('/api/auth/send-referral', body, config);
 
     dispatch({
       type: REFERRAL_SUCESS,
       payload: res.data.message,
     });
-    dispatch(setAlert(res.data.message, "success"));
+    dispatch(setAlert(res.data.message, 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: REGISTER_FAIL,
@@ -305,5 +305,6 @@ export const sendReferral = ({ email }) => async (dispatch) => {
 //Logout /clear profile
 export const logout = () => (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
+  dispatch({ type: CLEAR_POST });
   dispatch({ type: LOGOUT });
 };

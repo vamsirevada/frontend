@@ -138,14 +138,14 @@ const Navbar = ({ logout }) => {
             </div>
             <div className='icon'>
               <img
+                className='notif'
                 src={notify}
                 onClick={() => {
                   toogleNotify(true);
                   setTimeout(() => {
-                    toogleMenu(false);
+                    toogleNotify(false);
                   }, 5000);
                 }}
-                className='notif'
                 alt='notify'
               />
               {displayNotify && <NotificationPopup />}
