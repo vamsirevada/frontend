@@ -541,3 +541,8 @@ p {
   padding-top: 1rem;
   margin-bottom: 1rem;
 }
+
+.left-container .heading-1.p {
+  padding-top: 3rem;
+  margin-bottom: 1rem;
+}

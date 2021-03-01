@@ -917,3 +917,15 @@ input[type='date']::-webkit-calendar-picker-indicator {
   border-radius: 15px;
   background: url(../images/Image\ 124@2x.png) no-repeat center center/cover;
 }
+
+#c-profile .create-container h2 {
+  margin: 1rem 0rem;
+}
+
+#c-profile .c-form.project {
+  margin: 2rem 0rem;
+}
+
+#c-profile .c-form.project .btn-blue {
+  margin: 0rem;
+}

@@ -174,6 +174,9 @@ const Navbar = ({ logout }) => {
                       <Link to='/invite'> Invite Friends</Link>
                     </li>
                     <li>
+                      <Link to='/create-project'> Create Project</Link>
+                    </li>
+                    <li>
                       <a onClick={logout} className='signOut' type='button'>
                         Log out
                       </a>

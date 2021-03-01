@@ -1,5 +1,4 @@
-import React, { useState, useEffect, Fragment } from 'react';
-import axios from 'axios';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import { getCurrentProfile } from '../../actions/profile';
