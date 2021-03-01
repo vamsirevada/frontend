@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import Spinner from '../layout/Spinner';
-import loc from '../../images/icons/noun_Location_3139654.svg';
+// import loc from '../../images/icons/noun_Location_3139654.svg';
 import logo from '../../images/dummyimage.jpg';
 
 const ProjectLeft = ({ project, loading }) => {

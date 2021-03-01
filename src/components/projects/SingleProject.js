@@ -28,10 +28,10 @@ const SingleProject = ({
   return (
     <>
       <div className='ribbon'>
-        <a onClick={(e) => onClick1(e)} className='ribbon-left'>
+        <a href='#!' onClick={(e) => onClick1(e)} className='ribbon-left'>
           {/* <BallotIcon /> */}
         </a>
-        <a onClick={(e) => onClick2(e)} className='ribbon-right'>
+        <a href='#!' onClick={(e) => onClick2(e)} className='ribbon-right'>
           <img src={notify} alt='portfolioe' />
         </a>
       </div>

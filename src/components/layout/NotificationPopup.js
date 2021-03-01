@@ -24,6 +24,7 @@ const NotificationPopup = ({
 
   useEffect(() => {
     getBuddyRequests();
+    //eslint-disable-next-line
   }, []);
 
   const notifications = requests

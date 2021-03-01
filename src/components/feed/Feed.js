@@ -28,6 +28,7 @@ const Feed = ({
     getBuddyRequests();
     getBuddyPosts(id);
     getProjects(user._id);
+    //eslint-disable-next-line
   }, [getCurrentProfile, getBuddyPosts, id]);
 
   const [displayLeft, toogleLeft] = useState(true);
