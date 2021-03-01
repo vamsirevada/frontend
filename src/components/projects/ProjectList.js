@@ -61,9 +61,10 @@ const ProjectList = ({
               <Link to={`/projects/${profile?.user._id}`}>
                 <p>
                   <span className='f-1'>
-                    {profile?.experience && profile?.experience.length}
+                    {/* {profile?.experience && profile?.experience.length} */}
+                    {projects && projects.length}
                   </span>
-                  <br /> Projects Completed{' '}
+                  <br /> Projects{' '}
                 </p>
               </Link>
             </div>

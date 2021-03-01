@@ -8,6 +8,7 @@ const PortfolioRightTop = ({
     buddies,
     experience,
   },
+  projects,
 }) => (
   <div className='main-grid-top'>
     <div className='profile-info-box p-black'>
@@ -20,7 +21,8 @@ const PortfolioRightTop = ({
       </Link>
       <Link to={`/projectlist/${_id}`}>
         <p>
-          <span className='f-1'>{experience && experience.length}</span>
+          {/* <span className='f-1'>{experience && experience.length}</span> */}
+          <span className='f-1'>{projects && projects.length}</span>
           <br /> Projects{' '}
         </p>
       </Link>

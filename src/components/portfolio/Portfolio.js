@@ -3,6 +3,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profile';
+import { getProjects } from '../../actions/project';
 import Spinner from '../layout/Spinner';
 import briefcase from '../../images/icons/nounBriefcase.svg';
 import nounEducation from '../../images/icons/noun_education_2177318.svg';
@@ -30,12 +31,15 @@ import { Link } from 'react-router-dom';
 
 const Portfolio = ({
   getCurrentProfile,
+  getProjects,
   auth: { user },
   profile: { profile, loading },
+  project: { projects },
 }) => {
   useEffect(() => {
     getCurrentProfile();
-  }, [getCurrentProfile]);
+    getProjects(user._id);
+  }, [getCurrentProfile, getProjects]);
 
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
@@ -491,7 +495,10 @@ const Portfolio = ({
                     <div id='main-grid' className='port-grid'>
                       <div className='main-grid-container'>
                         {profile !== null && (
-                          <PortfolioRightTop profile={profile} />
+                          <PortfolioRightTop
+                            profile={profile}
+                            projects={projects}
+                          />
                         )}
                         <div className='main-grid-body'>
                           {profile !== null && (
@@ -534,6 +541,9 @@ Portfolio.propTypes = {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
+  project: state.project,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Portfolio);
+export default connect(mapStateToProps, { getCurrentProfile, getProjects })(
+  Portfolio
+);

@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
 import { getCurrentProfile, getBuddyRequests } from '../../actions/profile';
+import { getProjects } from '../../actions/project';
 import { getBuddyPosts } from '../../actions/post';
 import { connect } from 'react-redux';
 import MiniPortfolio from '../portfolio/MiniPortfolio';
@@ -15,8 +16,10 @@ const Feed = ({
   getBuddyPosts,
   getCurrentProfile,
   getBuddyRequests,
-  auth,
+  getProjects,
+  auth: { user },
   profile: { profile, loading },
+  project: { projects },
   post,
   id,
 }) => {
@@ -24,6 +27,7 @@ const Feed = ({
     getCurrentProfile();
     getBuddyRequests();
     getBuddyPosts(id);
+    getProjects(user._id);
   }, [getCurrentProfile, getBuddyPosts, id]);
 
   const [displayLeft, toogleLeft] = useState(true);
@@ -52,7 +56,11 @@ const Feed = ({
         <div id='feed'>
           <div className='left'>
             <div id='left-sidebar'>
-              <MiniPortfolio profile={profile} loading={loading} />
+              <MiniPortfolio
+                profile={profile}
+                loading={loading}
+                projects={projects}
+              />
             </div>
           </div>
           {displayLeft && (
@@ -82,10 +90,12 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
   post: state.post,
+  project: state.project,
 });
 
 export default connect(mapStateToProps, {
   getCurrentProfile,
   getBuddyPosts,
   getBuddyRequests,
+  getProjects,
 })(Feed);
