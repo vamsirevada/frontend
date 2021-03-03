@@ -5,7 +5,7 @@
 }
 
 a {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 16px;
   /* color: #fff; */
 }
@@ -45,6 +45,18 @@ a {
   width: 250px;
 }
 
+.main-grid-top .profile-project-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: #7480ff; */
+  background-color: #f9f6f2;
+  padding: 1.5rem 1rem;
+  margin-top: 1rem;
+  border-radius: 20px;
+  line-height: 1.3rem;
+}
+
 .main-grid-top .profile-info-box a {
   color: #fff;
   font-size: 16px;
@@ -75,7 +87,7 @@ a {
 
 .main-grid-top .prof-heading-flex .bg-1,
 .main-grid-top .prof-heading-flex2 a {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 16px;
   font-size: 500;
   color: #fff;
@@ -193,7 +205,7 @@ a {
 .main-grid-container .main-grid-body .box-4 .three-dots,
 .main-grid-container .main-grid-body .box-5 .three-dots,
 .main-grid-container .main-grid-body .box-6 .three-dots {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 12px;
   color: #272727;
   z-index: 270;
@@ -236,7 +248,7 @@ a {
 .main-grid-container .main-grid-body .box-5 .no-post-dis,
 .main-grid-container .main-grid-body .box-6 .no-post-dis {
   display: none;
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 0px;
   color: #272727;
   background-color: #f2f2f2;
@@ -672,7 +684,7 @@ font-size: 0.7rem;
 
 .main-grid-body .main-flex-body-1 .box-1:hover .pic-full-des .f-des-title .p-1,
 .main-grid-body .main-flex-body-2 .box-6:hover .pic-full-des .f-des-title .p-1 {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 14px;
   color: #fff;
 }
@@ -681,7 +693,7 @@ font-size: 0.7rem;
 .main-grid-body .main-flex-body-1 .box-3:hover .pic-full-des .f-des-title .p-1,
 .main-grid-body .main-flex-body-2 .box-4:hover .pic-full-des .f-des-title .p-1,
 .main-grid-body .main-flex-body-2 .box-5:hover .pic-full-des .f-des-title .p-1 {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 12px;
   color: #fff;
 }

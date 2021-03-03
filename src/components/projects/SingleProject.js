@@ -4,9 +4,10 @@ import { getProject } from '../../actions/project';
 import ProjectLeft from './ProjectLeft';
 import notify from '../../images/noun_notification_887294.svg';
 import Notices from './Notices';
+import ProjectAdd from './ProjectAdd';
 
 const SingleProject = ({
-  project: { project, loading },
+  project: { singleproject, loading },
   getProject,
   match,
 }) => {
@@ -15,6 +16,7 @@ const SingleProject = ({
     //eslint-disable-next-line
   }, []);
 
+  // console.log(singleproject.members);
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
 
@@ -29,24 +31,28 @@ const SingleProject = ({
   return (
     <>
       <div className='ribbon'>
-        <a onClick={(e) => onClick1(e)} className='ribbon-left'>
+        <a href='#!' onClick={(e) => onClick1(e)} className='ribbon-left'>
           {/* <BallotIcon /> */}
         </a>
-        <a onClick={(e) => onClick2(e)} className='ribbon-right'>
+        <a href='#!' onClick={(e) => onClick2(e)} className='ribbon-right'>
           <img src={notify} alt='portfolioe' />
         </a>
       </div>
       <div>
-        <div id='feed'>
-          <div className='left'>
+        <div className='portfolio project'>
+          <div className='portfolio-left'>
             <div id='left-sidebar'>
-              <ProjectLeft project={project} loading={loading} />
+              <ProjectLeft singleproject={singleproject} loading={loading} />
             </div>
           </div>
           {displayLeft && (
             <div className='center'>
               <div id='feed-main'>
                 <div className='feed-main-container'>
+                  {singleproject !== null && (
+                    <ProjectAdd singleproject={singleproject} />
+                  )}
+
                   {/* <PostForm /> */}
                   {/* <Posts profile={profile} /> */}
                 </div>

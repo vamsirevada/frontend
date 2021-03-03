@@ -21,11 +21,7 @@ const ProjectTemp = ({
           <div className='p-container'>
             <div className='project-head'>
               <p className='list list-1'>
-                Project Name:{' '}
-                <span className='list-4'>
-                  {' '}
-                  <h3>{projectname}</h3>
-                </span>
+                Project Name: <span className='list-4'> {projectname}</span>
               </p>
 
               <p className='list list-2'>

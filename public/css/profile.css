@@ -869,6 +869,12 @@ input[type='date']::-webkit-calendar-picker-indicator {
   border-right: 2px solid #fff;
 }
 
+.border-1.pro {
+  padding: 0rem 1rem;
+  margin-right: 0rem;
+  border-right: none;
+}
+
 /* Profile-description */
 
 .profile-des {

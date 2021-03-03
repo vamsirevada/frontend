@@ -56,7 +56,16 @@
 #portfolio {
   display: grid;
   grid-template-columns: 26% 61%;
-  /* grid-template-columns: 350px auto; */
+
+  grid-gap: 1rem;
+  position: relative;
+  top: 72px;
+}
+
+.portfolio.project {
+  display: grid;
+  /* grid-template-columns: 26% 61%; */
+  grid-template-columns: 350px 1.75fr 1fr;
   grid-gap: 1rem;
   position: relative;
   top: 72px;
@@ -76,4 +85,54 @@
   top: 0;
   left: 0%;
   margin: 0 1.5rem;
+}
+
+.memberpopupscreen::after {
+  content: '';
+  z-index: 1000000000;
+}
+
+.memberpopupscreen {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: #060606;
+  opacity: 0.8;
+  z-index: 100;
+  width: 100vw;
+  height: 100vw;
+  overflow: hidden;
+  position: fixed;
+}
+
+.memberpopupscreen .memberpopup {
+  z-index: 101;
+  background: #fff;
+  display: block;
+  width: 250px;
+  border-radius: 10px;
+  position: absolute;
+  left: 40%;
+  top: 20%;
+}
+
+.memberpopup .mem-heading {
+  background: #4d5dff;
+  padding: 1rem;
+  color: #fff;
+  border-radius: 10px 10px 0px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mem-heading img {
+  filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(257deg)
+    brightness(107%) contrast(101%);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.mem-heading .member-cross:hover {
+  opacity: 0.8;
 }

@@ -2,24 +2,24 @@ import React, { Fragment } from 'react';
 import Spinner from '../layout/Spinner';
 import logo from '../../images/dummyimage.jpg';
 
-const ProjectLeft = ({ project, loading }) => {
-  return loading && project === null ? (
+const ProjectLeft = ({ singleproject, loading }) => {
+  return loading && singleproject === null ? (
     <Spinner />
   ) : (
     <Fragment>
-      {project !== null ? (
+      {singleproject !== null ? (
         <Fragment>
           <div className='left-container'>
             <div className='left-heading heading-1 p'>
               <img
                 className='display-pic'
-                src={project?.avatar ? project?.avatar : logo}
+                src={singleproject?.avatar ? singleproject?.avatar : logo}
                 alt=''
               />
               <h2 className='name name-f'>
                 {/* {profile.user.fullName && profile.user.fullName}
                 {profile.user.groupName && profile.user.groupName} */}
-                {project.projectname && project.projectname}
+                {singleproject.projectname && singleproject.projectname}
               </h2>
               {/* <p> {profile.user.userName}</p> */}
               {/* <p> {profile.status}</p> */}
@@ -33,7 +33,7 @@ const ProjectLeft = ({ project, loading }) => {
               <h3>Admin :</h3>
               <p>
                 {' '}
-                <span className='gray'> {project.creator} </span>
+                <span className='gray'> {singleproject.creator} </span>
               </p>
             </div>
             <hr className='hori' />
@@ -41,14 +41,14 @@ const ProjectLeft = ({ project, loading }) => {
               <h3>Location :</h3>
               <p>
                 {' '}
-                <span className='gray'> {project.location} </span>
+                <span className='gray'> {singleproject.location} </span>
               </p>
             </div>
             <hr className='hori' />
 
             <div className='about'>
               <h3>Project description :</h3>
-              <p>{project.description}</p>
+              <p>{singleproject.description}</p>
             </div>
 
             <hr className='hori' />
