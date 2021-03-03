@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { projectFirestore } from '../firebase/config';
 import { setAlert } from './alert';
 
 import {

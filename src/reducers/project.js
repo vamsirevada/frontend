@@ -9,6 +9,7 @@ import {
 const initialState = {
   projects: [],
   project: null,
+  isCreated: null,
   error: {},
   loading: true,
 };
@@ -22,18 +23,21 @@ export default function (state = initialState, action) {
       return {
         ...state,
         projects: payload,
+        isCreated: false,
         loading: false,
       };
     case GET_PROJECT:
       return {
         ...state,
         project: payload,
+        isCreated: false,
         loading: false,
       };
     case CREATE_PROJECT:
       return {
         ...state,
         projects: [payload, ...state.projects],
+        isCreated: true,
       };
     case DELETE_PROJECT:
       return {

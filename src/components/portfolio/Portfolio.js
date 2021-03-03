@@ -38,8 +38,8 @@ const Portfolio = ({
 }) => {
   useEffect(() => {
     getCurrentProfile();
-    getProjects(user._id);
-  }, [getCurrentProfile, getProjects]);
+    getProjects(user?._id);
+  }, [getCurrentProfile, getProjects, user?._id]);
 
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);

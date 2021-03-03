@@ -12,7 +12,6 @@ import path from '../../images/path.svg';
 import call from '../../images/call.png';
 import videocall from '../../images/videocall.png';
 import background from '../../images/Rectangle.png';
-import { projectFirestore } from '../../firebase/config';
 
 const ChatPage = ({
   auth,
@@ -22,8 +21,6 @@ const ChatPage = ({
 }) => {
   const dispatch = useDispatch();
   const [formValue, setFormValue] = useState('');
-  const [messages, setMessages] = useState([]);
-  const [notifications, setNotifications] = useState([]);
   const [chatProfile, setChatProfile] = useState('');
   const [chatStarted, setChatStarted] = useState(false);
   const [chatUserImage, setChatUserImage] = useState(logo);
@@ -31,9 +28,6 @@ const ChatPage = ({
 
   useEffect(() => {
     getBuddiesById(auth?.user?._id);
-    projectFirestore
-      .collection('conversations')
-      .onSnapshot((snap) => setMessages(snap.docs.map((doc) => doc.data())));
   }, [getBuddiesById, auth?.user?._id]);
 
   const sendMessage = async (e) => {
@@ -214,30 +208,43 @@ const ChatPage = ({
                   <div
                     key={index}
                     className={`${
-                      auth.user._id === con.user_uid_1 ? 'flex-c-r' : 'flex-c-2'
+                      auth.user._id === con.user_uid_1 ? 'flex-c-r' : 'flex-2'
                     }`}
                   >
-                    <div className='flex-c-r-left'>
-                      <p className='b-1'>{con.formValue}</p>
+                    {auth?.user?._id !== con?.user_uid_1 && (
+                      <span
+                        style={{
+                          background: `url(${chatUserImage}) no-repeat center center/cover`,
+                        }}
+                        className='dp-2'
+                      ></span>
+                    )}
+                    <div
+                      className={`${
+                        auth?.user?._id === con?.user_uid_1
+                          ? 'flex-c-r-left'
+                          : 'flex-2-c'
+                      }`}
+                    >
+                      <p
+                        className={`${
+                          auth?.user?._id === con?.user_uid_1 ? 'b-1' : 'b-2'
+                        }`}
+                      >
+                        {con.formValue}
+                      </p>
                       <small className='i-1'>
                         {new Date(con?.createdAt?.toDate()).toLocaleString()}
                       </small>
                     </div>
-
-                    <span
-                      style={{
-                        background: `url(${
-                          auth.user._id === con.user_uid_1
-                            ? auth?.user?.avatar
-                            : chatUserImage
-                        }) no-repeat center center/cover`,
-                      }}
-                      className={`${
-                        auth.user._id === con.user_uid_1
-                          ? 'dp-4-1 flex-c-r-right'
-                          : 'dp-2'
-                      }`}
-                    ></span>
+                    {auth?.user?._id === con?.user_uid_1 && (
+                      <span
+                        style={{
+                          background: `url(${auth?.user?.avatar}) no-repeat center center/cover`,
+                        }}
+                        className='dp-4-1 flex-c-r-right'
+                      ></span>
+                    )}
                   </div>
                 ))}
               </div>

@@ -1,61 +1,61 @@
-import React, { Fragment, useContext, useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import React, { Fragment, useState, useEffect } from 'react';
+import { Redirect, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createProject } from '../../actions/project';
-import { projectStorage } from '../../firebase/config';
-import { ProfileContext } from '../../context/profile/profile.context';
+import { getProjects, createProject } from '../../actions/project';
+import { projectFirestore, projectStorage } from '../../firebase/config';
 import logo from '../../images/dummyimage.jpg';
 
-const Createproject = ({ createProject, history }) => {
-  let fileInput = React.createRef();
-  const { img, setImg } = useContext(ProfileContext);
+const Createproject = ({
+  auth: { user },
+  project: { projects, isCreated },
+  getProjects,
+  createProject,
+  history,
+}) => {
+  useEffect(() => {
+    getProjects(user?._id);
+  }, [getProjects, user?._id]);
 
+  let fileInput = React.createRef();
   const [formData, setFormData] = useState({
     projectname: '',
     location: '',
-    // avatar: '',
+    avatar: '',
     description: '',
   });
 
-  const {
-    projectname,
-    location,
-    // avatar,
-    description,
-  } = formData;
+  const { projectname, location, avatar, description } = formData;
 
-  // const onOpenFileDialog = () => {
-  //   fileInput.current.click();
-  // };
+  const onOpenFileDialog = () => {
+    fileInput.current.click();
+  };
 
-  // const onFileChange = async (e) => {
-  //   const file = e.target.files[0];
-  //   const storageRef = projectStorage.ref('profilepictures');
-  //   const fileRef = storageRef.child(file.name);
-  //   await fileRef.put(file);
-  //   setFormData({
-  //     ...formData,
-  //     avatar: await fileRef.getDownloadURL(),
-  //   });
-
-  //   setImg(await fileRef.getDownloadURL());
-
-  //   createProject(
-  //     { ...formData, avatar: await fileRef.getDownloadURL() },
-  //     history,
-  //     true
-  //   );
-  // };
+  const onFileChange = async (e) => {
+    const file = e.target.files[0];
+    const storageRef = projectStorage.ref('projectpictures');
+    const fileRef = storageRef.child(file.name);
+    await fileRef.put(file);
+    setFormData({
+      ...formData,
+      avatar: await fileRef.getDownloadURL(),
+    });
+  };
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     createProject(formData, history);
+    projectFirestore.collection('projectmessages').add({
+      groupname: projectname,
+    });
   };
+
+  if (isCreated) {
+    return <Redirect to={`/project/${projects[0]?._id}`} />;
+  }
 
   return (
     <Fragment>
@@ -63,7 +63,7 @@ const Createproject = ({ createProject, history }) => {
         <div className='container'>
           <div className='create-container'>
             <h2>Create your Project</h2>
-            {/* <div className='dp'>
+            <div className='dp'>
               <input
                 type='file'
                 onChange={onFileChange}
@@ -80,7 +80,7 @@ const Createproject = ({ createProject, history }) => {
               <button className='btn-yellow' onClick={onOpenFileDialog}>
                 Upload Picture
               </button>
-            </div> */}
+            </div>
 
             <div className='c-form project'>
               <form onSubmit={(e) => onSubmit(e)}>
@@ -138,8 +138,15 @@ const Createproject = ({ createProject, history }) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  project: state.project,
+});
+
 Createproject.propTypes = {
   createProject: PropTypes.func.isRequired,
 };
 
-export default connect(null, { createProject })(withRouter(Createproject));
+export default connect(mapStateToProps, { getProjects, createProject })(
+  withRouter(Createproject)
+);

@@ -39,7 +39,7 @@ a {
 }
 
 /* Add styles to the form container */
-.form-container {
+.form-container.chat {
   max-width: 300px;
   padding: 0.5rem 0;
   background-color: #f8f8f8;

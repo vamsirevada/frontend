@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getProject } from '../../actions/project';
 import ProjectLeft from './ProjectLeft';
 import notify from '../../images/noun_notification_887294.svg';
+import Notices from './Notices';
 
 const SingleProject = ({
   project: { project, loading },
@@ -36,8 +37,8 @@ const SingleProject = ({
         </a>
       </div>
       <div>
-        <div id='portfolio'>
-          <div className='portfolio-left'>
+        <div id='feed'>
+          <div className='left'>
             <div id='left-sidebar'>
               <ProjectLeft project={project} loading={loading} />
             </div>
@@ -55,7 +56,8 @@ const SingleProject = ({
           {displayRight && (
             <div className='right'>
               {/* <FriendRequests /> */}
-              <hr />
+              {/* <hr /> */}
+              <Notices creator={project?.projectname} id={match.params.id} />
               {/* <NotePeoples profile={profile} /> */}
             </div>
           )}

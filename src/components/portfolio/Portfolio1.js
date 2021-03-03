@@ -40,7 +40,7 @@ const Portfolio1 = ({
   useEffect(() => {
     getProfileById(match.params.id);
     getProjects(match.params.id);
-  }, [getProfileById, match.params.id]);
+  }, [getProfileById, getProjects, match.params.id]);
 
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
