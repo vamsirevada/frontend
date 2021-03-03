@@ -8,6 +8,7 @@ import {
 
 const initialState = {
   projects: [],
+  isCreated: null,
   singleproject: null,
   error: {},
   loading: true,
@@ -22,11 +23,13 @@ export default function (state = initialState, action) {
       return {
         ...state,
         projects: payload,
+        isCreated: false,
         loading: false,
       };
     case GET_PROJECT:
       return {
         ...state,
+        isCreated: false,
         singleproject: payload,
         loading: false,
       };
@@ -34,6 +37,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         projects: [payload, ...state.projects],
+        isCreated: true,
       };
     case DELETE_PROJECT:
       return {

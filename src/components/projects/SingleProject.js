@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { getProject } from '../../actions/project';
 import ProjectLeft from './ProjectLeft';
 import notify from '../../images/noun_notification_887294.svg';
+import Notices from './Notices';
 import ProjectAdd from './ProjectAdd';
 
 const SingleProject = ({
@@ -61,7 +62,8 @@ const SingleProject = ({
           {displayRight && (
             <div className='right'>
               {/* <FriendRequests /> */}
-              <hr />
+              {/* <hr /> */}
+              <Notices creator={project?.projectname} id={match.params.id} />
               {/* <NotePeoples profile={profile} /> */}
             </div>
           )}

@@ -39,7 +39,7 @@ const Portfolio = ({
   useEffect(() => {
     getCurrentProfile();
     getProjects(user?._id);
-  }, [getCurrentProfile, user?._id, getProjects]);
+  }, [getCurrentProfile, getProjects, user?._id]);
 
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);

@@ -1,62 +1,64 @@
 import axios from 'axios';
 import { setAlert } from './alert';
 import {
-  GET_PROJECTS,
-  GET_PROJECT,
-  CREATE_PROJECT,
-  PROJECT_ERROR,
-  DELETE_PROJECT,
+  GET_NOTICES,
+  GET_NOTICE,
+  CREATE_NOTICE,
+  NOTICE_ERROR,
+  DELETE_NOTICE,
 } from './types';
 
-// Get all projects of user using user id
-export const getProjects = (id) => async (dispatch) => {
+// Get all notices of user using project id
+
+export const getNotices = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/project/${id}`);
+    const res = await axios.get(`/api/notice/${id}`);
     dispatch({
-      type: GET_PROJECTS,
+      type: GET_NOTICES,
       payload: res.data,
     });
   } catch (err) {
     dispatch({
-      type: PROJECT_ERROR,
+      type: NOTICE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
-// Get specific project by project id
-export const getProject = (id) => async (dispatch) => {
+// Get specific notice by notice id
+export const getNotice = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/project/single/${id}`);
+    const res = await axios.get(`/api/notice/single/${id}`);
     dispatch({
-      type: GET_PROJECT,
+      type: GET_NOTICE,
       payload: res.data,
     });
   } catch (err) {
     dispatch({
-      type: PROJECT_ERROR,
+      type: NOTICE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
 };
 
-//Create Project
-export const createProject = (formData) => async (dispatch) => {
+// Create Notice
+export const createNotice = ({ id, formData }) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
   try {
-    const res = await axios.post(`/api/project`, formData, config);
+    const res = await axios.post(`/api/notice/${id}`, formData, config);
+
     dispatch({
-      type: CREATE_PROJECT,
+      type: CREATE_NOTICE,
       payload: res.data,
     });
-    dispatch(setAlert('Project Created', 'success'));
+    dispatch(setAlert('Notice Created', 'success'));
   } catch (err) {
     dispatch({
-      type: PROJECT_ERROR,
+      type: NOTICE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
@@ -65,17 +67,17 @@ export const createProject = (formData) => async (dispatch) => {
 //Delete Project By project Id
 export const deleteProject = (id) => async (dispatch) => {
   try {
-    await axios.delete(`/api/project/${id}`);
+    await axios.delete(`/api/notice/${id}`);
 
     dispatch({
-      type: DELETE_PROJECT,
+      type: DELETE_NOTICE,
       payload: id,
     });
 
     dispatch(setAlert('Project Deleted', 'success'));
   } catch (err) {
     dispatch({
-      type: PROJECT_ERROR,
+      type: NOTICE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }

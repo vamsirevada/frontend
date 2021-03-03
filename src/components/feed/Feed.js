@@ -7,10 +7,10 @@ import { connect } from 'react-redux';
 import MiniPortfolio from '../portfolio/MiniPortfolio';
 import Posts from '../posts/Posts';
 import PostForm from '../posts/PostForm';
-// import FriendRequests from './FriendRequests';
 import NotePeoples from '../notes/NotePeoples';
 import notify from '../../images/noun_notification_887294.svg';
 import BallotIcon from '@material-ui/icons/Ballot';
+import ChatSideBar from '../chat/ChatSideBar';
 
 const Feed = ({
   getBuddyPosts,
@@ -27,9 +27,8 @@ const Feed = ({
     getCurrentProfile();
     getBuddyRequests();
     getBuddyPosts(id);
-    getProjects(user._id);
-    //eslint-disable-next-line
-  }, [getCurrentProfile, getBuddyPosts, id]);
+    getProjects(user?._id);
+  }, [getCurrentProfile, getBuddyPosts, user?._id, id]);
 
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
@@ -79,6 +78,7 @@ const Feed = ({
               {/* <FriendRequests />
               <hr /> */}
               <NotePeoples profile={profile} />
+              <ChatSideBar />
             </div>
           )}
         </div>
