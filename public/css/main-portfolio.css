@@ -109,11 +109,11 @@
   z-index: 101;
   background: #fff;
   display: block;
-  width: 250px;
+  width: 320px;
   border-radius: 10px;
   position: absolute;
   left: 40%;
-  top: 20%;
+  top: 13%;
 }
 
 .memberpopup .mem-heading {
@@ -185,4 +185,21 @@
 
 .notice-heading .member-cross:hover {
   opacity: 0.8;
+.memberpopup .member-body {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.member-body a,
+.member-body p {
+  font-size: 15px;
+  line-height: 1rem;
+}
+
+.member-body .dp {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  margin-right: 1rem;
 }
