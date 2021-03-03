@@ -63,7 +63,10 @@ const SingleProject = ({
             <div className='right'>
               {/* <FriendRequests /> */}
               {/* <hr /> */}
-              <Notices creator={project?.projectname} id={match.params.id} />
+              <Notices
+                creator={singleproject?.projectname}
+                id={match.params.id}
+              />
               {/* <NotePeoples profile={profile} /> */}
             </div>
           )}
