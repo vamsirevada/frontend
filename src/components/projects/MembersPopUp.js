@@ -7,7 +7,7 @@ import React, {
 import nounPlus from '../../images/icons/noun_Plus_2310779.svg';
 
 const MembersPopUp = forwardRef(({}, ref) => {
-  const [boxIsOpen, setBoxIsOpen] = useState(true);
+  const [boxIsOpen, setBoxIsOpen] = useState(false);
 
   const handleOpen = () => {
     setBoxIsOpen(true);

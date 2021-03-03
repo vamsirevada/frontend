@@ -9,7 +9,7 @@ import back from '../../images/icons/back.svg';
 import logo from '../../images/dummyimage.jpg';
 
 const SingleNotice = ({
-  project: { project },
+  project: { singleproject },
   notice: { notice },
   getProject,
   getNotice,
@@ -46,7 +46,7 @@ const SingleNotice = ({
         <div className='right'>
           <img
             className='display-pic'
-            src={project?.avatar ? project?.avatar : logo}
+            src={singleproject?.avatar ? singleproject?.avatar : logo}
             alt=''
           />
           <h1
@@ -68,7 +68,7 @@ const SingleNotice = ({
             <div>
               <h3>Posted by: </h3>{' '}
               <span>
-                <p style={{ float: 'right' }}>{project?.projectname}</p>
+                <p style={{ float: 'right' }}>{singleproject?.projectname}</p>
               </span>
             </div>
             <div>
