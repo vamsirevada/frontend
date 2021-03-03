@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import close from '../../images/close.svg';
+import close from '../../images/icons/noun_Plus_2310779.svg';
 import logo from '../../images/Article-1b.png';
 import { createNotice, getNotices } from '../../actions/notice';
 import Moment from 'react-moment';
@@ -119,110 +119,118 @@ const Notices = ({
         ))}
       <button onClick={() => setShow(true)}>Publish new notice</button>
       {show && (
-        <div>
-          <h1>
-            Create Notice{' '}
-            <span onClick={() => setShow(false)}>
-              <img src={close} alt='' />
-            </span>
-          </h1>
-          <div>
-            <input
-              type='file'
-              onChange={onFileChange}
-              hidden={true}
-              ref={fileInput}
-            />
-            <div>
-              <img
-                onClick={onOpenFileDialog}
-                className='display-pic'
-                src={noticeImg ? noticeImg : logo}
-                alt=''
-              />
+        <>
+          <div className='noticepopupscreen'>
+            <div className='noticepopup'>
+              <div className='notice-heading'>
+                <h3>Create Notice</h3>
+                <a
+                  href='#!'
+                  className='notice-cross'
+                  onClick={() => setShow(false)}
+                >
+                  <img src={close} alt='' />
+                </a>
+              </div>
+              <div>
+                <input
+                  type='file'
+                  onChange={onFileChange}
+                  hidden={true}
+                  ref={fileInput}
+                />
+                <div>
+                  <img
+                    onClick={onOpenFileDialog}
+                    className='display-pic'
+                    src={noticeImg ? noticeImg : logo}
+                    alt=''
+                  />
+                </div>
+                <p>Add a Picture</p>
+              </div>
+              <div className='n-form notice'>
+                <form onSubmit={(e) => onSubmit(e)}>
+                  <div>
+                    <label>
+                      Title <span className='blue'>*</span>
+                    </label>
+                    <input
+                      type='text'
+                      name='title'
+                      value={title}
+                      onChange={(e) => onChange(e)}
+                      placeholder='Enter Notice Title'
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label>
+                      Deadline <span className='blue'>*</span>
+                    </label>
+                    <input
+                      type='date'
+                      name='deadline'
+                      // id='location'
+                      value={deadline}
+                      onChange={(e) => onChange(e)}
+                      placeholder='Enter Notice Deadline'
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label>
+                      Eligibility <span className='blue'>*</span>
+                    </label>
+                    <input
+                      type='text'
+                      name='eligibility'
+                      // id='location'
+                      value={eligibility}
+                      onChange={(e) => onChange(e)}
+                      placeholder='Enter Eligibility'
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label>Venue </label>
+                    <input
+                      type='text'
+                      name='venue'
+                      value={venue}
+                      onChange={(e) => onChange(e)}
+                    />
+                  </div>
+                  <div>
+                    <label>Description</label>
+                    <textarea
+                      name='description'
+                      id='messages'
+                      rows='8'
+                      value={description}
+                      onChange={(e) => onChange(e)}
+                      placeholder='Write Something about project'
+                      required
+                    ></textarea>
+                  </div>
+                  <div>
+                    <label>Required Role</label>
+                    <input
+                      type='text'
+                      name='role'
+                      value={role}
+                      onChange={(e) => onChange(e)}
+                    />
+                  </div>
+                  <br />
+                  <button type='Submit'> Save</button>
+                  <button>Cancel</button>
+                  <br />
+                </form>
+              </div>
             </div>
-            <p>Add a Picture</p>
           </div>
-          <div className='n-form notice'>
-            <form onSubmit={(e) => onSubmit(e)}>
-              <div>
-                <label>
-                  Title <span className='blue'>*</span>
-                </label>
-                <input
-                  type='text'
-                  name='title'
-                  value={title}
-                  onChange={(e) => onChange(e)}
-                  placeholder='Enter Notice Title'
-                  required
-                />
-              </div>
-              <div>
-                <label>
-                  Deadline <span className='blue'>*</span>
-                </label>
-                <input
-                  type='date'
-                  name='deadline'
-                  // id='location'
-                  value={deadline}
-                  onChange={(e) => onChange(e)}
-                  placeholder='Enter Notice Deadline'
-                  required
-                />
-              </div>
-              <div>
-                <label>
-                  Eligibility <span className='blue'>*</span>
-                </label>
-                <input
-                  type='text'
-                  name='eligibility'
-                  // id='location'
-                  value={eligibility}
-                  onChange={(e) => onChange(e)}
-                  placeholder='Enter Eligibility'
-                  required
-                />
-              </div>
-              <div>
-                <label>Venue </label>
-                <input
-                  type='text'
-                  name='venue'
-                  value={venue}
-                  onChange={(e) => onChange(e)}
-                />
-              </div>
-              <div>
-                <label>Description</label>
-                <textarea
-                  name='description'
-                  id='messages'
-                  rows='8'
-                  value={description}
-                  onChange={(e) => onChange(e)}
-                  placeholder='Write Something about project'
-                  required
-                ></textarea>
-              </div>
-              <div>
-                <label>Required Role</label>
-                <input
-                  type='text'
-                  name='role'
-                  value={role}
-                  onChange={(e) => onChange(e)}
-                />
-              </div>
-              <br />
-              <button type='Submit'> Save</button>
-              <button>Cancel</button>
-              <br />
-            </form>
-          </div>
-        </div>
+        </>
       )}
     </div>
   );
