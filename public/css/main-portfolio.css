@@ -110,10 +110,17 @@
   background: #fff;
   display: block;
   width: 320px;
+  height: 540px;
   border-radius: 10px;
   position: absolute;
   left: 40%;
-  top: 13%;
+  top: 10%;
+}
+
+.memberpopupscreen .memberpopup.add {
+  width: 480px;
+  height: 540px;
+  left: 35%;
 }
 
 .memberpopup .mem-heading {
@@ -126,6 +133,13 @@
   align-items: center;
 }
 
+.memberpopup .mem-heading.add {
+  background-color: #fcfcfc;
+  color: #272727;
+  display: flex;
+  justify-content: space-between;
+}
+
 .mem-heading img {
   filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(257deg)
     brightness(107%) contrast(101%);
@@ -133,6 +147,30 @@
   vertical-align: middle;
 }
 
+.mem-heading.add img {
+  filter: invert(13%) sepia(5%) saturate(68%) hue-rotate(314deg) brightness(90%)
+    contrast(92%);
+}
+
+.memberpopup .member-body {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  overflow: scroll;
+}
+
+.member-body a,
+.member-body p {
+  font-size: 15px;
+  line-height: 1rem;
+}
+
+.member-body .dp {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  margin-right: 1rem;
+}
 .mem-heading .member-cross:hover {
   opacity: 0.8;
 }
@@ -185,21 +223,4 @@
 
 .notice-heading .member-cross:hover {
   opacity: 0.8;
-.memberpopup .member-body {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem 1rem;
-}
-
-.member-body a,
-.member-body p {
-  font-size: 15px;
-  line-height: 1rem;
-}
-
-.member-body .dp {
-  display: inline-block;
-  width: 36px;
-  height: 36px;
-  margin-right: 1rem;
 }
