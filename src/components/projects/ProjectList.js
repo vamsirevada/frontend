@@ -58,7 +58,7 @@ const ProjectList = ({
                   <br /> Connections
                 </p>
               </Link>
-              <Link to={`/projects/${profile?.user._id}`}>
+              <Link to={`/projectlist/${profile?.user._id}`}>
                 <p>
                   <span className='f-1'>
                     {/* {profile?.experience && profile?.experience.length} */}
@@ -94,7 +94,7 @@ const ProjectList = ({
                   )}
                 </Fragment>
               ) : (
-                <h3 style={{ textAlign: 'center' }}>None </h3>
+                <p style={{ textAlign: 'center' }}>None </p>
               )}
             </div>
           </div>

@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { getProject } from '../../actions/project';
 import ProjectLeft from './ProjectLeft';
 import notify from '../../images/noun_notification_887294.svg';
+import ProjectAdd from './ProjectAdd';
 
 const SingleProject = ({
-  project: { project, loading },
+  project: { singleproject, loading },
   getProject,
   match,
 }) => {
@@ -14,6 +15,7 @@ const SingleProject = ({
     //eslint-disable-next-line
   }, []);
 
+  // console.log(singleproject.members);
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
 
@@ -36,16 +38,20 @@ const SingleProject = ({
         </a>
       </div>
       <div>
-        <div id='portfolio'>
+        <div className='portfolio project'>
           <div className='portfolio-left'>
             <div id='left-sidebar'>
-              <ProjectLeft project={project} loading={loading} />
+              <ProjectLeft singleproject={singleproject} loading={loading} />
             </div>
           </div>
           {displayLeft && (
             <div className='center'>
               <div id='feed-main'>
                 <div className='feed-main-container'>
+                  {singleproject !== null && (
+                    <ProjectAdd singleproject={singleproject} />
+                  )}
+
                   {/* <PostForm /> */}
                   {/* <Posts profile={profile} /> */}
                 </div>

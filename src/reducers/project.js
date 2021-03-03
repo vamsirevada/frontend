@@ -8,7 +8,7 @@ import {
 
 const initialState = {
   projects: [],
-  project: null,
+  singleproject: null,
   error: {},
   loading: true,
 };
@@ -27,7 +27,7 @@ export default function (state = initialState, action) {
     case GET_PROJECT:
       return {
         ...state,
-        project: payload,
+        singleproject: payload,
         loading: false,
       };
     case CREATE_PROJECT:
