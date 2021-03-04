@@ -84,7 +84,7 @@ const Notices = ({
       {notices &&
         notices.slice(0, viewall ? notices.length : 3).map((notice, index) => (
           <div style={{ height: '330px', width: '336px' }} key={index}>
-            <Link to={`/notice/${notice?._id}`}>
+            <Link to={`/project/${id}/notice/${notice?._id}`}>
               <img
                 height='132px'
                 width='336px'
@@ -104,14 +104,14 @@ const Notices = ({
                   </small>
                 </span>
                 <div>
-                  <p>
+                  <h4>
                     Posted by:{' '}
-                    <a
+                    <p
                       style={{ color: '#7480FC', textDecoration: 'underline' }}
                     >
                       {creator}
-                    </a>
-                  </p>
+                    </p>
+                  </h4>
                 </div>
               </div>
             </Link>
@@ -123,7 +123,7 @@ const Notices = ({
           <div className='noticepopupscreen'>
             <div className='noticepopup'>
               <div className='notice-heading'>
-                <h3>Create Notice</h3>
+                <h1>Create Notice</h1>
                 <a
                   href='#!'
                   className='notice-cross'

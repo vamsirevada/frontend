@@ -16,11 +16,16 @@ const SingleNotice = ({
   match,
 }) => {
   const history = useHistory();
-
   useEffect(() => {
     getNotice(match.params.id);
-    getProject(notice?.project);
-  }, [getNotice, getProject, notice?.project, match.params.id]);
+    getProject(match.params.projectid);
+  }, [
+    getNotice,
+    getProject,
+    notice?.project,
+    match.params.id,
+    match.params.projectid,
+  ]);
 
   return (
     <>
