@@ -1,6 +1,7 @@
 import React, {
   Fragment,
   useState,
+  useEffect,
   useContext,
   forwardRef,
   useImperativeHandle,
@@ -10,111 +11,109 @@ import logo from '../../images/dummyimage.jpg';
 import { Link, useHistory } from 'react-router-dom';
 import searchIcon from '../../images/searchIcon.svg';
 import { SearchContext } from '../../context/search.context';
+import { getProfiles } from '../../actions/profile';
 import axios from 'axios';
+import { connect } from 'react-redux';
+import Spinner from '../layout/Spinner';
+import MemberInvite from './MemberInvite';
 
-const AddPopUp = forwardRef(({}, ref) => {
-  const history = useHistory();
-  const [boxIsOpen, setBoxIsOpen] = useState(true);
-  const { Addsearch, clearSearch } = useContext(SearchContext);
+const AddPopUp = forwardRef(
+  ({ profile: { profiles }, project: { singleproject }, getProfiles }, ref) => {
+    useEffect(() => {
+      getProfiles();
+      //eslint-disable-next-line
+    }, []);
+    const history = useHistory();
+    const [boxIsOpen, setBoxIsOpen] = useState(true);
+    const { Addsearch, clearSearch } = useContext(SearchContext);
 
-  const _onsearch = async (value) => {
-    clearSearch();
-    const response = await axios.get(`api/search?title=${value}`);
-    console.log(response, 'responseresponseresponse');
-    if (response) {
-      Addsearch(response?.data);
-    } else {
-      Addsearch([]);
-    }
-  };
-
-  const handleOpen = () => {
-    setBoxIsOpen(true);
-  };
-
-  const handleClose = () => {
-    setBoxIsOpen(false);
-  };
-
-  useImperativeHandle(ref, () => {
-    return {
-      open: () => handleOpen(),
-      close: () => handleClose(),
+    const _onsearch = async (value) => {
+      clearSearch();
+      const response = await axios.get(`api/search?title=${value}`);
+      console.log(response, 'responseresponseresponse');
+      if (response) {
+        Addsearch(response?.data);
+      } else {
+        Addsearch([]);
+      }
     };
-  });
 
-  return (
-    <>
-      {boxIsOpen && (
-        <Fragment>
-          <div className='memberpopupscreen'>
-            <div className='memberpopup add'>
-              <div className='mem-heading add'>
-                <h3>Add Project Members</h3>
-                <a href='#!' className='member-cross' onClick={handleClose}>
-                  <img src={nounPlus} alt='' />
-                </a>
-              </div>
-              <div className='search active'>
-                <input
-                  type='text'
-                  onChange={(e) => {
-                    setTimeout(() => {
-                      _onsearch(e.target.value);
-                    }, 500);
-                  }}
-                  className='search-btn'
-                  placeholder='search'
-                />
-                <br />
-                <img
-                  onClick={() => {
-                    history.push('/profiles');
-                  }}
-                  src={searchIcon}
-                  alt='search'
-                />
-              </div>
-              {/* {members.length > 0 ? (
-                <Fragment>
-                  {members.map((member) => (
+    const handleOpen = () => {
+      setBoxIsOpen(true);
+    };
+
+    const handleClose = () => {
+      setBoxIsOpen(false);
+    };
+
+    useImperativeHandle(ref, () => {
+      return {
+        open: () => handleOpen(),
+        close: () => handleClose(),
+      };
+    });
+
+    return (
+      <>
+        {boxIsOpen && (
+          <Fragment>
+            <div className='memberpopupscreen'>
+              <div className='memberpopup add'>
+                <div className='mem-heading add'>
+                  <h3>Add Project Members</h3>
+                  <a href='#!' className='member-cross' onClick={handleClose}>
+                    <img src={nounPlus} alt='' />
+                  </a>
+                </div>
+                <div className='search active'>
+                  <input
+                    type='text'
+                    onChange={(e) => {
+                      setTimeout(() => {
+                        _onsearch(e.target.value);
+                      }, 500);
+                    }}
+                    className='search-btn'
+                    placeholder='search'
+                  />
+                  <br />
+                  <img
+                    onClick={() => {
+                      history.push('/profiles');
+                    }}
+                    src={searchIcon}
+                    alt='search'
+                  />
+                </div>
+                <div className='body add'>
+                  {profiles.length > 0 ? (
                     <Fragment>
-                      <div className='member-body'>
-                        <div
-                          style={{
-                            background: `url(${
-                              member.avatar ? member.avatar : logo
-                            }) no-repeat center center/cover`,
-                          }}
-                          className='dp'
-                        ></div>
-                        <div className='flex-column-1'>
-                          <div className='chat-name'>
-                            <Link to={`/portfolio/${member.user}`}>
-                              {member.fullName && member.fullName}
-                            </Link>
-                            <Link to={`/portfolio/${member.user}`}>
-                              {member.groupName && member.groupName}
-                            </Link>
-                          </div>
-                          <div className='chat-body'>
-                            <p>{member.status}</p>
-                            
-                          </div>
-                        </div>
-                      </div>
+                      {profiles.map((profile) => (
+                        <Fragment>
+                          <MemberInvite
+                            key={profile._id}
+                            profile={profile}
+                            project_id={singleproject._id}
+                          />
+                        </Fragment>
+                      ))}
                     </Fragment>
-                  ))}
-                </Fragment>
-              ) : (
-                <p>Add Members</p>
-              )} */}
+                  ) : (
+                    <Spinner />
+                  )}
+                </div>
+              </div>
             </div>
-          </div>
-        </Fragment>
-      )}
-    </>
-  );
+          </Fragment>
+        )}
+      </>
+    );
+  }
+);
+
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+  project: state.project,
 });
 
-export default AddPopUp;
+export default connect(mapStateToProps, { getProfiles })(AddPopUp);

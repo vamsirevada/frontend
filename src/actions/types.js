@@ -57,3 +57,4 @@ export const GET_NOTICE = 'GET_NOTICE';
 export const CREATE_NOTICE = 'CREATE_NOTICE';
 export const DELETE_NOTICE = 'DELETE_NOTICE';
 export const NOTICE_ERROR = 'NOTICE_ERROR';
+export const PROJECT_INVITE_SENT = 'PROJECT_INVITE_SENT';

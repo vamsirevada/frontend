@@ -3,6 +3,7 @@ import { setAlert } from './alert';
 import {
   GET_PROJECTS,
   GET_PROJECT,
+  PROJECT_INVITE_SENT,
   CREATE_PROJECT,
   PROJECT_ERROR,
   DELETE_PROJECT,
@@ -59,6 +60,28 @@ export const createProject = (formData) => async (dispatch) => {
       type: PROJECT_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
+  }
+};
+//Send a Project Invite
+export const sendProjectInvite = (project_id, profile_id) => async (
+  dispatch
+) => {
+  try {
+    const res = await axios.put(
+      `/api/project/invites/${project_id}/${profile_id}`
+    );
+    dispatch({
+      type: PROJECT_INVITE_SENT,
+      payload: res.data.msg,
+    });
+    dispatch(setAlert(' Project Invite Sent', 'success'));
+  } catch (err) {
+    dispatch({
+      type: PROJECT_ERROR,
+      payload: err.response.data.msg,
+    });
+
+    dispatch(setAlert(err.response.data.msg, 'danger'));
   }
 };
 
