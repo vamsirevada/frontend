@@ -121,6 +121,7 @@
   width: 480px;
   height: 540px;
   left: 35%;
+  background-color: #f2f2f2;
 }
 
 .memberpopup .mem-heading {
@@ -134,7 +135,7 @@
 }
 
 .memberpopup .mem-heading.add {
-  background-color: #fcfcfc;
+  background-color: #f2f2f2;
   color: #272727;
   display: flex;
   justify-content: space-between;
@@ -171,8 +172,22 @@
   height: 36px;
   margin-right: 1rem;
 }
+
 .mem-heading .member-cross:hover {
   opacity: 0.8;
+}
+
+.memberpopup.add .search {
+  background-color: #00000040;
+  border-radius: 10px;
+  padding: 0px 5px;
+  width: 95%;
+  margin: auto;
+}
+.memberpopup.add .search input {
+  width: 100%;
+  color: #272727;
+  border: none;
 }
 
 .noticepopupscreen::after {
