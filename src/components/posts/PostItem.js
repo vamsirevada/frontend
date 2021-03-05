@@ -14,6 +14,8 @@ import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
 import logo from '../../images/dummyimage.jpg';
 import PostType from './PostType';
+import { projectFirestore } from '../../firebase/config';
+import { v4 as uuidv4 } from 'uuid';
 
 const PostItem = ({
   profile: { profile },
@@ -47,6 +49,33 @@ const PostItem = ({
   const onLike = (e) => {
     e.preventDefault();
     toogleLbtn(!displayLbtn);
+  };
+
+  const like = () => {
+    addLike(_id);
+    projectFirestore.collection('notifications').add({
+      sender: auth?.user?.userName,
+      avatar: auth?.user?.avatar,
+      receiver: user?._id,
+      uid: _id,
+      type: 'like',
+      read: false,
+      createdAt: new Date(),
+      notificationId: uuidv4(),
+    });
+  };
+
+  const unlike = () => {
+    removeLike(_id);
+    projectFirestore
+      .collection('notifications')
+      .where('uid', '==', _id)
+      .get()
+      .then((i) => {
+        i.forEach((d) => {
+          d.ref.delete();
+        });
+      });
   };
 
   return (
@@ -152,14 +181,14 @@ const PostItem = ({
             <div onClick={(e) => onLike(e)}>
               {displayLbtn ? (
                 <Fragment>
-                  <div onClick={(e) => removeLike(_id)}>
+                  <div onClick={unlike}>
                     <img className='r-1' src={yheart} alt='' />
                     <span className='d-1'>Liked</span>
                   </div>
                 </Fragment>
               ) : (
                 <Fragment>
-                  <div onClick={(e) => addLike(_id)}>
+                  <div onClick={like}>
                     <img className='r-1' src={heart} alt='' />
                     <span className='d-1'>Like</span>
                   </div>
@@ -197,14 +226,14 @@ const PostItem = ({
             <div onClick={(e) => onLike(e)}>
               {displayLbtn ? (
                 <Fragment>
-                  <div onClick={(e) => removeLike(_id)}>
+                  <div onClick={unlike}>
                     <img className='r-1' src={yheart} alt='' />
                     <span className='d-1'>Liked</span>
                   </div>
                 </Fragment>
               ) : (
                 <Fragment>
-                  <div onClick={(e) => addLike(_id)}>
+                  <div onClick={like}>
                     <img className='r-1' src={heart} alt='' />
                     <span className='d-1'>Like</span>
                   </div>
@@ -250,7 +279,7 @@ const PostItem = ({
         </div>
       )}
 
-      {displayAddCmt && <CommentForm postId={_id} />}
+      {displayAddCmt && <CommentForm auth={auth} user={user} postId={_id} />}
     </div>
   );
 };

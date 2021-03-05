@@ -46,6 +46,13 @@ const Navbar = ({ logout }) => {
     setImg(res.data?.avatar);
   };
 
+  const getNotifications = async () => {
+    toogleNotify(true);
+    setTimeout(() => {
+      toogleNotify(false);
+    }, 5000);
+  };
+
   const toggleF = async () => {
     toogleFeedActive(!feedActive);
     tooglePortActive(false);
@@ -136,20 +143,16 @@ const Navbar = ({ logout }) => {
                 <p>Chat</p>
               </Link>
             </div>
-            <div className='icon'>
+            <NotificationPopup />
+            {/* <div className='icon'>
               <img
                 className='notif'
                 src={notify}
-                onClick={() => {
-                  toogleNotify(true);
-                  setTimeout(() => {
-                    toogleNotify(false);
-                  }, 5000);
-                }}
+                onClick={getNotifications}
                 alt='notify'
               />
               {displayNotify && <NotificationPopup />}
-            </div>
+            </div> */}
             <div>
               <img
                 className='dis'
