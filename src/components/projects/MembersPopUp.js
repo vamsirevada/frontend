@@ -40,8 +40,8 @@ const MembersPopUp = forwardRef(({ members }, ref) => {
               </div>
               {members.length > 0 ? (
                 <Fragment>
-                  {members.map((member) => (
-                    <Fragment>
+                  {members.map((member, index) => (
+                    <Fragment key={index}>
                       <div className='member-body'>
                         <div
                           style={{

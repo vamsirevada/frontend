@@ -88,8 +88,8 @@ const AddPopUp = forwardRef(
                 <div className='body add'>
                   {profiles.length > 0 ? (
                     <Fragment>
-                      {profiles.map((profile) => (
-                        <Fragment>
+                      {profiles.map((profile, index) => (
+                        <Fragment key={index}>
                           <MemberInvite
                             key={profile._id}
                             profile={profile}
