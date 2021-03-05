@@ -55,7 +55,11 @@ const Routes = (props) => {
         <PrivateRoute exact path='/posts' component={Posts} />
         <PrivateRoute exact path='/posts/:id' component={Post} />
         <PrivateRoute exact path='/project/:id' component={SingleProject} />
-        <PrivateRoute exact path='/notice/:id' component={SingleNotice} />
+        <PrivateRoute
+          exact
+          path='/project/:projectid/notice/:id'
+          component={SingleNotice}
+        />
         <PrivateRoute exact path='/feed' component={Feed} />
         <PrivateRoute exact path='/friends' component={Friends} />
         <PrivateRoute exact path='/chats' component={ChatPage} />
