@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import MemberPopUp from './MembersPopUp';
+import AddPopUp from './AddPopUp';
 
 const ProjectAdd = ({ singleproject }) => {
   const modalRef = React.useRef();
@@ -8,6 +9,7 @@ const ProjectAdd = ({ singleproject }) => {
   return (
     <>
       <MemberPopUp ref={modalRef} members={singleproject?.members} />
+      <AddPopUp ref={modalRef} />
       <div className='main-grid-top'>
         <div className='profile-project-box'>
           <a
@@ -26,7 +28,11 @@ const ProjectAdd = ({ singleproject }) => {
           <div className='mutual-frds'>
             <div className='prof-heading-flex'>
               <div></div>
-              <Link to={'/portfolio'}>
+              <Link
+                onClick={() => {
+                  modalRef.current.open();
+                }}
+              >
                 <h4>
                   <span className='bg-1'>Add Member</span>
                 </h4>

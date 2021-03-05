@@ -1,6 +1,7 @@
 import {
   GET_PROJECTS,
   GET_PROJECT,
+  PROJECT_INVITE_SENT,
   CREATE_PROJECT,
   DELETE_PROJECT,
   PROJECT_ERROR,
@@ -12,6 +13,7 @@ const initialState = {
   singleproject: null,
   error: {},
   loading: true,
+  prompt: null,
 };
 
 //eslint-disable-next-line
@@ -38,6 +40,11 @@ export default function (state = initialState, action) {
         ...state,
         projects: [payload, ...state.projects],
         isCreated: true,
+      };
+    case PROJECT_INVITE_SENT:
+      return {
+        ...state,
+        prompt: action.payload,
       };
     case DELETE_PROJECT:
       return {
