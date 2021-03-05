@@ -4,6 +4,7 @@ import {
   GET_PROJECTS,
   GET_PROJECT,
   PROJECT_INVITE_SENT,
+  PROJECT_INVITE_CANCEL,
   CREATE_PROJECT,
   PROJECT_ERROR,
   DELETE_PROJECT,
@@ -75,6 +76,29 @@ export const sendProjectInvite = (project_id, profile_id) => async (
       payload: res.data.msg,
     });
     dispatch(setAlert(' Project Invite Sent', 'success'));
+  } catch (err) {
+    dispatch({
+      type: PROJECT_ERROR,
+      payload: err.response.data.msg,
+    });
+
+    dispatch(setAlert(err.response.data.msg, 'danger'));
+  }
+};
+
+//Cancel Project Invite
+export const cancelProjectInvite = (project_id, profile_id) => async (
+  dispatch
+) => {
+  try {
+    const res = await axios.delete(
+      `/api/project/invites/${project_id}/${profile_id}`
+    );
+    dispatch({
+      type: PROJECT_INVITE_CANCEL,
+      payload: res.data.msg,
+    });
+    dispatch(setAlert(' Project Invite Cancelled', 'success'));
   } catch (err) {
     dispatch({
       type: PROJECT_ERROR,

@@ -8,8 +8,8 @@ const ProjectAdd = ({ singleproject }) => {
 
   return (
     <>
-      <MemberPopUp ref={modalRef} members={singleproject?.members} />
       <AddPopUp ref={modalRef} />
+      <MemberPopUp ref={modalRef} members={singleproject?.members} />
       <div className='main-grid-top'>
         <div className='profile-project-box'>
           <a

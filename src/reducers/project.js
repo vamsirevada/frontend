@@ -2,6 +2,7 @@ import {
   GET_PROJECTS,
   GET_PROJECT,
   PROJECT_INVITE_SENT,
+  PROJECT_INVITE_CANCEL,
   CREATE_PROJECT,
   DELETE_PROJECT,
   PROJECT_ERROR,
@@ -42,6 +43,11 @@ export default function (state = initialState, action) {
         isCreated: true,
       };
     case PROJECT_INVITE_SENT:
+      return {
+        ...state,
+        prompt: action.payload,
+      };
+    case PROJECT_INVITE_CANCEL:
       return {
         ...state,
         prompt: action.payload,
