@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import Path from '../../images/path 2.svg';
 import Moment from 'react-moment';
@@ -61,10 +61,11 @@ const ChatPopup = ({
             </div>
           </div>
           <div className='chatboxtop-right'>
-            <a type='button' className='resize'>
+            <a href='#!' type='button' className='resize'>
               <img src={Path} alt='' />
             </a>
             <a
+              href='#!'
               type='button'
               className='btn cancel'
               onClick={() =>
@@ -131,7 +132,7 @@ const ChatPopup = ({
               />
             </div>
             <div className='form-flex-right'>
-              <a type='submit'>
+              <a href='#!' type='submit'>
                 <img src={sendbutton} onClick={sendMessage} alt='' />
               </a>
             </div>

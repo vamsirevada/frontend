@@ -1,11 +1,12 @@
-import { GET_NOTIFICATIONS } from './types';
+import { GET_NOTIFICATIONS, MARK_NOTIFICATIONS_READ } from './types';
 import { projectFirestore } from '../firebase/config';
 
-export const getRealtimeNotifications = () => {
+export const getRealtimeNotifications = (user) => {
   return async (dispatch) => {
     projectFirestore
       .collection('notifications')
-      .orderBy('createdAt', 'asc')
+      .where('receiver', '==', user.uid_1)
+      .orderBy('createdAt', 'desc')
       .onSnapshot((snapshot) => {
         const notifications = [];
         snapshot.forEach((doc) => {
@@ -16,5 +17,20 @@ export const getRealtimeNotifications = () => {
           payload: { notifications },
         });
       });
+  };
+};
+
+export const markNotificationsRead = (notificationIds) => {
+  return async (dispatch) => {
+    const batch = projectFirestore.batch();
+    notificationIds.forEach((notificationId) => {
+      const notification = projectFirestore.doc(
+        `/notifications/${notificationId}`
+      );
+      batch.update(notification, { read: true });
+    });
+    dispatch({
+      type: MARK_NOTIFICATIONS_READ,
+    });
   };
 };

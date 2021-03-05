@@ -1,4 +1,4 @@
-import { GET_NOTIFICATIONS } from '../actions/types';
+import { GET_NOTIFICATIONS, MARK_NOTIFICATIONS_READ } from '../actions/types';
 
 const initialState = {
   notifications: [],
@@ -10,6 +10,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         notifications: action.payload.notifications,
+      };
+    case MARK_NOTIFICATIONS_READ:
+      state.notifications.forEach((not) => (not.read = true));
+      return {
+        ...state,
       };
     default:
       return state;

@@ -1,157 +1,162 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { connect, useDispatch } from 'react-redux';
 import { Fragment } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { setAlert } from '../../actions/alert';
-import { getBuddyRequests, getCurrentProfile } from '../../actions/profile';
-// import { getBuddyPosts, getOwnPosts } from '../../actions/post';
+import {
+  getRealtimeNotifications,
+  markNotificationsRead,
+} from '../../actions/notification';
 import logo from '../../images/dummyimage.jpg';
-import { projectFirestore } from '../../firebase/config';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '@material-ui/core/Tooltip';
+import Badge from '@material-ui/core/Badge';
+// Icons
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ChatIcon from '@material-ui/icons/Chat';
 
 const NotificationPopup = ({
-  auth,
-  requests,
-  setAlert,
-  getCurrentProfile,
-  getBuddyRequests,
-  post: {
-    posts,
-    oposts: [{ likes }],
-  },
+  auth: { user },
+  notification: { notifications },
+  markNotificationsRead,
 }) => {
-  console.log(likes);
+  const [viewAllNotify, setViewAllNotify] = useState(false);
+  const dispatch = useDispatch();
+  const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
-    getBuddyRequests();
-    //eslint-disable-next-line
-  }, []);
+    dispatch(
+      getRealtimeNotifications({
+        uid_1: user?._id,
+      })
+    );
+  }, [dispatch, user?._id]);
 
-  const notifications = requests
-    .slice(0, 3)
-    .concat(likes.slice(0, 3))
-    .concat(posts.slice(0, 3));
-
-  console.log(notifications);
-
-  const [viewAllNotify, setViewAllNotify] = useState(false);
-
-  const accept = async (profileid) => {
-    try {
-      const res = await axios.put(`api/profile/buddy/${profileid}`);
-      setAlert('Buddy added', 'success');
-      let empty = true;
-      if (res.data.length > 0) {
-        empty = false;
-      }
-      getCurrentProfile();
-      getBuddyRequests();
-    } catch (err) {
-      if (err.response.data !== undefined) {
-        setAlert(err.response.data.msg, 'danger');
-      }
-    }
+  const handleOpen = (e) => {
+    setAnchorEl(e.currentTarget);
   };
-  const deny = async (profileid) => {
-    try {
-      await axios.delete(`api/profile/request/${profileid}`);
-      setAlert('Request declined', 'success');
-      getBuddyRequests();
-      getCurrentProfile();
-    } catch (err) {
-      setAlert(err.response.data.msg, 'danger');
-    }
+
+  const handleClose = () => {
+    setAnchorEl(null);
   };
+
+  const onMenuOpened = () => {
+    console.log('clicked');
+    const unreadNotificationsIds = notifications
+      .filter((not) => !not.read)
+      .map((not) => not.notificationId);
+
+    console.log(unreadNotificationsIds);
+
+    markNotificationsRead(unreadNotificationsIds);
+  };
+
+  let notificationsIcon;
+
+  if (notifications && notifications.length > 0) {
+    notifications.filter((not) => not.read === false).length > 0
+      ? (notificationsIcon = (
+          <Badge
+            badgeContent={
+              notifications.filter((not) => not.read === false).length
+            }
+            color='secondary'
+          >
+            <NotificationsIcon />
+          </Badge>
+        ))
+      : (notificationsIcon = <NotificationsIcon />);
+  } else {
+    notificationsIcon = <NotificationsIcon />;
+  }
+
+  const notificationsMarkup =
+    notifications && notifications.length > 0 ? (
+      notifications.map((not) => {
+        const verb = not.type === 'like' ? 'liked' : 'commented on';
+        const iconColor = not.read ? 'primary' : 'secondary';
+        const icon =
+          not.type === 'like' ? (
+            <FavoriteIcon color={iconColor} style={{ marginRight: 10 }} />
+          ) : (
+            <ChatIcon color={iconColor} style={{ marginRight: 10 }} />
+          );
+
+        return (
+          <MenuItem key={not?.createdAt} onClick={handleClose}>
+            {icon}
+            <img
+              height='10px'
+              width='10px'
+              src={not.avatar ? not.avatar : logo}
+              alt=''
+            />
+            <p>
+              {not.sender} {verb} your post{' '}
+            </p>
+          </MenuItem>
+        );
+      })
+    ) : (
+      <MenuItem onClick={handleClose}>You have no notifications yet</MenuItem>
+    );
+
+  // const accept = async (profileid) => {
+  //   try {
+  //     const res = await axios.put(`api/profile/buddy/${profileid}`);
+  //     setAlert('Buddy added', 'success');
+  //     let empty = true;
+  //     if (res.data.length > 0) {
+  //       empty = false;
+  //     }
+  //     getCurrentProfile();
+  //     getBuddyRequests();
+  //   } catch (err) {
+  //     if (err.response.data !== undefined) {
+  //       setAlert(err.response.data.msg, 'danger');
+  //     }
+  //   }
+  // };
+  // const deny = async (profileid) => {
+  //   try {
+  //     await axios.delete(`api/profile/request/${profileid}`);
+  //     setAlert('Request declined', 'success');
+  //     getBuddyRequests();
+  //     getCurrentProfile();
+  //   } catch (err) {
+  //     setAlert(err.response.data.msg, 'danger');
+  //   }
+  // };
 
   return (
     <Fragment>
-      <div className='arrow-middle'></div>
-      <ul className='notif-dis' id='dis-dd'>
-        {notifications.map((notify, index) => (
-          <li key={index} className='join-grp-flex'>
-            <img
-              src={notify.buddies ? notify?.avatar : notify?.user?.avatar}
-              alt=''
-            />
-            <div className='flex-right'>
-              <Link>
-                <p>This is test</p>
-              </Link>
-            </div>
-          </li>
-        ))}
-        {/* <li>
-          {requests.map((request) => (
-            <div key={request._id} className='join-grp-flex'>
-              <img src={request?.avatar ? request?.avatar : logo} alt='' />
-              <div className='flex-right'>
-                <Link to={`/portfolio/${request?.user?._id}`}>
-                  <p>{request?.user?.fullName} has sent a connection request</p>
-                </Link>
-                <p className='third-bold'>{request?.status}</p>
-                <div>
-                  {' '}
-                  <button onClick={() => accept(request?._id)}>Confirm</button>
-                </div>
-                <span>
-                  <div>
-                    {' '}
-                    <button onClick={() => deny(request?._id)}>Delete</button>
-                  </div>
-                </span>
-              </div>
-            </div>
-          ))}
-        </li>
-        <li>
-          {posts.slice(0, 3).map((post) => (
-            <div key={post._id} className='join-grp-flex'>
-              <img src={post?.user?.avatar} alt='' />
-              <p>
-                <strong>{post?.fullName}</strong> is posted a New Post
-              </p>
-              <span>
-                <p>{post?.text}</p>
-              </span>
-            </div>
-          ))}
-        </li>
-        <li>
-          {likes.slice(0, 3).map((like) => (
-            <div key={like._id} className='join-grp-flex'>
-              <img
-                src={like?.avatar && like?.avatar ? like?.avatar : logo}
-                alt=''
-              />
-              <p>
-                <strong>{like?.fullName} liked your post</strong>
-              </p>
-            </div>
-          ))}
-        </li> */}
-        <div
-          onClick={() => {
-            setViewAllNotify(!viewAllNotify);
-            console.log('object');
-          }}
-          style={{ textAlign: 'center', color: '#5d67cc', cursor: 'pointer' }}
+      <Tooltip placement='top' title='notifications'>
+        <IconButton
+          aria-owns={anchorEl ? 'simple-menu' : undefined}
+          aria-haspopup='true'
+          onClick={handleOpen}
         >
-          See All
-        </div>
-      </ul>
+          {notificationsIcon}
+        </IconButton>
+      </Tooltip>
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+        onEntered={onMenuOpened}
+      >
+        {notificationsMarkup}
+      </Menu>
     </Fragment>
   );
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  requests: state.profile.requests,
-  post: state.post,
-  oposts: state.post.oposts,
+  notification: state.notification,
 });
 
-export default connect(mapStateToProps, {
-  setAlert,
-  getCurrentProfile,
-  getBuddyRequests,
-})(NotificationPopup);
+export default connect(mapStateToProps, { markNotificationsRead })(
+  NotificationPopup
+);
