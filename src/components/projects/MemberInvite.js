@@ -1,20 +1,29 @@
 import React from 'react';
 import logo from '../../images/dummyimage.jpg';
 import { connect } from 'react-redux';
-import { sendProjectInvite } from '../../actions/project';
+import { sendProjectInvite, cancelProjectInvite } from '../../actions/project';
 import { Link } from 'react-router-dom';
 
 const MemberInvite = ({
   profile: { _id, user, avatar, status },
   project_id,
   sendProjectInvite,
+  cancelProjectInvite,
 }) => {
   const sendInvite = async () => {
     await sendProjectInvite(project_id, _id);
   };
 
+  const cancelInvite = async () => {
+    await cancelProjectInvite(project_id, _id);
+  };
+
   const onClick = () => {
     sendInvite();
+  };
+
+  const onClick1 = () => {
+    cancelInvite();
   };
   return (
     <div className='member-body add'>
@@ -43,9 +52,14 @@ const MemberInvite = ({
         <button className='bg-1' onClick={() => onClick()}>
           Invite
         </button>
+        <button className='bg-1 c' onClick={() => onClick1()}>
+          Cancel
+        </button>
       </div>
     </div>
   );
 };
 
-export default connect(null, { sendProjectInvite })(MemberInvite);
+export default connect(null, { sendProjectInvite, cancelProjectInvite })(
+  MemberInvite
+);

@@ -114,7 +114,7 @@
   border-radius: 10px;
   position: absolute;
   left: 40%;
-  top: 10%;
+  top: 15%;
   overflow: auto;
 }
 
@@ -171,13 +171,6 @@
 .member-body p {
   font-size: 15px;
   line-height: 1rem;
-}
-
-.member-body .dp {
-  display: inline-block;
-  width: 36px;
-  height: 36px;
-  margin-right: 1rem;
 }
 
 .mem-heading .member-cross:hover {
@@ -246,6 +239,11 @@
   outline: none;
   border: none;
 }
+.body.add .member-body.add .bg-1.c {
+  background-color: #fff;
+  color: #5d5d5d;
+  border: 1px #5d5d5d solid;
+}
 
 .member-body a,
 .member-body p {
@@ -258,6 +256,20 @@
   width: 36px;
   height: 36px;
   margin-right: 1rem;
+  border-radius: 10px;
+}
+
+.member-body .dp::before {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: transparent;
+  z-index: 10;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
 }
 
 .noticepopupscreen::after {
