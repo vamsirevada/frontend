@@ -1,115 +1,83 @@
-import React, {
-  Fragment,
-  useState,
-  useEffect,
-  useContext,
-  forwardRef,
-  useImperativeHandle,
-} from 'react';
+import React, { Fragment, useEffect, useContext, useState } from 'react';
 import nounPlus from '../../images/icons/noun_Plus_2310779.svg';
-import logo from '../../images/dummyimage.jpg';
-import { Link, useHistory } from 'react-router-dom';
 import searchIcon from '../../images/searchIcon.svg';
 import { SearchContext } from '../../context/search.context';
 import { getProfiles } from '../../actions/profile';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import Spinner from '../layout/Spinner';
 import MemberInvite from './MemberInvite';
 
-const AddPopUp = forwardRef(
-  ({ profile: { profiles }, project: { singleproject }, getProfiles }, ref) => {
-    useEffect(() => {
-      getProfiles();
-      //eslint-disable-next-line
-    }, []);
-    const history = useHistory();
-    const [boxIsOpen, setBoxIsOpen] = useState(true);
-    const { Addsearch, clearSearch } = useContext(SearchContext);
+const AddPopUp = ({
+  profile: { profiles },
+  project: { singleproject },
+  getProfiles,
+  show,
+  close,
+}) => {
+  const { Addsearch, clearSearch } = useContext(SearchContext);
+  const [value, setValue] = useState('');
 
-    const _onsearch = async (value) => {
-      clearSearch();
-      const response = await axios.get(`api/search?title=${value}`);
-      console.log(response, 'responseresponseresponse');
-      if (response) {
-        Addsearch(response?.data);
-      } else {
-        Addsearch([]);
-      }
-    };
+  useEffect(() => {
+    getProfiles();
+    //eslint-disable-next-line
+  }, []);
 
-    const handleOpen = () => {
-      setBoxIsOpen(true);
-    };
+  const onChange = (e) => {
+    setValue(e.target.value);
+    _onsearch();
+  };
 
-    const handleClose = () => {
-      setBoxIsOpen(false);
-    };
+  const _onsearch = async () => {
+    clearSearch();
+    const response = await axios.get(`api/search?title=${value}`);
+    if (response) {
+      Addsearch(response?.data);
+    } else {
+      Addsearch([]);
+    }
+  };
 
-    useImperativeHandle(ref, () => {
-      return {
-        open: () => handleOpen(),
-        close: () => handleClose(),
-      };
-    });
-
-    return (
-      <>
-        {boxIsOpen && (
-          <Fragment>
-            <div className='memberpopupscreen'>
-              <div className='memberpopup add'>
-                <div className='mem-heading add'>
-                  <h3>Add Project Members</h3>
-                  <a href='#!' className='member-cross' onClick={handleClose}>
-                    <img src={nounPlus} alt='' />
-                  </a>
-                </div>
-                <div className='search active'>
-                  <input
-                    type='text'
-                    onChange={(e) => {
-                      setTimeout(() => {
-                        _onsearch(e.target.value);
-                      }, 500);
-                    }}
-                    className='search-btn'
-                    placeholder='search'
-                  />
-                  <br />
-                  <img
-                    onClick={() => {
-                      history.push('/profiles');
-                    }}
-                    src={searchIcon}
-                    alt='search'
-                  />
-                </div>
-                <div className='body add'>
-                  {profiles.length > 0 ? (
-                    <Fragment>
-                      {profiles.map((profile, index) => (
-                        <Fragment key={index}>
-                          <MemberInvite
-                            key={profile._id}
-                            profile={profile}
-                            project_id={singleproject._id}
-                          />
-                        </Fragment>
-                      ))}
-                    </Fragment>
-                  ) : (
-                    <Spinner />
-                  )}
-                </div>
+  return (
+    <>
+      {show && (
+        <Fragment>
+          <div className='memberpopupscreen'>
+            <div className='memberpopup add'>
+              <div className='mem-heading add'>
+                <h3>Add Project Members</h3>
+                <a href='#!' className='member-cross' onClick={close}>
+                  <img src={nounPlus} alt='' />
+                </a>
+              </div>
+              <div className='search active'>
+                <input
+                  type='text'
+                  name='search'
+                  value={value}
+                  onChange={(e) => onChange(e)}
+                  className='search-btn'
+                  placeholder='search'
+                />
+                <br />
+                <img onClick={_onsearch} src={searchIcon} alt='search' />
+              </div>
+              <div className='body add'>
+                {profiles.length > 0 &&
+                  profiles.map((profile) => (
+                    <MemberInvite
+                      key={profile._id}
+                      profile={profile}
+                      project_id={singleproject?._id}
+                    />
+                  ))}
               </div>
             </div>
-          </Fragment>
-        )}
-      </>
-    );
-  }
-);
+          </div>
+        </Fragment>
+      )}
+    </>
+  );
+};
 
 const mapStateToProps = (state) => ({
   profile: state.profile,

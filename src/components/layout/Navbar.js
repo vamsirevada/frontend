@@ -5,7 +5,6 @@ import maskGroup from '../../images/maskGroup.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import home from '../../images/Home.svg';
 import chat from '../../images/chat.svg';
-import notify from '../../images/noun_notification_887294.svg';
 import NotificationPopup from './NotificationPopup';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -20,21 +19,25 @@ import logo from '../../images/dummyimage.jpg';
 const Navbar = ({ logout }) => {
   const history = useHistory();
   const [displayMenu, toogleMenu] = useState(false);
-  const [displayNotify, toogleNotify] = useState(false);
   const [feedActive, toogleFeedActive] = useState(false);
   const [portActive, tooglePortActive] = useState(false);
   const [chatActive, toogleChatActive] = useState(false);
   const { Addsearch, clearSearch } = useContext(SearchContext);
   const { img, setImg } = useContext(ProfileContext);
+  const [value, setValue] = useState('');
+
+  const onChange = (e) => {
+    setValue(e.target.value);
+    _onsearch();
+  };
 
   useEffect(() => {
     getProfilepic();
   });
 
-  const _onsearch = async (value) => {
+  const _onsearch = async () => {
     clearSearch();
     const response = await axios.get(`api/search?title=${value}`);
-    console.log(response, 'responseresponseresponse');
     if (response) {
       Addsearch(response?.data);
     } else {
@@ -44,13 +47,6 @@ const Navbar = ({ logout }) => {
   const getProfilepic = async () => {
     const res = await axios.get('/api/profile/me');
     setImg(res.data?.avatar);
-  };
-
-  const getNotifications = async () => {
-    toogleNotify(true);
-    setTimeout(() => {
-      toogleNotify(false);
-    }, 5000);
   };
 
   const toggleF = async () => {
@@ -85,11 +81,7 @@ const Navbar = ({ logout }) => {
             <div className='search active'>
               <input
                 type='text'
-                onChange={(e) => {
-                  setTimeout(() => {
-                    _onsearch(e.target.value);
-                  }, 500);
-                }}
+                onChange={(e) => onChange(e)}
                 className='search-btn'
                 placeholder='search'
               />

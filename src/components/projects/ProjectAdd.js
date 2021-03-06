@@ -1,15 +1,20 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import MemberPopUp from './MembersPopUp';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React, { useRef, useState } from 'react';
+import MembersPopup from './MembersPopUp';
 import AddPopUp from './AddPopUp';
 
 const ProjectAdd = ({ singleproject }) => {
-  const modalRef = React.useRef();
+  const modalRef = useRef();
+  const [show, setShow] = useState(false);
+
+  const close = () => {
+    setShow(false);
+  };
 
   return (
     <>
-      <AddPopUp ref={modalRef} />
-      <MemberPopUp ref={modalRef} members={singleproject?.members} />
+      <MembersPopup ref={modalRef} members={singleproject?.members} />
+      <AddPopUp show={show} close={close} />
       <div className='main-grid-top'>
         <div className='profile-project-box'>
           <a
@@ -28,15 +33,15 @@ const ProjectAdd = ({ singleproject }) => {
           <div className='mutual-frds'>
             <div className='prof-heading-flex'>
               <div></div>
-              <Link
+              <a
                 onClick={() => {
-                  modalRef.current.open();
+                  setShow(true);
                 }}
               >
                 <h4>
                   <span className='bg-1'>Add Member</span>
                 </h4>
-              </Link>
+              </a>
             </div>
           </div>
         </div>

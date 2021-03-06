@@ -14,7 +14,12 @@ const ImageGrid = ({ id, profile }) => {
   const { docs } = UseFirestore('images');
   const [viewAllImg, setViewAllImg] = useState(false);
   const [viewAllVideo, setViewAllVideo] = useState(false);
-  const modalRef = React.useRef();
+  const [show, setShow] = useState(false);
+  const [value, setValue] = useState(0);
+
+  const close = () => {
+    setShow(false);
+  };
 
   const _remove = async (name, type) => {
     if (type === 'blog') {
@@ -65,7 +70,14 @@ const ImageGrid = ({ id, profile }) => {
 
   return (
     <span>
-      <Modal images={images} videos={videos} profile={profile} ref={modalRef} />
+      <Modal
+        images={images}
+        videos={videos}
+        profile={profile}
+        show={show}
+        close={close}
+        value={value}
+      />
       <div
         style={{
           display: 'flex',
@@ -124,7 +136,8 @@ const ImageGrid = ({ id, profile }) => {
                 </div>
                 <motion.video
                   onClick={() => {
-                    modalRef.current.openModal(index);
+                    setShow(true);
+                    setValue(index);
                   }}
                   src={doc.url}
                   alt='uploaded pic'
@@ -192,7 +205,8 @@ const ImageGrid = ({ id, profile }) => {
                   </div>
                   <motion.img
                     onClick={() => {
-                      modalRef.current.openModal(index);
+                      setShow(true);
+                      setValue(index);
                     }}
                     src={doc.url}
                     alt='uploaded pic'
@@ -241,7 +255,7 @@ const ImageGrid = ({ id, profile }) => {
               </div>
               <motion.video
                 onClick={() => {
-                  modalRef.current.openModal();
+                  setShow(true);
                 }}
                 poster={Audio}
                 src={doc.url}
