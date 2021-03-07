@@ -513,16 +513,6 @@ const Portfolio = ({
             </Fragment>
           ) : (
             <Fragment>
-              {/* You have not yet setup a portfolio, Please add some info
-          {user.isGroup ? (
-            <Fragment>
-              <Link to='/create-group-profile'>Create portfolio</Link>
-            </Fragment>
-          ) : (
-            <Fragment>
-              <Link to='/create-profile'>Create portfolio</Link>
-            </Fragment>
-          )} */}
               <Spinner />
             </Fragment>
           )}

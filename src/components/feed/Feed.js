@@ -28,7 +28,14 @@ const Feed = ({
     getBuddyRequests();
     getBuddyPosts(id);
     getProjects(user?._id);
-  }, [getCurrentProfile, getBuddyPosts, user?._id, id]);
+  }, [
+    getCurrentProfile,
+    getBuddyPosts,
+    getBuddyRequests,
+    getProjects,
+    user?._id,
+    id,
+  ]);
 
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);

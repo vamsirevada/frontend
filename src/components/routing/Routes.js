@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Portfolio from '../portfolio/Portfolio';
 import Portfolio1 from '../portfolio/Portfolio1';
@@ -28,49 +28,82 @@ import ChatPage from '../chat/ChatPage';
 import SingleProject from '../projects/SingleProject';
 import ProjectList from '../projects/ProjectList';
 import SingleNotice from '../projects/SingleNotice';
+import Loading from '../Loading';
 
 const Routes = (props) => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 3000);
+  }, []);
+
   return (
     <Fragment>
-      <Navbar />
-      <Switch>
-        <PrivateRoute exact path='/portfolio' component={Portfolio} />
-        <PrivateRoute exact path='/portfolio/:id' component={Portfolio1} />
-        <PrivateRoute exact path='/addfiles' component={AddPortfolio} />
-        <PrivateRoute exact path='/create-profile' component={CreateProfile} />
-        <PrivateRoute
-          exact
-          path='/create-group-profile'
-          component={CreateGroupProfile}
-        />
-        <PrivateRoute exact path='/edit-profile' component={EditProfile} />
-        <PrivateRoute exact path='/profile' component={Profile2} />
-        <PrivateRoute exact path='/profiles' component={Profiles} />
-        <PrivateRoute exact path='/create-project' component={CreateProject} />
-        <PrivateRoute exact path='/add-experience' component={AddExperience} />
-        <PrivateRoute exact path='/add-education' component={AddEducation} />
-        <PrivateRoute exact path='/add-award' component={AddAward} />
-        <PrivateRoute exact path='/add-events' component={AddEvents} />
-        <PrivateRoute exact path='/add-skills' component={AddSkills} />
-        <PrivateRoute exact path='/posts' component={Posts} />
-        <PrivateRoute exact path='/posts/:id' component={Post} />
-        <PrivateRoute exact path='/project/:id' component={SingleProject} />
-        <PrivateRoute
-          exact
-          path='/project/:projectid/notice/:id'
-          component={SingleNotice}
-        />
-        <PrivateRoute exact path='/feed' component={Feed} />
-        <PrivateRoute exact path='/friends' component={Friends} />
-        <PrivateRoute exact path='/chats' component={ChatPage} />
-        <PrivateRoute exact path='/friends/:id' component={Friends1} />
-        {/* experience */}
-        <PrivateRoute exact path='/projects/:id' component={Projects} />
-        {/* project list */}
-        <PrivateRoute exact path='/projectlist/:id' component={ProjectList} />
-        <PrivateRoute exact path='/project' component={Project} />
-        <Route exact path='*' component={NotFound} />
-      </Switch>
+      {loading === false ? (
+        <>
+          <Navbar />
+          <Switch>
+            <PrivateRoute exact path='/portfolio' component={Portfolio} />
+            <PrivateRoute exact path='/portfolio/:id' component={Portfolio1} />
+            <PrivateRoute exact path='/addfiles' component={AddPortfolio} />
+            <PrivateRoute
+              exact
+              path='/create-profile'
+              component={CreateProfile}
+            />
+            <PrivateRoute
+              exact
+              path='/create-group-profile'
+              component={CreateGroupProfile}
+            />
+            <PrivateRoute exact path='/edit-profile' component={EditProfile} />
+            <PrivateRoute exact path='/profile' component={Profile2} />
+            <PrivateRoute exact path='/profiles' component={Profiles} />
+            <PrivateRoute
+              exact
+              path='/create-project'
+              component={CreateProject}
+            />
+            <PrivateRoute
+              exact
+              path='/add-experience'
+              component={AddExperience}
+            />
+            <PrivateRoute
+              exact
+              path='/add-education'
+              component={AddEducation}
+            />
+            <PrivateRoute exact path='/add-award' component={AddAward} />
+            <PrivateRoute exact path='/add-events' component={AddEvents} />
+            <PrivateRoute exact path='/add-skills' component={AddSkills} />
+            <PrivateRoute exact path='/posts' component={Posts} />
+            <PrivateRoute exact path='/posts/:id' component={Post} />
+            <PrivateRoute exact path='/project/:id' component={SingleProject} />
+            <PrivateRoute
+              exact
+              path='/project/:projectid/notice/:id'
+              component={SingleNotice}
+            />
+            <PrivateRoute exact path='/feed' component={Feed} />
+            <PrivateRoute exact path='/friends' component={Friends} />
+            <PrivateRoute exact path='/chats' component={ChatPage} />
+            <PrivateRoute exact path='/friends/:id' component={Friends1} />
+            {/* experience */}
+            <PrivateRoute exact path='/projects/:id' component={Projects} />
+            {/* project list */}
+            <PrivateRoute
+              exact
+              path='/projectlist/:id'
+              component={ProjectList}
+            />
+            <PrivateRoute exact path='/project' component={Project} />
+            <Route exact path='*' component={NotFound} />
+          </Switch>
+        </>
+      ) : (
+        <Loading />
+      )}
     </Fragment>
   );
 };

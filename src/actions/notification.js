@@ -10,7 +10,9 @@ export const getRealtimeNotifications = (user) => {
       .onSnapshot((snapshot) => {
         const notifications = [];
         snapshot.forEach((doc) => {
-          notifications.push(doc.data());
+          if (doc.data().receiver === user.uid_1) {
+            notifications.push(doc.data());
+          }
         });
         dispatch({
           type: GET_NOTIFICATIONS,

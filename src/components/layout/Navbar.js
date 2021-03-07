@@ -32,21 +32,22 @@ const Navbar = ({ logout }) => {
   };
 
   useEffect(() => {
+    const getProfilepic = async () => {
+      const res = await axios.get('/api/profile/me');
+      setImg(res.data?.avatar);
+    };
     getProfilepic();
-  });
+  }, [setImg]);
 
   const _onsearch = async () => {
     clearSearch();
+
     const response = await axios.get(`api/search?title=${value}`);
     if (response) {
       Addsearch(response?.data);
     } else {
       Addsearch([]);
     }
-  };
-  const getProfilepic = async () => {
-    const res = await axios.get('/api/profile/me');
-    setImg(res.data?.avatar);
   };
 
   const toggleF = async () => {

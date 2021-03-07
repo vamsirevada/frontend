@@ -14,7 +14,7 @@ const AddPopUp = ({
   show,
   close,
 }) => {
-  const { Addsearch, clearSearch } = useContext(SearchContext);
+  const { search, Addsearch, clearSearch } = useContext(SearchContext);
   const [value, setValue] = useState('');
 
   useEffect(() => {
@@ -29,9 +29,9 @@ const AddPopUp = ({
 
   const _onsearch = async () => {
     clearSearch();
-    const response = await axios.get(`api/search?title=${value}`);
-    if (response) {
-      Addsearch(response?.data);
+    const res = await axios.get(`/api/search?title=${value}`);
+    if (res) {
+      Addsearch(res?.data);
     } else {
       Addsearch([]);
     }
@@ -62,14 +62,22 @@ const AddPopUp = ({
                 <img onClick={_onsearch} src={searchIcon} alt='search' />
               </div>
               <div className='body add'>
-                {profiles.length > 0 &&
-                  profiles.map((profile) => (
-                    <MemberInvite
-                      key={profile._id}
-                      profile={profile}
-                      project_id={singleproject?._id}
-                    />
-                  ))}
+                {search.length > 0
+                  ? search.map((profile) => (
+                      <MemberInvite
+                        key={profile._id}
+                        profile={profile}
+                        project_id={singleproject?._id}
+                      />
+                    ))
+                  : profiles.length > 0 &&
+                    profiles.map((profile) => (
+                      <MemberInvite
+                        key={profile._id}
+                        profile={profile}
+                        project_id={singleproject?._id}
+                      />
+                    ))}
               </div>
             </div>
           </div>

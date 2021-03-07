@@ -14,8 +14,6 @@ const Modal = ({
   close,
   value,
 }) => {
-  console.log(value);
-
   const [current, setCurrent] = useState(0);
   const files = videos.concat(images);
 

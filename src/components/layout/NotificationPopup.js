@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { Fragment } from 'react';
 import {
   getRealtimeNotifications,
   markNotificationsRead,
 } from '../../actions/notification';
 import logo from '../../images/dummyimage.jpg';
-import Menu from '@material-ui/core/Menu';
+import { Menu } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -21,7 +20,6 @@ const NotificationPopup = ({
   notification: { notifications },
   markNotificationsRead,
 }) => {
-  const [viewAllNotify, setViewAllNotify] = useState(false);
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -35,6 +33,7 @@ const NotificationPopup = ({
 
   const handleOpen = (e) => {
     setAnchorEl(e.currentTarget);
+    console.log(anchorEl);
   };
 
   const handleClose = () => {
@@ -42,13 +41,9 @@ const NotificationPopup = ({
   };
 
   const onMenuOpened = () => {
-    console.log('clicked');
     const unreadNotificationsIds = notifications
       .filter((not) => !not.read)
       .map((not) => not.notificationId);
-
-    console.log(unreadNotificationsIds);
-
     markNotificationsRead(unreadNotificationsIds);
   };
 
