@@ -21,7 +21,6 @@ const NotificationPopup = ({
   markNotificationsRead,
 }) => {
   const dispatch = useDispatch();
-  const [anchorEl, setAnchorEl] = useState(null);
 
   useEffect(() => {
     dispatch(
@@ -31,14 +30,27 @@ const NotificationPopup = ({
     );
   }, [dispatch, user?._id]);
 
+  const [open, setOpen] = useState(false);
+  const anchorRef = React.useRef(null);
+  const prevOpen = React.useRef(open);
+
   const handleOpen = (e) => {
-    setAnchorEl(e.currentTarget);
-    console.log(anchorEl);
+    setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+    setOpen(false);
   };
+
+  useEffect(() => {
+    if (prevOpen.current === true && open === false) {
+      anchorRef.current.focus();
+    }
+    prevOpen.current = open;
+  }, [open]);
 
   const onMenuOpened = () => {
     const unreadNotificationsIds = notifications
@@ -97,38 +109,12 @@ const NotificationPopup = ({
       <MenuItem onClick={handleClose}>You have no notifications yet</MenuItem>
     );
 
-  // const accept = async (profileid) => {
-  //   try {
-  //     const res = await axios.put(`api/profile/buddy/${profileid}`);
-  //     setAlert('Buddy added', 'success');
-  //     let empty = true;
-  //     if (res.data.length > 0) {
-  //       empty = false;
-  //     }
-  //     getCurrentProfile();
-  //     getBuddyRequests();
-  //   } catch (err) {
-  //     if (err.response.data !== undefined) {
-  //       setAlert(err.response.data.msg, 'danger');
-  //     }
-  //   }
-  // };
-  // const deny = async (profileid) => {
-  //   try {
-  //     await axios.delete(`api/profile/request/${profileid}`);
-  //     setAlert('Request declined', 'success');
-  //     getBuddyRequests();
-  //     getCurrentProfile();
-  //   } catch (err) {
-  //     setAlert(err.response.data.msg, 'danger');
-  //   }
-  // };
-
   return (
     <Fragment>
       <Tooltip placement='top' title='notifications'>
         <IconButton
-          aria-owns={anchorEl ? 'simple-menu' : undefined}
+          ref={anchorRef}
+          aria-owns={open ? 'simple-menu' : undefined}
           aria-haspopup='true'
           onClick={handleOpen}
         >
@@ -136,8 +122,8 @@ const NotificationPopup = ({
         </IconButton>
       </Tooltip>
       <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
+        anchorEl={anchorRef.current}
+        open={open}
         onClose={handleClose}
         onEntered={onMenuOpened}
       >
