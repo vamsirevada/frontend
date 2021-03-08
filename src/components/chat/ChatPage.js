@@ -9,7 +9,6 @@ import attach from '../../images/attach.svg';
 import logo from '../../images/dummyimage.jpg';
 import emoji from '../../images/emoji.svg';
 import path from '../../images/path.svg';
-import call from '../../images/call.png';
 import videocall from '../../images/videocall.png';
 import background from '../../images/Rectangle.png';
 
