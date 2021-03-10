@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { setAlert } from './alert';
-import { getBuddyPosts, getOwnPosts } from './post';
 import setAuthToken from '../utils/setAuthToken';
 
 import {
@@ -18,7 +17,6 @@ import {
   CLEAR_PROFILE,
   LOGOUT,
   REFERRAL_SUCESS,
-  CLEAR_POST,
 } from './types';
 
 // const { enqueueSnackbar } = useSnackbar();
@@ -119,8 +117,6 @@ export const login = (email, password) => async (dispatch) => {
       payload: res.data,
     });
     dispatch(loadUser());
-    dispatch(getOwnPosts());
-    dispatch(getBuddyPosts());
   } catch (err) {
     const errors = err.response.data.errors;
     console.log(errors);
@@ -302,8 +298,12 @@ export const sendReferral = ({ email }) => async (dispatch) => {
 };
 
 //Logout /clear profile
-export const logout = () => (dispatch) => {
-  dispatch({ type: CLEAR_PROFILE });
-  dispatch({ type: CLEAR_POST });
-  dispatch({ type: LOGOUT });
+export const logout = () => async (dispatch) => {
+  try {
+    await axios.get('/api/auth/signout');
+    dispatch({ type: CLEAR_PROFILE });
+    dispatch({ type: LOGOUT });
+  } catch (err) {
+    console.error(err);
+  }
 };

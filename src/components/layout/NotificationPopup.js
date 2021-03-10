@@ -5,10 +5,8 @@ import {
   markNotificationsRead,
 } from '../../actions/notification';
 import logo from '../../images/dummyimage.jpg';
-import { Menu } from '@material-ui/core';
 import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
 import Badge from '@material-ui/core/Badge';
 // Icons
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -31,31 +29,11 @@ const NotificationPopup = ({
   }, [dispatch, user?._id]);
 
   const [open, setOpen] = useState(false);
-  const anchorRef = React.useRef(null);
-  const prevOpen = React.useRef(open);
-
-  const handleOpen = (e) => {
-    setOpen((prevOpen) => !prevOpen);
-  };
-
-  const handleClose = (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
-    setOpen(false);
-  };
-
-  useEffect(() => {
-    if (prevOpen.current === true && open === false) {
-      anchorRef.current.focus();
-    }
-    prevOpen.current = open;
-  }, [open]);
 
   const onMenuOpened = () => {
     const unreadNotificationsIds = notifications
       .filter((not) => !not.read)
-      .map((not) => not.notificationId);
+      .map((not) => not.id);
     markNotificationsRead(unreadNotificationsIds);
   };
 
@@ -91,7 +69,7 @@ const NotificationPopup = ({
           );
 
         return (
-          <MenuItem key={not?.createdAt} onClick={handleClose}>
+          <li style={{ listStyle: 'none' }} key={not?.createdAt}>
             {icon}
             <img
               height='10px'
@@ -102,33 +80,28 @@ const NotificationPopup = ({
             <p>
               {not.sender} {verb} your post{' '}
             </p>
-          </MenuItem>
+          </li>
         );
       })
     ) : (
-      <MenuItem onClick={handleClose}>You have no notifications yet</MenuItem>
+      <MenuItem>You have no notifications yet</MenuItem>
     );
 
   return (
     <Fragment>
-      <Tooltip placement='top' title='notifications'>
-        <IconButton
-          ref={anchorRef}
-          aria-owns={open ? 'simple-menu' : undefined}
-          aria-haspopup='true'
-          onClick={handleOpen}
-        >
-          {notificationsIcon}
-        </IconButton>
-      </Tooltip>
-      <Menu
-        anchorEl={anchorRef.current}
-        open={open}
-        onClose={handleClose}
-        onEntered={onMenuOpened}
+      <IconButton
+        aria-owns={open ? 'simple-menu' : undefined}
+        aria-haspopup='true'
+        onClick={() => {
+          setOpen(true);
+          // setTimeout(() => {
+          //   setOpen(false);
+          // }, 5000);
+        }}
       >
-        {notificationsMarkup}
-      </Menu>
+        {notificationsIcon}
+      </IconButton>
+      {open && <div onClick={onMenuOpened}>{notificationsMarkup}</div>}
     </Fragment>
   );
 };

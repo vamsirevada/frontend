@@ -1,12 +1,11 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addComment } from '../../actions/post';
 import plane from '../../images/noun_paper plane_367806 copy.svg';
 import { projectFirestore } from '../../firebase/config';
-import { v4 as uuidv4 } from 'uuid';
 
-const CommentForm = ({ auth, user, postId, addComment }) => {
+const CommentForm = ({ auth, user, postId, addComment, comments }) => {
   const [text, setText] = useState('');
 
   const onSubmit = (e) => {
@@ -21,7 +20,6 @@ const CommentForm = ({ auth, user, postId, addComment }) => {
       type: 'comment',
       read: false,
       createdAt: new Date(),
-      notificationId: uuidv4(),
     });
     setText('');
   };
@@ -47,8 +45,12 @@ const CommentForm = ({ auth, user, postId, addComment }) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  comments: state.post.post.comments,
+});
+
 CommentForm.propTypes = {
   addComment: PropTypes.func.isRequired,
 };
 
-export default connect(null, { addComment })(CommentForm);
+export default connect(mapStateToProps, { addComment })(CommentForm);

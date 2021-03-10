@@ -7,11 +7,10 @@ import PostItem from './PostItem';
 
 const Posts = ({
   profile: { profile },
-  auth,
   getBuddyPosts,
   getOwnPosts,
   id,
-  post: { posts, oposts, loading },
+  post: { posts, loading },
 }) => {
   useEffect(() => {
     getBuddyPosts(id);
@@ -22,9 +21,6 @@ const Posts = ({
     <Spinner />
   ) : (
     <Fragment>
-      {/* {oposts.map((post) => (
-        <PostItem key={post._id} post={post} />
-      ))} */}
       {posts.map((post) => (
         <PostItem profile={profile} key={post._id} post={post} />
       ))}
@@ -40,7 +36,6 @@ Posts.propTypes = {
 const mapStateToProps = (state) => ({
   post: state.post,
   profile: state.profile,
-  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { getBuddyPosts, getOwnPosts })(Posts);

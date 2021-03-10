@@ -30,7 +30,7 @@ import ProjectList from '../projects/ProjectList';
 import SingleNotice from '../projects/SingleNotice';
 import Loading from '../Loading';
 
-const Routes = (props) => {
+const Routes = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

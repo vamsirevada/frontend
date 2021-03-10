@@ -6,6 +6,7 @@ import {
   CLEAR_PROFILE,
   GET_PROFILE,
   GET_PROFILES,
+  GET_PROFILE_PIC,
   PROFILE_ERROR,
   UPDATE_PROFILE,
   GET_BUDDY_REQUESTS,
@@ -21,6 +22,21 @@ export const getCurrentProfile = () => async (dispatch) => {
     dispatch({
       type: GET_PROFILE,
       payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const getCurrentProfilePic = () => async (dispatch) => {
+  try {
+    const res = await axios.get('/api/profile/me');
+    dispatch({
+      type: GET_PROFILE_PIC,
+      payload: res.data.avatar,
     });
   } catch (err) {
     dispatch({

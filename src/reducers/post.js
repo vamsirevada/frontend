@@ -72,7 +72,7 @@ export default function (state = initialState, action) {
     case ADD_COMMENT:
       return {
         ...state,
-        post: { ...state.post, comments: payload },
+        post: { comments: payload, ...state.post },
         // posts: state.posts.map((post) =>
         //   post._id === payload.id
         //     ? { ...post, comments: payload.comments }

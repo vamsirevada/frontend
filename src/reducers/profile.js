@@ -1,3 +1,4 @@
+import logo from '../images/dummyimage.jpg';
 import {
   GET_PROFILE,
   GET_PROFILES,
@@ -8,10 +9,13 @@ import {
   GET_BUDDIES,
   GET_BUDDIES_ERROR,
   GET_BUDDY_REQUESTS,
+  GET_PROJECT,
+  GET_PROFILE_PIC,
 } from '../actions/types';
 
 const initialState = {
   profile: null,
+  avatar: logo,
   profiles: [],
   buddies: [],
   requests: [],
@@ -31,6 +35,11 @@ export default function (state = initialState, action) {
         ...state,
         profile: payload,
         loading: false,
+      };
+    case GET_PROFILE_PIC:
+      return {
+        ...state,
+        avatar: payload,
       };
     case BUDDY_REQUEST_SENT:
       return {

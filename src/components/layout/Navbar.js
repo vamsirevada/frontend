@@ -41,7 +41,6 @@ const Navbar = ({ logout }) => {
 
   const _onsearch = async () => {
     clearSearch();
-
     const response = await axios.get(`api/search?title=${value}`);
     if (response) {
       Addsearch(response?.data);

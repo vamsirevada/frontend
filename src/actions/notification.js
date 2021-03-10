@@ -8,12 +8,10 @@ export const getRealtimeNotifications = (user) => {
       .where('receiver', '==', user.uid_1)
       .orderBy('createdAt', 'desc')
       .onSnapshot((snapshot) => {
-        const notifications = [];
-        snapshot.forEach((doc) => {
-          if (doc.data().receiver === user.uid_1) {
-            notifications.push(doc.data());
-          }
-        });
+        const notifications = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         dispatch({
           type: GET_NOTIFICATIONS,
           payload: { notifications },
@@ -31,6 +29,7 @@ export const markNotificationsRead = (notificationIds) => {
       );
       batch.update(notification, { read: true });
     });
+    batch.commit();
     dispatch({
       type: MARK_NOTIFICATIONS_READ,
     });

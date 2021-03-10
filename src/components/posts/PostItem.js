@@ -15,7 +15,6 @@ import CommentItem from './CommentItem';
 import logo from '../../images/dummyimage.jpg';
 import PostType from './PostType';
 import { projectFirestore } from '../../firebase/config';
-import { v4 as uuidv4 } from 'uuid';
 
 const PostItem = ({
   profile: { profile },
@@ -61,7 +60,6 @@ const PostItem = ({
       type: 'like',
       read: false,
       createdAt: new Date(),
-      notificationId: uuidv4(),
     });
   };
 
@@ -69,7 +67,8 @@ const PostItem = ({
     removeLike(_id);
     projectFirestore
       .collection('notifications')
-      .where('uid', '==', _id)
+      .where('sender', '==', auth?.user?.userName)
+      .where('type', '==', 'like')
       .get()
       .then((i) => {
         i.forEach((d) => {
