@@ -1,8 +1,7 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getBuddyPosts, getOwnPosts } from '../../actions/post';
-import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 
 const Posts = ({
@@ -10,21 +9,38 @@ const Posts = ({
   getBuddyPosts,
   getOwnPosts,
   id,
-  post: { posts, loading },
+  post: { posts, oposts, loading },
 }) => {
+  const [own, setOwn] = useState(false);
+
   useEffect(() => {
     getBuddyPosts(id);
     getOwnPosts(id);
   }, [getBuddyPosts, getOwnPosts, id]);
 
-  return loading ? (
-    <Spinner />
-  ) : (
-    <Fragment>
-      {posts.map((post) => (
-        <PostItem profile={profile} key={post._id} post={post} />
-      ))}
-    </Fragment>
+  return (
+    <>
+      <button
+        onClick={() => {
+          setOwn(true);
+        }}
+      >
+        Sort
+      </button>
+      {own ? (
+        <Fragment>
+          {oposts.map((post) => (
+            <PostItem profile={profile} key={post._id} post={post} />
+          ))}
+        </Fragment>
+      ) : (
+        <Fragment>
+          {posts.map((post) => (
+            <PostItem profile={profile} key={post._id} post={post} />
+          ))}
+        </Fragment>
+      )}
+    </>
   );
 };
 

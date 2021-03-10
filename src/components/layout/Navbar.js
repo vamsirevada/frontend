@@ -8,6 +8,7 @@ import chat from '../../images/chat.svg';
 import NotificationPopup from './NotificationPopup';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { getCurrentProfile } from '../../actions/profile';
 import { logout } from '../../actions/auth';
 import { Link, useHistory } from 'react-router-dom';
 import { SearchContext } from '../../context/search.context';
@@ -16,7 +17,12 @@ import ArtTrackIcon from '@material-ui/icons/ArtTrack';
 import { grey } from '@material-ui/core/colors';
 import logo from '../../images/dummyimage.jpg';
 
-const Navbar = ({ logout }) => {
+const Navbar = ({
+  auth: { user },
+  profile: { profile },
+  getCurrentProfile,
+  logout,
+}) => {
   const history = useHistory();
   const [displayMenu, toogleMenu] = useState(false);
   const [feedActive, toogleFeedActive] = useState(false);
@@ -32,12 +38,13 @@ const Navbar = ({ logout }) => {
   };
 
   useEffect(() => {
+    getCurrentProfile();
     const getProfilepic = async () => {
       const res = await axios.get('/api/profile/me');
       setImg(res.data?.avatar);
     };
     getProfilepic();
-  }, [setImg]);
+  }, [setImg, getCurrentProfile]);
 
   const _onsearch = async () => {
     clearSearch();
@@ -47,6 +54,11 @@ const Navbar = ({ logout }) => {
     } else {
       Addsearch([]);
     }
+  };
+
+  const logOut = () => {
+    logout();
+    document.documentElement.scrollTop = 0;
   };
 
   const toggleF = async () => {
@@ -120,12 +132,6 @@ const Navbar = ({ logout }) => {
                 <p>Portfolio</p>
               </Link>
             </div>
-            {/* <div className='tab'>
-              <Link to='/profiles' className='calendar icon'>
-                <img src={all} alt='allProfile' />
-                <p>Profiles</p>
-              </Link>
-            </div> */}
             <div
               className={chatActive ? 'tab active' : 'tab'}
               onClick={toggleC}
@@ -135,16 +141,7 @@ const Navbar = ({ logout }) => {
                 <p>Chat</p>
               </Link>
             </div>
-            <NotificationPopup />
-            {/* <div className='icon'>
-              <img
-                className='notif'
-                src={notify}
-                onClick={getNotifications}
-                alt='notify'
-              />
-              {displayNotify && <NotificationPopup />}
-            </div> */}
+            <NotificationPopup user={user} profile={profile} />
             <div>
               <img
                 className='dis'
@@ -172,7 +169,7 @@ const Navbar = ({ logout }) => {
                       <Link to='/create-project'> Create Project</Link>
                     </li>
                     <li>
-                      <a onClick={logout} className='signOut' type='button'>
+                      <a onClick={logOut} className='signOut' type='button'>
                         Log out
                       </a>
                     </li>
@@ -187,8 +184,13 @@ const Navbar = ({ logout }) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  profile: state.profile,
+});
+
 Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
 };
 
-export default connect(null, { logout })(Navbar);
+export default connect(mapStateToProps, { getCurrentProfile, logout })(Navbar);

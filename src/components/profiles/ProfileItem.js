@@ -10,8 +10,11 @@ import axios from 'axios';
 import { setAlert } from '../../actions/alert';
 import { sendBuddyRequest, getCurrentProfile } from '../../actions/profile';
 import { motion } from 'framer-motion';
+import { projectFirestore } from '../../firebase/config';
 
 const ProfileItem = ({
+  auth,
+  senderId,
   profile: { _id, user, avatar, status, location, buddies },
   sendBuddyRequest,
   getCurrentProfile,
@@ -21,6 +24,16 @@ const ProfileItem = ({
 }) => {
   const sendRequest = async () => {
     await sendBuddyRequest(_id);
+    projectFirestore.collection('notifications').add({
+      sender: auth?.user?._id,
+      senderName: auth?.user?.userName,
+      avatar: auth?.user?.avatar,
+      receiver: user?._id,
+      uid: senderId,
+      type: 'request',
+      read: false,
+      createdAt: new Date(),
+    });
   };
 
   const onClick = () => {
@@ -42,16 +55,7 @@ const ProfileItem = ({
   const note = async (profileid) => {
     try {
       await axios.put(`api/profile/note/${_id}`);
-
       setAlert('Noted', 'success');
-
-      // let empty = true;
-      // if (res.data.length > 0) {
-      //   //eslint-disable-next-line
-      //   empty = false;
-      // }
-
-      // setRefreshBuddies(true);
       getCurrentProfile();
     } catch (err) {
       if (err.response.data !== undefined) {
@@ -161,10 +165,16 @@ const ProfileItem = ({
   );
 };
 
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
 ProfileItem.propTypes = {
   sendBuddyRequest: PropTypes.func.isRequired,
 };
 
-export default connect(null, { setAlert, getCurrentProfile, sendBuddyRequest })(
-  ProfileItem
-);
+export default connect(mapStateToProps, {
+  setAlert,
+  getCurrentProfile,
+  sendBuddyRequest,
+})(ProfileItem);

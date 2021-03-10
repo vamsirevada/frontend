@@ -4,18 +4,20 @@ import {
   getRealtimeNotifications,
   markNotificationsRead,
 } from '../../actions/notification';
+import { accept, decline } from '../../actions/profile';
 import logo from '../../images/dummyimage.jpg';
-import MenuItem from '@material-ui/core/MenuItem';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
 // Icons
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import ChatIcon from '@material-ui/icons/Chat';
+import { projectFirestore } from '../../firebase/config';
 
 const NotificationPopup = ({
-  auth: { user },
+  user,
+  profile,
   notification: { notifications },
+  accept,
+  decline,
   markNotificationsRead,
 }) => {
   const dispatch = useDispatch();
@@ -29,6 +31,29 @@ const NotificationPopup = ({
   }, [dispatch, user?._id]);
 
   const [open, setOpen] = useState(false);
+
+  const add = (id) => {
+    projectFirestore
+      .collection('notifications')
+      .where('sender', '==', id)
+      .where('type', '==', 'request')
+      .get()
+      .then((i) => {
+        i.forEach((d) => {
+          d.ref.delete();
+        });
+      });
+    projectFirestore.collection('notifications').add({
+      sender: user?._id,
+      senderName: user?.userName,
+      avatar: user?.avatar,
+      receiver: id,
+      uid: profile?._id,
+      type: 'accept',
+      read: false,
+      createdAt: new Date(),
+    });
+  };
 
   const onMenuOpened = () => {
     const unreadNotificationsIds = notifications
@@ -59,32 +84,65 @@ const NotificationPopup = ({
   const notificationsMarkup =
     notifications && notifications.length > 0 ? (
       notifications.map((not) => {
-        const verb = not.type === 'like' ? 'liked' : 'commented on';
-        const iconColor = not.read ? 'primary' : 'secondary';
-        const icon =
-          not.type === 'like' ? (
-            <FavoriteIcon color={iconColor} style={{ marginRight: 10 }} />
-          ) : (
-            <ChatIcon color={iconColor} style={{ marginRight: 10 }} />
-          );
-
         return (
           <li style={{ listStyle: 'none' }} key={not?.createdAt}>
-            {icon}
-            <img
-              height='10px'
-              width='10px'
-              src={not.avatar ? not.avatar : logo}
-              alt=''
-            />
-            <p>
-              {not.sender} {verb} your post{' '}
-            </p>
+            {not.type === 'like' && (
+              <>
+                <img
+                  height='10px'
+                  width='10px'
+                  src={not.avatar ? not.avatar : logo}
+                  alt=''
+                />
+                <p>{not.senderName} liked your post </p>
+              </>
+            )}
+            {not.type === 'comment' && (
+              <>
+                <img
+                  height='10px'
+                  width='10px'
+                  src={not.avatar ? not.avatar : logo}
+                  alt=''
+                />
+                <p>{not.senderName} commented on your post </p>
+              </>
+            )}
+            {not.type === 'request' && (
+              <>
+                <img
+                  height='10px'
+                  width='10px'
+                  src={not.avatar ? not.avatar : logo}
+                  alt=''
+                />
+                <p>{not.senderName} sent you request </p>
+                <button
+                  onClick={() => {
+                    accept(not.uid);
+                    add(not.sender);
+                  }}
+                >
+                  Accept
+                </button>
+              </>
+            )}
+            {not.type === 'accept' && (
+              <>
+                <img
+                  height='10px'
+                  width='10px'
+                  src={not.avatar ? not.avatar : logo}
+                  alt=''
+                />
+                <p>{not.senderName} accepted your request </p>
+              </>
+            )}
           </li>
         );
       })
     ) : (
-      <MenuItem>You have no notifications yet</MenuItem>
+      <p>You have no notifications yet</p>
     );
 
   return (
@@ -94,9 +152,6 @@ const NotificationPopup = ({
         aria-haspopup='true'
         onClick={() => {
           setOpen(true);
-          // setTimeout(() => {
-          //   setOpen(false);
-          // }, 5000);
         }}
       >
         {notificationsIcon}
@@ -107,10 +162,11 @@ const NotificationPopup = ({
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
   notification: state.notification,
 });
 
-export default connect(mapStateToProps, { markNotificationsRead })(
-  NotificationPopup
-);
+export default connect(mapStateToProps, {
+  accept,
+  decline,
+  markNotificationsRead,
+})(NotificationPopup);

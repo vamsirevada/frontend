@@ -82,8 +82,6 @@ const Feed = ({
           )}
           {displayRight && (
             <div className='right'>
-              {/* <FriendRequests />
-              <hr /> */}
               <NotePeoples profile={profile} />
               <ChatSideBar />
             </div>

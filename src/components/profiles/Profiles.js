@@ -1,16 +1,21 @@
 import React, { Fragment, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Spinner from '../layout/Spinner';
-import { getProfiles } from '../../actions/profile';
+import { getCurrentProfile, getProfiles } from '../../actions/profile';
 import { connect } from 'react-redux';
 import ProfileItem from './ProfileItem';
 import { SearchContext } from '../../context/search.context';
 import UseFirestore from '../addportfolio/UseFireStore';
 
-const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
+const Profiles = ({
+  getCurrentProfile,
+  getProfiles,
+  profile: { profile, profiles, loading },
+}) => {
   useEffect(() => {
+    getCurrentProfile();
     getProfiles();
-  }, [getProfiles]);
+  }, [getCurrentProfile, getProfiles]);
 
   const { search } = useContext(SearchContext);
   const { docs } = UseFirestore('images');
@@ -33,29 +38,25 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
                     <span className='f-1'> {search.length}</span> people found
                   </p>
                 </div>
-                {/* <div className='search search-1'>
-                  <p>
-                    {' '}
-                    <span className='f-1'> 104</span> people found
-                  </p>
-                </div> */}
               </div>
               <hr className='hori' />
 
               {search.length > 0
-                ? search.map((profile) => (
+                ? search.map((item) => (
                     <ProfileItem
-                      key={profile._id}
-                      profile={profile}
+                      key={item._id}
+                      senderId={profile?._id}
+                      profile={item}
                       displayAdd={true}
                       docs={docs}
                     />
                   ))
                 : profiles.length > 0 &&
-                  profiles.map((profile) => (
+                  profiles.map((item) => (
                     <ProfileItem
-                      key={profile._id}
-                      profile={profile}
+                      key={item._id}
+                      senderId={profile?._id}
+                      profile={item}
                       displayAdd={true}
                       docs={docs}
                     />
@@ -78,4 +79,6 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getProfiles })(Profiles);
+export default connect(mapStateToProps, { getCurrentProfile, getProfiles })(
+  Profiles
+);

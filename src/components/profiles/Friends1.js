@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
-import axios from "axios";
-import Friend from "./Friend";
-import Spinner from "../layout/Spinner";
-import { getBuddiesById, getProfileById } from "../../actions/profile";
-import { setAlert } from "../../actions/alert";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import UseFirestore from "../addportfolio/UseFireStore";
+import React, { Fragment, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import axios from 'axios';
+import Friend from './Friend';
+import Spinner from '../layout/Spinner';
+import { getBuddiesById, getProfileById } from '../../actions/profile';
+import { setAlert } from '../../actions/alert';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import UseFirestore from '../addportfolio/UseFireStore';
 
 const Friends1 = ({
   getBuddiesById,
@@ -16,15 +16,15 @@ const Friends1 = ({
   profile: { profile, buddies, loading },
   match,
 }) => {
-  const { docs } = UseFirestore("images");
+  const { docs } = UseFirestore('images');
 
   const remove = async (profileid) => {
     try {
       await axios.delete(`api/profile/buddy/${profileid}`);
-      setAlert("Successfully removed", "success");
+      setAlert('Successfully removed', 'success');
       getBuddiesById(match.params.id);
     } catch (err) {
-      setAlert(err.response.data.msg, "danger");
+      setAlert(err.response.data.msg, 'danger');
     }
   };
 
@@ -37,56 +37,56 @@ const Friends1 = ({
     <Spinner />
   ) : (
     <Fragment>
-      <div className="c-list">
-        <div className="c-list-container c-1">
-          <div className="c-list-head">
-            <div className="flex">
-              <div className="display-pic">
-                <img className="display-pic" src={profile?.avatar} alt="" />
+      <div className='c-list'>
+        <div className='c-list-container c-1'>
+          <div className='c-list-head'>
+            <div className='flex'>
+              <div className='display-pic'>
+                <img className='display-pic' src={profile?.avatar} alt='' />
               </div>
-              <h2 className="name name-f">
-                {profile?.user.fullName && profile?.user.fullName}
+              <h2 className='name name-f'>
+                {profile?.user?.fullName && profile?.user?.fullName}
               </h2>
-              <h2 className="name name-f">
-                {profile?.user.groupName && profile?.user.groupName}
+              <h2 className='name name-f'>
+                {profile?.user?.groupName && profile?.user?.groupName}
               </h2>
             </div>
             <div>
-              <p className="blue">{profile?.status && profile?.status}</p>
+              <p className='blue'>{profile?.status && profile?.status}</p>
             </div>
             <div>
               <p>
                 {/* <img className='resize' src={loc} alt='' />{' '} */}
-                <span className="gray">
-                  {" "}
+                <span className='gray'>
+                  {' '}
                   {profile?.location && profile?.location}
                 </span>
               </p>
             </div>
 
-            <div className="profile-info-box">
-              <Link to={`/friends/${profile?.user._id}`}>
-                <p className="border-1">
-                  <span className="f-1">{buddies && buddies.length}</span>
+            <div className='profile-info-box'>
+              <Link to={`/friends/${profile?.user?._id}`}>
+                <p className='border-1'>
+                  <span className='f-1'>{buddies && buddies.length}</span>
                   <br /> Connections
                 </p>
               </Link>
-              <Link to={`/projects/${profile?.user._id}`}>
+              <Link to={`/projects/${profile?.user?._id}`}>
                 <p>
-                  <span className="f-1">
+                  <span className='f-1'>
                     {profile?.experience && profile?.experience.length}
                   </span>
-                  <br /> Projects Completed{" "}
+                  <br /> Projects Completed{' '}
                 </p>
               </Link>
             </div>
           </div>
-          <div className="search-flex search-flex-1">
+          <div className='search-flex search-flex-1'>
             <div>
-              <h1 className="name name-f">Friends</h1>
+              <h1 className='name name-f'>Friends</h1>
             </div>
           </div>
-          <hr className="hori" />
+          <hr className='hori' />
           {buddies.empty === null ? (
             <Spinner />
           ) : (
@@ -99,7 +99,7 @@ const Friends1 = ({
                 <Fragment>
                   {buddies.map((profile) => (
                     <Friend
-                      key={profile._id}
+                      key={profile?._id}
                       profile={profile}
                       remove={remove}
                       displayAdd={true}

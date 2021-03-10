@@ -6,10 +6,10 @@ import {
   CLEAR_PROFILE,
   UPDATE_PROFILE,
   BUDDY_REQUEST_SENT,
+  BUDDY_REQUEST_DECLINE,
   GET_BUDDIES,
   GET_BUDDIES_ERROR,
   GET_BUDDY_REQUESTS,
-  GET_PROJECT,
   GET_PROFILE_PIC,
 } from '../actions/types';
 
@@ -42,6 +42,11 @@ export default function (state = initialState, action) {
         avatar: payload,
       };
     case BUDDY_REQUEST_SENT:
+      return {
+        ...state,
+        prompt: action.payload,
+      };
+    case BUDDY_REQUEST_DECLINE:
       return {
         ...state,
         prompt: action.payload,

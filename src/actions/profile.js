@@ -13,6 +13,7 @@ import {
   BUDDY_REQUEST_SENT,
   GET_BUDDIES,
   GET_BUDDIES_ERROR,
+  BUDDY_REQUEST_DECLINE,
 } from './types';
 
 // Get current users profile
@@ -63,6 +64,34 @@ export const sendBuddyRequest = (id) => async (dispatch) => {
     });
 
     dispatch(setAlert(err.response.data.msg, 'danger'));
+  }
+};
+
+export const accept = (id) => async (dispatch) => {
+  try {
+    const res = await axios.put(`/api/profile/buddy/${id}`);
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.log(err);
+    console.error(err);
+  }
+};
+
+export const decline = (id) => async (dispatch) => {
+  try {
+    const res = await axios.delete(`/api/profile/request/${id}`);
+    dispatch({
+      type: BUDDY_REQUEST_DECLINE,
+      payload: res.data.msg,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: err.response.data.msg,
+    });
   }
 };
 
