@@ -97,7 +97,7 @@ const Routes = () => {
               path='/projectlist/:id'
               component={ProjectList}
             />
-            <PrivateRoute exact path='/project' component={Project} />
+            {/* <PrivateRoute exact path='/project' component={Project} /> */}
             <Route exact path='*' component={NotFound} />
           </Switch>
         </>

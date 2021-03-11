@@ -216,7 +216,7 @@ export const deleteComment = (postId, commentId) => async (dispatch) => {
       type: REMOVE_COMMENT,
       payload: commentId,
     });
-
+    dispatch(getPost(postId));
     dispatch(setAlert('Comment Removed', 'success'));
   } catch (err) {
     dispatch({

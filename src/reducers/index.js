@@ -8,6 +8,7 @@ import chat from './chat';
 import notification from './notification';
 import project from './project';
 import notice from './notice';
+import projectpost from './projectpost';
 
 export default combineReducers({
   alert,
@@ -19,4 +20,5 @@ export default combineReducers({
   notification,
   project,
   notice,
+  projectpost,
 });

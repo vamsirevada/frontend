@@ -11,6 +11,7 @@ const Posts = ({
   id,
   post: { posts, oposts, loading },
 }) => {
+  console.log(id);
   const [own, setOwn] = useState(false);
 
   useEffect(() => {

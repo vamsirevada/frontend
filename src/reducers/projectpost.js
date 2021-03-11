@@ -1,20 +1,20 @@
 import {
-  GET_POSTS,
-  GET_OWN_POSTS,
-  POST_ERROR,
-  UPDATE_LIKES,
-  DELETE_POST,
-  ADD_POST,
-  GET_POST,
-  ADD_COMMENT,
-  REMOVE_COMMENT,
-  CLEAR_POST,
+  ADD_PROJECT_POST,
+  PROJECT_POST_ERROR,
+  GET_PROJECT_POSTS,
+  GET_MEMBER_POSTS,
+  GET_PROJECT_POST,
+  DELETE_PROJECT_POST,
+  CLEAR_PROJECT_POST,
+  UPDATE_PROJECT_LIKES,
+  ADD_PROJECT_COMMENT,
+  REMOVE_PROJECT_COMMENT,
 } from '../actions/types';
 
 const initialState = {
-  posts: [],
-  oposts: [],
-  post: null,
+  projectposts: [],
+  oprojectposts: [],
+  projectpost: null,
   loading: true,
   error: {},
 };
@@ -24,55 +24,55 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case GET_POSTS:
+    case GET_PROJECT_POSTS:
       return {
         ...state,
-        posts: payload,
+        projectposts: payload,
         loading: false,
       };
-    case GET_OWN_POSTS:
+    case GET_MEMBER_POSTS:
       return {
         ...state,
-        oposts: payload,
+        oprojectposts: payload,
         loading: false,
       };
-    case GET_POST:
+    case GET_PROJECT_POST:
       return {
         ...state,
-        post: payload,
+        projectpost: payload,
         loading: false,
       };
-    case ADD_POST:
+    case ADD_PROJECT_POST:
       return {
         ...state,
-        posts: [payload, ...state.posts],
-        oposts: [payload, ...state.oposts],
+        projectposts: [payload, ...state.projectposts],
+        oprojectposts: [payload, ...state.oprojectposts],
         loading: false,
       };
-    case DELETE_POST:
+    case DELETE_PROJECT_POST:
       return {
         ...state,
-        posts: state.posts.filter((post) => post._id !== payload),
+        projectposts: state.projectposts.filter((post) => post._id !== payload),
         loading: false,
       };
-    case POST_ERROR:
+    case PROJECT_POST_ERROR:
       return {
         ...state,
         error: payload,
         loading: false,
       };
-    case UPDATE_LIKES:
+    case UPDATE_PROJECT_LIKES:
       return {
         ...state,
-        posts: state.posts.map((post) =>
+        projectposts: state.projectposts.map((post) =>
           post._id === payload.id ? { ...post, likes: payload.likes } : post
         ),
         loading: false,
       };
-    case ADD_COMMENT:
+    case ADD_PROJECT_COMMENT:
       return {
         ...state,
-        post: { comments: payload, ...state.post },
+        projectpost: { comments: payload, ...state.projectpost },
         // posts: state.posts.map((post) =>
         //   post._id === payload.id
         //     ? { ...post, comments: payload.comments }
@@ -80,23 +80,23 @@ export default function (state = initialState, action) {
         // ),
         loading: false,
       };
-    case REMOVE_COMMENT:
+    case REMOVE_PROJECT_COMMENT:
       return {
         ...state,
-        post: {
-          ...state.post,
-          comments: state.post.comments.filter(
+        projectpost: {
+          ...state.projectpost,
+          comments: state.projectpost.comments.filter(
             (comment) => comment._id !== payload
           ),
         },
         loading: false,
       };
-    case CLEAR_POST:
+    case CLEAR_PROJECT_POST:
       return {
         ...state,
-        posts: null,
-        oposts: null,
-        post: null,
+        projectposts: null,
+        oprojectposts: null,
+        projectpost: null,
         loading: false,
       };
     default:
