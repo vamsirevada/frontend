@@ -300,7 +300,7 @@ export const sendReferral = ({ email }) => async (dispatch) => {
 //Logout /clear profile
 export const logout = () => async (dispatch) => {
   try {
-    await axios.get('/api/auth/signout');
+    // await axios.get('/api/auth/signout');
     dispatch({ type: CLEAR_PROFILE });
     dispatch({ type: LOGOUT });
   } catch (err) {
