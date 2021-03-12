@@ -67,7 +67,6 @@ const SingleProject = ({
                 creator={singleproject?.projectname}
                 id={match.params.id}
               />
-              {/* <NotePeoples profile={profile} /> */}
             </div>
           )}
         </div>

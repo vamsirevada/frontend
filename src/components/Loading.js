@@ -1,17 +1,14 @@
 import React from 'react';
-import loading from './vanity.gif';
+// import { connect } from 'react-redux';
+import loading from './Vanity_logo.png';
+import './Loading.css';
 
 const Loading = () => {
   return (
-    <div style={{ alignItems: 'center' }}>
-      <img
-        style={{
-          display: 'block',
-          margin: 'auto',
-        }}
-        src={loading}
-        alt=''
-      />
+    <div className='card-container'>
+      <div className='card-loader'>
+        <img src={loading} alt='' />
+      </div>
     </div>
   );
 };

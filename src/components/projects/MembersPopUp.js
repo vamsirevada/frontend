@@ -62,9 +62,6 @@ const MembersPopUp = forwardRef(({ members }, ref) => {
                           </div>
                           <div className='chat-body'>
                             <p>{member.status}</p>
-                            {/* <div className="bubble">
-                            <p>2</p>
-                          </div> */}
                           </div>
                         </div>
                       </div>

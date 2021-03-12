@@ -17,6 +17,10 @@ const AddPopUp = ({
   const { search, Addsearch, clearSearch } = useContext(SearchContext);
   const [value, setValue] = useState('');
 
+  const newprofiles = profiles.filter(
+    (x) => x?.user?._id !== singleproject?.user?._id
+  );
+
   useEffect(() => {
     getProfiles();
     //eslint-disable-next-line
@@ -70,8 +74,8 @@ const AddPopUp = ({
                         project_id={singleproject?._id}
                       />
                     ))
-                  : profiles.length > 0 &&
-                    profiles.map((profile) => (
+                  : newprofiles.length > 0 &&
+                    newprofiles.map((profile) => (
                       <MemberInvite
                         key={profile._id}
                         profile={profile}
