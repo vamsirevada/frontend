@@ -430,6 +430,13 @@
   margin-left: 1rem;
   color: #fff;
 }
+.project-container .projectitem .project-head .list.list-1.b {
+  background-color: #ececec;
+  border: none;
+  outline: none;
+  padding: 0.25rem 0.5rem;
+  margin-right: 1rem;
+}
 .project-container .projectitem .project-head .list.list-2 {
   text-align: end;
   margin-right: 1rem;
