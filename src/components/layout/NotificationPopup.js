@@ -93,7 +93,15 @@ const NotificationPopup = ({
           />
         ));
   } else {
-    notificationsIcon = <NotificationsIcon />;
+    notificationsIcon = (
+      <NotificationsIcon
+        style={{
+          fontSize: 24,
+          color: grey[600],
+          verticalAlign: 'top',
+        }}
+      />
+    );
   }
 
   const notificationsMarkup =
