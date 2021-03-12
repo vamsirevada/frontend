@@ -157,7 +157,6 @@ export const getBuddiesById = (userId) => async (dispatch) => {
 export const getProfileById = (userId) => async (dispatch) => {
   try {
     const res = await axios.get(`/api/profile/user/${userId}`);
-
     dispatch({
       type: GET_PROFILE,
       payload: res.data,

@@ -64,48 +64,6 @@ const ChatPage = ({
           </div>
         </div>
         <div className='fullchat-leftcontainer'>
-          {/* <div className="fullchat-leftbody">
-            <div className="chats">
-              <div className="chats-heading">
-                <h3>
-                  Chats <span className="blue">{conversations.length}</span>
-                </h3>
-                <a type='button' className='blue'>
-                  See More
-                </a>
-              </div>
-              <div className='fullchat-chatgrid'>
-                <div className='dp'></div>
-                <div className='flex-column-1'>
-                  <div className='chat-name'>
-                    <a>Felecia Rower</a>
-                  </div>
-                  <div className="chat-body">
-                    <p>{messages[messages.length - 1]?.formValue}</p>
-                    <div className="bubble">
-                      <p>2</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <hr className='hori-2' />
-              <div className='fullchat-chatgrid'>
-                <div className='dp-4'></div>
-                <div className='flex-column-1'>
-                  <div className='chat-name'>
-                    <a>Felecia Rower</a>
-                  </div>
-                  <div className='chat-body'>
-                    <p>Lorem ipsum dolor sit amet.</p>
-                    <div className='bubble'>
-                      <p>2</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div> */}
-
           <div className='fullchat-leftbody'>
             <div className='chats'>
               <div className='chats-heading'>

@@ -279,7 +279,9 @@ const PostItem = ({
         </div>
       )}
 
-      {displayAddCmt && <CommentForm auth={auth} user={user} postId={_id} />}
+      {displayAddCmt && (
+        <CommentForm auth={auth} user={user} postId={_id} comments={comments} />
+      )}
     </div>
   );
 };

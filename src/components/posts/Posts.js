@@ -8,16 +8,14 @@ const Posts = ({
   profile: { profile },
   getBuddyPosts,
   getOwnPosts,
-  id,
-  post: { posts, oposts, loading },
+  post: { posts, oposts },
 }) => {
-  console.log(id);
   const [own, setOwn] = useState(false);
 
   useEffect(() => {
-    getBuddyPosts(id);
-    getOwnPosts(id);
-  }, [getBuddyPosts, getOwnPosts, id]);
+    getBuddyPosts();
+    getOwnPosts();
+  });
 
   return (
     <>

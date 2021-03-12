@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { addComment } from '../../actions/post';
@@ -11,6 +11,7 @@ const CommentForm = ({ auth, user, postId, addComment, comments }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     addComment(postId, { text });
+    console.log(comments[0].text);
     projectFirestore.collection('notifications').add({
       sender: auth?.user?._id,
       senderName: auth?.user?.userName,
@@ -46,12 +47,8 @@ const CommentForm = ({ auth, user, postId, addComment, comments }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  comments: state.post.post.comments,
-});
-
 CommentForm.propTypes = {
   addComment: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, { addComment })(CommentForm);
+export default connect(null, { addComment })(CommentForm);

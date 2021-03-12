@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
-import { getCurrentProfile, getBuddyRequests } from '../../actions/profile';
+import { getCurrentProfile } from '../../actions/profile';
 import { getProjects } from '../../actions/project';
-import { getBuddyPosts } from '../../actions/post';
 import { connect } from 'react-redux';
 import MiniPortfolio from '../portfolio/MiniPortfolio';
 import Posts from '../posts/Posts';
@@ -13,29 +12,16 @@ import BallotIcon from '@material-ui/icons/Ballot';
 import ChatSideBar from '../chat/ChatSideBar';
 
 const Feed = ({
-  getBuddyPosts,
   getCurrentProfile,
-  getBuddyRequests,
   getProjects,
   auth: { user },
   profile: { profile, loading },
   project: { projects },
-  post,
-  id,
 }) => {
   useEffect(() => {
     getCurrentProfile();
-    getBuddyRequests();
-    getBuddyPosts(id);
     getProjects(user?._id);
-  }, [
-    getCurrentProfile,
-    getBuddyPosts,
-    getBuddyRequests,
-    getProjects,
-    user?._id,
-    id,
-  ]);
+  }, [getCurrentProfile, getProjects, user?._id]);
 
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
@@ -101,7 +87,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getCurrentProfile,
-  getBuddyPosts,
-  getBuddyRequests,
   getProjects,
 })(Feed);

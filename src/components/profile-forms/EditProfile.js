@@ -26,7 +26,7 @@ const EditProfile = ({
   history,
 }) => {
   let fileInput = React.createRef();
-  // const { img, setImg } = useContext(ProfileContext);
+  const { img, setImg } = useContext(ProfileContext);
   const [formData, setFormData] = useState({
     location: '',
     avatar: '',
@@ -84,8 +84,8 @@ const EditProfile = ({
       ...formData,
       avatar: await fileRef.getDownloadURL(),
     });
-    // localStorage.setItem('profilepicture', await fileRef.getDownloadURL());
-    // setImg(await fileRef.getDownloadURL());
+    localStorage.setItem('profilepicture', await fileRef.getDownloadURL());
+    setImg(await fileRef.getDownloadURL());
 
     createProfile(
       { ...formData, avatar: await fileRef.getDownloadURL() },

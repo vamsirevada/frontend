@@ -19,8 +19,6 @@ import {
   REFERRAL_SUCESS,
 } from './types';
 
-// const { enqueueSnackbar } = useSnackbar();
-
 //Load User
 export const loadUser = () => async (dispatch) => {
   if (localStorage.token) {
