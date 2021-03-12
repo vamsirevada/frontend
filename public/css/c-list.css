@@ -431,11 +431,13 @@
   color: #fff;
 }
 .project-container .projectitem .project-head .list.list-1.b {
-  background-color: #ececec;
+  background-color: transparent;
+  text-decoration: underline;
   border: none;
   outline: none;
   padding: 0.25rem 0.5rem;
   margin-right: 1rem;
+  cursor: pointer;
 }
 .project-container .projectitem .project-head .list.list-2 {
   text-align: end;
@@ -482,13 +484,26 @@
   .list-4,
 .project-container .projectitem .project-body .project-body-container .list-4 {
   color: #5d5d5d;
+  color: #7480fc;
   font-family: 'Raleway', sans-serif;
   font-size: 1rem;
 }
+
 .project-container .projectitem .project-body .project-body-container .list-5 {
   /* padding: 0.75rem 1rem; */
   font-family: 'Lato', sans-serif;
   margin: 0px 12px;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.project-container
+  .projectitem
+  .project-body
+  .project-body-container
+  .list-5
+  .list-4 {
+  color: #5d5d5d;
 }
 
 .profile-flex .profile-right {
