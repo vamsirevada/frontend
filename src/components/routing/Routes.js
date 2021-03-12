@@ -37,16 +37,11 @@ const Routes = () => {
   useEffect(() => {
     const t = setTimeout(() => {
       setLoading(false);
-<<<<<<< HEAD
     }, 500);
-  }, []);
-=======
-    }, 3000);
     return () => {
       clearTimeout(t);
     };
-  });
->>>>>>> beb1f8d16518833bc66c3f29190fd1d8ed3a633f
+  }, []);
 
   return (
     <>
