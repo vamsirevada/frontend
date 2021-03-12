@@ -13,6 +13,7 @@ const ProjectList = ({
   getProjects,
   profile: { profile, loading },
   project: { projects },
+  auth: { user },
 }) => {
   useEffect(() => {
     getProfileById(match.params.id);
@@ -84,7 +85,12 @@ const ProjectList = ({
                       {projects.length > 0 ? (
                         <Fragment>
                           {projects.map((project) => (
-                            <ProjectTemp key={project._id} project={project} />
+                            <ProjectTemp
+                              key={project._id}
+                              project={project}
+                              profile={profile}
+                              user={user}
+                            />
                           ))}
                         </Fragment>
                       ) : (
@@ -107,6 +113,7 @@ const ProjectList = ({
 const mapStateToProps = (state) => ({
   profile: state.profile,
   project: state.project,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { getProfileById, getProjects })(
