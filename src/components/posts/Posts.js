@@ -4,18 +4,13 @@ import { connect } from 'react-redux';
 import { getBuddyPosts, getOwnPosts } from '../../actions/post';
 import PostItem from './PostItem';
 
-const Posts = ({
-  profile: { profile },
-  getBuddyPosts,
-  getOwnPosts,
-  post: { posts, oposts },
-}) => {
+const Posts = ({ getBuddyPosts, getOwnPosts, post: { posts, oposts } }) => {
   const [own, setOwn] = useState(false);
 
   useEffect(() => {
     getBuddyPosts();
     getOwnPosts();
-  });
+  }, [getBuddyPosts, getOwnPosts]);
 
   return (
     <>
@@ -29,13 +24,13 @@ const Posts = ({
       {own ? (
         <Fragment>
           {oposts.map((post) => (
-            <PostItem profile={profile} key={post._id} post={post} />
+            <PostItem key={post._id} post={post} />
           ))}
         </Fragment>
       ) : (
         <Fragment>
           {posts.map((post) => (
-            <PostItem profile={profile} key={post._id} post={post} />
+            <PostItem key={post._id} post={post} />
           ))}
         </Fragment>
       )}

@@ -3,19 +3,30 @@ import logo from '../../images/dummyimage.jpg';
 import { connect } from 'react-redux';
 import { sendProjectInvite, cancelProjectInvite } from '../../actions/project';
 import { Link } from 'react-router-dom';
+import { projectFirestore } from '../../firebase/config';
 
 const MemberInvite = ({
   profile: { _id, user, avatar, status },
-  project_id,
+  project,
   sendProjectInvite,
   cancelProjectInvite,
 }) => {
   const sendInvite = async () => {
-    await sendProjectInvite(project_id, _id);
+    await sendProjectInvite(project?._id, _id);
+    projectFirestore.collection('notifications').add({
+      sender: project?._id,
+      senderName: project?.projectname,
+      avatar: project?.avatar,
+      receiver: user?._id,
+      uid: project?._id,
+      type: 'invite',
+      read: false,
+      createdAt: new Date(),
+    });
   };
 
   const cancelInvite = async () => {
-    await cancelProjectInvite(project_id, _id);
+    await cancelProjectInvite(project?._id, _id);
   };
 
   const onClick = () => {

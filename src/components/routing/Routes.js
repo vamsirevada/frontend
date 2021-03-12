@@ -29,18 +29,22 @@ import SingleProject from '../projects/SingleProject';
 import ProjectList from '../projects/ProjectList';
 import SingleNotice from '../projects/SingleNotice';
 import Loading from '../Loading';
+import NoticeBoard from '../projects/NoticeBoard';
 
 const Routes = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setTimeout(() => {
+    const t = setTimeout(() => {
       setLoading(false);
     }, 3000);
-  }, []);
+    return () => {
+      clearTimeout(t);
+    };
+  });
 
   return (
-    <Fragment>
+    <>
       {loading ? (
         <Loading />
       ) : (
@@ -48,6 +52,7 @@ const Routes = () => {
           <Navbar />
           <Switch>
             <PrivateRoute exact path='/portfolio' component={Portfolio} />
+            <PrivateRoute exact path='/noticeboard' component={NoticeBoard} />
             <PrivateRoute exact path='/portfolio/:id' component={Portfolio1} />
             <PrivateRoute exact path='/addfiles' component={AddPortfolio} />
             <PrivateRoute
@@ -93,20 +98,17 @@ const Routes = () => {
             <PrivateRoute exact path='/friends' component={Friends} />
             <PrivateRoute exact path='/chats' component={ChatPage} />
             <PrivateRoute exact path='/friends/:id' component={Friends1} />
-            {/* experience */}
             <PrivateRoute exact path='/projects/:id' component={Projects} />
-            {/* project list */}
             <PrivateRoute
               exact
               path='/projectlist/:id'
               component={ProjectList}
             />
-            {/* <PrivateRoute exact path='/project' component={Project} /> */}
             <Route exact path='*' component={NotFound} />
           </Switch>
         </>
       )}
-    </Fragment>
+    </>
   );
 };
 
