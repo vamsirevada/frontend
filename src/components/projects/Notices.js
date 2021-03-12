@@ -9,7 +9,7 @@ import { projectStorage } from '../../firebase/config';
 
 const Notices = ({
   id,
-  creator,
+  // creator,
   createNotice,
   getNotices,
   notice: { notices },
@@ -109,7 +109,8 @@ const Notices = ({
                     <p
                       style={{ color: '#7480FC', textDecoration: 'underline' }}
                     >
-                      {creator}
+                      {/* {creator} */}
+                      Vamsi
                     </p>
                   </h4>
                 </div>

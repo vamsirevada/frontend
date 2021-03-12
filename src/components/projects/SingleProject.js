@@ -5,10 +5,13 @@ import ProjectLeft from './ProjectLeft';
 import notify from '../../images/noun_notification_887294.svg';
 import Notices from './Notices';
 import ProjectAdd from './ProjectAdd';
+import ProjectPostForm from '../projectposts/ProjectPostForm';
+import ProjectPosts from '../projectposts/ProjectPosts';
 
 const SingleProject = ({
-  project: { singleproject, loading },
+  profile: { profile },
   getProject,
+  project: { singleproject, loading },
   match,
 }) => {
   useEffect(() => {
@@ -53,8 +56,12 @@ const SingleProject = ({
                     <ProjectAdd singleproject={singleproject} />
                   )}
 
-                  {/* <PostForm /> */}
-                  {/* <Posts profile={profile} /> */}
+                  <ProjectPostForm singleproject={singleproject} />
+                  <ProjectPosts
+                    profile={profile}
+                    // singleproject={singleproject}
+                    id={match.params.id}
+                  />
                 </div>
               </div>
             </div>
@@ -64,7 +71,7 @@ const SingleProject = ({
               {/* <FriendRequests /> */}
               {/* <hr /> */}
               <Notices
-                creator={singleproject?.projectname}
+                // creator={singleproject?.projectname}
                 id={match.params.id}
               />
             </div>
@@ -77,6 +84,7 @@ const SingleProject = ({
 
 const mapStateToProps = (state) => ({
   project: state.project,
+  profile: state.profile,
 });
 
 export default connect(mapStateToProps, { getProject })(SingleProject);
