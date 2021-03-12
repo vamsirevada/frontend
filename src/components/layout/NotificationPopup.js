@@ -11,10 +11,10 @@ import Badge from '@material-ui/core/Badge';
 // Icons
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { projectFirestore } from '../../firebase/config';
+import { grey } from '@material-ui/core/colors';
 
 const NotificationPopup = ({
   user,
-  profile,
   notification: { notifications },
   accept,
   decline,
@@ -48,7 +48,6 @@ const NotificationPopup = ({
       senderName: user?.userName,
       avatar: user?.avatar,
       receiver: id,
-      uid: profile?._id,
       type: 'accept',
       read: false,
       createdAt: new Date(),
@@ -73,10 +72,26 @@ const NotificationPopup = ({
             }
             color='secondary'
           >
-            <NotificationsIcon />
+            <NotificationsIcon
+              style={{
+                fontSize: 24,
+                color: grey[600],
+                verticalAlign: 'top',
+              }}
+              color='action'
+            />
           </Badge>
         ))
-      : (notificationsIcon = <NotificationsIcon />);
+      : (notificationsIcon = (
+          <NotificationsIcon
+            style={{
+              fontSize: 24,
+              color: grey[600],
+              verticalAlign: 'top',
+            }}
+            color='action'
+          />
+        ));
   } else {
     notificationsIcon = <NotificationsIcon />;
   }
@@ -119,7 +134,7 @@ const NotificationPopup = ({
                 <p>{not.senderName} sent you request </p>
                 <button
                   onClick={() => {
-                    accept(not.uid);
+                    accept(not.sender);
                     add(not.sender);
                   }}
                 >
@@ -136,6 +151,17 @@ const NotificationPopup = ({
                   alt=''
                 />
                 <p>{not.senderName} accepted your request </p>
+              </>
+            )}
+            {not.type === 'invite' && (
+              <>
+                <img
+                  height='10px'
+                  width='10px'
+                  src={not.avatar ? not.avatar : logo}
+                  alt=''
+                />
+                <p>{not.senderName} sent you a invite </p>
               </>
             )}
           </li>

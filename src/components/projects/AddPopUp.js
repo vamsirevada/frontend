@@ -71,7 +71,7 @@ const AddPopUp = ({
                       <MemberInvite
                         key={profile._id}
                         profile={profile}
-                        project_id={singleproject?._id}
+                        project={singleproject}
                       />
                     ))
                   : newprofiles.length > 0 &&
@@ -79,7 +79,7 @@ const AddPopUp = ({
                       <MemberInvite
                         key={profile._id}
                         profile={profile}
-                        project_id={singleproject?._id}
+                        project={singleproject}
                       />
                     ))}
               </div>

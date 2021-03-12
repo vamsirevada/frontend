@@ -25,11 +25,10 @@ const ProfileItem = ({
   const sendRequest = async () => {
     await sendBuddyRequest(_id);
     projectFirestore.collection('notifications').add({
-      sender: auth?.user?._id,
+      sender: senderId,
       senderName: auth?.user?.userName,
       avatar: auth?.user?.avatar,
       receiver: user?._id,
-      uid: senderId,
       type: 'request',
       read: false,
       createdAt: new Date(),

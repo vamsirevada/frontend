@@ -8,7 +8,6 @@ import chat from '../../images/chat.svg';
 import NotificationPopup from './NotificationPopup';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { getCurrentProfile } from '../../actions/profile';
 import { logout } from '../../actions/auth';
 import { Link, useHistory } from 'react-router-dom';
 import { SearchContext } from '../../context/search.context';
@@ -17,17 +16,13 @@ import ArtTrackIcon from '@material-ui/icons/ArtTrack';
 import { grey } from '@material-ui/core/colors';
 import logo from '../../images/dummyimage.jpg';
 
-const Navbar = ({
-  auth: { user },
-  profile: { profile },
-  getCurrentProfile,
-  logout,
-}) => {
+const Navbar = ({ auth: { user }, logout }) => {
   const history = useHistory();
   const [displayMenu, toogleMenu] = useState(false);
   const [feedActive, toogleFeedActive] = useState(false);
   const [portActive, tooglePortActive] = useState(false);
   const [chatActive, toogleChatActive] = useState(false);
+  const [noticActive, toogleNoticeActive] = useState(false);
   const { Addsearch, clearSearch } = useContext(SearchContext);
   const { img, setImg } = useContext(ProfileContext);
   const [value, setValue] = useState('');
@@ -38,13 +33,12 @@ const Navbar = ({
   };
 
   useEffect(() => {
-    getCurrentProfile();
     const getProfilepic = async () => {
       const res = await axios.get('/api/profile/me');
       setImg(res.data?.avatar);
     };
     getProfilepic();
-  }, [setImg, getCurrentProfile]);
+  }, [setImg]);
 
   const _onsearch = async () => {
     clearSearch();
@@ -64,16 +58,27 @@ const Navbar = ({
   const toggleF = async () => {
     toogleFeedActive(!feedActive);
     tooglePortActive(false);
+    toogleNoticeActive(false);
     toogleChatActive(false);
   };
   const toggleP = async () => {
     toogleFeedActive(false);
     tooglePortActive(!portActive);
+    toogleNoticeActive(false);
     toogleChatActive(false);
   };
+
+  const toggleN = async () => {
+    toogleFeedActive(false);
+    tooglePortActive(false);
+    toogleNoticeActive(!noticActive);
+    toogleChatActive(false);
+  };
+
   const toggleC = async () => {
     toogleFeedActive(false);
     tooglePortActive(false);
+    toogleNoticeActive(false);
     toogleChatActive(!chatActive);
   };
 
@@ -133,6 +138,24 @@ const Navbar = ({
               </Link>
             </div>
             <div
+              className={noticActive ? 'tab active unique' : 'tab unique'}
+              onClick={toggleN}
+            >
+              <Link className='icon' to='/noticeboard'>
+                <small
+                  style={{
+                    fontSize: 26,
+                    color: grey[600],
+                    verticalAlign: 'top',
+                  }}
+                  color='action'
+                >
+                  NB
+                </small>
+                <p>Notice</p>
+              </Link>
+            </div>
+            <div
               className={chatActive ? 'tab active' : 'tab'}
               onClick={toggleC}
             >
@@ -141,7 +164,7 @@ const Navbar = ({
                 <p>Chat</p>
               </Link>
             </div>
-            <NotificationPopup user={user} profile={profile} />
+            <NotificationPopup user={user} />
             <div>
               <img
                 className='dis'
@@ -186,11 +209,10 @@ const Navbar = ({
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  profile: state.profile,
 });
 
 Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, { getCurrentProfile, logout })(Navbar);
+export default connect(mapStateToProps, { logout })(Navbar);

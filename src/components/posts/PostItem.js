@@ -17,7 +17,6 @@ import PostType from './PostType';
 import { projectFirestore } from '../../firebase/config';
 
 const PostItem = ({
-  profile: { profile },
   auth,
   post: {
     _id,
@@ -269,12 +268,7 @@ const PostItem = ({
       {displayComment && (
         <div className='comments'>
           {comments.map((comment) => (
-            <CommentItem
-              profile={profile}
-              key={comment._id}
-              comment={comment}
-              postId={_id}
-            />
+            <CommentItem key={comment._id} comment={comment} postId={_id} />
           ))}
         </div>
       )}
@@ -287,7 +281,6 @@ const PostItem = ({
 };
 
 PostItem.propTypes = {
-  profile: PropTypes.object.isRequired,
   post: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
   addLike: PropTypes.func.isRequired,
@@ -297,7 +290,6 @@ PostItem.propTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  profile: state.profile,
 });
 
 export default connect(mapStateToProps, {
