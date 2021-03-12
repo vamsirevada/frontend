@@ -10,7 +10,6 @@ const Posts = ({
   getOwnPosts,
   post: { posts, oposts },
 }) => {
-  console.log(id);
   const [own, setOwn] = useState(false);
 
   useEffect(() => {
