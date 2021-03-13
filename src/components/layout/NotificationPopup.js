@@ -1,9 +1,6 @@
-import React, { useEffect, useState, Fragment } from 'react';
-import { connect, useDispatch } from 'react-redux';
-import {
-  getRealtimeNotifications,
-  markNotificationsRead,
-} from '../../actions/notification';
+import React, { useState, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { markNotificationsRead } from '../../actions/notification';
 import { accept, decline } from '../../actions/profile';
 import logo from '../../images/dummyimage.jpg';
 import IconButton from '@material-ui/core/IconButton';
@@ -20,16 +17,6 @@ const NotificationPopup = ({
   decline,
   markNotificationsRead,
 }) => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(
-      getRealtimeNotifications({
-        uid_1: user?._id,
-      })
-    );
-  }, [dispatch, user?._id]);
-
   const [open, setOpen] = useState(false);
 
   const add = (id) => {

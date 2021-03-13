@@ -2,7 +2,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrentProfile } from '../../actions/profile';
 import { getProjects } from '../../actions/project';
 import Spinner from '../layout/Spinner';
 import briefcase from '../../images/icons/nounBriefcase.svg';
@@ -30,16 +29,14 @@ import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import { Link } from 'react-router-dom';
 
 const Portfolio = ({
-  getCurrentProfile,
   getProjects,
   auth: { user },
   profile: { profile },
   project: { projects },
 }) => {
   useEffect(() => {
-    getCurrentProfile();
     getProjects(user?._id);
-  }, [getCurrentProfile, getProjects, user?._id]);
+  }, [getProjects, user?._id]);
 
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
@@ -77,7 +74,6 @@ const Portfolio = ({
                 <div className='portfolio-left'>
                   <div id='left-sidebar'>
                     <div className='left-container'>
-                      {/* <PortfolioLeftTopIcons /> */}
                       <PortfolioLeftTop profile={profile} />
                       <EditButton profile={profile} />
                       <PortfolioLeftAbout profile={profile} />
@@ -517,7 +513,6 @@ const Portfolio = ({
 };
 
 Portfolio.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   project: PropTypes.object.isRequired,
@@ -529,6 +524,4 @@ const mapStateToProps = (state) => ({
   project: state.project,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, getProjects })(
-  Portfolio
-);
+export default connect(mapStateToProps, { getProjects })(Portfolio);

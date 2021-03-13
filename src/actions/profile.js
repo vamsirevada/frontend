@@ -57,13 +57,11 @@ export const sendBuddyRequest = (id) => async (dispatch) => {
       payload: res.data.msg,
     });
     dispatch(setAlert(' Add Request Sent', 'success'));
-    getCurrentProfile();
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
       payload: err.response.data.msg,
     });
-
     dispatch(setAlert(err.response.data.msg, 'danger'));
   }
 };
@@ -110,8 +108,6 @@ export const getBuddyRequests = () => async (dispatch) => {
 
 //get All Profile
 export const getProfiles = () => async (dispatch) => {
-  dispatch({ type: CLEAR_PROFILE });
-
   try {
     const res = await api.get('/profile');
     dispatch({

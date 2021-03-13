@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { createProfile, getCurrentProfile } from '../../actions/profile';
+import { createProfile } from '../../actions/profile';
 import logo from '../../images/dummyimage.jpg';
 import AddExperience from './AddExperience';
 import AddEducation from './AddEducation';
@@ -22,7 +22,6 @@ const EditProfile = ({
   profile: { profile, loading },
   auth: { user },
   createProfile,
-  getCurrentProfile,
   history,
 }) => {
   let fileInput = React.createRef();
@@ -42,7 +41,6 @@ const EditProfile = ({
   const { isGroup } = user;
 
   useEffect(() => {
-    getCurrentProfile();
     setFormData({
       location: loading || !profile.location ? '' : profile.location,
       avatar: loading || !profile.avatar ? '' : profile.avatar,
@@ -366,7 +364,6 @@ const EditProfile = ({
 
 EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
-  getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
 };
 
@@ -377,5 +374,4 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   createProfile,
-  getCurrentProfile,
 })(EditProfile);

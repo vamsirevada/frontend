@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getCurrentProfile } from '../../actions/profile';
 import { getProjects } from '../../actions/project';
 import Spinner from '../layout/Spinner';
 import loc from '../../images/icons/noun_Location_3139654.svg';
@@ -9,15 +8,13 @@ import { connect } from 'react-redux';
 
 const MiniPortfolio = ({
   auth: { user },
-  getCurrentProfile,
   profile: { profile, loading },
   getProjects,
   project: { projects },
 }) => {
   useEffect(() => {
-    getCurrentProfile();
     getProjects(user?._id);
-  }, [getCurrentProfile, getProjects, user?._id]);
+  }, [getProjects, user?._id]);
 
   return (
     <>
@@ -82,6 +79,4 @@ const mapStateToProps = (state) => ({
   project: state.project,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, getProjects })(
-  MiniPortfolio
-);
+export default connect(mapStateToProps, { getProjects })(MiniPortfolio);

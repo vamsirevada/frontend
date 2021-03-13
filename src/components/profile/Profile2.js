@@ -1,9 +1,8 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getCurrentProfile } from '../../actions/profile';
 import briefcase from '../../images/icons/nounBriefcase.svg';
 import nounEducation from '../../images/icons/noun_education_2177318.svg';
 import nounAwards from '../../images/icons/noun_Trophy_2135552.svg';
@@ -28,15 +27,7 @@ import GroupProfileAward from './GroupProfileAward';
 import GroupPartner from './GroupPartner';
 import GroupClient from './GroupClient';
 
-const Profile2 = ({
-  getCurrentProfile,
-  profile: { profile, loading },
-  auth: { user },
-}) => {
-  useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
-
+const Profile2 = ({ profile: { profile, loading }, auth: { user } }) => {
   const { isGroup } = user;
 
   return isGroup ? (
@@ -259,34 +250,6 @@ const Profile2 = ({
                   </div>
                 </div>
                 <hr className='new' />
-                {/* <div id='prof-exp'>
-                  <div className='prof-exp-container'>
-                    <div className='prof-heading'>
-                      <h3>
-                        <span className='m-1'>Contact Us </span>{' '}
-                      </h3>
-                    </div>
-
-                    <div className='prof-btn prof-btn-2'>
-                      <div className='prof-btn-grid prof-btn-grid-g'>
-                        {profile.contactus.length > 0 ? (
-                          <Fragment>
-                            {profile.contactus.map((contactus) => (
-                              <GroupContact
-                                key={contactus._id}
-                                awards={contactus}
-                              />
-                            ))}
-                          </Fragment>
-                        ) : (
-                          <Fragment>
-                            <p> Add Details</p>
-                          </Fragment>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
               </div>
             </div>
           </div>
@@ -500,6 +463,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, {
-  getCurrentProfile,
-})(Profile2);
+export default connect(mapStateToProps)(Profile2);

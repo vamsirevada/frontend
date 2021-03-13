@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
+import store from '../../store';
+import { connect } from 'react-redux';
+import { getCurrentProfile } from '../../actions/profile';
+import { getRealtimeNotifications } from '../../actions/notification';
 import Portfolio from '../portfolio/Portfolio';
 import Portfolio1 from '../portfolio/Portfolio1';
 import CreateProfile from '../profile-forms/Createprofile';
@@ -20,7 +24,6 @@ import Navbar from '../layout/Navbar';
 import Friends from '../profiles/Friends';
 import Friends1 from '../profiles/Friends1';
 import Projects from '../profiles/Projects';
-import Project from '../profiles/Project';
 import AddPortfolio from '../addportfolio/AddPortfolio';
 import PrivateRoute from './PrivateRoute';
 import NotFound from '../NotFound';
@@ -31,17 +34,25 @@ import SingleNotice from '../projects/SingleNotice';
 import Loading from '../Loading';
 import NoticeBoard from '../projects/NoticeBoard';
 
-const Routes = () => {
+const Routes = ({ auth: { user } }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    store.dispatch(getCurrentProfile());
+    if (user?._id) {
+      store.dispatch(
+        getRealtimeNotifications({
+          uid_1: user?._id,
+        })
+      );
+    }
     const t = setTimeout(() => {
       setLoading(false);
     }, 500);
     return () => {
       clearTimeout(t);
     };
-  }, []);
+  }, [user?._id]);
 
   return (
     <>
@@ -112,4 +123,8 @@ const Routes = () => {
   );
 };
 
-export default Routes;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(Routes);

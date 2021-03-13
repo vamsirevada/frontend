@@ -8,16 +8,15 @@ import logo from '../../images/dummyimage.jpg';
 import { connect } from 'react-redux';
 import api from '../../utils/api';
 import { setAlert } from '../../actions/alert';
-import { sendBuddyRequest, getCurrentProfile } from '../../actions/profile';
+import { sendBuddyRequest } from '../../actions/profile';
 import { motion } from 'framer-motion';
 import { projectFirestore } from '../../firebase/config';
 
 const ProfileItem = ({
   auth,
-  senderId,
-  profile: { _id, user, avatar, status, location, buddies },
+  profile,
+  item: { _id, user, avatar, status, location, buddies },
   sendBuddyRequest,
-  getCurrentProfile,
   setAlert,
   displayAdd,
   docs,
@@ -25,7 +24,7 @@ const ProfileItem = ({
   const sendRequest = async () => {
     await sendBuddyRequest(_id);
     projectFirestore.collection('notifications').add({
-      sender: senderId,
+      sender: profile?._id,
       senderName: auth?.user?.userName,
       avatar: auth?.user?.avatar,
       receiver: user?._id,
@@ -51,11 +50,10 @@ const ProfileItem = ({
     (doc) => doc?.type !== 'audio' || doc?.type !== 'blog'
   );
 
-  const note = async (profileid) => {
+  const note = async (_id) => {
     try {
       await api.put(`/profile/note/${_id}`);
       setAlert('Noted', 'success');
-      getCurrentProfile();
     } catch (err) {
       if (err.response.data !== undefined) {
         setAlert(err.response.data.msg, 'danger');
@@ -166,6 +164,7 @@ const ProfileItem = ({
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  profile: state.profile,
 });
 
 ProfileItem.propTypes = {
@@ -174,6 +173,5 @@ ProfileItem.propTypes = {
 
 export default connect(mapStateToProps, {
   setAlert,
-  getCurrentProfile,
   sendBuddyRequest,
 })(ProfileItem);

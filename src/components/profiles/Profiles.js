@@ -1,21 +1,16 @@
 import React, { Fragment, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Spinner from '../layout/Spinner';
-import { getCurrentProfile, getProfiles } from '../../actions/profile';
+import { getProfiles } from '../../actions/profile';
 import { connect } from 'react-redux';
 import ProfileItem from './ProfileItem';
 import { SearchContext } from '../../context/search.context';
 import UseFirestore from '../addportfolio/UseFireStore';
 
-const Profiles = ({
-  getCurrentProfile,
-  getProfiles,
-  profile: { profile, profiles, loading },
-}) => {
+const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
   useEffect(() => {
-    getCurrentProfile();
     getProfiles();
-  }, [getCurrentProfile, getProfiles]);
+  }, [getProfiles]);
 
   const { search } = useContext(SearchContext);
   const { docs } = UseFirestore('images');
@@ -45,8 +40,7 @@ const Profiles = ({
                 ? search.map((item) => (
                     <ProfileItem
                       key={item._id}
-                      senderId={profile?._id}
-                      profile={item}
+                      item={item}
                       displayAdd={true}
                       docs={docs}
                     />
@@ -55,14 +49,12 @@ const Profiles = ({
                   profiles.map((item) => (
                     <ProfileItem
                       key={item._id}
-                      senderId={profile?._id}
-                      profile={item}
+                      item={item}
                       displayAdd={true}
                       docs={docs}
                     />
                   ))}
             </div>
-            {/* <!--c-list container ends here--> */}
           </div>
         </Fragment>
       )}
@@ -79,6 +71,4 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, getProfiles })(
-  Profiles
-);
+export default connect(mapStateToProps, { getProfiles })(Profiles);

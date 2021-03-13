@@ -1,12 +1,9 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
-import { setAlert } from '../../actions/alert';
-import { getCurrentProfile } from '../../actions/profile';
+
 import NotePeople from './NotePeople';
 
-const NotePeoples = ({ setAlert, getCurrentProfile, profile }) => {
-  console.log(profile);
-
+const NotePeoples = ({ profile }) => {
   return (
     <Fragment>
       <div id='join-grp'>
@@ -37,4 +34,4 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { setAlert })(NotePeoples);
+export default connect(mapStateToProps)(NotePeoples);

@@ -5,18 +5,16 @@ import add from '../../images/noun_Add Friend_2987727 (2) 2.svg';
 import api from '../../utils/api';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
-import { getCurrentProfile } from '../../actions/profile';
 import nounPlus from '../../images/noun_Plus_2310779.svg';
 import logo from '../../images/dummyimage.jpg';
 
-const NotePeople = ({ setAlert, getCurrentProfile, notepeople }) => {
+const NotePeople = ({ setAlert, notepeople }) => {
   const { user, fullName, status, avatar, remark } = notepeople;
 
   const deny = async (user) => {
     try {
       await api.delete(`/profile/unnote/${user}`);
       setAlert('Unnote', 'success');
-      getCurrentProfile();
     } catch (err) {
       setAlert(err.response.data.msg, 'danger');
     }
@@ -28,13 +26,8 @@ const NotePeople = ({ setAlert, getCurrentProfile, notepeople }) => {
         <img className='display-pic-1' src={avatar ? avatar : logo} alt='no' />
       </div>
       <div className='flex-right'>
-        <Link
-          // to={`/portfolio/${user._id}`}
-          className='bold bold-1'
-        >
+        <Link className='bold bold-1'>
           <p>{fullName && fullName}</p>
-          {/* <p>{groupName && groupName}</p> */}
-          {/* <p>{user && user}</p> */}
         </Link>
         <p className='third-bold'>{status}</p>
 
@@ -58,4 +51,4 @@ const NotePeople = ({ setAlert, getCurrentProfile, notepeople }) => {
   );
 };
 
-export default connect(null, { setAlert, getCurrentProfile })(NotePeople);
+export default connect(null, { setAlert })(NotePeople);

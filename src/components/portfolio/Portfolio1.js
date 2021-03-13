@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { getProfileById } from '../../actions/profile';
 import { getProjects } from '../../actions/project';
 import Spinner from '../layout/Spinner';
@@ -28,7 +28,6 @@ import GPortfolioLeftContact from './GPortfolioLeftContact';
 import RequestButton from './RequestButton';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
-import { CLEAR_PROFILE } from '../../actions/types';
 
 const Portfolio1 = ({
   getProfileById,
@@ -38,12 +37,10 @@ const Portfolio1 = ({
   project: { projects },
   match,
 }) => {
-  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch({ type: CLEAR_PROFILE });
     getProfileById(match.params.id);
     getProjects(match.params.id);
-  }, [dispatch, getProfileById, getProjects, match.params.id]);
+  }, [getProfileById, getProjects, match.params.id]);
 
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
