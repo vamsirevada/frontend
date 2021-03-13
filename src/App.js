@@ -23,6 +23,7 @@ import { SearchProvider } from './context/search.provider';
 import { ProfileProvider } from './context/profile/profile.provider';
 import './App.css';
 import ReferralPage from './components/auth/ReferralPage';
+import { getCurrentProfile } from './actions/profile';
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -31,6 +32,7 @@ if (localStorage.token) {
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
+    // store.dispatch(getCurrentProfile());
   }, []);
 
   return (
