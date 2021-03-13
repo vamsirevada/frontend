@@ -3,7 +3,7 @@ import nounPlus from '../../images/icons/noun_Plus_2310779.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import { SearchContext } from '../../context/search.context';
 import { getProfiles } from '../../actions/profile';
-import axios from 'axios';
+import api from '../../utils/api';
 import { connect } from 'react-redux';
 import MemberInvite from './MemberInvite';
 
@@ -33,7 +33,7 @@ const AddPopUp = ({
 
   const _onsearch = async () => {
     clearSearch();
-    const res = await axios.get(`/api/search?title=${value}`);
+    const res = await api.get(`/search?title=${value}`);
     if (res) {
       Addsearch(res?.data);
     } else {

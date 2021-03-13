@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../utils/api';
 import { setAlert } from './alert';
 import {
   GET_PROJECTS,
@@ -13,7 +13,7 @@ import {
 // Get all projects of user using user id
 export const getProjects = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/project/${id}`);
+    const res = await api.get(`/project/${id}`);
     dispatch({
       type: GET_PROJECTS,
       payload: res.data,
@@ -29,7 +29,7 @@ export const getProjects = (id) => async (dispatch) => {
 // Get specific project by project id
 export const getProject = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/project/single/${id}`);
+    const res = await api.get(`/project/single/${id}`);
     dispatch({
       type: GET_PROJECT,
       payload: res.data,
@@ -50,7 +50,7 @@ export const createProject = (formData) => async (dispatch) => {
     },
   };
   try {
-    const res = await axios.post(`/api/project`, formData, config);
+    const res = await api.post(`/project`, formData, config);
     dispatch({
       type: CREATE_PROJECT,
       payload: res.data,
@@ -68,9 +68,7 @@ export const sendProjectInvite = (project_id, profile_id) => async (
   dispatch
 ) => {
   try {
-    const res = await axios.put(
-      `/api/project/invites/${project_id}/${profile_id}`
-    );
+    const res = await api.put(`/project/invites/${project_id}/${profile_id}`);
     dispatch({
       type: PROJECT_INVITE_SENT,
       payload: res.data.msg,
@@ -91,8 +89,8 @@ export const cancelProjectInvite = (project_id, profile_id) => async (
   dispatch
 ) => {
   try {
-    const res = await axios.delete(
-      `/api/project/invites/${project_id}/${profile_id}`
+    const res = await api.delete(
+      `/project/invites/${project_id}/${profile_id}`
     );
     dispatch({
       type: PROJECT_INVITE_CANCEL,
@@ -112,7 +110,7 @@ export const cancelProjectInvite = (project_id, profile_id) => async (
 //Delete Project By project Id
 export const deleteProject = (id) => async (dispatch) => {
   try {
-    await axios.delete(`/api/project/${id}`);
+    await api.delete(`/project/${id}`);
 
     dispatch({
       type: DELETE_PROJECT,

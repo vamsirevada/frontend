@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../utils/api';
 import { setAlert } from './alert';
 import {
   DELETE_POST,
@@ -15,7 +15,7 @@ import {
 // Get posts
 export const getPosts = () => async (dispatch) => {
   try {
-    const res = await axios.get('/api/posts');
+    const res = await api.get('/posts');
     dispatch({
       type: GET_POSTS,
       payload: res.data,
@@ -31,7 +31,7 @@ export const getPosts = () => async (dispatch) => {
 // Get Users Own posts
 export const getOwnPosts = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/posts/user/${id}`);
+    const res = await api.get(`/posts/user/${id}`);
 
     dispatch({
       type: GET_OWN_POSTS,
@@ -48,7 +48,7 @@ export const getOwnPosts = (id) => async (dispatch) => {
 // Get posts of Buddies
 export const getBuddyPosts = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/posts/all/${id}`);
+    const res = await api.get(`/posts/all/${id}`);
 
     dispatch({
       type: GET_POSTS,
@@ -65,7 +65,7 @@ export const getBuddyPosts = (id) => async (dispatch) => {
 // Add Like
 export const addLike = (id) => async (dispatch) => {
   try {
-    const res = await axios.put(`/api/posts/like/${id}`);
+    const res = await api.put(`/posts/like/${id}`);
 
     dispatch({
       type: UPDATE_LIKES,
@@ -82,7 +82,7 @@ export const addLike = (id) => async (dispatch) => {
 // Remove Like
 export const removeLike = (id) => async (dispatch) => {
   try {
-    const res = await axios.put(`/api/posts/unlike/${id}`);
+    const res = await api.put(`/posts/unlike/${id}`);
 
     dispatch({
       type: UPDATE_LIKES,
@@ -99,7 +99,7 @@ export const removeLike = (id) => async (dispatch) => {
 // Delete Post
 export const deletePost = (id) => async (dispatch) => {
   try {
-    await axios.delete(`/api/posts/${id}`);
+    await api.delete(`/posts/${id}`);
 
     dispatch({
       type: DELETE_POST,
@@ -123,7 +123,7 @@ export const addPost = (formData) => async (dispatch) => {
     },
   };
   try {
-    const res = await axios.post(`/api/posts`, formData, config);
+    const res = await api.post(`/posts`, formData, config);
 
     dispatch({
       type: ADD_POST,
@@ -147,7 +147,7 @@ export const addGroupPost = (formData) => async (dispatch) => {
     },
   };
   try {
-    const res = await axios.post(`/api/posts/group`, formData, config);
+    const res = await api.post(`/posts/group`, formData, config);
 
     dispatch({
       type: ADD_POST,
@@ -166,7 +166,7 @@ export const addGroupPost = (formData) => async (dispatch) => {
 // Get post
 export const getPost = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/posts/${id}`);
+    const res = await api.get(`/posts/${id}`);
 
     dispatch({
       type: GET_POST,
@@ -188,11 +188,7 @@ export const addComment = (postId, formData) => async (dispatch) => {
     },
   };
   try {
-    const res = await axios.post(
-      `/api/posts/comment/${postId}`,
-      formData,
-      config
-    );
+    const res = await api.post(`/posts/comment/${postId}`, formData, config);
     dispatch({
       type: ADD_COMMENT,
       payload: res.data,
@@ -210,7 +206,7 @@ export const addComment = (postId, formData) => async (dispatch) => {
 // Delete Comment
 export const deleteComment = (postId, commentId) => async (dispatch) => {
   try {
-    await axios.delete(`/api/posts/comment/${postId}/${commentId}`);
+    await api.delete(`/posts/comment/${postId}/${commentId}`);
 
     dispatch({
       type: REMOVE_COMMENT,

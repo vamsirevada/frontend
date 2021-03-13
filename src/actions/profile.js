@@ -1,4 +1,5 @@
-import axios from 'axios';
+// import api from 'api';
+import api from '../utils/api';
 import { setAlert } from './alert';
 
 import {
@@ -19,7 +20,7 @@ import {
 // Get current users profile
 export const getCurrentProfile = () => async (dispatch) => {
   try {
-    const res = await axios.get('/api/profile/me');
+    const res = await api.get('/profile/me');
     dispatch({
       type: GET_PROFILE,
       payload: res.data,
@@ -34,7 +35,7 @@ export const getCurrentProfile = () => async (dispatch) => {
 
 export const getCurrentProfilePic = () => async (dispatch) => {
   try {
-    const res = await axios.get('/api/profile/me');
+    const res = await api.get('/profile/me');
     dispatch({
       type: GET_PROFILE_PIC,
       payload: res.data.avatar,
@@ -50,7 +51,7 @@ export const getCurrentProfilePic = () => async (dispatch) => {
 // Send a friend request
 export const sendBuddyRequest = (id) => async (dispatch) => {
   try {
-    const res = await axios.put(`/api/profile/request/${id}`);
+    const res = await api.put(`/profile/request/${id}`);
     dispatch({
       type: BUDDY_REQUEST_SENT,
       payload: res.data.msg,
@@ -69,7 +70,7 @@ export const sendBuddyRequest = (id) => async (dispatch) => {
 
 export const accept = (id) => async (dispatch) => {
   try {
-    const res = await axios.put(`/api/profile/buddy/${id}`);
+    const res = await api.put(`/profile/buddy/${id}`);
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
@@ -82,7 +83,7 @@ export const accept = (id) => async (dispatch) => {
 
 export const decline = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`/api/profile/request/${id}`);
+    const res = await api.delete(`/profile/request/${id}`);
     dispatch({
       type: BUDDY_REQUEST_DECLINE,
       payload: res.data.msg,
@@ -97,7 +98,7 @@ export const decline = (id) => async (dispatch) => {
 
 export const getBuddyRequests = () => async (dispatch) => {
   try {
-    const res = await axios.get('api/profile/buddyRequests');
+    const res = await api.get('api/profile/buddyRequests');
     dispatch({
       type: GET_BUDDY_REQUESTS,
       payload: res.data,
@@ -109,8 +110,10 @@ export const getBuddyRequests = () => async (dispatch) => {
 
 //get All Profile
 export const getProfiles = () => async (dispatch) => {
+  dispatch({ type: CLEAR_PROFILE });
+
   try {
-    const res = await axios.get('/api/profile');
+    const res = await api.get('/profile');
     dispatch({
       type: GET_PROFILES,
       payload: res.data,
@@ -125,7 +128,7 @@ export const getProfiles = () => async (dispatch) => {
 
 export const getBuddies = () => async (dispatch) => {
   try {
-    const res = await axios.get('api/profile/buddyProfiles');
+    const res = await api.get('api/profile/buddyProfiles');
     dispatch({
       type: GET_BUDDIES,
       payload: res.data,
@@ -140,7 +143,7 @@ export const getBuddies = () => async (dispatch) => {
 
 export const getBuddiesById = (userId) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/profile/buddyProfiles/${userId}`);
+    const res = await api.get(`/profile/buddyProfiles/${userId}`);
     dispatch({
       type: GET_BUDDIES,
       payload: res.data,
@@ -156,7 +159,7 @@ export const getBuddiesById = (userId) => async (dispatch) => {
 //get Profile by Id
 export const getProfileById = (userId) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/profile/user/${userId}`);
+    const res = await api.get(`/profile/user/${userId}`);
     dispatch({
       type: GET_PROFILE,
       payload: res.data,
@@ -174,13 +177,7 @@ export const createProfile = (formData, history, edit = false) => async (
   dispatch
 ) => {
   try {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    const res = await axios.post('/api/profile', formData, config);
+    const res = await api.post('/profile', formData);
 
     dispatch({
       type: GET_PROFILE,
@@ -214,7 +211,7 @@ export const addExperience = (formData) => async (dispatch) => {
       },
     };
 
-    const res = await axios.put('/api/profile/experience', formData, config);
+    const res = await api.put('/profile/experience', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -239,7 +236,7 @@ export const addExperience = (formData) => async (dispatch) => {
 
 export const deleteExperience = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/experience/${id}`);
+    const res = await api.delete(`api/profile/experience/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -264,7 +261,7 @@ export const addEducation = (formData) => async (dispatch) => {
       },
     };
 
-    const res = await axios.put('/api/profile/education', formData, config);
+    const res = await api.put('/profile/education', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -289,7 +286,7 @@ export const addEducation = (formData) => async (dispatch) => {
 
 export const deleteEducation = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/education/${id}`);
+    const res = await api.delete(`api/profile/education/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -314,7 +311,7 @@ export const addAward = (formData) => async (dispatch) => {
       },
     };
 
-    const res = await axios.put('/api/profile/awards', formData, config);
+    const res = await api.put('/profile/awards', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -339,7 +336,7 @@ export const addAward = (formData) => async (dispatch) => {
 
 export const deleteAward = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/awards/${id}`);
+    const res = await api.delete(`api/profile/awards/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -364,7 +361,7 @@ export const addEvent = (formData) => async (dispatch) => {
       },
     };
 
-    const res = await axios.put('/api/profile/events', formData, config);
+    const res = await api.put('/profile/events', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -389,7 +386,7 @@ export const addEvent = (formData) => async (dispatch) => {
 
 export const deleteEvent = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/events/${id}`);
+    const res = await api.delete(`api/profile/events/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -414,7 +411,7 @@ export const addSkills = (formData) => async (dispatch) => {
       },
     };
 
-    const res = await axios.put('/api/profile/skills', formData, config);
+    const res = await api.put('/profile/skills', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -439,7 +436,7 @@ export const addSkills = (formData) => async (dispatch) => {
 
 export const deleteSkills = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/skills/${id}`);
+    const res = await api.delete(`api/profile/skills/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -464,7 +461,7 @@ export const addMembers = (formData) => async (dispatch) => {
       },
     };
 
-    const res = await axios.put('/api/profile/addteam', formData, config);
+    const res = await api.put('/profile/addteam', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -489,7 +486,7 @@ export const addMembers = (formData) => async (dispatch) => {
 
 export const deleteMember = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/addteam/${id}`);
+    const res = await api.delete(`api/profile/addteam/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -514,11 +511,7 @@ export const addSpecialisation = (formData) => async (dispatch) => {
       },
     };
 
-    const res = await axios.put(
-      '/api/profile/specialisation',
-      formData,
-      config
-    );
+    const res = await api.put('/profile/specialisation', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -543,7 +536,7 @@ export const addSpecialisation = (formData) => async (dispatch) => {
 
 export const deleteSpecialisation = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/specialisation/${id}`);
+    const res = await api.delete(`api/profile/specialisation/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -568,7 +561,7 @@ export const addPartner = (formData) => async (dispatch) => {
       },
     };
 
-    const res = await axios.put('/api/profile/partners', formData, config);
+    const res = await api.put('/profile/partners', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -593,7 +586,7 @@ export const addPartner = (formData) => async (dispatch) => {
 
 export const deletePartner = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/partners/${id}`);
+    const res = await api.delete(`api/profile/partners/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -618,7 +611,7 @@ export const addClient = (formData) => async (dispatch) => {
       },
     };
 
-    const res = await axios.put('/api/profile/clients', formData, config);
+    const res = await api.put('/profile/clients', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -643,7 +636,7 @@ export const addClient = (formData) => async (dispatch) => {
 
 export const deleteClient = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/clients/${id}`);
+    const res = await api.delete(`api/profile/clients/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -668,7 +661,7 @@ export const addContact = (formData) => async (dispatch) => {
       },
     };
 
-    const res = await axios.put('/api/profile/contactus', formData, config);
+    const res = await api.put('/profile/contactus', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -693,7 +686,7 @@ export const addContact = (formData) => async (dispatch) => {
 
 export const deleteContact = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/contacts/${id}`);
+    const res = await api.delete(`/profile/contacts/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -713,7 +706,7 @@ export const deleteContact = (id) => async (dispatch) => {
 export const deleteAccount = () => async (dispatch) => {
   if (window.confirm('Are you sure? This can Not be undone!')) {
     try {
-      await axios.delete('api/profile');
+      await api.delete('/profile');
 
       dispatch({ type: CLEAR_PROFILE });
       dispatch({ type: ACCOUNT_DELETED });

@@ -5,6 +5,8 @@ import { getCurrentProfile } from '../../actions/profile';
 import NotePeople from './NotePeople';
 
 const NotePeoples = ({ setAlert, getCurrentProfile, profile }) => {
+  console.log(profile);
+
   return (
     <Fragment>
       <div id='join-grp'>
@@ -31,4 +33,8 @@ const NotePeoples = ({ setAlert, getCurrentProfile, profile }) => {
   );
 };
 
-export default connect(null, { setAlert, getCurrentProfile })(NotePeoples);
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+});
+
+export default connect(mapStateToProps, { setAlert })(NotePeoples);

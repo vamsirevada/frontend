@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
+import api from '../../utils/api';
 import Friend from './Friend';
 import Spinner from '../layout/Spinner';
 import { getBuddiesById, getProfileById } from '../../actions/profile';
@@ -20,7 +20,7 @@ const Friends1 = ({
 
   const remove = async (profileid) => {
     try {
-      await axios.delete(`api/profile/buddy/${profileid}`);
+      await api.delete(`/profile/buddy/${profileid}`);
       setAlert('Successfully removed', 'success');
       getBuddiesById(match.params.id);
     } catch (err) {

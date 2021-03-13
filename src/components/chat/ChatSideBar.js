@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { getCurrentProfile, getBuddiesById } from '../../actions/profile';
+import { getBuddiesById } from '../../actions/profile';
 import { getRealtimeConversations } from '../../actions/chat';
 import ChatPopup from './ChatPopup';
 import ActiveDot from '../../images/activedot.png';
@@ -9,7 +9,6 @@ import logo from '../../images/dummyimage.jpg';
 
 const ChatSideBar = ({
   auth: { user },
-  getCurrentProfile,
   profile: { buddies },
   getBuddiesById,
   chat: { conversations },
@@ -21,9 +20,8 @@ const ChatSideBar = ({
   const [userUid, setUserUid] = useState(null);
 
   useEffect(() => {
-    getCurrentProfile();
     getBuddiesById(user?._id);
-  }, [getCurrentProfile, getBuddiesById, user?._id]);
+  }, [getBuddiesById, user?._id]);
 
   return (
     <>
@@ -96,6 +94,4 @@ const mapStateToProps = (state) => ({
   chat: state.chat,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, getBuddiesById })(
-  ChatSideBar
-);
+export default connect(mapStateToProps, { getBuddiesById })(ChatSideBar);

@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, Fragment, useEffect, useContext } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import maskGroup from '../../images/maskGroup.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import home from '../../images/Home.svg';
@@ -16,7 +16,7 @@ import ArtTrackIcon from '@material-ui/icons/ArtTrack';
 import { grey } from '@material-ui/core/colors';
 import logo from '../../images/dummyimage.jpg';
 
-const Navbar = ({ auth: { user }, logout }) => {
+const Navbar = ({ logout }) => {
   const history = useHistory();
   const [displayMenu, toogleMenu] = useState(false);
   const [feedActive, toogleFeedActive] = useState(false);
@@ -35,7 +35,7 @@ const Navbar = ({ auth: { user }, logout }) => {
 
   useEffect(() => {
     const getProfilepic = async () => {
-      const res = await axios.get('/api/profile/me');
+      const res = await api.get('/profile/me');
       setImg(res.data?.avatar);
     };
     getProfilepic();
@@ -43,17 +43,12 @@ const Navbar = ({ auth: { user }, logout }) => {
 
   const _onsearch = async () => {
     clearSearch();
-    const response = await axios.get(`api/search?title=${value}`);
+    const response = await api.get(`/search?title=${value}`);
     if (response) {
       Addsearch(response?.data);
     } else {
       Addsearch([]);
     }
-  };
-
-  const logOut = () => {
-    logout();
-    document.documentElement.scrollTop = 0;
   };
 
   const toggleF = async () => {
@@ -178,7 +173,7 @@ const Navbar = ({ auth: { user }, logout }) => {
                 <p>Chat</p>
               </Link>
             </div>
-            <NotificationPopup user={user} />
+            <NotificationPopup />
             <div>
               <img
                 className='dis'
@@ -206,8 +201,8 @@ const Navbar = ({ auth: { user }, logout }) => {
                       <Link to='/create-project'> Create Project</Link>
                     </li>
                     <li>
-                      <a onClick={logOut} className='signOut' type='button'>
-                        Log out
+                      <a onClick={logout} className='signOut' type='button'>
+                        Logout
                       </a>
                     </li>
                   </ul>
@@ -221,12 +216,8 @@ const Navbar = ({ auth: { user }, logout }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-
 Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps, { logout })(Navbar);
+export default connect(null, { logout })(Navbar);

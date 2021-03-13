@@ -1,6 +1,5 @@
-import axios from 'axios';
+import api from '../utils/api';
 import { setAlert } from './alert';
-import setAuthToken from '../utils/setAuthToken';
 
 import {
   REGISTER_SUCCESS,
@@ -21,11 +20,8 @@ import {
 
 //Load User
 export const loadUser = () => async (dispatch) => {
-  if (localStorage.token) {
-    setAuthToken(localStorage.token);
-  }
   try {
-    const res = await axios.get('/api/auth');
+    const res = await api.get('/auth');
     dispatch({
       type: USER_LOADED,
       payload: res.data,
@@ -38,12 +34,8 @@ export const loadUser = () => async (dispatch) => {
 };
 
 export const loadWriter = () => async (dispatch) => {
-  if (localStorage.writertoken) {
-    setAuthToken(localStorage.writertoken);
-  }
-
   try {
-    const res = await axios.get('/api/auth/writer');
+    const res = await api.get('/auth/writer');
     dispatch({
       type: WRITER_LOADED,
       payload: res.data,
@@ -56,31 +48,9 @@ export const loadWriter = () => async (dispatch) => {
 };
 
 //Register User
-export const register = ({
-  fullName,
-  userName,
-  email,
-  password,
-  userpermission,
-  // code,
-}) => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
-  const body = JSON.stringify({
-    fullName,
-    userName,
-    email,
-    password,
-    userpermission,
-    // code,
-  });
-
+export const register = ({ formData }) => async (dispatch) => {
   try {
-    const res = await axios.post('/api/users', body, config);
+    const res = await api.post('/users', formData);
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -102,14 +72,10 @@ export const register = ({
 
 //Login User
 export const login = (email, password) => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  const body = JSON.stringify({ email, password });
+  const body = { email, password };
   try {
-    const res = await axios.post('/api/auth', body, config);
+    const res = await api.post('/auth', body);
+
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
@@ -137,7 +103,7 @@ export const loginWriter = (email, password) => async (dispatch) => {
   const body = JSON.stringify({ email, password });
 
   try {
-    const res = await axios.post('/api/auth/writer', body, config);
+    const res = await api.post('/auth/writer', body, config);
 
     dispatch({
       type: WRITER_LOGIN_SUCCESS,
@@ -184,7 +150,7 @@ export const groupRegister = ({
   });
 
   try {
-    const res = await axios.post('/api/users/group', body, config);
+    const res = await api.post('/users/group', body, config);
 
     dispatch({
       type: REGISTER_SUCCESS,
@@ -219,7 +185,7 @@ export const writerRegister = ({ name, email, password }) => async (
   });
 
   try {
-    const res = await axios.post('/api/users/writer', body, config);
+    const res = await api.post('/users/writer', body, config);
 
     dispatch({
       type: WRITER_REGISTER_SUCCESS,
@@ -247,7 +213,7 @@ export const sendInvite = ({ email }) => async (dispatch) => {
     },
   };
   try {
-    const res = await axios.post('/api/auth/send-invite', body, config);
+    const res = await api.post('/auth/send-invite', body, config);
 
     dispatch({
       type: REFERRAL_SUCESS,
@@ -276,7 +242,7 @@ export const sendReferral = ({ email }) => async (dispatch) => {
     },
   };
   try {
-    const res = await axios.post('/api/auth/send-referral', body, config);
+    const res = await api.post('/auth/send-referral', body, config);
 
     dispatch({
       type: REFERRAL_SUCESS,
@@ -295,13 +261,15 @@ export const sendReferral = ({ email }) => async (dispatch) => {
   }
 };
 
+export const logout = () => ({ type: LOGOUT });
+
 //Logout /clear profile
-export const logout = () => async (dispatch) => {
-  try {
-    // await axios.get('/api/auth/signout');
-    dispatch({ type: CLEAR_PROFILE });
-    dispatch({ type: LOGOUT });
-  } catch (err) {
-    console.error(err);
-  }
-};
+// export const logout = () => async (dispatch) => {
+//   try {
+//     // await api.get('/auth/signout');
+//     dispatch({ type: CLEAR_PROFILE });
+//     dispatch({ type: LOGOUT });
+//   } catch (err) {
+//     console.error(err);
+//   }
+// };

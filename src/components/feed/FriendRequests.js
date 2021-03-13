@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import { getCurrentProfile } from '../../actions/profile';
@@ -12,7 +12,7 @@ const FriendRequests = ({ setAlert, getCurrentProfile }) => {
   });
   const getRequests = async () => {
     try {
-      const res = await axios.get(`api/profile/buddyRequests`);
+      const res = await api.get(`/profile/buddyRequests`);
       let empty = true;
       if (res.data.length > 0) {
         empty = false;
@@ -31,7 +31,7 @@ const FriendRequests = ({ setAlert, getCurrentProfile }) => {
   };
   const accept = async (profileid) => {
     try {
-      const res = await axios.put(`api/profile/buddy/${profileid}`);
+      const res = await api.put(`/profile/buddy/${profileid}`);
 
       setAlert('Buddy added', 'success');
 
@@ -52,7 +52,7 @@ const FriendRequests = ({ setAlert, getCurrentProfile }) => {
   };
   const deny = async (profileid) => {
     try {
-      await axios.delete(`api/profile/request/${profileid}`);
+      await api.delete(`/profile/request/${profileid}`);
 
       setAlert('Request declined', 'success');
       getRequests();

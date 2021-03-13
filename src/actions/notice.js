@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../utils/api';
 import { setAlert } from './alert';
 import {
   GET_NOTICES,
@@ -12,7 +12,7 @@ import {
 
 export const getNotices = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/notice/${id}`);
+    const res = await api.get(`/notice/${id}`);
     dispatch({
       type: GET_NOTICES,
       payload: res.data,
@@ -28,7 +28,7 @@ export const getNotices = (id) => async (dispatch) => {
 // Get specific notice by notice id
 export const getNotice = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/notice/single/${id}`);
+    const res = await api.get(`/notice/single/${id}`);
     dispatch({
       type: GET_NOTICE,
       payload: res.data,
@@ -49,7 +49,7 @@ export const createNotice = ({ id, formData }) => async (dispatch) => {
     },
   };
   try {
-    const res = await axios.post(`/api/notice/${id}`, formData, config);
+    const res = await api.post(`/notice/${id}`, formData, config);
 
     dispatch({
       type: CREATE_NOTICE,
@@ -67,7 +67,7 @@ export const createNotice = ({ id, formData }) => async (dispatch) => {
 //Delete Project By project Id
 export const deleteProject = (id) => async (dispatch) => {
   try {
-    await axios.delete(`/api/notice/${id}`);
+    await api.delete(`/notice/${id}`);
 
     dispatch({
       type: DELETE_NOTICE,

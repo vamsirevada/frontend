@@ -277,7 +277,7 @@ const PostItem = ({
       )}
 
       {displayAddCmt && (
-        <div className='comments'>
+        <div>
           <CommentForm
             auth={auth}
             user={user}

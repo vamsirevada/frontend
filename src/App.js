@@ -23,14 +23,24 @@ import { SearchProvider } from './context/search.provider';
 import { ProfileProvider } from './context/profile/profile.provider';
 import './App.css';
 import ReferralPage from './components/auth/ReferralPage';
-
-if (localStorage.token) {
-  setAuthToken(localStorage.token);
-}
+import { LOGOUT } from './actions/types';
 
 const App = () => {
   useEffect(() => {
+    // check for token in Local Storage
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
     store.dispatch(loadUser());
+
+    // log user out from all  tabs if they log out in one tab
+    window.addEventListener('storage', () => {
+      if (!localStorage.token) {
+        store.dispatch({
+          type: LOGOUT,
+        });
+      }
+    });
   }, []);
 
   return (

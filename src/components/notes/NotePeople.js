@@ -2,7 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import add from '../../images/noun_Add Friend_2987727 (2) 2.svg';
-import axios from 'axios';
+import api from '../../utils/api';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import { getCurrentProfile } from '../../actions/profile';
@@ -14,7 +14,7 @@ const NotePeople = ({ setAlert, getCurrentProfile, notepeople }) => {
 
   const deny = async (user) => {
     try {
-      await axios.delete(`api/profile/unnote/${user}`);
+      await api.delete(`/profile/unnote/${user}`);
       setAlert('Unnote', 'success');
       getCurrentProfile();
     } catch (err) {

@@ -6,6 +6,7 @@ import nounPlus from '../../images/icons/noun_Plus_2310779.svg';
 import { deleteComment } from '../../actions/post';
 import logo from '../../images/dummyimage.jpg';
 import { projectFirestore } from '../../firebase/config';
+import { Link } from 'react-router-dom';
 
 const CommentItem = ({
   postId,
