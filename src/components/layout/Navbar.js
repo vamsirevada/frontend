@@ -23,7 +23,6 @@ const Navbar = ({ logout }) => {
   const [portActive, tooglePortActive] = useState(false);
   const [nbActive, toogleNbActive] = useState(false);
   const [chatActive, toogleChatActive] = useState(false);
-  const [noticActive, toogleNoticeActive] = useState(false);
   const { Addsearch, clearSearch } = useContext(SearchContext);
   const { img, setImg } = useContext(ProfileContext);
   const [value, setValue] = useState('');
@@ -54,23 +53,13 @@ const Navbar = ({ logout }) => {
   const toggleF = async () => {
     toogleFeedActive(!feedActive);
     tooglePortActive(false);
-    toogleNoticeActive(false);
     toogleNbActive(false);
     toogleChatActive(false);
   };
   const toggleP = async () => {
     toogleFeedActive(false);
     tooglePortActive(!portActive);
-    toogleNoticeActive(false);
     toogleNbActive(false);
-    toogleChatActive(false);
-  };
-
-  const toggleN = async () => {
-    toogleFeedActive(false);
-    tooglePortActive(false);
-    toogleNbActive(false);
-    toogleNoticeActive(!noticActive);
     toogleChatActive(false);
   };
 
@@ -78,7 +67,6 @@ const Navbar = ({ logout }) => {
     toogleFeedActive(false);
     tooglePortActive(false);
     toogleNbActive(false);
-    toogleNoticeActive(false);
     toogleChatActive(!chatActive);
   };
 
@@ -86,7 +74,6 @@ const Navbar = ({ logout }) => {
     toogleFeedActive(false);
     tooglePortActive(false);
     toogleNbActive(!nbActive);
-    toogleNoticeActive(false);
     toogleChatActive(false);
   };
 
