@@ -28,21 +28,26 @@ const CommentForm = ({ auth, user, postId, addComment, comments }) => {
 
   return (
     <Fragment>
-      <form className='comment-box' onSubmit={onSubmit}>
+      <div className='comment-box'>
         <div>
-          <input
-            className='cmt-1'
-            type='text'
-            name='comment'
-            placeholder='Write a Comment...'
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-          />
+          <img className='comment-pic' src={auth?.user?.avatar} alt='' />
         </div>
-        <button type='submit' className='btn-blue'>
-          <img src={plane} alt='' />
-        </button>
-      </form>
+        <div className='cmt-1'>
+          <form onSubmit={onSubmit}>
+            <input
+              type='text'
+              name='comment'
+              placeholder='Write a Comment...'
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+            />
+
+            <button type='submit' className='btn-blue'>
+              <img src={plane} alt='' />
+            </button>
+          </form>
+        </div>
+      </div>
     </Fragment>
   );
 };
