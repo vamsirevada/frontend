@@ -89,15 +89,15 @@ const PostItem = ({
             />
           </div>
 
-          <a className='bold bold-1'>
+          <a className='name-lato'>
             {' '}
-            {fullName && fullName} {groupName && groupName} (
-            {userName && userName})<br />{' '}
-            <span className='third-bold'>
+            {fullName && fullName} {groupName && groupName} <br />{' '}
+            <span className='date-lato'>
               <span className='f-1'>
-                Posted on{': '}
-                <Moment format='DD MMM YY'>{date}</Moment> {', '}
+                {/* Posted on{': '} */}
                 <Moment format='hh:mm A'>{date}</Moment>
+                {', '}
+                <Moment format='DD MMM YY'>{date}</Moment>
               </span>
             </span>
           </a>
@@ -161,13 +161,13 @@ const PostItem = ({
         <video
           style={{
             objectFit: 'cover',
-            borderRadius: 20,
             width: '100%',
             height: '350px',
             background: 'transparent',
           }}
           controls
           src={url}
+          className='post-video'
         />
       )}
       {PostType(type) === 'audio' && (
@@ -177,7 +177,7 @@ const PostItem = ({
       {PostType(type) !== 'default' ? (
         <div className='flex-des'>
           <div className='pic-des-1'>
-            <div onClick={(e) => onLike(e)}>
+            <div onClick={(e) => onLike(e)} className='cursor'>
               {displayLbtn ? (
                 <Fragment>
                   <div onClick={unlike}>
@@ -194,7 +194,10 @@ const PostItem = ({
                 </Fragment>
               )}
             </div>
-            <div onClick={() => toogleAddCmt(!displayAddCmt)}>
+            <div
+              onClick={() => toogleAddCmt(!displayAddCmt)}
+              className='cursor'
+            >
               <img className='r-1' src={com} alt='' />
               <span className='d-1'>Comment</span>
             </div>
@@ -274,7 +277,14 @@ const PostItem = ({
       )}
 
       {displayAddCmt && (
-        <CommentForm auth={auth} user={user} postId={_id} comments={comments} />
+        <div className='comments'>
+          <CommentForm
+            auth={auth}
+            user={user}
+            postId={_id}
+            comments={comments}
+          />
+        </div>
       )}
     </div>
   );

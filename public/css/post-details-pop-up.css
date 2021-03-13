@@ -16,11 +16,11 @@ a {
 a:hover {
   cursor: pointer;
 }
-p {
+/* p {
   font-size: 16px;
   font-family: 'Raleway', sans-serif;
   color: #5d5d5d;
-}
+} */
 
 .blue {
   color: #7480ff;
@@ -445,4 +445,55 @@ p {
 .post-comment .m-1 {
   margin-left: 0.5rem;
   margin-bottom: 1rem;
+}
+
+.sort-feed {
+  margin: 1rem 0rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sort-post {
+  font-size: 12px;
+  display: inline-block;
+  /* border: 2px solid #7480ff; */
+  /* border-radius: 10px; */
+}
+
+.sort-post a {
+  font-size: 12px;
+}
+
+.sort-post .right {
+  background-color: #7480ff;
+  color: #fff;
+  padding: 0.25rem 0.75rem;
+  border: 2px solid #7480ff;
+  outline: none;
+}
+.sort-post .left {
+  background-color: #fff;
+  color: #333;
+  padding: 0.2rem 0.75rem;
+  border: 2px solid #7480ff;
+  outline: none;
+}
+
+.sort-post .left-top {
+  border-top-left-radius: 10px;
+}
+
+.sort-post .right-top {
+  border-top-right-radius: 10px;
+}
+.sort-post .left-right-bottom {
+  border-bottom-left-radius: 10px;
+}
+.sort-post .right-left-bottom {
+  border-bottom-right-radius: 10px;
+}
+
+.sort-post .left {
+  padding: 0.25rem 0.75rem;
 }

@@ -6,6 +6,17 @@ import PostItem from './PostItem';
 
 const Posts = ({ getBuddyPosts, getOwnPosts, post: { posts, oposts } }) => {
   const [own, setOwn] = useState(false);
+  const [all, setAll] = useState(true);
+
+  const onChange1 = () => {
+    setOwn(true);
+    setAll(false);
+  };
+
+  const onChange2 = () => {
+    setAll(true);
+    setOwn(false);
+  };
 
   useEffect(() => {
     getBuddyPosts();
@@ -14,25 +25,47 @@ const Posts = ({ getBuddyPosts, getOwnPosts, post: { posts, oposts } }) => {
 
   return (
     <>
-      <button
-        onClick={() => {
-          setOwn(true);
-        }}
-      >
-        Sort
-      </button>
+      <div className='sort-feed'>
+        <div className='sort-post'>
+          <button
+            onClick={onChange2}
+            className={
+              all
+                ? 'right left-top left-right-bottom'
+                : 'left left-top left-right-bottom'
+            }
+          >
+            All Posts
+          </button>
+          <button
+            onClick={onChange1}
+            className={
+              own
+                ? 'right right-top right-left-bottom'
+                : 'left right-top right-left-bottom'
+            }
+          >
+            Your Posts
+          </button>
+        </div>
+      </div>
+
       {own ? (
-        <Fragment>
-          {oposts.map((post) => (
-            <PostItem key={post._id} post={post} />
-          ))}
-        </Fragment>
+        <div>
+          <Fragment className='posts'>
+            {oposts.map((post) => (
+              <PostItem key={post._id} post={post} />
+            ))}
+          </Fragment>
+        </div>
       ) : (
-        <Fragment>
-          {posts.map((post) => (
-            <PostItem key={post._id} post={post} />
-          ))}
-        </Fragment>
+        <div className='posts'>
+          <Fragment>
+            {posts.map((post) => (
+              <PostItem key={post._id} post={post} />
+            ))}
+          </Fragment>
+        </div>
       )}
     </>
   );

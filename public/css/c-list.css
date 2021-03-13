@@ -45,10 +45,11 @@
 }
 
 .flex .display-pic {
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   border-radius: 15px;
-  margin-right: 1rem;
+  margin-right: 0.75rem;
+  object-fit: cover;
 }
 
 .flex .name {

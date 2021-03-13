@@ -51,10 +51,6 @@ const Navbar = ({ auth: { user }, logout }) => {
     }
   };
 
-  const bgColors = {
-    greyback: grey[600],
-  };
-
   const logOut = () => {
     logout();
     document.documentElement.scrollTop = 0;
@@ -174,7 +170,7 @@ const Navbar = ({ auth: { user }, logout }) => {
               </Link>
             </div>
             <div
-              className={chatActive ? 'tab active unique' : 'tab'}
+              className={chatActive ? 'tab active unique chat' : 'tab'}
               onClick={toggleC}
             >
               <Link to='/chats' className='chat icon'>

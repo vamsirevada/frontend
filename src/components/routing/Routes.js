@@ -37,7 +37,7 @@ const Routes = () => {
   useEffect(() => {
     const t = setTimeout(() => {
       setLoading(false);
-    }, 500);
+    }, 2000);
     return () => {
       clearTimeout(t);
     };

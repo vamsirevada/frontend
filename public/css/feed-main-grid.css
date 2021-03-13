@@ -11,11 +11,11 @@
 
 .feed-main-container .post-some-grid {
   display: grid;
-  grid-template-columns: 70% 15% 15%;
+  grid-template-columns: 70% 10% 15%;
   justify-content: center;
   align-items: center;
-  padding: 1rem 1rem;
-  margin-bottom: 1rem;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
   background-color: #f8f8f8;
   border-radius: 15px;
 }
@@ -36,6 +36,10 @@
 }
 .post-some-grid .btn-blue {
   justify-self: center;
+  font-size: 14px;
+  padding: 0.5rem 1.25rem;
+  margin-top: 0rem;
+  border-radius: 10px;
 }
 .post-some-grid .postForm {
   width: 100%;
@@ -44,9 +48,9 @@
 .post-some-grid .postForm input {
   width: 100%;
   color: #5d5d5d;
-  font-size: 1rem;
-  font-family: "Raleway", sans-serif;
-  padding: 1.5rem;
+  font-size: 14px;
+  font-family: 'Raleway', sans-serif;
+  padding: 1.5rem 0rem;
   background-color: #f8f8f8;
   border: none;
   outline: none;
@@ -57,7 +61,11 @@
 .post-some-grid > *:nth-child(3) {
   justify-self: flex-end;
   align-items: center;
-  margin-right: 1rem;
+  margin-top: 0.5rem;
+  cursor: pointer;
+}
+.post-some-grid > *:nth-child(3) img {
+  width: 75%;
 }
 .post-some-grid > *:nth-child(4) {
   justify-self: center;
@@ -84,7 +92,7 @@
   width: 56px;
   height: 56px;
   border-radius: 15px;
-  background: url("../img/dummyimage.jpg") no-repeat center center/cover;
+  background: url('../img/dummyimage.jpg') no-repeat center center/cover;
 }
 
 .post-heading .flex {
@@ -93,9 +101,9 @@
   line-height: 1.3rem;
 }
 
-.post-heading .flex .bold.bold-1 {
+/* .post-heading .flex .bold.bold-1 {
   margin-left: 1rem;
-}
+} */
 
 .post-heading .resize {
   width: 5px;
@@ -125,7 +133,7 @@
 }
 
 .post-heading .no-post-dis {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 14px;
   color: #272727;
   background-color: #f2f2f2;
@@ -154,26 +162,19 @@
 
 .post .post-description {
   padding: 0 1.5rem;
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-family: 1rem;
   color: #5d5d5d;
 }
 
-.d-1 {
-  font-family: "Raleway", sans-serif;
-  font-size: 14px;
-  /* margin-left: 0.3rem; */
-  color: #5d5d5d;
-}
-
 .d-2 {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 12px;
   /* margin-left: 0.3rem; */
   color: #5d5d5d;
 }
 .d-3 {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 14px;
   /* margin-left: 0.3rem; */
   color: #5d5d5d;
@@ -209,10 +210,10 @@
   width: 100%;
   height: 70px;
   background-color: #fcfcfc;
-  position: absolute;
+  /* position: absolute; */
   /* top: 100%; */
-  left: 0px;
-  right: 0px;
+  /* left: 0px;
+  right: 0px; */
   border: 1px #fcfcfc solid;
   border-radius: 0px 0px 15px 15px;
   padding: 0rem 1rem;
@@ -234,7 +235,7 @@
 
 .post-pic .pic-des-1 .no-post-dis {
   display: none;
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   font-size: 14px;
   color: #272727;
   width: 100%;
@@ -321,7 +322,7 @@
   width: 46px;
   height: 46px;
   border-radius: 15px;
-  background: url("../images/elegacy-events---logo-design_1x.png") no-repeat
+  background: url('../images/elegacy-events---logo-design_1x.png') no-repeat
     center center/cover;
 }
 
@@ -346,13 +347,13 @@
   width: 46px;
   height: 46px;
   border-radius: 15px;
-  background: url("../img/dummyimage.jpg") no-repeat center center/cover;
+  background: url('../img/dummyimage.jpg') no-repeat center center/cover;
 }
 .join-grp-flex .display-pic-3 {
   width: 46px;
   height: 46px;
   border-radius: 15px;
-  background: url("../images/rekha-thapar.svg") no-repeat center center/cover;
+  background: url('../images/rekha-thapar.svg') no-repeat center center/cover;
 }
 
 /* Comment */
@@ -365,29 +366,61 @@
 }
 
 .comment-box .cmt-1 {
-  width: 100%;
+  padding: 0rem 1rem;
+}
+.comment-box .cmt-1.list {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.d-1 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  margin-left: 0.25rem;
   color: #5d5d5d;
-  font-size: 1rem;
-  font-family: "Raleway", sans-serif;
-  padding: 1rem 0;
-  background-color: #f8f8f8;
+}
+.comment-box .cmt-1.list .d-1 {
+  font-family: 'Lato', sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  color: #5d5d5d;
+  margin: 0px;
+}
+.comment-box .cmt-1.list .d-2 {
+  font-family: 'Lato', sans-serif;
+  font-size: 10px;
+}
+.comment-box .cmt-1.list .d-3 {
+  font-size: 12px;
+}
+
+.comment-box .cmt-1 input {
+  width: 90%;
+  color: #5d5d5d;
+  font-size: 14px;
+  font-family: 'Raleway', sans-serif;
+  background-color: transparent;
   border: none;
   outline: none;
-  margin-left: 0.5rem;
 }
 
 .comment-box .btn-blue {
-  /* justify-self: end; */
-  width: 50%;
-  height: 50px;
-  justify-self: flex-end;
-  padding: 1rem;
-  margin: 0;
+  width: 20px;
+  height: 30px;
+  padding: 0.5rem 1rem;
+  margin: auto;
   position: relative;
+  vertical-align: middle;
+  border-radius: 10px;
+  float: right;
+}
+.comment-box .btn-blue.btn-red {
+  background-color: #ff9391;
 }
 
 .comment-box .btn-blue img {
   position: absolute;
   top: 30%;
   left: 35%;
+  width: 35%;
 }

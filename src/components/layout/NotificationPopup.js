@@ -108,7 +108,11 @@ const NotificationPopup = ({
     notifications && notifications.length > 0 ? (
       notifications.map((not) => {
         return (
-          <li style={{ listStyle: 'none' }} key={not?.createdAt}>
+          <li
+            className='notif-element'
+            style={{ listStyle: 'none' }}
+            key={not?.createdAt}
+          >
             {not.type === 'like' && (
               <>
                 <img
@@ -186,11 +190,21 @@ const NotificationPopup = ({
         aria-haspopup='true'
         onClick={() => {
           setOpen(true);
+          setTimeout(() => {
+            setOpen(false);
+          }, 5000);
         }}
       >
         {notificationsIcon}
       </IconButton>
-      {open && <div onClick={onMenuOpened}>{notificationsMarkup}</div>}
+      {open && (
+        <div>
+          <div className='arrow-up notif'></div>
+          <div onClick={onMenuOpened} className='notif-dis'>
+            {notificationsMarkup}
+          </div>
+        </div>
+      )}
     </Fragment>
   );
 };
