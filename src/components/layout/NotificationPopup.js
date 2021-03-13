@@ -14,7 +14,7 @@ import { projectFirestore } from '../../firebase/config';
 import { grey } from '@material-ui/core/colors';
 
 const NotificationPopup = ({
-  user,
+  auth: { user },
   notification: { notifications },
   accept,
   decline,
@@ -196,6 +196,7 @@ const NotificationPopup = ({
 };
 
 const mapStateToProps = (state) => ({
+  auth: state.auth,
   notification: state.notification,
 });
 

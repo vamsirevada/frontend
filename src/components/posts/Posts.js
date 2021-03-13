@@ -39,13 +39,13 @@ const Posts = ({ getBuddyPosts, getOwnPosts, post: { posts, oposts } }) => {
 };
 
 Posts.propTypes = {
+  getBuddyPosts: PropTypes.func.isRequired,
+  getOwnPosts: PropTypes.func.isRequired,
   post: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   post: state.post,
-  profile: state.profile,
 });
 
 export default connect(mapStateToProps, { getBuddyPosts, getOwnPosts })(Posts);

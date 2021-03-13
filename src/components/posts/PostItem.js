@@ -81,18 +81,21 @@ const PostItem = ({
     <div className='post'>
       <div className='post-heading'>
         <div className='flex'>
-          <div className='display-pic'>
-            <img
-              className='display-pic'
-              src={user?.avatar ? user?.avatar : logo}
-              alt=''
-            />
-          </div>
-
-          <a className='bold bold-1'>
-            {' '}
-            {fullName && fullName} {groupName && groupName} (
-            {userName && userName})<br />{' '}
+          <Link to={`/portfolio/${user?._id}`}>
+            <div className='display-pic'>
+              <img
+                className='display-pic'
+                src={user?.avatar ? user?.avatar : logo}
+                alt=''
+              />
+            </div>
+          </Link>
+          <h4 className='bold bold-1'>
+            <Link to={`/portfolio/${user?._id}`}>
+              {fullName && fullName} {groupName && groupName} (
+              {userName && userName})
+            </Link>
+            <br />
             <span className='third-bold'>
               <span className='f-1'>
                 Posted on{': '}
@@ -100,28 +103,24 @@ const PostItem = ({
                 <Moment format='hh:mm A'>{date}</Moment>
               </span>
             </span>
-          </a>
+          </h4>
         </div>
-        <a
-          style={{ display: userName === auth.user.userName ? '' : 'none' }}
-          onClick={() => toogleDot(!displayDot)}
-          className='three-dots'
-        >
-          <img src={path} className='resize' alt='' />
-        </a>
+        {!auth.loading && user?._id === auth?.user?._id && (
+          <a onClick={() => toogleDot(!displayDot)} className='three-dots'>
+            <img src={path} className='resize' alt='' />
+          </a>
+        )}
         {displayDot && (
           <Fragment>
-            {userName === auth.user.userName && (
-              <div className='no-post-dis' id='post-dis'>
-                <ul>
-                  <Fragment>
-                    <li>
-                      <a onClick={(e) => deletePost(_id)}>Delete post</a>
-                    </li>
-                  </Fragment>
-                </ul>
-              </div>
-            )}
+            <div className='no-post-dis' id='post-dis'>
+              <ul>
+                <Fragment>
+                  <li>
+                    <a onClick={(e) => deletePost(_id)}>Delete post</a>
+                  </li>
+                </Fragment>
+              </ul>
+            </div>
           </Fragment>
         )}
       </div>
@@ -250,7 +249,6 @@ const PostItem = ({
               Likes
             </a>
             <Link
-              to={`/posts/${_id}`}
               onClick={() => {
                 toogleComment(!displayComment);
                 toogleAddCmt(!displayAddCmt);
@@ -265,16 +263,17 @@ const PostItem = ({
           </div>
         </div>
       )}
-      {displayComment && (
-        <div className='comments'>
-          {comments.map((comment) => (
-            <CommentItem key={comment._id} comment={comment} postId={_id} />
-          ))}
-        </div>
-      )}
-
       {displayAddCmt && (
         <CommentForm auth={auth} user={user} postId={_id} comments={comments} />
+      )}
+
+      {displayComment && (
+        <div className='comments'>
+          {comments.slice(0, 3).map((comment) => (
+            <CommentItem key={comment._id} comment={comment} postId={_id} />
+          ))}
+          {comments.length > 3 && <Link to={`posts/${_id}`}>view all</Link>}
+        </div>
       )}
     </div>
   );

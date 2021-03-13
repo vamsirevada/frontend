@@ -72,12 +72,7 @@ export default function (state = initialState, action) {
     case ADD_COMMENT:
       return {
         ...state,
-        post: { comments: payload, ...state.post },
-        // posts: state.posts.map((post) =>
-        //   post._id === payload.id
-        //     ? { ...post, comments: payload.comments }
-        //     : post
-        // ),
+        post: { ...state.post, comments: payload },
         loading: false,
       };
     case REMOVE_COMMENT:

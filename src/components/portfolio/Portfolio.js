@@ -520,6 +520,7 @@ Portfolio.propTypes = {
   getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
+  project: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({

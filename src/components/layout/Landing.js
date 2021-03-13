@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
 import Page1 from './landing pages/Page1';
 import Page2 from './landing pages/Page2';
 import Page3 from './landing pages/Page3';
@@ -8,7 +11,11 @@ import Page6 from './landing pages/Page6';
 import Page7 from './landing pages/Page7';
 import Footer from './landing pages/Footer';
 
-const Landing = () => {
+const Landing = ({ isAuthenticated }) => {
+  if (isAuthenticated) {
+    return <Redirect to='/portfolio' />;
+  }
+
   return (
     <>
       <Page1 />
@@ -23,4 +30,12 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+Landing.propTypes = {
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(Landing);

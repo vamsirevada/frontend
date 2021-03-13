@@ -6,6 +6,7 @@ import nounPlus from '../../images/icons/noun_Plus_2310779.svg';
 import { deleteComment } from '../../actions/post';
 import logo from '../../images/dummyimage.jpg';
 import { projectFirestore } from '../../firebase/config';
+import { Link } from 'react-router-dom';
 
 const CommentItem = ({
   postId,
@@ -29,13 +30,17 @@ const CommentItem = ({
 
   return (
     <div className='post-some-grid c-1'>
-      <div className='display-pic'>
-        <img className='display-pic' src={avatar ? avatar : logo} alt='' />
-      </div>
+      <Link to={`portfolio/${user?._id}`}>
+        <div className='display-pic'>
+          <img className='display-pic' src={avatar ? avatar : logo} alt='' />
+        </div>
+      </Link>
       <div className='postForm'>
         <div>
           <span className='d-1'>
-            {firstName} {lastName}
+            <Link to={`portfolio/${user?._id}`}>
+              {firstName} {lastName}
+            </Link>
           </span>{' '}
           {', '}
           <span className='d-2'>
@@ -45,7 +50,6 @@ const CommentItem = ({
         <div className='d-3'>
           <p>{text}</p>
         </div>
-
         <div>
           {!auth.loading && user === auth.user._id && (
             <button type='button' className='btn-blue' onClick={removeComment}>

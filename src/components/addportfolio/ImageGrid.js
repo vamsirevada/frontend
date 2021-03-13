@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import UseFirestore from './UseFireStore';
-import axios from 'axios';
+import api from '../../utils/api';
 import { motion } from 'framer-motion';
 import path from '../../images/path.svg';
 import { projectFirestore, projectStorage } from '../../firebase/config';
@@ -32,7 +32,7 @@ const ImageGrid = ({ id, profile }) => {
             d.ref.delete();
           });
         });
-      await axios.post(`/api/posts/delete`, {
+      await api.post(`/posts/delete`, {
         url: name?.url,
       });
     } else {
@@ -47,7 +47,7 @@ const ImageGrid = ({ id, profile }) => {
             d.ref.delete();
           });
         });
-      await axios.post(`/api/posts/delete`, {
+      await api.post(`/posts/delete`, {
         url: name?.url,
       });
     }

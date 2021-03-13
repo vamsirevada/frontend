@@ -1,7 +1,5 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import store from '../../store';
-import setAuthToken from '../../utils/setAuthToken';
 import Portfolio from '../portfolio/Portfolio';
 import Portfolio1 from '../portfolio/Portfolio1';
 import CreateProfile from '../profile-forms/Createprofile';
@@ -32,18 +30,11 @@ import ProjectList from '../projects/ProjectList';
 import SingleNotice from '../projects/SingleNotice';
 import Loading from '../Loading';
 import NoticeBoard from '../projects/NoticeBoard';
-import { loadUser } from '../../actions/auth';
-import { getCurrentProfile } from '../../actions/profile';
-
-if (localStorage.token) {
-  setAuthToken(localStorage.token);
-}
 
 const Routes = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    store.dispatch(getCurrentProfile());
     const t = setTimeout(() => {
       setLoading(false);
     }, 500);

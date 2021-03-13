@@ -6,7 +6,7 @@ import add from '../../images/noun_Add Friend_2987727 (2).svg';
 import mail from '../../images/chat.svg';
 import logo from '../../images/dummyimage.jpg';
 import { connect } from 'react-redux';
-import axios from 'axios';
+import api from '../../utils/api';
 import { setAlert } from '../../actions/alert';
 import { sendBuddyRequest, getCurrentProfile } from '../../actions/profile';
 import { motion } from 'framer-motion';
@@ -53,7 +53,7 @@ const ProfileItem = ({
 
   const note = async (profileid) => {
     try {
-      await axios.put(`api/profile/note/${_id}`);
+      await api.put(`/profile/note/${_id}`);
       setAlert('Noted', 'success');
       getCurrentProfile();
     } catch (err) {

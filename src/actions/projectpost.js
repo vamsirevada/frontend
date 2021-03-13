@@ -1,4 +1,4 @@
-import axios from 'axios';
+import api from '../utils/api';
 import { setAlert } from './alert';
 import {
   ADD_PROJECT_POST,
@@ -20,7 +20,7 @@ export const addProjectPost = (id, formData) => async (dispatch) => {
     },
   };
   try {
-    const res = await axios.post(`/api/projectpost/${id}`, formData, config);
+    const res = await api.post(`/projectpost/${id}`, formData, config);
 
     dispatch({
       type: ADD_PROJECT_POST,
@@ -39,7 +39,7 @@ export const addProjectPost = (id, formData) => async (dispatch) => {
 // Get all project posts
 export const getProjectPosts = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/projectpost/${id}`);
+    const res = await api.get(`/projectpost/${id}`);
     dispatch({
       type: GET_PROJECT_POSTS,
       payload: res.data,
@@ -55,7 +55,7 @@ export const getProjectPosts = (id) => async (dispatch) => {
 // Get members all posts
 export const getMemberPosts = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/projectpost/user/${id}`);
+    const res = await api.get(`/projectpost/user/${id}`);
 
     dispatch({
       type: GET_MEMBER_POSTS,
@@ -72,7 +72,7 @@ export const getMemberPosts = (id) => async (dispatch) => {
 // Get Project post
 export const getProjectPost = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/projectpost/single/${id}`);
+    const res = await api.get(`/projectpost/single/${id}`);
 
     dispatch({
       type: GET_PROJECT_POST,
@@ -89,7 +89,7 @@ export const getProjectPost = (id) => async (dispatch) => {
 // Delete Post
 export const deleteProjectPost = (id) => async (dispatch) => {
   try {
-    await axios.delete(`/api/projectpost/${id}`);
+    await api.delete(`/projectpost/${id}`);
 
     dispatch({
       type: DELETE_PROJECT_POST,
@@ -108,7 +108,7 @@ export const deleteProjectPost = (id) => async (dispatch) => {
 // Add Project Like
 export const addProjectLike = (id) => async (dispatch) => {
   try {
-    const res = await axios.put(`/api/projectpost/like/${id}`);
+    const res = await api.put(`/projectpost/like/${id}`);
 
     dispatch({
       type: UPDATE_PROJECT_LIKES,
@@ -125,7 +125,7 @@ export const addProjectLike = (id) => async (dispatch) => {
 // Remove  Like
 export const removeProjectLike = (id) => async (dispatch) => {
   try {
-    const res = await axios.put(`/api/projectpost/unlike/${id}`);
+    const res = await api.put(`/projectpost/unlike/${id}`);
 
     dispatch({
       type: UPDATE_PROJECT_LIKES,
@@ -147,8 +147,8 @@ export const addProjectComment = (postId, formData) => async (dispatch) => {
     },
   };
   try {
-    const res = await axios.post(
-      `/api/projectpost/comment/${postId}`,
+    const res = await api.post(
+      `/projectpost/comment/${postId}`,
       formData,
       config
     );
@@ -169,7 +169,7 @@ export const addProjectComment = (postId, formData) => async (dispatch) => {
 // Delete Comment
 export const deleteProjectComment = (postId, commentId) => async (dispatch) => {
   try {
-    await axios.delete(`/api/projectpost/comment/${postId}/${commentId}`);
+    await api.delete(`/projectpost/comment/${postId}/${commentId}`);
 
     dispatch({
       type: REMOVE_PROJECT_COMMENT,

@@ -1,16 +1,16 @@
 /* eslint-disable no-unused-vars */
-import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
-import vlogo from "../../images/vanitylogo3.png";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { setAlert } from "../../actions/alert";
-import { sendReferral } from "../../actions/auth";
+import React, { Fragment, useState } from 'react';
+import { Link } from 'react-router-dom';
+import vlogo from '../../images/vanitylogo3.png';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { setAlert } from '../../actions/alert';
+import { sendReferral } from '../../actions/auth';
 
 const ReferralPage = ({ isAuthenticated, sendReferral, setAlert }) => {
   const [formData, setFormData] = useState({
-    email: "",
-    phone: "",
+    email: '',
+    phone: '',
   });
 
   const { email, phone } = formData;
@@ -20,68 +20,42 @@ const ReferralPage = ({ isAuthenticated, sendReferral, setAlert }) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (email === "") {
-      setAlert("Email is required", "danger", 2000);
+    if (email === '') {
+      setAlert('Email is required', 'danger', 2000);
     } else {
       sendReferral({ email });
     }
-    // const body = JSON.stringify({
-    //   email: email,
-    // });
-    // console.log(email, "email");
-
-    // await axios
-    //   .post("/api/auth/send-referral", body)
-    //   .then((res) => {
-    //     // setAlert(res.data.message,"danger",2000)
-    //     // console.log(res.data.message);
-    //     alert(res.data.message)
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     alert(JSON.stringify(err))
-    //   });
-    // console.log(res,"resresres")
-
-    // login(email, password);
   };
-
-//   Redirect if logged in
-//   if (isAuthenticated) {
-//     return <Redirect to='/portfolio' />;
-//   }
 
   return (
     <Fragment>
-      <div id="login" className="login">
-        <div className="column-l1">
-          <div className="logo-black">
-            <Link to="/">
-              <img src={vlogo} alt="" />
+      <div id='login' className='login'>
+        <div className='column-l1'>
+          <div className='logo-black'>
+            <Link to='/'>
+              <img src={vlogo} alt='' />
             </Link>
           </div>
         </div>
 
-        <div className="column-l2">
-          <div className="login-column">
-            <div className="signup-top">
-              <p className="signup-para">
-                Enter your Email-id:
-              </p>
+        <div className='column-l2'>
+          <div className='login-column'>
+            <div className='signup-top'>
+              <p className='signup-para'>Enter your Email-id:</p>
             </div>
             <br />
-            <div style={{ display : "none"}}></div>
-            <form className="flex-form-l1" onSubmit={(e) => onSubmit(e)}>
-              <div className="usergroup">
-                <label htmlFor="email" className="signup-label">
+            <div style={{ display: 'none' }}></div>
+            <form className='flex-form-l1' onSubmit={(e) => onSubmit(e)}>
+              <div className='usergroup'>
+                <label htmlFor='email' className='signup-label'>
                   Email:
                 </label>
                 <input
-                  type="text"
-                  name="email"
+                  type='text'
+                  name='email'
                   value={email}
                   onChange={(e) => onChange(e)}
-                  className="btn-light"
+                  className='btn-light'
                 />
               </div>
               {/* <p className="middle">---or---</p>
@@ -106,8 +80,8 @@ const ReferralPage = ({ isAuthenticated, sendReferral, setAlert }) => {
                 </Link>
               </div>
               <br /> */}
-              <button type="Submit" className="btn-yellow">
-                {" "}
+              <button type='Submit' className='btn-yellow'>
+                {' '}
                 Invite
               </button>
               <br />
@@ -129,4 +103,6 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { setAlert, sendReferral })(ReferralPage);
+export default connect(mapStateToProps, { setAlert, sendReferral })(
+  ReferralPage
+);
