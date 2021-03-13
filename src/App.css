@@ -1422,8 +1422,20 @@ input.search-btn:focus {
   transition: all 0.75s;
 }
 
+.nav-icons .tab.unique.active.notice {
+  width: 150px;
+  justify-content: center;
+  /* background: rgba(228, 228, 228, 0.459); */
+  transition: all 0.75s;
+}
+
 .nav-icons .tab.unique {
   width: 48px;
+  margin-right: 5px;
+}
+
+.nav-icons .tab.unique.not {
+  width: 36px;
 }
 
 .nav-icons .tab .icon {
@@ -1435,8 +1447,19 @@ input.search-btn:focus {
   border-radius: 10px;
   transition: all 0.5s;
 }
-.nav-icons .tab.unique .icon {
-  padding: 0px;
+.nav-icons .tab.unique .icon.notice .noticeboard {
+  padding: 0.5px 4px;
+  border-radius: 5px;
+  margin-right: 10px;
+  vertical-align: top;
+  background-color: #757575;
+}
+.nav-icons .tab.unique .icon.notice .noticeboard:hover {
+  background-color: #fad300;
+}
+
+.nav-icons .tab.unique.notice .icon.notice {
+  padding: 5px 0px;
 }
 
 .nav-icons .tab p,
@@ -1454,30 +1477,20 @@ input.search-btn:focus {
     brightness(111%) contrast(102%);
 }
 
-/* noticeboard icon */
-
-.navbar .nav-icons .nb {
-  font-size: 0.7rem;
-  vertical-align: top;
-  background-color: #787878;
-  color: #000;
-  padding: 0.2rem;
-  margin-right: 1.2rem;
-  border-radius: 20%;
-}
-
-.navbar .nav-icons .nb:hover {
-  background-color: #fad300;
+.MuiIconButton-root {
+  flex: 0 0 auto;
+  color: rgba(0, 0, 0, 0.54);
+  padding: 12px;
+  overflow: visible;
+  width: 26px;
+  height: 36px;
+  font-size: 1.5rem;
+  text-align: center;
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-radius: 50%;
 }
 
 /* Home */
-
-/* .navbar .nav-icons .home img {
-  display: inline-block;
-  height: 20px;
-  width: 20px;
-  /* background: url(./images/Home.svg) no-repeat center center/contain; */
-/* }  */
 
 .navbar .nav-icons .icon img {
   display: inline-block;
@@ -1493,6 +1506,14 @@ input.search-btn:focus {
   width: 18px;
   vertical-align: inherit;
   align-self: middle;
+}
+.navbar .nav-icons .icon .white.chat {
+  display: inline-block;
+  height: 18px;
+  width: 21px;
+  vertical-align: inherit;
+  align-self: middle;
+  margin-left: 0px;
 }
 .navbar .nav-icons .icon svg {
   display: inline-block;

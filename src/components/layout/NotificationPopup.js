@@ -74,7 +74,7 @@ const NotificationPopup = ({
           >
             <NotificationsIcon
               style={{
-                fontSize: 24,
+                fontSize: 22,
                 color: grey[600],
                 verticalAlign: 'top',
               }}
@@ -85,7 +85,7 @@ const NotificationPopup = ({
       : (notificationsIcon = (
           <NotificationsIcon
             style={{
-              fontSize: 24,
+              fontSize: 22,
               color: grey[600],
               verticalAlign: 'top',
             }}

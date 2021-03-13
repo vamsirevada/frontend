@@ -21,6 +21,7 @@ const Navbar = ({ auth: { user }, logout }) => {
   const [displayMenu, toogleMenu] = useState(false);
   const [feedActive, toogleFeedActive] = useState(false);
   const [portActive, tooglePortActive] = useState(false);
+  const [nbActive, toogleNbActive] = useState(false);
   const [chatActive, toogleChatActive] = useState(false);
   const [noticActive, toogleNoticeActive] = useState(false);
   const { Addsearch, clearSearch } = useContext(SearchContext);
@@ -50,6 +51,10 @@ const Navbar = ({ auth: { user }, logout }) => {
     }
   };
 
+  const bgColors = {
+    greyback: grey[600],
+  };
+
   const logOut = () => {
     logout();
     document.documentElement.scrollTop = 0;
@@ -59,18 +64,21 @@ const Navbar = ({ auth: { user }, logout }) => {
     toogleFeedActive(!feedActive);
     tooglePortActive(false);
     toogleNoticeActive(false);
+    toogleNbActive(false);
     toogleChatActive(false);
   };
   const toggleP = async () => {
     toogleFeedActive(false);
     tooglePortActive(!portActive);
     toogleNoticeActive(false);
+    toogleNbActive(false);
     toogleChatActive(false);
   };
 
   const toggleN = async () => {
     toogleFeedActive(false);
     tooglePortActive(false);
+    toogleNbActive(false);
     toogleNoticeActive(!noticActive);
     toogleChatActive(false);
   };
@@ -78,8 +86,17 @@ const Navbar = ({ auth: { user }, logout }) => {
   const toggleC = async () => {
     toogleFeedActive(false);
     tooglePortActive(false);
+    toogleNbActive(false);
     toogleNoticeActive(false);
     toogleChatActive(!chatActive);
+  };
+
+  const toggleNb = async () => {
+    toogleFeedActive(false);
+    tooglePortActive(false);
+    toogleNbActive(!nbActive);
+    toogleNoticeActive(false);
+    toogleChatActive(false);
   };
 
   return (
@@ -138,29 +155,30 @@ const Navbar = ({ auth: { user }, logout }) => {
               </Link>
             </div>
             <div
-              className={noticActive ? 'tab active unique' : 'tab unique'}
-              onClick={toggleN}
+              className={
+                nbActive ? 'tab active unique notice' : 'tab unique not'
+              }
+              onClick={toggleNb}
             >
-              <Link className='icon' to='/noticeboard'>
+              <Link className='icon notice' to='/noticeboard'>
                 <small
                   style={{
-                    fontSize: 26,
-                    color: grey[600],
-                    verticalAlign: 'top',
+                    fontSize: 12,
                   }}
                   color='action'
+                  className='noticeboard'
                 >
                   NB
                 </small>
-                <p>Notice</p>
+                <p>NoticeBoard</p>
               </Link>
             </div>
             <div
-              className={chatActive ? 'tab active' : 'tab'}
+              className={chatActive ? 'tab active unique' : 'tab'}
               onClick={toggleC}
             >
               <Link to='/chats' className='chat icon'>
-                <img src={chat} className='white' alt='chat' />
+                <img src={chat} className='white chat' alt='chat' />
                 <p>Chat</p>
               </Link>
             </div>
