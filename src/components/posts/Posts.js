@@ -51,8 +51,8 @@ const Posts = ({ getBuddyPosts, getOwnPosts, post: { posts, oposts } }) => {
       </div>
 
       {own ? (
-        <div>
-          <Fragment className='posts'>
+        <div className='posts'>
+          <Fragment>
             {oposts.map((post) => (
               <PostItem key={post._id} post={post} />
             ))}

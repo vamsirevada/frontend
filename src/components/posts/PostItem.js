@@ -13,6 +13,7 @@ import com from '../../images/noun_comment_767203 copy.svg';
 import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
 import logo from '../../images/dummyimage.jpg';
+import poster from '../../images/play.jpg';
 import PostType from './PostType';
 import { projectFirestore } from '../../firebase/config';
 
@@ -91,7 +92,7 @@ const PostItem = ({
             </div>
           </Link>
 
-          <a className='name-lato'>
+          <div className='name-lato'>
             {' '}
             <Link to={`portfolio/${user?._id}`}>
               {fullName && fullName} {groupName && groupName} <br />
@@ -103,7 +104,7 @@ const PostItem = ({
                 <Moment format='DD MMM YY'>{date}</Moment>
               </span>
             </span>
-          </a>
+          </div>
         </div>
         <a
           style={{ display: userName === auth.user.userName ? '' : 'none' }}
@@ -117,11 +118,9 @@ const PostItem = ({
             {userName === auth.user.userName && (
               <div className='no-post-dis' id='post-dis'>
                 <ul>
-                  <Fragment>
-                    <li>
-                      <a onClick={(e) => deletePost(_id)}>Delete post</a>
-                    </li>
-                  </Fragment>
+                  <li>
+                    <a onClick={(e) => deletePost(_id)}>Delete post</a>
+                  </li>
                 </ul>
               </div>
             )}
@@ -129,147 +128,96 @@ const PostItem = ({
         )}
       </div>
 
-      {PostType(type) !== 'default' && (
-        <div style={{ marginBottom: 10 }} className='post-description'>
-          {PostType(type) === 'blog' ? (
-            <div style={{ marginBottom: 10 }} className='post-blog'>
-              <a> {text}</a>
-              <br />
-              <a href={url} target='_blank'>
-                {url}
-              </a>
-            </div>
-          ) : (
-            <div className='post-description'>
-              <p>{text}</p>
-            </div>
-          )}
-        </div>
-      )}
       {PostType(type) === 'default' && (
         <div style={{ marginBottom: 10 }} className='post-description'>
           <p>{text}</p>
         </div>
       )}
       {PostType(type) === 'photo' && (
-        <img
-          style={{ objectFit: 'contain' }}
-          className='post-pic'
-          src={url}
-          alt=''
-        />
+        <>
+          <p style={{ marginBottom: 10 }} className='post-description'>
+            {text}
+          </p>
+          <img
+            style={{ objectFit: 'contain' }}
+            className='post-pic'
+            src={url}
+            alt=''
+          />
+        </>
       )}
 
       {PostType(type) === 'video' && (
-        <video
-          style={{
-            objectFit: 'cover',
-            width: '100%',
-            height: '350px',
-            background: 'transparent',
-          }}
-          controls
-          src={url}
-          className='post-video'
-        />
+        <>
+          <p style={{ marginBottom: 10 }} className='post-description'>
+            {text}
+          </p>
+          <video
+            style={{
+              objectFit: 'cover',
+              width: '100%',
+              height: '350px',
+              background: 'transparent',
+            }}
+            controls
+            src={url}
+            className='post-video'
+          />
+        </>
       )}
       {PostType(type) === 'audio' && (
-        <audio className='post-audio' controls src={url} />
+        <>
+          <p style={{ marginBottom: 10 }} className='post-description'>
+            {text}
+          </p>
+          <video poster={poster} className='post-audio' controls src={url} />
+        </>
       )}
 
-      {PostType(type) !== 'default' ? (
-        <div className='flex-des'>
-          <div className='pic-des-1'>
-            <div onClick={(e) => onLike(e)} className='cursor'>
-              {displayLbtn ? (
-                <Fragment>
-                  <div onClick={unlike}>
-                    <img className='r-1' src={yheart} alt='' />
-                    <span className='d-1'>Liked</span>
-                  </div>
-                </Fragment>
-              ) : (
-                <Fragment>
-                  <div onClick={like}>
-                    <img className='r-1' src={heart} alt='' />
-                    <span className='d-1'>Like</span>
-                  </div>
-                </Fragment>
-              )}
-            </div>
-            <div
-              onClick={() => toogleAddCmt(!displayAddCmt)}
-              className='cursor'
-            >
-              <img className='r-1' src={com} alt='' />
-              <span className='d-1'>Comment</span>
-            </div>
+      <div className='flex-des'>
+        <div className='pic-des-1'>
+          <div onClick={(e) => onLike(e)}>
+            {displayLbtn ? (
+              <Fragment>
+                <div onClick={unlike}>
+                  <img className='r-1' src={yheart} alt='' />
+                  <span className='d-1'>Liked</span>
+                </div>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <div onClick={like}>
+                  <img className='r-1' src={heart} alt='' />
+                  <span className='d-1'>Like</span>
+                </div>
+              </Fragment>
+            )}
           </div>
-          <div className='des-right'>
-            <a className='d-1'>
-              <span className='f-1'>{likes.length > 0 && likes.length}</span>{' '}
-              Likes
-            </a>
-            <Link
-              to={`/posts/${_id}`}
-              onClick={() => {
-                toogleComment(!displayComment);
-                toogleAddCmt(!displayAddCmt);
-              }}
-              className='d-1'
-            >
-              <span className='f-1'>
-                {comments.length > 0 && comments.length}
-              </span>{' '}
-              Comment
-            </Link>
+          <div onClick={() => toogleAddCmt(!displayAddCmt)}>
+            <img className='r-1' src={com} alt='' />
+            <span className='d-1'>Comment</span>
           </div>
         </div>
-      ) : (
-        <div className='flex-des'>
-          <div className='pic-des-1'>
-            <div onClick={(e) => onLike(e)}>
-              {displayLbtn ? (
-                <Fragment>
-                  <div onClick={unlike}>
-                    <img className='r-1' src={yheart} alt='' />
-                    <span className='d-1'>Liked</span>
-                  </div>
-                </Fragment>
-              ) : (
-                <Fragment>
-                  <div onClick={like}>
-                    <img className='r-1' src={heart} alt='' />
-                    <span className='d-1'>Like</span>
-                  </div>
-                </Fragment>
-              )}
-            </div>
-            <div onClick={() => toogleAddCmt(!displayAddCmt)}>
-              <img className='r-1' src={com} alt='' />
-              <span className='d-1'>Comment</span>
-            </div>
-          </div>
-          <div className='des-right'>
-            <a className='d-1'>
-              <span className='f-1'>{likes.length > 0 && likes.length}</span>{' '}
-              Likes
-            </a>
-            <a
-              onClick={() => {
-                toogleComment(!displayComment);
-                toogleAddCmt(!displayAddCmt);
-              }}
-              className='d-1'
-            >
-              <span className='f-1'>
-                {comments.length > 0 && comments.length}
-              </span>{' '}
-              Comment
-            </a>
+        <div className='des-right'>
+          <a className='d-1'>
+            <span className='f-1'>{likes.length > 0 && likes.length}</span>{' '}
+            Likes
+          </a>
+          <div
+            onClick={() => {
+              toogleComment(!displayComment);
+              toogleAddCmt(!displayAddCmt);
+            }}
+            className='d-1'
+          >
+            <span className='f-1'>
+              {comments.length > 0 && comments.length}
+            </span>{' '}
+            Comment
           </div>
         </div>
-      )}
+      </div>
+
       {displayComment && (
         <div className='comments'>
           {comments.slice(0, 3).map((comment) => (

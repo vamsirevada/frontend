@@ -24,16 +24,14 @@ const SingleNotice = ({ auth, getNotice, notice: { notice }, match }) => {
               src={back}
               alt=''
             />
-            {notice?.project?.creator === auth?.user?.userName && (
-              <span>
-                <img
-                  height='340px'
-                  width='340px'
-                  src={notice?.noticeImg ? notice?.noticeImg : cover}
-                  alt=''
-                />
-              </span>
-            )}
+            <span>
+              <img
+                height='340px'
+                width='340px'
+                src={notice?.noticeImg ? notice?.noticeImg : cover}
+                alt=''
+              />
+            </span>
           </div>
         </div>
         <div className='right'>
@@ -52,15 +50,9 @@ const SingleNotice = ({ auth, getNotice, notice: { notice }, match }) => {
             Sci-fi movie - Trail of blood (2021)
           </h1>
           <div>
-            {notice?.project?.creator === auth?.user?.userName ? (
-              <button type='button' className='btn-yellow'>
-                Edit Notice
-              </button>
-            ) : (
-              <button type='button' className='btn-blue f-right'>
-                Apply
-              </button>
-            )}
+            <button type='button' className='btn-yellow'>
+              Edit Notice
+            </button>
             <h1>{notice?.title}</h1>
           </div>
 

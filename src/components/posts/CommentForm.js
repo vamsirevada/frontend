@@ -11,7 +11,6 @@ const CommentForm = ({ auth, user, postId, addComment, comments }) => {
   const onSubmit = (e) => {
     e.preventDefault();
     addComment(postId, { text });
-    console.log(comments[0].text);
     projectFirestore.collection('notifications').add({
       sender: auth?.user?._id,
       senderName: auth?.user?.userName,

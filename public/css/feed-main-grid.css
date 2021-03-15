@@ -290,6 +290,12 @@
   grid-gap: 1rem;
 }
 
+.post-audio {
+  margin-left: 75px;
+  object-fit: cover;
+  width: 75%;
+}
+
 /* Right Join Group */
 
 #join-grp {

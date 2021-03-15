@@ -20,12 +20,12 @@ const PortfolioRightTop = ({
         </Link>
         <Link to={`/projectlist/${_id}`}>
           <p>
-            {/* <span className='f-1'>{experience && experience.length}</span> */}
             <span className='f-1'>{projects && projects.length}</span>
             <br /> Projects{' '}
           </p>
         </Link>
       </div>
+      <div className='mutual-frds'></div>
       <div className='mutual-frds'>
         {type !== 'edit' && (
           <div className='prof-heading-flex'>

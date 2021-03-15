@@ -8,7 +8,6 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
 const _gettype = (type) => {
-  // selected.type.split('/')[0]
   if (type === 'image') {
     return 'photo';
   } else if (type === 'audio') {
