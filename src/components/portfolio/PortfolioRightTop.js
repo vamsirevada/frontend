@@ -25,7 +25,7 @@ const PortfolioRightTop = ({
           </p>
         </Link>
       </div>
-      <div className='mutual-frds'></div>
+      {/* <div className='mutual-frds'></div> */}
       <div className='mutual-frds'>
         {type !== 'edit' && (
           <div className='prof-heading-flex'>

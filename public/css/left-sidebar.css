@@ -520,17 +520,31 @@ h3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  
 }
+
+.left-container .connect-info div:nth-child(1) {
+  width: 50%;
+  border-right: 2px solid #272727;
+}
+
 
 .connect-info p {
   font-family: 'Raleway', sans-serif;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: bold;
   line-height: 1.2rem;
 }
-.connect-info .border-1 {
-  border-right: 2px solid #272727;
+
+.left-container .connect-info div:last-child p{
+text-align: end;
 }
+
+.left-container .connect-info .hover-bottom:hover {
+  cursor: pointer;
+  border-bottom: 2px solid #fad300 ;
+}
+
 
 .connect-info .f-1 {
   font-size: 13px;

@@ -57,7 +57,7 @@
 .main-add .main-left .btn-gray {
   display: block;
   margin: 2rem;
-  background-color: #f0f0f0;
+  background-color: #e8e8e8;
 }
 
 .main-add .main-left .current {
@@ -66,7 +66,8 @@
 
 .main-add .main-left .btn-gray:hover {
   background-color: #e6e6e6;
-  border-right: 10px solid var(--blue-color);
+  border-right: 10px solid #7480ff;
+  opacity: 1;
 }
 
 .main-add .main-left .card {

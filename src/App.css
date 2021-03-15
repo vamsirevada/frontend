@@ -1774,6 +1774,7 @@ input.search-btn:focus {
 #feed .left #left-sidebar {
   width: 100%;
   padding-top: 2rem;
+  border-radius: 15px;
 }
 
 #feed .center #feed-main {

@@ -454,20 +454,21 @@ a:hover {
   align-items: center;
 }
 
-.sort-post {
+/* .sort-post {
   font-size: 12px;
   display: inline-block;
-  /* border: 2px solid #7480ff; */
-  /* border-radius: 10px; */
-}
 
-.sort-post a {
+} */
+
+/* .sort-post a {
   font-size: 12px;
-}
+} */ 
 
 .sort-post .right {
   background-color: #7480ff;
   color: #fff;
+  font-size: 12px;
+  font-family: 'Raleway', sans-serif;
   padding: 0.25rem 0.75rem;
   border: 2px solid #7480ff;
   outline: none;
@@ -475,6 +476,8 @@ a:hover {
 .sort-post .left {
   background-color: #fff;
   color: #333;
+  font-size: 12px;
+  font-family: 'Raleway', sans-serif;
   padding: 0.2rem 0.75rem;
   border: 2px solid #7480ff;
   outline: none;

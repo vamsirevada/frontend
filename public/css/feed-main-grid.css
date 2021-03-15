@@ -290,12 +290,6 @@
   grid-gap: 1rem;
 }
 
-.post-audio {
-  margin-left: 75px;
-  object-fit: cover;
-  width: 75%;
-}
-
 /* Right Join Group */
 
 #join-grp {
@@ -429,4 +423,33 @@
   top: 30%;
   left: 35%;
   width: 35%;
+}
+
+.post-audio {
+  margin-left: 75px;
+  object-fit: cover;
+  width: 75%;
+}
+.Hori {
+  max-width: 90%;
+  margin: auto;
+  opacity: 0.18;
+}
+
+.load {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  margin-top: 1rem;
+}
+.loadmore {
+  background-color: #7480ff;
+  color: #fff;
+  font-size: 12px;
+  font-family: 'Raleway', sans-serif;
+  padding: 0.25rem 0.75rem;
+  border: 2px solid #7480ff;
+  border-radius: 10px;
+  outline: none;
 }

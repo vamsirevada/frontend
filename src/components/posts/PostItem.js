@@ -16,6 +16,7 @@ import logo from '../../images/dummyimage.jpg';
 import poster from '../../images/play.jpg';
 import PostType from './PostType';
 import { projectFirestore } from '../../firebase/config';
+import Spinner from '../layout/Spinner';
 
 const PostItem = ({
   auth,
@@ -44,6 +45,7 @@ const PostItem = ({
   const [displayLbtn, toogleLbtn] = useState(xyz);
   const [displayAddCmt, toogleAddCmt] = useState(false);
   const [displayComment, toogleComment] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const onLike = (e) => {
     e.preventDefault();
@@ -203,10 +205,13 @@ const PostItem = ({
             <span className='f-1'>{likes.length > 0 && likes.length}</span>{' '}
             Likes
           </a>
-          <div
+          <a
             onClick={() => {
               toogleComment(!displayComment);
               toogleAddCmt(!displayAddCmt);
+              setTimeout(() => {
+                setLoading(!loading);
+              }, 500);
             }}
             className='d-1'
           >
@@ -214,19 +219,34 @@ const PostItem = ({
               {comments.length > 0 && comments.length}
             </span>{' '}
             Comment
-          </div>
+          </a>
         </div>
       </div>
 
       {displayComment && (
-        <div className='comments'>
-          {comments.slice(0, 3).map((comment) => (
-            <CommentItem key={comment._id} comment={comment} postId={_id} />
-          ))}
-          <Link to={`/posts/${_id}`}>View All</Link>
+        <div>
+          {loading ? (
+            <Spinner />
+          ) : (
+            <Fragment>
+              <div className='comments'>
+                {comments.slice(0, 3).map((comment) => (
+                  <CommentItem
+                    key={comment._id}
+                    comment={comment}
+                    postId={_id}
+                  />
+                ))}
+                <div className='load'>
+                  <Link to={`/posts/${_id}`} className='loadmore'>
+                    Load more
+                  </Link>
+                </div>
+              </div>
+            </Fragment>
+          )}
         </div>
       )}
-
       {displayAddCmt && (
         <div>
           <CommentForm
