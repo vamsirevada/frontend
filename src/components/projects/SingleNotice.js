@@ -1,31 +1,17 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { getProject } from '../../actions/project';
 import { getNotice } from '../../actions/notice';
 import Moment from 'react-moment';
 import cover from '../../images/Article-1b.png';
 import back from '../../images/icons/back.svg';
 import logo from '../../images/dummyimage.jpg';
 
-const SingleNotice = ({
-  project: { singleproject },
-  notice: { notice },
-  getProject,
-  getNotice,
-  match,
-}) => {
+const SingleNotice = ({ getNotice, notice: { notice }, match }) => {
   const history = useHistory();
   useEffect(() => {
     getNotice(match.params.id);
-    getProject(match.params.projectid);
-  }, [
-    getNotice,
-    getProject,
-    notice?.project,
-    match.params.id,
-    match.params.projectid,
-  ]);
+  }, [getNotice, match.params.id]);
 
   return (
     <>
@@ -51,7 +37,7 @@ const SingleNotice = ({
         <div className='right'>
           <img
             className='display-pic'
-            src={singleproject?.avatar ? singleproject?.avatar : logo}
+            src={notice?.project?.avatar ? notice?.project?.avatar : logo}
             alt=''
           />
           <h1
@@ -73,7 +59,7 @@ const SingleNotice = ({
             <div>
               <h3>Posted by: </h3>{' '}
               <span>
-                <p style={{ float: 'right' }}>{singleproject?.projectname}</p>
+                <p style={{ float: 'right' }}>{notice?.project?.projectname}</p>
               </span>
             </div>
             <div>
@@ -130,10 +116,7 @@ const SingleNotice = ({
 };
 
 const mapStateToProps = (state) => ({
-  project: state.project,
   notice: state.notice,
 });
 
-export default connect(mapStateToProps, { getNotice, getProject })(
-  SingleNotice
-);
+export default connect(mapStateToProps, { getNotice })(SingleNotice);

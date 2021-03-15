@@ -109,8 +109,7 @@ const Notices = ({
                     <p
                       style={{ color: '#7480FC', textDecoration: 'underline' }}
                     >
-                      {/* {creator} */}
-                      Vamsi
+                      {notice?.project?.projectname}
                     </p>
                   </h4>
                 </div>

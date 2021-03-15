@@ -8,6 +8,23 @@ import {
   DELETE_NOTICE,
 } from './types';
 
+// Get all notices of user using user id
+
+export const getNoticesByUser = () => async (dispatch) => {
+  try {
+    const res = await api.get('/notice');
+    dispatch({
+      type: GET_NOTICES,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: NOTICE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 // Get all notices of user using project id
 
 export const getNotices = (id) => async (dispatch) => {

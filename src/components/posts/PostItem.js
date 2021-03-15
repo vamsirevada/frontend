@@ -81,20 +81,23 @@ const PostItem = ({
     <div className='post'>
       <div className='post-heading'>
         <div className='flex'>
-          <div className='display-pic'>
-            <img
-              className='display-pic'
-              src={user?.avatar ? user?.avatar : logo}
-              alt=''
-            />
-          </div>
+          <Link to={`portfolio/${user?._id}`}>
+            <div className='display-pic'>
+              <img
+                className='display-pic'
+                src={user?.avatar ? user?.avatar : logo}
+                alt=''
+              />
+            </div>
+          </Link>
 
           <a className='name-lato'>
             {' '}
-            {fullName && fullName} {groupName && groupName} <br />{' '}
+            <Link to={`portfolio/${user?._id}`}>
+              {fullName && fullName} {groupName && groupName} <br />
+            </Link>{' '}
             <span className='date-lato'>
               <span className='f-1'>
-                {/* Posted on{': '} */}
                 <Moment format='hh:mm A'>{date}</Moment>
                 {', '}
                 <Moment format='DD MMM YY'>{date}</Moment>

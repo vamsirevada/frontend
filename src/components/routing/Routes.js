@@ -63,8 +63,8 @@ const Routes = ({ auth: { user } }) => {
           <Navbar />
           <Switch>
             <PrivateRoute exact path='/portfolio' component={Portfolio} />
-            <PrivateRoute exact path='/noticeboard' component={NoticeBoard} />
             <PrivateRoute exact path='/portfolio/:id' component={Portfolio1} />
+            <PrivateRoute exact path='/noticeboard' component={NoticeBoard} />
             <PrivateRoute exact path='/addfiles' component={AddPortfolio} />
             <PrivateRoute
               exact

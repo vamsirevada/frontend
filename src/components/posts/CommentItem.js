@@ -29,45 +29,21 @@ const CommentItem = ({
   };
 
   return (
-    // <div className='post-some-grid c-1'>
-    //   <div className='display-pic'>
-    //     <img className='display-pic' src={avatar ? avatar : logo} alt='' />
-    //   </div>
-    //   <div className='postForm'>
-    //     <div>
-    //       <span className='d-1'>
-    //         {firstName} {lastName}
-    //       </span>{' '}
-    //       {', '}
-    //       <span className='d-2'>
-    //         <Moment format='DD MMM YYYY, hh:mm a'>{date}</Moment>
-    //       </span>
-    //     </div>
-    //     <div className='d-3'>
-    //       <p>{text}</p>
-    //     </div>
-
-    //     <div>
-    //       {!auth.loading && user === auth.user._id && (
-    //         <button type='button' className='btn-blue' onClick={removeComment}>
-    //           <img src={nounPlus} alt='' />
-    //         </button>
-    //       )}
-    //     </div>
-    //   </div>
-    //   <hr className='Hori' />
-    // </div>
     <div className='comment-box'>
       <div>
-        <img className='comment-pic' src={avatar ? avatar : logo} alt='' />
+        <Link to={`portfolio/${user?._id}`}>
+          <img className='comment-pic' src={avatar ? avatar : logo} alt='' />
+        </Link>
       </div>
       <div className='cmt-1 list'>
         <div>
           <div>
-            <span className='d-1'>
-              {fullName && fullName}
-              {groupName && groupName}
-            </span>{' '}
+            <Link to={`portfolio/${user?._id}`}>
+              <span className='d-1'>
+                {fullName && fullName}
+                {groupName && groupName}
+              </span>{' '}
+            </Link>
             {', '}
             <span className='d-2'>
               <Moment format='DD MMM YYYY, hh:mm a'>{date}</Moment>
