@@ -255,8 +255,7 @@ const PostItem = ({
               <span className='f-1'>{likes.length > 0 && likes.length}</span>{' '}
               Likes
             </a>
-            <Link
-              to={`/posts/${_id}`}
+            <a
               onClick={() => {
                 toogleComment(!displayComment);
                 toogleAddCmt(!displayAddCmt);
@@ -267,15 +266,16 @@ const PostItem = ({
                 {comments.length > 0 && comments.length}
               </span>{' '}
               Comment
-            </Link>
+            </a>
           </div>
         </div>
       )}
       {displayComment && (
         <div className='comments'>
-          {comments.map((comment) => (
+          {comments.slice(0, 3).map((comment) => (
             <CommentItem key={comment._id} comment={comment} postId={_id} />
           ))}
+          <Link to={`/posts/${_id}`}>View All</Link>
         </div>
       )}
 

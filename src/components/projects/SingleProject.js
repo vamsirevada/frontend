@@ -68,12 +68,7 @@ const SingleProject = ({
           )}
           {displayRight && (
             <div className='right'>
-              {/* <FriendRequests /> */}
-              {/* <hr /> */}
-              <Notices
-                // creator={singleproject?.projectname}
-                id={match.params.id}
-              />
+              <Notices id={match.params.id} />
             </div>
           )}
         </div>

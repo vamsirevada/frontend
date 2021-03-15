@@ -7,13 +7,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { projectStorage } from '../../firebase/config';
 
-const Notices = ({
-  id,
-  // creator,
-  createNotice,
-  getNotices,
-  notice: { notices },
-}) => {
+const Notices = ({ id, createNotice, getNotices, notice: { notices } }) => {
   const [show, setShow] = useState(false);
   const [viewall, setViewAll] = useState(false);
   let fileInput = React.createRef();
@@ -84,7 +78,7 @@ const Notices = ({
       {notices &&
         notices.slice(0, viewall ? notices.length : 3).map((notice, index) => (
           <div style={{ height: '330px', width: '336px' }} key={index}>
-            <Link to={`/project/${id}/notice/${notice?._id}`}>
+            <Link to={`notice/${notice?._id}`}>
               <img
                 height='132px'
                 width='336px'
@@ -171,7 +165,6 @@ const Notices = ({
                     <input
                       type='date'
                       name='deadline'
-                      // id='location'
                       value={deadline}
                       onChange={(e) => onChange(e)}
                       placeholder='Enter Notice Deadline'
@@ -185,7 +178,6 @@ const Notices = ({
                     <input
                       type='text'
                       name='eligibility'
-                      // id='location'
                       value={eligibility}
                       onChange={(e) => onChange(e)}
                       placeholder='Enter Eligibility'

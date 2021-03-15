@@ -7,7 +7,7 @@ import cover from '../../images/Article-1b.png';
 import back from '../../images/icons/back.svg';
 import logo from '../../images/dummyimage.jpg';
 
-const SingleNotice = ({ getNotice, notice: { notice }, match }) => {
+const SingleNotice = ({ auth, getNotice, notice: { notice }, match }) => {
   const history = useHistory();
   useEffect(() => {
     getNotice(match.params.id);
@@ -24,14 +24,16 @@ const SingleNotice = ({ getNotice, notice: { notice }, match }) => {
               src={back}
               alt=''
             />
-            <span>
-              <img
-                height='340px'
-                width='340px'
-                src={notice?.noticeImg ? notice?.noticeImg : cover}
-                alt=''
-              />
-            </span>
+            {notice?.project?.creator === auth?.user?.userName && (
+              <span>
+                <img
+                  height='340px'
+                  width='340px'
+                  src={notice?.noticeImg ? notice?.noticeImg : cover}
+                  alt=''
+                />
+              </span>
+            )}
           </div>
         </div>
         <div className='right'>
@@ -50,11 +52,18 @@ const SingleNotice = ({ getNotice, notice: { notice }, match }) => {
             Sci-fi movie - Trail of blood (2021)
           </h1>
           <div>
-            <button type='button' className='btn-yellow'>
-              Edit Notice
-            </button>
+            {notice?.project?.creator === auth?.user?.userName ? (
+              <button type='button' className='btn-yellow'>
+                Edit Notice
+              </button>
+            ) : (
+              <button type='button' className='btn-blue f-right'>
+                Apply
+              </button>
+            )}
             <h1>{notice?.title}</h1>
           </div>
+
           <div>
             <div>
               <h3>Posted by: </h3>{' '}
@@ -116,6 +125,7 @@ const SingleNotice = ({ getNotice, notice: { notice }, match }) => {
 };
 
 const mapStateToProps = (state) => ({
+  auth: state.auth,
   notice: state.notice,
 });
 
