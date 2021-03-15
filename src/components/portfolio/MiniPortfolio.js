@@ -51,9 +51,10 @@ const MiniPortfolio = ({
           <div className='connect-info'>
             <div>
               <Link to='/friends'>
-                <p className='border-1'>
+                <p>
                   <span className='f-1'>{profile?.buddies.length}</span>
-                  <br /> Connections
+                  <br />
+                  <span className='hover-bottom'>Connections</span>
                 </p>
               </Link>
             </div>
@@ -61,7 +62,8 @@ const MiniPortfolio = ({
               <Link to={`/projectlist/${profile?.user?._id}`}>
                 <p>
                   <span className='f-1'>{projects && projects.length}</span>
-                  <br /> Projects{' '}
+                  <br />
+                  <span className='hover-bottom'>Projects</span>
                 </p>
               </Link>
             </div>
