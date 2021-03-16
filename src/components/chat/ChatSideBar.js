@@ -4,6 +4,7 @@ import { getBuddiesById } from '../../actions/profile';
 import { getRealtimeConversations } from '../../actions/chat';
 import ChatPopup from './ChatPopup';
 import ActiveDot from '../../images/activedot.png';
+import searchIcon from '../../images/searchIcon1.svg';
 import ActivePopUpClose from '../../images/activepopupclose.png';
 import logo from '../../images/dummyimage.jpg';
 
@@ -31,15 +32,15 @@ const ChatSideBar = ({
           (document.getElementById('myForm').style.display = 'block')
         }
       >
-        Active People({buddies.length}) <img src={ActiveDot} alt='as' />
+        Active People ({buddies.length}){'   '} <img src={ActiveDot} alt='as' />
       </button>
       <div className='chat-popup' id='myForm'>
-        <form className='form-container chat'>
+        <form className='chat-container'>
           <div className='flex-1'>
             <h4>Recently Active</h4>
             <button
               type='button'
-              className='btn'
+              className='drop-btn'
               onClick={() =>
                 (document.getElementById('myForm').style.display = 'none')
               }
@@ -74,6 +75,18 @@ const ChatSideBar = ({
                 <p>{buddy?.user?.fullName}</p>
               </div>
             ))}
+          <div className='chat-search'>
+            <input
+              type='text'
+              name='search'
+              // value={value}
+              // onChange={(e) => onChange(e)}
+              className='search-btn'
+              placeholder='search'
+            />
+            {/* <br /> */}
+            <img src={searchIcon} alt='search' />
+          </div>
         </form>
       </div>
       {chatStarted ? (

@@ -18,6 +18,10 @@
   padding: 0;
 }
 
+.MuiBadge-badge {
+    color:  #272727;
+    background-color: #fad300;
+}
 /* Alert */
 
 .alert {
@@ -1643,28 +1647,81 @@ input.search-btn:focus {
   flex-direction: column;
   top: 72px;
   right: 45px;
-  width: 180px;
-  padding: 5px;
+  width: 320px;
+  /* padding: 5px; */
   background-color: #f2f2f2;
   box-shadow: 0px 3px 3px #00000040;
   border-radius: 0px 0px 15px 15px;
   opacity: 1;
   z-index: 5000000;
+  overflow: auto;
 }
 
 .navbar .nav-icons .notif-dis .notif-element {
-  padding: 5px 10px;
+  padding: 10px 12px;
+  display: flex;
+  width: inherit;
+  align-items: center;
 }
 
-.navbar .nav-icons .notif-dis img {
-  height: 48px;
-  width: 48px;
+.notif-element .notify-width{
+  width: 80%;
 }
 
-.navbar .nav-icons .notif-dis p {
-  /* display: inline; */
+.notif-element:hover {
+  cursor: pointer;
+  background-color: #d1d1d1;
+}
+.notif-bold{
+  font-weight: bold;
+  color: #272727;
+}
+.notify-button{
+  text-align: end;
+
+}
+
+.notify-button .nb-blue{
   font-size: 12px;
+  color: #fff;
+  background-color: #7480ff;
   padding: 5px 10px;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid #7480ff;
+  margin-right: 10px;
+}
+.notify-bottom .nb-blue:hover{
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.notify-button .nb-white{
+  font-size: 12px;
+  color: #5d5d5d;
+  background-color: #fff;
+  padding: 5px 10px;
+  border-radius: 10px;
+  outline: none;
+  border: 1px #5d5d5d solid;
+}
+
+.notify-bottom .nb-white:hover{
+  cursor: pointer;
+  opacity: 0.8;
+}
+.navbar .nav-icons .notif-dis .notif-element img {
+  height: 36px;
+  width: 36px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+
+.navbar .nav-icons .notif-dis .notif-element  p {
+  font-size: 13px;
+  padding: 5px 10px;
+  color: #5D5D5D;
 }
 
 .navbar .nav-icons .arrow-middle {
@@ -1697,7 +1754,7 @@ input.search-btn:focus {
   height: 0;
   border-left: 12px solid transparent;
   border-right: 12px solid transparent;
-  border-bottom: 12px solid #f2f2f2;
+  border-bottom: 12px solid #d1d1d1;
   position: absolute;
   top: 60px;
   right: 45px;
@@ -1705,6 +1762,38 @@ input.search-btn:focus {
   transition: all 0.25s;
 }
 
+.notif-dis .notify-ribbon {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #D1D1D1;
+  padding: 5px 10px;
+}
+
+.notify-ribbon .notify-ribbon-right{
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.notify-ribbon h4 {
+  font-size: 14px;
+  font-family: 'Raleway', sans-serif;
+  margin-left: 10px;
+}
+
+.notify-ribbon-right .notify-cate{
+  font-size: 12px;
+  font-family: 'Raleway', sans-serif;
+  margin-right: 15px;
+
+}
+
+.notify-seeall {
+  text-align: center;
+  padding: 10px 15px;
+  color: #272727;
+}
 .navbar .nav-icons .no-dis li:hover {
   /* display: block;
   background-color: #272727;

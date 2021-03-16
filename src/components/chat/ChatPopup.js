@@ -15,6 +15,8 @@ const ChatPopup = ({
 }) => {
   const dispatch = useDispatch();
   const [formValue, setFormValue] = useState('');
+  const [miniHead, setminiHead] = useState(true);
+  const [miniChat, setminiChat] = useState(true);
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -32,20 +34,44 @@ const ChatPopup = ({
 
   return (
     <>
-      <button
+      <div
         className='open-button open-button-1'
+        // onClick={() => {
+        //   setminiChat(true);
+        // }}
         onClick={() => {
           document.getElementById('myForm1').style.display = 'block';
         }}
       >
-        <span
-          style={{
-            background: `url(${chatUserImage}) no-repeat center center/cover`,
-          }}
-          className='dp-1'
-        ></span>{' '}
-        {chatProfile?.user?.fullName}
-      </button>
+        <button
+          // onClick={() => {
+          //   document.getElementById('myForm1').style.display = 'block';
+          // }}
+          className='individual-chat'
+        >
+          <span
+            style={{
+              background: `url(${chatUserImage}) no-repeat center center/cover`,
+            }}
+            className='dp-1'
+          ></span>{' '}
+          {chatProfile?.user?.fullName}
+        </button>
+        <a
+          href='#!'
+          type='button'
+          className='close-btn'
+          onClick={() =>
+            (document.getElementById('individual-chat').style.display = 'none')
+          }
+          // onClick={() => {
+          //   setminiHead(false);
+          // }}
+        >
+          <img src={Close} alt='' />
+        </a>
+      </div>
+
       <div className='chat-popup-1' id='myForm1'>
         <div className='chatbox-top'>
           <div className='chatboxtop-left'>
@@ -55,7 +81,7 @@ const ChatPopup = ({
               }}
               className='dp-1'
             ></span>
-            <div>
+            <div className='chat-top-name'>
               <h4>{chatProfile?.user?.fullName}</h4>
               <small>Active Now</small>
             </div>
@@ -67,10 +93,11 @@ const ChatPopup = ({
             <a
               href='#!'
               type='button'
-              className='btn cancel'
+              className='cancel'
               onClick={() =>
                 (document.getElementById('myForm1').style.display = 'none')
               }
+              // onClick={(() => setminiChat(false), setminiHead(false))}
             >
               <img src={Close} alt='' />
             </a>

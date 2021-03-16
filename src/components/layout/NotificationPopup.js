@@ -57,7 +57,7 @@ const NotificationPopup = ({
             badgeContent={
               notifications.filter((not) => not.read === false).length
             }
-            color='secondary'
+            // color='secondary'
           >
             <NotificationsIcon
               style={{
@@ -95,75 +95,107 @@ const NotificationPopup = ({
     notifications && notifications.length > 0 ? (
       notifications.map((not) => {
         return (
-          <li
-            className='notif-element'
-            style={{ listStyle: 'none' }}
-            key={not?.createdAt}
-          >
-            {not.type === 'like' && (
-              <>
-                <img
-                  height='10px'
-                  width='10px'
-                  src={not.avatar ? not.avatar : logo}
-                  alt=''
-                />
-                <p>{not.senderName} liked your post </p>
-              </>
-            )}
-            {not.type === 'comment' && (
-              <>
-                <img
-                  height='10px'
-                  width='10px'
-                  src={not.avatar ? not.avatar : logo}
-                  alt=''
-                />
-                <p>{not.senderName} commented on your post </p>
-              </>
-            )}
-            {not.type === 'request' && (
-              <>
-                <img
-                  height='10px'
-                  width='10px'
-                  src={not.avatar ? not.avatar : logo}
-                  alt=''
-                />
-                <p>{not.senderName} sent you request </p>
-                <button
-                  onClick={() => {
-                    accept(not.sender);
-                    add(not.sender);
-                  }}
-                >
-                  Accept
-                </button>
-              </>
-            )}
-            {not.type === 'accept' && (
-              <>
-                <img
-                  height='10px'
-                  width='10px'
-                  src={not.avatar ? not.avatar : logo}
-                  alt=''
-                />
-                <p>{not.senderName} accepted your request </p>
-              </>
-            )}
-            {not.type === 'invite' && (
-              <>
-                <img
-                  height='10px'
-                  width='10px'
-                  src={not.avatar ? not.avatar : logo}
-                  alt=''
-                />
-                <p>{not.senderName} sent you a invite </p>
-              </>
-            )}
-          </li>
+          <div>
+            <div
+              className='notif-element'
+              // style={{ listStyle: 'none' }}
+              key={not?.createdAt}
+            >
+              {not.type === 'like' && (
+                <>
+                  <img
+                    height='10px'
+                    width='10px'
+                    src={not.avatar ? not.avatar : logo}
+                    alt=''
+                  />
+                  <p>
+                    <span className='notif-bold'>{not.senderName}</span> liked
+                    your post{' '}
+                  </p>
+                </>
+              )}
+              {not.type === 'comment' && (
+                <>
+                  <img
+                    height='10px'
+                    width='10px'
+                    src={not.avatar ? not.avatar : logo}
+                    alt=''
+                  />
+                  <p>
+                    <span className='notif-bold'>{not.senderName}</span>{' '}
+                    commented on your post{' '}
+                  </p>
+                </>
+              )}
+              {not.type === 'request' && (
+                <>
+                  <img
+                    height='10px'
+                    width='10px'
+                    src={not.avatar ? not.avatar : logo}
+                    alt=''
+                  />
+                  <div className='notify-width'>
+                    <p>
+                      <span className='notif-bold'>{not.senderName}</span> sent
+                      you request{' '}
+                    </p>
+                    <div className='notify-button'>
+                      <button
+                        onClick={() => {
+                          accept(not.sender);
+                          add(not.sender);
+                        }}
+                        className='nb-blue'
+                      >
+                        Accept
+                      </button>
+                      <button
+                        onClick={() => {
+                          accept(not.sender);
+                          add(not.sender);
+                        }}
+                        className='nb-white'
+                      >
+                        Decline
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+              {not.type === 'accept' && (
+                <>
+                  <img
+                    height='10px'
+                    width='10px'
+                    src={not.avatar ? not.avatar : logo}
+                    alt=''
+                  />
+                  <p>
+                    <span className='notif-bold'>{not.senderName}</span>{' '}
+                    accepted your request{' '}
+                  </p>
+                </>
+              )}
+              {not.type === 'invite' && (
+                <>
+                  <img
+                    height='10px'
+                    width='10px'
+                    src={not.avatar ? not.avatar : logo}
+                    alt=''
+                  />
+                  <p>
+                    <span className='notif-bold'>{not.senderName}</span> sent
+                    you a invite{' '}
+                  </p>
+                </>
+              )}
+            </div>
+            <hr className='Hori' />
+          </div>
         );
       })
     ) : (
@@ -188,7 +220,18 @@ const NotificationPopup = ({
         <div>
           <div className='arrow-up notif'></div>
           <div onClick={onMenuOpened} className='notif-dis'>
+            <div className='notify-ribbon'>
+              <h4>Notifications</h4>
+              <div className='notify-ribbon-right'>
+                <p className='notify-cate'>All</p>
+                <p className='notify-cate'>NoticeBoard</p>
+                <p className='notify-cate'>Project</p>
+              </div>
+            </div>
             {notificationsMarkup}
+            <div className='notify-seeall'>
+              <h4>See all</h4>
+            </div>
           </div>
         </div>
       )}
