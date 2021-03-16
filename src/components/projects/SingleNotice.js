@@ -106,7 +106,7 @@ const SingleNotice = ({ auth, getNotice, notice: { notice }, match }) => {
       </div>
       <div className='float-container' style={{ marginTop: '100px' }}>
         <div style={{ padding: '100px', width: '50%', float: 'left' }}>
-          <h3>List of applied Members (104)</h3>
+          <h3>List of applied Members ({notice?.applied.length})</h3>
         </div>
         <div style={{ padding: '100px', width: '50%', float: 'left' }}>
           <h3>List of shortlisted members (24)</h3>
