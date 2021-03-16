@@ -13,6 +13,7 @@ import com from '../../images/noun_comment_767203 copy.svg';
 import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
 import logo from '../../images/dummyimage.jpg';
+import note from '../../images/icons/summarize-24px.svg';
 import poster from '../../images/play.jpg';
 import PostType from './PostType';
 import { projectFirestore } from '../../firebase/config';
@@ -198,6 +199,10 @@ const PostItem = ({
           <div onClick={() => toogleAddCmt(!displayAddCmt)}>
             <img className='r-1' src={com} alt='' />
             <span className='d-1'>Comment</span>
+          </div>
+          <div onClick={() => toogleAddCmt(!displayAddCmt)}>
+            <img className='r-1' src={note} alt='' />
+            <span className='d-1'>Note Post</span>
           </div>
         </div>
         <div className='des-right'>
