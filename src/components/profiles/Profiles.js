@@ -7,13 +7,16 @@ import ProfileItem from './ProfileItem';
 import { SearchContext } from '../../context/search.context';
 import UseFirestore from '../addportfolio/UseFireStore';
 
-const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
+const Profiles = ({ getProfiles, profile: { profile, profiles, loading } }) => {
   useEffect(() => {
     getProfiles();
   }, [getProfiles]);
 
   const { search } = useContext(SearchContext);
   const { docs } = UseFirestore('images');
+  const newprofiles = profiles.filter(
+    (x) => x?.user?._id !== profile?.user?._id
+  );
 
   return (
     <Fragment>
@@ -45,8 +48,8 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
                       docs={docs}
                     />
                   ))
-                : profiles.length > 0 &&
-                  profiles.map((item) => (
+                : newprofiles.length > 0 &&
+                  newprofiles.map((item) => (
                     <ProfileItem
                       key={item._id}
                       item={item}

@@ -139,6 +139,13 @@ const NotificationPopup = ({
                 >
                   Accept
                 </button>
+                <button
+                  onClick={() => {
+                    console.log('clicked');
+                  }}
+                >
+                  Decline
+                </button>
               </>
             )}
             {not.type === 'accept' && (

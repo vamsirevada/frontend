@@ -51,7 +51,7 @@ const ChatSideBar = ({
             buddies.map((buddy, index) => (
               <div
                 onClick={() => {
-                  setChatProfile(buddy);
+                  setChatProfile(buddy?.user?.fullName);
                   setChatUserImage(buddy?.avatar);
                   setUserUid(buddy?.user?._id);
                   setChatStarted(true);
