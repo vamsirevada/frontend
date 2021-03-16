@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addLike, removeLike, deletePost } from '../../actions/post';
+import { notePost, unnotePost } from '../../actions/profile';
 import Moment from 'react-moment';
 import path from '../../images/path.svg';
 import heart from '../../images/heart.svg';
@@ -13,7 +14,7 @@ import com from '../../images/noun_comment_767203 copy.svg';
 import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
 import logo from '../../images/dummyimage.jpg';
-import note from '../../images/icons/summarize-24px.svg';
+import noteimg from '../../images/icons/summarize-24px.svg';
 import poster from '../../images/play.jpg';
 import PostType from './PostType';
 import { projectFirestore } from '../../firebase/config';
@@ -21,6 +22,7 @@ import Spinner from '../layout/Spinner';
 
 const PostItem = ({
   auth,
+  profile: { profile },
   post: {
     _id,
     text,
@@ -37,13 +39,17 @@ const PostItem = ({
   addLike,
   removeLike,
   deletePost,
+  notePost,
+  unnotePost,
 }) => {
   const abc = likes.map((like) => like.user === auth?.user?._id);
-
   const xyz = abc.find((num) => num === true);
+  const postnoted = profile?.postnote.map((e) => e.post === _id);
+  const rei = postnoted.find((num) => num === true);
 
   const [displayDot, toogleDot] = useState(false);
   const [displayLbtn, toogleLbtn] = useState(xyz);
+  const [displayNbtn, toogleNbtn] = useState(rei);
   const [displayAddCmt, toogleAddCmt] = useState(false);
   const [displayComment, toogleComment] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -51,6 +57,18 @@ const PostItem = ({
   const onLike = (e) => {
     e.preventDefault();
     toogleLbtn(!displayLbtn);
+  };
+
+  const onNote = (e) => {
+    e.preventDefault();
+    toogleNbtn(!displayNbtn);
+  };
+
+  const note = () => {
+    notePost(_id);
+  };
+  const unnote = () => {
+    unnotePost(_id);
   };
 
   const like = () => {
@@ -200,9 +218,22 @@ const PostItem = ({
             <img className='r-1' src={com} alt='' />
             <span className='d-1'>Comment</span>
           </div>
-          <div onClick={() => toogleAddCmt(!displayAddCmt)}>
-            <img className='r-1' src={note} alt='' />
-            <span className='d-1'>Note Post</span>
+          <div onClick={(e) => onNote(e)}>
+            {displayNbtn ? (
+              <Fragment>
+                <div onClick={unnote}>
+                  <img className='r-1' src={noteimg} alt='' />
+                  <span className='d-1'>Unnote Post</span>
+                </div>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <div onClick={note}>
+                  <img className='r-1' src={noteimg} alt='' />
+                  <span className='d-1'>Note Post</span>
+                </div>
+              </Fragment>
+            )}
           </div>
         </div>
         <div className='des-right'>
@@ -276,10 +307,13 @@ PostItem.propTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  profile: state.profile,
 });
 
 export default connect(mapStateToProps, {
   addLike,
   removeLike,
+  notePost,
+  unnotePost,
   deletePost,
 })(PostItem);

@@ -15,6 +15,9 @@ import {
   GET_BUDDIES,
   GET_BUDDIES_ERROR,
   BUDDY_REQUEST_DECLINE,
+  UPDATE_NOTED_POST,
+  GET_NOTED_POST,
+  GET_NOTED_POST_ERROR,
 } from './types';
 
 // Get current users profile
@@ -36,6 +39,7 @@ export const getCurrentProfile = () => async (dispatch) => {
 export const getCurrentProfilePic = () => async (dispatch) => {
   try {
     const res = await api.get('/profile/me');
+
     dispatch({
       type: GET_PROFILE_PIC,
       payload: res.data.avatar,
@@ -103,6 +107,52 @@ export const getBuddyRequests = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+  }
+};
+
+//Note Post
+export const notePost = (id) => async (dispatch) => {
+  try {
+    const res = await api.put(`/profile/note/post/${id}`);
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_NOTED_POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+//unnote Post
+export const unnotePost = (id) => async (dispatch) => {
+  try {
+    const res = await api.delete(`/profile/unnote/post/${id}`);
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_NOTED_POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+//noted posts
+export const getNotedPost = () => async (dispatch) => {
+  try {
+    const res = await api.get('api/profile/notedpost');
+    dispatch({
+      type: GET_NOTED_POST,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_NOTED_POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
   }
 };
 
