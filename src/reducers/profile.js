@@ -10,6 +10,8 @@ import {
   GET_BUDDIES,
   GET_BUDDIES_ERROR,
   GET_BUDDY_REQUESTS,
+  GET_NOTED_POST,
+  GET_NOTED_POST_ERROR,
   GET_PROFILE_PIC,
 } from '../actions/types';
 
@@ -19,6 +21,7 @@ const initialState = {
   profiles: [],
   buddies: [],
   requests: [],
+  postnote: [],
   groupprofiles: [],
   loading: true,
   error: {},
@@ -82,11 +85,24 @@ export default function (state = initialState, action) {
         buddies: payload,
         loading: false,
       };
+    case GET_NOTED_POST:
+      return {
+        ...state,
+        postnote: payload,
+        loading: false,
+      };
     case GET_BUDDIES_ERROR:
       return {
         ...state,
         error: payload,
         profile: null,
+        loading: false,
+      };
+    case GET_NOTED_POST_ERROR:
+      return {
+        ...state,
+        error: payload,
+        // profile: null,
         loading: false,
       };
     default:
