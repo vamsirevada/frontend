@@ -1,124 +1,198 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { getNotice } from '../../actions/notice';
+import {
+  getNotice,
+  shortlistNotice,
+  getAppliedMembers,
+  getShortlistedMembers,
+} from '../../actions/notice';
 import Moment from 'react-moment';
 import cover from '../../images/Article-1b.png';
 import back from '../../images/icons/back.svg';
-import logo from '../../images/dummyimage.jpg';
+import noticelogo from '../../images/noticelogo.png';
+import bin from '../../images/noun_bin_2832480.svg';
+import './NoticeBoard.css';
+import ProfileItem from '../profiles/ProfileItem';
+import UseFirestore from '../addportfolio/UseFireStore';
 
-const SingleNotice = ({ auth, getNotice, notice: { notice }, match }) => {
+const SingleNotice = ({
+  getNotice,
+  shortlistNotice,
+  getAppliedMembers,
+  getShortlistedMembers,
+  notice: { notice, applied, shortlisted },
+  match,
+}) => {
   const history = useHistory();
+  const [apply, setApply] = useState(true);
+  const [shortlist, setShortlist] = useState(false);
+  const { docs } = UseFirestore('images');
+
+  const onClick1 = () => {
+    setShortlist(true);
+    setApply(false);
+  };
+
+  const onClick2 = () => {
+    setApply(true);
+    setShortlist(false);
+  };
+
   useEffect(() => {
     getNotice(match.params.id);
-  }, [getNotice, match.params.id]);
+    getAppliedMembers(match.params.id);
+    getShortlistedMembers(match.params.id);
+  }, [getNotice, getAppliedMembers, getShortlistedMembers, match.params.id]);
 
   return (
     <>
-      <div id='feed'>
-        <div className='left'>
-          <div className='left-sidebar'>
-            <img
-              onClick={() => history.goBack()}
-              style={{ float: 'left' }}
-              src={back}
-              alt=''
-            />
-            <span>
-              <img
-                height='340px'
-                width='340px'
-                src={notice?.noticeImg ? notice?.noticeImg : cover}
-                alt=''
-              />
-            </span>
+      <div className='singlenotice'>
+        <div>
+          <div>
+            <img onClick={() => history.goBack()} src={back} alt='' />
           </div>
         </div>
-        <div className='right'>
-          <img
-            className='display-pic'
-            src={notice?.project?.avatar ? notice?.project?.avatar : logo}
-            alt=''
-          />
-          <h1
-            style={{
-              float: 'right',
-              alignSelf: 'center',
-              fontWeight: 'lighter',
-            }}
-          >
-            Sci-fi movie - Trail of blood (2021)
-          </h1>
-          <div>
-            <button type='button' className='btn-yellow'>
-              Edit Notice
-            </button>
+        <div className='singlenotice-left'>
+          <span>
+            <img src={notice?.noticeImg ? notice?.noticeImg : cover} alt='' />
+          </span>
+        </div>
+
+        <div>
+          <div className='singlenotice-project-heading'>
+            <img
+              src={
+                notice?.project?.avatar ? notice?.project?.avatar : noticelogo
+              }
+              alt=''
+            />
+            <h1>Sci-fi movie - Trail of blood (2021)</h1>
+          </div>
+          <div className='singlenotice-title'>
             <h1>{notice?.title}</h1>
+            <div className='singlenotice-buttons'>
+              <button type='button' className='btn-blue1'>
+                <img src={bin} alt='' />
+              </button>
+              <button type='button' className='btn-yellow'>
+                Edit Notice
+              </button>
+            </div>
           </div>
 
-          <div>
-            <div>
-              <h3>Posted by: </h3>{' '}
+          <div className='noticeboardpopup-main'>
+            <div className='noticeboardpopup-content'>
+              <h5>Posted by : </h5>{' '}
               <span>
-                <p style={{ float: 'right' }}>{notice?.project?.projectname}</p>
+                <p>{notice?.project?.projectname}</p>
               </span>
             </div>
-            <div>
-              <h3>Posted on : </h3>{' '}
+            <div className='noticeboardpopup-content'>
+              <h5>Posted on : </h5>{' '}
               <span>
-                <p style={{ float: 'right' }}>
+                <p>
                   <Moment format='Do MMMM'>{notice?.date}</Moment>
                 </p>
               </span>
             </div>
-            <div>
-              <h3>Deadline : </h3>{' '}
+            <div className='noticeboardpopup-content'>
+              <h5>Deadline : </h5>{' '}
               <span>
-                <p style={{ float: 'right' }}>
+                <p>
                   <Moment format='Do MMMM'>{notice?.deadline}</Moment>
                 </p>
               </span>
             </div>
-            <div>
-              <h3>Eligibility : </h3>{' '}
+            <div className='noticeboardpopup-content'>
+              <h5>Eligibility : </h5>{' '}
               <span>
-                <p style={{ float: 'right' }}>{notice?.eligibility}</p>
+                <p>{notice?.eligibility}</p>
               </span>
             </div>
-            <div>
-              <h3>Venue : </h3>{' '}
+            <div className='noticeboardpopup-content'>
+              <h5>Venue : </h5>{' '}
               <span>
-                <p style={{ float: 'right' }}>{notice?.venue}</p>
+                <p>{notice?.venue}</p>
               </span>
             </div>
-            <div>
-              <h3>Role : </h3>{' '}
+            <div className='noticeboardpopup-content'>
+              <h5>Role : </h5>{' '}
               <span>
-                <p style={{ float: 'right' }}>{notice?.role}</p>
+                <p>{notice?.role}</p>
               </span>
             </div>
-            <div>
-              <h3>Description :</h3>
+            <div className='noticeboardpopup-content'>
+              <h5>Description :</h5>
               <p>{notice?.description}</p>
             </div>
           </div>
         </div>
       </div>
-      <div className='float-container' style={{ marginTop: '100px' }}>
-        <div style={{ padding: '100px', width: '50%', float: 'left' }}>
-          <h3>List of applied Members ({notice?.applied.length})</h3>
+      <div className='noticemembers-sorting'>
+        <div className='noticemembers-sort'>
+          <button
+            onClick={onClick2}
+            className={
+              apply
+                ? 'right left-top left-right-bottom'
+                : 'left left-top left-right-bottom'
+            }
+          >
+            List of applied Members ({notice?.applied.length})
+          </button>
+          <button
+            onClick={onClick1}
+            className={
+              shortlist
+                ? 'right right-top right-left-bottom'
+                : 'left right-top right-left-bottom'
+            }
+          >
+            List of shortlisted members ({notice?.shortlisted.length})
+          </button>
         </div>
-        <div style={{ padding: '100px', width: '50%', float: 'left' }}>
-          <h3>List of shortlisted members (24)</h3>
-        </div>
+      </div>
+      <div className='singlenotice-noticemembers'>
+        <>
+          {shortlist ? (
+            <>
+              {shortlisted.length > 0 &&
+                shortlisted.map((item) => (
+                  <ProfileItem
+                    key={item._id}
+                    item={item}
+                    docs={docs}
+                    displayAdd={true}
+                  />
+                ))}
+            </>
+          ) : (
+            <>
+              {applied.length > 0 &&
+                applied.map((item) => (
+                  <ProfileItem
+                    key={item._id}
+                    item={item}
+                    docs={docs}
+                    displayAdd={true}
+                  />
+                ))}
+            </>
+          )}
+        </>
       </div>
     </>
   );
 };
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
   notice: state.notice,
 });
 
-export default connect(mapStateToProps, { getNotice })(SingleNotice);
+export default connect(mapStateToProps, {
+  getNotice,
+  shortlistNotice,
+  getAppliedMembers,
+  getShortlistedMembers,
+})(SingleNotice);

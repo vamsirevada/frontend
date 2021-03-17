@@ -2,13 +2,18 @@ import {
   GET_NOTICES,
   GET_NOTICE,
   CREATE_NOTICE,
+  UPDATE_NOTICE,
   DELETE_NOTICE,
   NOTICE_ERROR,
+  GET_APPLIED_MEMBERS,
+  GET_SHORTLISTED_MEMBERS,
 } from '../actions/types';
 
 const initialState = {
   notices: [],
   notice: null,
+  applied: [],
+  shortlisted: [],
   error: {},
   loading: true,
 };
@@ -35,6 +40,25 @@ export default function (state = initialState, action) {
         ...state,
         notices: [payload, ...state.notices],
       };
+    case UPDATE_NOTICE:
+      return {
+        ...state,
+        notice: payload,
+        loading: false,
+      };
+    case GET_APPLIED_MEMBERS:
+      return {
+        ...state,
+        applied: payload,
+        loading: false,
+      };
+    case GET_SHORTLISTED_MEMBERS:
+      return {
+        ...state,
+        shortlisted: payload,
+        loading: false,
+      };
+
     case DELETE_NOTICE:
       return {
         ...state,

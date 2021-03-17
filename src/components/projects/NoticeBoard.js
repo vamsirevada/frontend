@@ -1,22 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { getNoticesByUser } from '../../actions/notice';
+import { getNoticesByUser, getNotice, applyNotice } from '../../actions/notice';
 import './NoticeBoard.css';
 import noticecover from '../../images/volodymy2.png';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
 import nounPlus from '../../images/icons/noun_Plus_2310779.svg';
 
-const NoticeBoard = ({ getNoticesByUser, notice: { notices } }) => {
+const NoticeBoard = ({
+  getNoticesByUser,
+  getNotice,
+  applyNotice,
+  notice: { notice, notices },
+}) => {
   const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    getNoticesByUser();
+  }, [getNoticesByUser]);
 
   const close = () => {
     setShow(false);
   };
 
-  useEffect(() => {
-    getNoticesByUser();
-  }, [getNoticesByUser]);
+  const handleClick = (not) => {
+    setShow(true);
+    getNotice(not?._id);
+  };
+
+  const apply = () => {
+    applyNotice(notice?._id);
+    setShow(false);
+  };
 
   return (
     <div className='noticeboard-container'>
@@ -25,25 +40,25 @@ const NoticeBoard = ({ getNoticesByUser, notice: { notices } }) => {
       </div>
       <div className='noticeboard-main'>
         <div className='noticeboard-main-container'>
-          {notices.map((notice) => (
+          {notices.map((not) => (
             <div
-              onClick={() => setShow(true)}
+              onClick={() => handleClick(not)}
               className='noticeboard-content'
-              key={notice?._id}
+              key={not?._id}
             >
               <img
                 className='noticeboard-cover'
-                src={notice?.noticeImg ? notice?.noticeImg : noticecover}
+                src={not?.noticeImg ? not?.noticeImg : noticecover}
                 alt=''
               />
               <div className='noticeboard-bottom'>
-                <h5>{notice?.title}</h5>
+                <h5>{not?.title}</h5>
                 <div className='noticeboard-bottom-dates'>
                   <div className='noticeboard-bottom-child1'>
                     <p>
                       Posted :{' '}
                       <span>
-                        <Moment format='DD MMMM YYYY'>{notice?.date}</Moment>
+                        <Moment format='DD MMMM YYYY'>{not?.date}</Moment>
                       </span>
                     </p>
                   </div>
@@ -51,22 +66,20 @@ const NoticeBoard = ({ getNoticesByUser, notice: { notices } }) => {
                     <p>
                       Deadline :{' '}
                       <span>
-                        <Moment format='DD MMMM YYYY'>
-                          {notice?.deadline}
-                        </Moment>
+                        <Moment format='DD MMMM YYYY'>{not?.deadline}</Moment>
                       </span>
                     </p>
                   </div>
                   <p>
                     Posted by :{' '}
-                    <Link to={`project/${notice?.project?._id}`}>
+                    <Link to={`project/${not?.project?._id}`}>
                       <span
                         style={{
                           color: '#7480fc',
                           textDecoration: 'underline',
                         }}
                       >
-                        {notice?.project?.projectname}
+                        {not?.project?.projectname}
                       </span>
                     </Link>
                   </p>
@@ -93,7 +106,7 @@ const NoticeBoard = ({ getNoticesByUser, notice: { notices } }) => {
                           marginTop: '8px',
                         }}
                       >
-                        02 members Shortlisted
+                        {not?.shortlisted.length} members Shortlisted
                       </p>
                     </div>
                     <div className='noticeboard-bottom-child2'>
@@ -124,7 +137,7 @@ const NoticeBoard = ({ getNoticesByUser, notice: { notices } }) => {
                           marginTop: '8px',
                         }}
                       >
-                        40 members applied
+                        {not?.applied.length} members applied
                       </p>
                     </div>
                   </div>
@@ -138,10 +151,61 @@ const NoticeBoard = ({ getNoticesByUser, notice: { notices } }) => {
         <div className='noticeboardpopupscreen'>
           <div className='noticeboardpopup'>
             <div className='noticeboardpopup-heading'>
-              <h3>Title</h3>
+              <h3>{notice?.title}</h3>
               <a className='noticeboardpopup-cross' onClick={close}>
                 <img src={nounPlus} alt='' />
               </a>
+            </div>
+            <div className='noticeboardpopup-main'>
+              <div className='noticeboardpopup-content'>
+                <h5>Posted by :</h5>
+                <span>
+                  <p>{notice?.project?.projectname}</p>
+                </span>
+              </div>
+              <div className='noticeboardpopup-content'>
+                <h5>Posted on : </h5>{' '}
+                <span>
+                  <p>
+                    <Moment format='Do MMMM'>{notice?.date}</Moment>
+                  </p>
+                </span>
+              </div>
+              <div className='noticeboardpopup-content'>
+                <h5>Deadline : </h5>{' '}
+                <span>
+                  <p>
+                    <Moment format='Do MMMM'>{notice?.deadline}</Moment>
+                  </p>
+                </span>
+              </div>
+              <div className='noticeboardpopup-content'>
+                <h5>Eligibility : </h5>{' '}
+                <span>
+                  <p>{notice?.eligibility}</p>
+                </span>
+              </div>
+              <div className='noticeboardpopup-content'>
+                <h5>Venue : </h5>{' '}
+                <span>
+                  <p>{notice?.venue}</p>
+                </span>
+              </div>
+              <div className='noticeboardpopup-content'>
+                <h5>Role : </h5>{' '}
+                <span>
+                  <p>{notice?.role}</p>
+                </span>
+              </div>
+              <div className='noticeboardpopup-content'>
+                <h5>Description :</h5>
+                <p>{notice?.description}</p>
+              </div>
+            </div>
+            <div>
+              <button onClick={apply} className='btn-blue'>
+                Apply
+              </button>
             </div>
           </div>
         </div>
@@ -154,4 +218,8 @@ const mapStateToProps = (state) => ({
   notice: state.notice,
 });
 
-export default connect(mapStateToProps, { getNoticesByUser })(NoticeBoard);
+export default connect(mapStateToProps, {
+  getNoticesByUser,
+  getNotice,
+  applyNotice,
+})(NoticeBoard);

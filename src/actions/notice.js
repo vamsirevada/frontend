@@ -6,6 +6,9 @@ import {
   CREATE_NOTICE,
   NOTICE_ERROR,
   DELETE_NOTICE,
+  UPDATE_NOTICE,
+  GET_APPLIED_MEMBERS,
+  GET_SHORTLISTED_MEMBERS,
 } from './types';
 
 // Get all notices of user using user id
@@ -73,6 +76,75 @@ export const createNotice = ({ id, formData }) => async (dispatch) => {
       payload: res.data,
     });
     dispatch(setAlert('Notice Created', 'success'));
+  } catch (err) {
+    dispatch({
+      type: NOTICE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Apply to Notice using Notice Id
+export const applyNotice = (id) => async (dispatch) => {
+  try {
+    const res = await api.put(`/notice/apply/${id}`);
+
+    dispatch({
+      type: UPDATE_NOTICE,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: NOTICE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Shortlist to Notice using Notice Id
+export const shortlistNotice = (id, profileId) => async (dispatch) => {
+  try {
+    const res = await api.put(`/notice/shortlist/${id}/${profileId}`);
+
+    dispatch({
+      type: UPDATE_NOTICE,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: NOTICE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Get applied member Profiles using Notice Id
+export const getAppliedMembers = (id) => async (dispatch) => {
+  try {
+    const res = await api.get(`/notice/applied/${id}`);
+
+    dispatch({
+      type: GET_APPLIED_MEMBERS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: NOTICE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Get shortlisted member Profiles using Notice Id
+
+export const getShortlistedMembers = (id) => async (dispatch) => {
+  try {
+    const res = await api.get(`/notice/shortlisted/${id}`);
+
+    dispatch({
+      type: GET_SHORTLISTED_MEMBERS,
+      payload: res.data,
+    });
   } catch (err) {
     dispatch({
       type: NOTICE_ERROR,
