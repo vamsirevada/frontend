@@ -78,7 +78,7 @@ const Notices = ({ id, createNotice, getNotices, notice: { notices } }) => {
       {notices &&
         notices.slice(0, viewall ? notices.length : 3).map((notice, index) => (
           <div style={{ height: '330px', width: '336px' }} key={index}>
-            <Link to={`notice/${notice?._id}`}>
+            <Link to={`/notice/${notice?._id}`}>
               <img
                 height='132px'
                 width='336px'

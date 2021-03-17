@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { getBuddiesById } from '../../actions/profile';
 import { getRealtimeConversations } from '../../actions/chat';
@@ -15,7 +15,7 @@ const ChatSideBar = ({
   chat: { conversations },
 }) => {
   const dispatch = useDispatch();
-  const [chatProfile, setChatProfile] = useState('');
+  const [chatProfileUserName, setChatProfileUserName] = useState('');
   const [chatStarted, setChatStarted] = useState(false);
   const [chatUserImage, setChatUserImage] = useState(logo);
   const [userUid, setUserUid] = useState(null);
@@ -23,6 +23,17 @@ const ChatSideBar = ({
   useEffect(() => {
     getBuddiesById(user?._id);
   }, [getBuddiesById, user?._id]);
+
+  const handleClick = (buddy) => {
+    setChatProfileUserName(buddy?.user?.fullName);
+    setChatUserImage(buddy?.avatar);
+    setUserUid(buddy?.user?._id);
+    setChatStarted(!chatStarted);
+  };
+
+  const handleClick1 = (e) => {
+    console.log(e);
+  };
 
   return (
     <>
@@ -51,17 +62,16 @@ const ChatSideBar = ({
           {buddies &&
             buddies.map((buddy, index) => (
               <div
-                onClick={() => {
-                  setChatProfile(buddy?.user?.fullName);
-                  setChatUserImage(buddy?.avatar);
-                  setUserUid(buddy?.user?._id);
-                  setChatStarted(true);
+                id={index}
+                onClick={(e) => {
+                  handleClick(buddy);
                   dispatch(
                     getRealtimeConversations({
                       uid_1: user?._id,
                       uid_2: buddy?.user?._id,
                     })
                   );
+                  handleClick1(e);
                 }}
                 key={index}
                 className='flex'
@@ -89,11 +99,13 @@ const ChatSideBar = ({
           </div>
         </form>
       </div>
+
       {chatStarted ? (
         <ChatPopup
+          chatStarted={chatStarted}
           userUid={userUid}
           chatUserImage={chatUserImage}
-          chatProfile={chatProfile}
+          chatUserName={chatProfileUserName}
           conversations={conversations}
         />
       ) : null}

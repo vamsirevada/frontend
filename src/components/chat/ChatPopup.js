@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, Fragment } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import Path from '../../images/path 2.svg';
@@ -8,15 +9,19 @@ import { updateMessage } from '../../actions/chat';
 
 const ChatPopup = ({
   auth: { user },
-  chatProfile,
+  chatUserName,
   userUid,
   chatUserImage,
   conversations,
+  chatStarted,
 }) => {
   const dispatch = useDispatch();
   const [formValue, setFormValue] = useState('');
+<<<<<<< HEAD
   // const [miniHead, setminiHead] = useState(true);
   // const [miniChat, setminiChat] = useState(true);
+=======
+>>>>>>> da5a7f92097efb3a08b636ef421c931bab0152ec
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -33,40 +38,30 @@ const ChatPopup = ({
   };
 
   return (
-    <>
+    <div id='main-open-chatpopup'>
       <div
         className='open-button open-button-1'
-        // onClick={() => {
-        //   setminiChat(true);
-        // }}
         onClick={() => {
           document.getElementById('myForm1').style.display = 'block';
         }}
       >
-        <button
-          // onClick={() => {
-          //   document.getElementById('myForm1').style.display = 'block';
-          // }}
-          className='individual-chat'
-        >
+        <button id='individual-chat'>
           <span
             style={{
               background: `url(${chatUserImage}) no-repeat center center/cover`,
             }}
             className='dp-1'
           ></span>{' '}
-          {chatProfile?.user?.fullName}
+          {chatUserName}
         </button>
         <a
-          href='#!'
+          style={{ cursor: 'pointer' }}
           type='button'
           className='close-btn'
-          onClick={() =>
-            (document.getElementById('individual-chat').style.display = 'none')
-          }
-          // onClick={() => {
-          //   setminiHead(false);
-          // }}
+          onClick={() => {
+            document.getElementById('main-open-chatpopup').style.display =
+              'none';
+          }}
         >
           <img src={Close} alt='' />
         </a>
@@ -82,22 +77,20 @@ const ChatPopup = ({
               className='dp-1'
             ></span>
             <div className='chat-top-name'>
-              <h4>{chatProfile?.user?.fullName}</h4>
+              <h4>{chatUserName}</h4>
               <small>Active Now</small>
             </div>
           </div>
           <div className='chatboxtop-right'>
-            <a href='#!' type='button' className='resize'>
+            <a type='button' className='resize'>
               <img src={Path} alt='' />
             </a>
             <a
-              href='#!'
               type='button'
               className='cancel'
               onClick={() =>
                 (document.getElementById('myForm1').style.display = 'none')
               }
-              // onClick={(() => setminiChat(false), setminiHead(false))}
             >
               <img src={Close} alt='' />
             </a>
@@ -159,21 +152,20 @@ const ChatPopup = ({
               />
             </div>
             <div className='form-flex-right'>
-              <a href='#!' type='submit'>
+              <a type='submit'>
                 <img src={sendbutton} onClick={sendMessage} alt='' />
               </a>
             </div>
           </div>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
-  // chat: state.chat,
 });
 
 export default connect(mapStateToProps)(ChatPopup);

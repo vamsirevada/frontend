@@ -30,9 +30,9 @@ a {
   background-color: #7480ff;
   margin-left: 10px;
   vertical-align: middle;
-  z-index:1000
+  z-index: 1000;
 }
-.close-btn img{
+.close-btn img {
   display: inline-block;
   width: 8%;
 }
@@ -47,7 +47,6 @@ a {
   width: 280px;
   max-height: 700px;
   overflow-y: auto;
- 
 }
 
 /* Add styles to the form container */
@@ -140,12 +139,11 @@ a {
   border: 0.5px solid #e5e5e5;
   background: #fff;
   border-radius: 15px;
-
 }
 
 .chat-container .chat-search input {
-  padding: 0.5rem 1rem ;
-  margin: 0.5rem 1rem;  
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 1rem;
   font-family: 'Raleway', sans-serif;
   font-size: 14px;
   color: #5d5d5d;
@@ -199,7 +197,7 @@ a {
   padding: 1rem 1rem 0.5rem 1rem;
 }
 
-.open-button.open-button-1 .individual-chat{
+.open-button.open-button-1 #individual-chat {
   background-color: #7480fc;
   color: #fff;
   font-family: 'Raleway', sans-serif;
