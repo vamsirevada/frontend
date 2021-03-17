@@ -5,9 +5,14 @@ import './NoticeBoard.css';
 import noticecover from '../../images/volodymy2.png';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
+import nounPlus from '../../images/icons/noun_Plus_2310779.svg';
 
 const NoticeBoard = ({ getNoticesByUser, notice: { notices } }) => {
   const [show, setShow] = useState(false);
+
+  const close = () => {
+    setShow(false);
+  };
 
   useEffect(() => {
     getNoticesByUser();
@@ -129,6 +134,18 @@ const NoticeBoard = ({ getNoticesByUser, notice: { notices } }) => {
           ))}
         </div>
       </div>
+      {show && (
+        <div className='noticeboardpopupscreen'>
+          <div className='noticeboardpopup'>
+            <div className='noticeboardpopup-heading'>
+              <h3>Title</h3>
+              <a className='noticeboardpopup-cross' onClick={close}>
+                <img src={nounPlus} alt='' />
+              </a>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

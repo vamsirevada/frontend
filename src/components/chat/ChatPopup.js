@@ -13,7 +13,7 @@ const ChatPopup = ({
   userUid,
   chatUserImage,
   conversations,
-  chatStarted,
+  chatClose,
 }) => {
   const dispatch = useDispatch();
   const [formValue, setFormValue] = useState('');
@@ -56,6 +56,7 @@ const ChatPopup = ({
           onClick={() => {
             document.getElementById('main-open-chatpopup').style.display =
               'none';
+            chatClose();
           }}
         >
           <img src={Close} alt='' />

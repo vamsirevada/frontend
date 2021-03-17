@@ -88,3 +88,25 @@
   overflow: hidden;
   white-space: nowrap;
 }
+
+.noticeboardpopupscreen::after {
+  content: '';
+  z-index: 100000000000000;
+}
+
+.noticeboardpopupscreen {
+  position: absolute;
+  top: 72px;
+  left: 0;
+  height: 60%;
+  width: 40%;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  z-index: 100;
+  border-radius: 10px;
+}
+
+.noticeboardpopupscreen .noticeboardpopup {
+  z-index: 101;
+}

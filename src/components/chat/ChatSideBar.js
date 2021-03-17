@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
 import { getBuddiesById } from '../../actions/profile';
 import { getRealtimeConversations } from '../../actions/chat';
@@ -28,11 +28,11 @@ const ChatSideBar = ({
     setChatProfileUserName(buddy?.user?.fullName);
     setChatUserImage(buddy?.avatar);
     setUserUid(buddy?.user?._id);
-    setChatStarted(!chatStarted);
+    setChatStarted(true);
   };
 
-  const handleClick1 = (e) => {
-    console.log(e);
+  const chatClose = () => {
+    setChatStarted(false);
   };
 
   return (
@@ -71,7 +71,6 @@ const ChatSideBar = ({
                       uid_2: buddy?.user?._id,
                     })
                   );
-                  handleClick1(e);
                 }}
                 key={index}
                 className='flex'
@@ -99,16 +98,15 @@ const ChatSideBar = ({
           </div>
         </form>
       </div>
-
-      {chatStarted ? (
+      {chatStarted && (
         <ChatPopup
-          chatStarted={chatStarted}
+          chatClose={chatClose}
           userUid={userUid}
           chatUserImage={chatUserImage}
           chatUserName={chatProfileUserName}
           conversations={conversations}
         />
-      ) : null}
+      )}
     </>
   );
 };
