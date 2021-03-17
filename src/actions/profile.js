@@ -15,7 +15,6 @@ import {
   GET_BUDDIES,
   GET_BUDDIES_ERROR,
   BUDDY_REQUEST_DECLINE,
-  UPDATE_NOTED_POST,
   GET_NOTED_POST,
   GET_NOTED_POST_ERROR,
 } from './types';
@@ -111,9 +110,14 @@ export const getBuddyRequests = () => async (dispatch) => {
 };
 
 //Note Post
-export const notePost = (id) => async (dispatch) => {
+export const notePost = (id, formData) => async (dispatch) => {
   try {
-    const res = await api.put(`/profile/note/post/${id}`);
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const res = await api.put(`/profile/note/post/${id}`, formData, config);
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
@@ -143,7 +147,8 @@ export const unnotePost = (id) => async (dispatch) => {
 //noted posts
 export const getNotedPost = () => async (dispatch) => {
   try {
-    const res = await api.get('api/profile/notedpost');
+    const res = await api.get('/profile/notedpost');
+    console.log(res.data);
     dispatch({
       type: GET_NOTED_POST,
       payload: res.data,

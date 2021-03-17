@@ -5,19 +5,26 @@ import add from '../../images/noun_Add Friend_2987727 (2) 2.svg';
 import api from '../../utils/api';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
+import { unnotePost } from '../../actions/profile';
 import nounPlus from '../../images/noun_Plus_2310779.svg';
 import logo from '../../images/dummyimage.jpg';
 
-const NotePeople = ({ setAlert, notepeople }) => {
-  const { user, fullName, groupName, status, avatar, remark } = notepeople;
+const NotePost = ({ setAlert, unnotePost, notepost }) => {
+  const { user, post, groupName, fullName, status, avatar, remark } = notepost;
 
-  const deny = async (user) => {
-    try {
-      await api.delete(`/profile/unnote/${user}`);
-      setAlert('Unnote', 'success');
-    } catch (err) {
-      setAlert(err.response.data.msg, 'danger');
-    }
+  // const deny = async (user) => {
+  //   try {
+  //     await api.delete(`/profile/unnote/${user}`);
+  //     setAlert('Unnote', 'success');
+  //   } catch (err) {
+  //     setAlert(err.response.data.msg, 'danger');
+  //   }
+  // };
+
+  const unnote = (e) => {
+    e.PreventDefault();
+    unnotePost(post);
+    setAlert('Unnote', 'success');
   };
 
   return (
@@ -37,14 +44,14 @@ const NotePeople = ({ setAlert, notepeople }) => {
 
       <div className='btn-bf'>
         {' '}
-        <a onClick={() => deny(user)}>
+        <a onClick={unnote}>
           <img src={add} alt='' />
         </a>
       </div>
 
       <div className='btn-gf'>
         {' '}
-        <a onClick={() => deny(user)}>
+        <a onClick={unnote}>
           <img src={nounPlus} alt='' />
         </a>
       </div>
@@ -52,4 +59,4 @@ const NotePeople = ({ setAlert, notepeople }) => {
   );
 };
 
-export default connect(null, { setAlert })(NotePeople);
+export default connect(null, { setAlert, unnotePost })(NotePost);

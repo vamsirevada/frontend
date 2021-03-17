@@ -4,6 +4,7 @@ import MiniPortfolio from '../portfolio/MiniPortfolio';
 import Posts from '../posts/Posts';
 import PostForm from '../posts/PostForm';
 import NotePeoples from '../notes/NotePeoples';
+import NotePosts from '../notes/NotePosts';
 import notify from '../../images/noun_notification_887294.svg';
 import BallotIcon from '@material-ui/icons/Ballot';
 import ChatSideBar from '../chat/ChatSideBar';
@@ -51,6 +52,7 @@ const Feed = () => {
           {displayRight && (
             <div className='right'>
               <NotePeoples />
+              <NotePosts />
               <ChatSideBar />
             </div>
           )}
