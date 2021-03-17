@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-no-target-blank */
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -19,6 +19,7 @@ import poster from '../../images/play.jpg';
 import PostType from './PostType';
 import { projectFirestore } from '../../firebase/config';
 import Spinner from '../layout/Spinner';
+import NotePostPopUp from '../posts/NotePostPopUp';
 
 const PostItem = ({
   auth,
@@ -47,6 +48,8 @@ const PostItem = ({
   const postnoted = profile?.postnote.map((e) => e.post === _id);
   const rei = postnoted.find((num) => num === true);
 
+  const [show, setShow] = useState(false);
+
   const [displayDot, toogleDot] = useState(false);
   const [displayLbtn, toogleLbtn] = useState(xyz);
   const [displayNbtn, toogleNbtn] = useState(rei);
@@ -59,13 +62,18 @@ const PostItem = ({
     toogleLbtn(!displayLbtn);
   };
 
-  const onNote = (e) => {
-    e.preventDefault();
-    toogleNbtn(!displayNbtn);
-  };
+  // const onNote = (e) => {
+  //   e.preventDefault();
+  //   toogleNbtn(!displayNbtn);
+  // };
+
+  // const openDot = () => {
+  //   toogleDot(true)
+  // }
 
   const note = () => {
-    notePost(_id);
+    // notePost(_id, formData);
+    toogleNbtn(!displayNbtn);
   };
   const unnote = () => {
     unnotePost(_id);
@@ -99,201 +107,225 @@ const PostItem = ({
       });
   };
 
+  const close = () => {
+    setShow(false);
+  };
+
   return (
-    <div className='post'>
-      <div className='post-heading'>
-        <div className='flex'>
-          <Link to={`portfolio/${user?._id}`}>
-            <div className='display-pic'>
-              <img
-                className='display-pic'
-                src={user?.avatar ? user?.avatar : logo}
-                alt=''
-              />
-            </div>
-          </Link>
-
-          <div className='name-lato'>
-            {' '}
+    <>
+      <NotePostPopUp
+        show={show}
+        close={close}
+        id={_id}
+        text={text}
+        fullName={fullName}
+        username={userName}
+        groupName={groupName}
+        date={date}
+        user={user}
+        type={type}
+        url={url}
+        note={note}
+      />
+      <div className='post'>
+        <div className='post-heading'>
+          <div className='flex'>
             <Link to={`portfolio/${user?._id}`}>
-              {fullName && fullName} {groupName && groupName} <br />
-            </Link>{' '}
-            <span className='date-lato'>
-              <span className='f-1'>
-                <Moment format='hh:mm A'>{date}</Moment>
-                {', '}
-                <Moment format='DD MMM YY'>{date}</Moment>
+              <div className='display-pic'>
+                <img
+                  className='display-pic'
+                  src={user?.avatar ? user?.avatar : logo}
+                  alt=''
+                />
+              </div>
+            </Link>
+
+            <div className='name-lato'>
+              {' '}
+              <Link to={`portfolio/${user?._id}`}>
+                {fullName && fullName} {groupName && groupName} <br />
+              </Link>{' '}
+              <span className='date-lato'>
+                <span className='f-1'>
+                  <Moment format='hh:mm A'>{date}</Moment>
+                  {', '}
+                  <Moment format='DD MMM YY'>{date}</Moment>
+                </span>
               </span>
-            </span>
+            </div>
           </div>
-        </div>
-        <a
-          style={{ display: userName === auth.user.userName ? '' : 'none' }}
-          onClick={() => toogleDot(!displayDot)}
-          className='three-dots'
-        >
-          <img src={path} className='resize' alt='' />
-        </a>
-        {displayDot && (
-          <Fragment>
-            {userName === auth.user.userName && (
-              <div className='no-post-dis' id='post-dis'>
-                <ul>
-                  <li>
-                    <a onClick={(e) => deletePost(_id)}>Delete post</a>
-                  </li>
-                </ul>
-              </div>
-            )}
-          </Fragment>
-        )}
-      </div>
-
-      {PostType(type) === 'default' && (
-        <div style={{ marginBottom: 10 }} className='post-description'>
-          <p>{text}</p>
-        </div>
-      )}
-      {PostType(type) === 'photo' && (
-        <>
-          <p style={{ marginBottom: 10 }} className='post-description'>
-            {text}
-          </p>
-          <img
-            style={{ objectFit: 'contain' }}
-            className='post-pic'
-            src={url}
-            alt=''
-          />
-        </>
-      )}
-
-      {PostType(type) === 'video' && (
-        <>
-          <p style={{ marginBottom: 10 }} className='post-description'>
-            {text}
-          </p>
-          <video
-            style={{
-              objectFit: 'cover',
-              width: '100%',
-              height: '350px',
-              background: 'transparent',
-            }}
-            controls
-            src={url}
-            className='post-video'
-          />
-        </>
-      )}
-      {PostType(type) === 'audio' && (
-        <>
-          <p style={{ marginBottom: 10 }} className='post-description'>
-            {text}
-          </p>
-          <video poster={poster} className='post-audio' controls src={url} />
-        </>
-      )}
-
-      <div className='flex-des'>
-        <div className='pic-des-1'>
-          <div onClick={(e) => onLike(e)}>
-            {displayLbtn ? (
-              <Fragment>
-                <div onClick={unlike}>
-                  <img className='r-1' src={yheart} alt='' />
-                  <span className='d-1'>Liked</span>
-                </div>
-              </Fragment>
-            ) : (
-              <Fragment>
-                <div onClick={like}>
-                  <img className='r-1' src={heart} alt='' />
-                  <span className='d-1'>Like</span>
-                </div>
-              </Fragment>
-            )}
-          </div>
-          <div onClick={() => toogleAddCmt(!displayAddCmt)}>
-            <img className='r-1' src={com} alt='' />
-            <span className='d-1'>Comment</span>
-          </div>
-          <div onClick={(e) => onNote(e)}>
-            {displayNbtn ? (
-              <Fragment>
-                <div onClick={unnote}>
-                  <img className='r-1' src={noteimg} alt='' />
-                  <span className='d-1'>Unnote Post</span>
-                </div>
-              </Fragment>
-            ) : (
-              <Fragment>
-                <div onClick={note}>
-                  <img className='r-1' src={noteimg} alt='' />
-                  <span className='d-1'>Note Post</span>
-                </div>
-              </Fragment>
-            )}
-          </div>
-        </div>
-        <div className='des-right'>
-          <a className='d-1'>
-            <span className='f-1'>{likes.length > 0 && likes.length}</span>{' '}
-            Likes
-          </a>
           <a
-            onClick={() => {
-              toogleComment(!displayComment);
-              toogleAddCmt(!displayAddCmt);
-              setTimeout(() => {
-                setLoading(!loading);
-              }, 500);
-            }}
-            className='d-1'
+            style={{ display: userName === auth.user.userName ? '' : 'none' }}
+            onClick={() => toogleDot(!displayDot)}
+            className='three-dots'
           >
-            <span className='f-1'>
-              {comments.length > 0 && comments.length}
-            </span>{' '}
-            Comment
+            <img src={path} className='resize' alt='' />
           </a>
-        </div>
-      </div>
-
-      {displayComment && (
-        <div>
-          {loading ? (
-            <Spinner />
-          ) : (
+          {displayDot && (
             <Fragment>
-              <div className='comments'>
-                {comments.slice(0, 3).map((comment) => (
-                  <CommentItem
-                    key={comment._id}
-                    comment={comment}
-                    postId={_id}
-                  />
-                ))}
-                <div className='load'>
-                  <Link to={`/posts/${_id}`} className='loadmore'>
-                    Load more
-                  </Link>
+              {userName === auth.user.userName && (
+                <div className='no-post-dis' id='post-dis'>
+                  <ul>
+                    <li>
+                      <a onClick={(e) => deletePost(_id)}>Delete post</a>
+                    </li>
+                  </ul>
                 </div>
-              </div>
+              )}
             </Fragment>
           )}
         </div>
-      )}
-      {displayAddCmt && (
-        <div>
-          <CommentForm
-            auth={auth}
-            user={user}
-            postId={_id}
-            comments={comments}
-          />
+
+        {PostType(type) === 'default' && (
+          <div style={{ marginBottom: 10 }} className='post-description'>
+            <p>{text}</p>
+          </div>
+        )}
+        {PostType(type) === 'photo' && (
+          <>
+            <p style={{ marginBottom: 10 }} className='post-description'>
+              {text}
+            </p>
+            <img
+              style={{ objectFit: 'contain' }}
+              className='post-pic'
+              src={url}
+              alt=''
+            />
+          </>
+        )}
+
+        {PostType(type) === 'video' && (
+          <>
+            <p style={{ marginBottom: 10 }} className='post-description'>
+              {text}
+            </p>
+            <video
+              style={{
+                objectFit: 'cover',
+                width: '100%',
+                height: '350px',
+                background: 'transparent',
+              }}
+              controls
+              src={url}
+              className='post-video'
+            />
+          </>
+        )}
+        {PostType(type) === 'audio' && (
+          <>
+            <p style={{ marginBottom: 10 }} className='post-description'>
+              {text}
+            </p>
+            <video poster={poster} className='post-audio' controls src={url} />
+          </>
+        )}
+
+        <div className='flex-des'>
+          <div className='pic-des-1'>
+            <div onClick={(e) => onLike(e)}>
+              {displayLbtn ? (
+                <Fragment>
+                  <div onClick={unlike}>
+                    <img className='r-1' src={yheart} alt='' />
+                    <span className='d-1'>Liked</span>
+                  </div>
+                </Fragment>
+              ) : (
+                <Fragment>
+                  <div onClick={like}>
+                    <img className='r-1' src={heart} alt='' />
+                    <span className='d-1'>Like</span>
+                  </div>
+                </Fragment>
+              )}
+            </div>
+            <div onClick={() => toogleAddCmt(!displayAddCmt)}>
+              <img className='r-1' src={com} alt='' />
+              <span className='d-1'>Comment</span>
+            </div>
+            <div>
+              {displayNbtn ? (
+                <Fragment>
+                  <div onClick={unnote}>
+                    <img className='r-1' src={noteimg} alt='' />
+                    <span className='d-1'>Unnote Post</span>
+                  </div>
+                </Fragment>
+              ) : (
+                <Fragment>
+                  <div
+                    onClick={() => {
+                      setShow(true);
+                    }}
+                  >
+                    <img className='r-1' src={noteimg} alt='' />
+                    <span className='d-1'>Note Post</span>
+                  </div>
+                </Fragment>
+              )}
+            </div>
+          </div>
+          <div className='des-right'>
+            <a className='d-1'>
+              <span className='f-1'>{likes.length > 0 && likes.length}</span>{' '}
+              Likes
+            </a>
+            <a
+              onClick={() => {
+                toogleComment(!displayComment);
+                toogleAddCmt(!displayAddCmt);
+                setTimeout(() => {
+                  setLoading(!loading);
+                }, 500);
+              }}
+              className='d-1'
+            >
+              <span className='f-1'>
+                {comments.length > 0 && comments.length}
+              </span>{' '}
+              Comment
+            </a>
+          </div>
         </div>
-      )}
-    </div>
+
+        {displayComment && (
+          <div>
+            {loading ? (
+              <Spinner />
+            ) : (
+              <Fragment>
+                <div className='comments'>
+                  {comments.slice(0, 3).map((comment) => (
+                    <CommentItem
+                      key={comment._id}
+                      comment={comment}
+                      postId={_id}
+                    />
+                  ))}
+                  <div className='load'>
+                    <Link to={`/posts/${_id}`} className='loadmore'>
+                      Load more
+                    </Link>
+                  </div>
+                </div>
+              </Fragment>
+            )}
+          </div>
+        )}
+        {displayAddCmt && (
+          <div>
+            <CommentForm
+              auth={auth}
+              user={user}
+              postId={_id}
+              comments={comments}
+            />
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

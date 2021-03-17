@@ -15,8 +15,8 @@ const ChatPopup = ({
 }) => {
   const dispatch = useDispatch();
   const [formValue, setFormValue] = useState('');
-  const [miniHead, setminiHead] = useState(true);
-  const [miniChat, setminiChat] = useState(true);
+  // const [miniHead, setminiHead] = useState(true);
+  // const [miniChat, setminiChat] = useState(true);
 
   const sendMessage = async (e) => {
     e.preventDefault();

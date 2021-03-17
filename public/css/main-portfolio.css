@@ -96,8 +96,8 @@
   position: absolute;
   top: 0px;
   left: 0px;
-  background: #060606;
-  opacity: 0.8;
+  background: rgba(6, 6, 6, 0.8);
+  /* opacity: 0.8; */
   z-index: 100;
   width: 100vw;
   height: 100vw;
@@ -160,6 +160,10 @@
     contrast(92%);
 }
 
+.memberpopup.add .noteform {
+  display: block;
+}
+
 .memberpopup .member-body {
   display: flex;
   align-items: center;
@@ -213,6 +217,11 @@
 .memberpopup .body.add {
   position: absolute;
   top: 105px;
+  width: 100%;
+}
+.memberpopup .body.add.note {
+  position: absolute;
+  top: 60px;
   width: 100%;
 }
 

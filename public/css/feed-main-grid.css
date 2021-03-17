@@ -232,6 +232,10 @@
   align-items: center;
   position: relative;
 }
+.flex-des .pic-des-1 div:hover {
+  border-bottom: 1px solid #fad300;
+  cursor: pointer;
+}
 
 .post-pic .pic-des-1 .no-post-dis {
   display: none;
