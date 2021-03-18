@@ -1,7 +1,6 @@
 // import api from 'api';
 import api from '../utils/api';
 import { setAlert } from './alert';
-
 import {
   ACCOUNT_DELETED,
   CLEAR_PROFILE,
@@ -122,6 +121,8 @@ export const notePost = (id, formData) => async (dispatch) => {
       type: UPDATE_PROFILE,
       payload: res.data,
     });
+    dispatch(setAlert('Post Noted succesfully', 'success'));
+    dispatch(getNotedPost());
   } catch (err) {
     dispatch({
       type: GET_NOTED_POST_ERROR,
@@ -137,6 +138,7 @@ export const unnotePost = (id) => async (dispatch) => {
       type: UPDATE_PROFILE,
       payload: res.data,
     });
+    dispatch(setAlert('post Unnoted', 'danger'));
   } catch (err) {
     dispatch({
       type: GET_NOTED_POST_ERROR,
@@ -148,7 +150,7 @@ export const unnotePost = (id) => async (dispatch) => {
 export const getNotedPost = () => async (dispatch) => {
   try {
     const res = await api.get('/profile/notedpost');
-    console.log(res.data);
+
     dispatch({
       type: GET_NOTED_POST,
       payload: res.data,

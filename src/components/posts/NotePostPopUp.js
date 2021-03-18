@@ -48,7 +48,7 @@ const NotePostPopUp = ({
     <>
       {show && (
         <Fragment>
-          <div className='memberpopupscreen'>
+          <div className='memberpopupscreen note'>
             <div className='memberpopup add'>
               <div className='mem-heading add'>
                 <h3>Note Post</h3>
@@ -62,16 +62,18 @@ const NotePostPopUp = ({
                   <form onSubmit={(e) => onSubmit(e)}>
                     <div>
                       <label htmlFor='remark'>Note Remark :</label>
+                      <br />
                       <input
                         type='text'
                         name='remark'
+                        className='remark'
                         value={remark}
                         onChange={(e) => onChange(e)}
                       />
                     </div>
                     <div className='prof-flex-btn'>
-                      <button className='btn-blue' type='submit'>
-                        NotePost
+                      <button className='btn-blue note' type='submit'>
+                        Note
                       </button>
                     </div>
                   </form>

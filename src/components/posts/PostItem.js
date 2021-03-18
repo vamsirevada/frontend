@@ -46,10 +46,10 @@ const PostItem = ({
   const abc = likes.map((like) => like.user === auth?.user?._id);
   const xyz = abc.find((num) => num === true);
   const postnoted = profile?.postnote.map((e) => e.post === _id);
+
   const rei = postnoted.find((num) => num === true);
 
   const [show, setShow] = useState(false);
-
   const [displayDot, toogleDot] = useState(false);
   const [displayLbtn, toogleLbtn] = useState(xyz);
   const [displayNbtn, toogleNbtn] = useState(rei);
@@ -77,6 +77,7 @@ const PostItem = ({
   };
   const unnote = () => {
     unnotePost(_id);
+    toogleNbtn(!displayNbtn);
   };
 
   const like = () => {
