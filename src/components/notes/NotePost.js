@@ -2,7 +2,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import add from '../../images/noun_Add Friend_2987727 (2) 2.svg';
-import api from '../../utils/api';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import { unnotePost } from '../../actions/profile';
@@ -10,7 +9,7 @@ import nounPlus from '../../images/noun_Plus_2310779.svg';
 import logo from '../../images/dummyimage.jpg';
 
 const NotePost = ({ setAlert, unnotePost, notepost }) => {
-  const { user, post, groupName, fullName, status, avatar, remark } = notepost;
+  const { post, groupName, fullName, status, avatar, remark } = notepost;
 
   // const deny = async (user) => {
   //   try {

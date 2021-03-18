@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useContext, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import nounPlus from '../../images/icons/noun_Plus_2310779.svg';
 import { getProfiles } from '../../actions/profile';
 import { Link } from 'react-router-dom';
