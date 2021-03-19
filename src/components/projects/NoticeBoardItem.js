@@ -44,72 +44,44 @@ const NoticeBoardItem = ({
             <div className='noticeboard-bottom'>
               <h5>{not?.title}</h5>
               <div className='noticeboard-bottom-dates'>
-                <div className='noticeboard-bottom-child1'>
-                  <p>
-                    Posted :{' '}
-                    <span>
-                      <Moment format='DD MMMM YYYY'>{not?.date}</Moment>
-                    </span>
-                  </p>
-                </div>
-                <div className='noticeboard-bottom-child2'>
-                  <p>
-                    Deadline :{' '}
-                    <span>
-                      <Moment format='DD MMMM YYYY'>{not?.deadline}</Moment>
-                    </span>
-                  </p>
-                </div>
-                <p>
-                  Posted by :{' '}
-                  <Link to={`project/${not?.project?._id}`}>
-                    <span
-                      style={{
-                        color: '#7480fc',
-                        textDecoration: 'underline',
-                      }}
-                    >
-                      {not?.project?.projectname}
-                    </span>
-                  </Link>
-                </p>
-                <div>
-                  <div className='noticeboard-bottom-child1'>
-                    <div className='noticeboard-avatars'>
-                      {not?.shortlisted.map((x) => (
-                        <span className='noticeboard-avatar'>
-                          <img src={x?.avatar} alt='' />
-                        </span>
-                      ))}
-                    </div>
-                    <p
-                      style={{
-                        color: '#27D143',
-                        textDecoration: 'underline',
-                        marginTop: '8px',
-                      }}
-                    >
-                      {not?.shortlisted.length} members Shortlisted
+                <div className='notice-dates-info'>
+                  <div>
+                    <p>
+                      Posted :{' '}
+                      <span className='notice-date'>
+                        <Moment format='DD MMM YYYY'>{not?.date}</Moment>
+                      </span>
                     </p>
                   </div>
-                  <div className='noticeboard-bottom-child2'>
-                    <div className='noticeboard-avatars'>
-                      {not?.applied.map((x) => (
-                        <span className='noticeboard-avatar'>
-                          <img src={x?.avatar} alt='' />
-                        </span>
-                      ))}
-                    </div>
-                    <p
-                      style={{
-                        color: '#5D5D5D',
-                        textDecoration: 'underline',
-                        marginTop: '8px',
-                      }}
-                    >
-                      {not?.applied.length} members applied
+                  <div>
+                    <p>
+                      Deadline :{' '}
+                      <span className='notice-date'>
+                        <Moment format='DD MMM YYYY'>{not?.deadline}</Moment>
+                      </span>
                     </p>
                   </div>
+                </div>
+                <div className='notice-postedby'>
+                  <p>
+                    Posted by :{' '}
+                    <Link to={`project/${not?.project?._id}`}>
+                      <span className='postedby-name'>
+                        {not?.project?.projectname}
+                      </span>
+                    </Link>
+                  </p>
+                </div>
+
+                <div className='noticeboard-member-applied'>
+                  <div className='noticeboard-avatars'>
+                    {not?.applied.map((x) => (
+                      <span className='noticeboard-avatar'>
+                        <img src={x?.avatar} alt='' />
+                      </span>
+                    ))}
+                  </div>
+                  <p>{not?.applied.length} members applied</p>
                 </div>
               </div>
             </div>

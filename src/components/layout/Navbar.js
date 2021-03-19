@@ -144,7 +144,7 @@ const Navbar = ({ logout }) => {
                     fontSize: 12,
                   }}
                   color='action'
-                  className='noticeboard'
+                  className='nb-nav'
                 >
                   NB
                 </small>

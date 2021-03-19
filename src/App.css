@@ -19,8 +19,8 @@
 }
 
 .MuiBadge-badge {
-    color:  #272727;
-    background-color: #fad300;
+  color: #272727;
+  background-color: #fad300;
 }
 /* Alert */
 
@@ -1461,14 +1461,14 @@ input.search-btn:focus {
   border-radius: 10px;
   transition: all 0.5s;
 }
-.nav-icons .tab.unique .icon.notice .noticeboard {
+.nav-icons .tab.unique .icon.notice .nb-nav {
   padding: 0.5px 4px;
   border-radius: 5px;
   margin-right: 10px;
   vertical-align: top;
   background-color: #757575;
 }
-.nav-icons .tab.unique .icon.notice .noticeboard:hover {
+.nav-icons .tab.unique .icon.notice .nb-nav:hover {
   background-color: #fad300;
 }
 
@@ -1664,7 +1664,7 @@ input.search-btn:focus {
   align-items: center;
 }
 
-.notif-element .notify-width{
+.notif-element .notify-width {
   width: 80%;
 }
 
@@ -1672,16 +1672,15 @@ input.search-btn:focus {
   cursor: pointer;
   background-color: #d1d1d1;
 }
-.notif-bold{
+.notif-bold {
   font-weight: bold;
   color: #272727;
 }
-.notify-button{
+.notify-button {
   text-align: end;
-
 }
 
-.notify-button .nb-blue{
+.notify-button .nb-blue {
   font-size: 12px;
   color: #fff;
   background-color: #7480ff;
@@ -1691,12 +1690,12 @@ input.search-btn:focus {
   border: 1px solid #7480ff;
   margin-right: 10px;
 }
-.notify-bottom .nb-blue:hover{
+.notify-bottom .nb-blue:hover {
   cursor: pointer;
   opacity: 0.8;
 }
 
-.notify-button .nb-white{
+.notify-button .nb-white {
   font-size: 12px;
   color: #5d5d5d;
   background-color: #fff;
@@ -1706,7 +1705,7 @@ input.search-btn:focus {
   border: 1px #5d5d5d solid;
 }
 
-.notify-bottom .nb-white:hover{
+.notify-bottom .nb-white:hover {
   cursor: pointer;
   opacity: 0.8;
 }
@@ -1717,11 +1716,10 @@ input.search-btn:focus {
   object-fit: cover;
 }
 
-
-.navbar .nav-icons .notif-dis .notif-element  p {
+.navbar .nav-icons .notif-dis .notif-element p {
   font-size: 13px;
   padding: 5px 10px;
-  color: #5D5D5D;
+  color: #5d5d5d;
 }
 
 .navbar .nav-icons .arrow-middle {
@@ -1766,11 +1764,11 @@ input.search-btn:focus {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #D1D1D1;
+  background-color: #d1d1d1;
   padding: 5px 10px;
 }
 
-.notify-ribbon .notify-ribbon-right{
+.notify-ribbon .notify-ribbon-right {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -1782,11 +1780,10 @@ input.search-btn:focus {
   margin-left: 10px;
 }
 
-.notify-ribbon-right .notify-cate{
+.notify-ribbon-right .notify-cate {
   font-size: 12px;
   font-family: 'Raleway', sans-serif;
   margin-right: 15px;
-
 }
 
 .notify-seeall {
