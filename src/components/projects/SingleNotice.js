@@ -28,6 +28,7 @@ const SingleNotice = ({
   const [apply, setApply] = useState(true);
   const [shortlist, setShortlist] = useState(false);
   const { docs } = UseFirestore('images');
+  const [text, setText] = useState('false');
 
   const onClick1 = () => {
     setShortlist(true);
@@ -37,6 +38,11 @@ const SingleNotice = ({
   const onClick2 = () => {
     setApply(true);
     setShortlist(false);
+  };
+
+  const shortList = (notice, item) => {
+    shortlistNotice(notice?._id, item?._id);
+    setText(true);
   };
 
   useEffect(() => {
@@ -171,12 +177,24 @@ const SingleNotice = ({
             <>
               {applied.length > 0 &&
                 applied.map((item) => (
-                  <ProfileItem
-                    key={item._id}
-                    item={item}
-                    docs={docs}
-                    displayAdd={true}
-                  />
+                  <div
+                    key={item?._id}
+                    style={{
+                      display: 'flex',
+                    }}
+                  >
+                    <div>
+                      <ProfileItem item={item} docs={docs} displayAdd={true} />
+                    </div>
+                    <div>
+                      <button
+                        onClick={shortList(notice, item)}
+                        className='btn-blue'
+                      >
+                        {text ? 'Shortlisted' : 'Shortlist'}
+                      </button>
+                    </div>
+                  </div>
                 ))}
             </>
           )}

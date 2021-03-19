@@ -87,18 +87,11 @@ const NoticeBoard = ({
                   <div>
                     <div className='noticeboard-bottom-child1'>
                       <div className='noticeboard-avatars'>
-                        <span className='noticeboard-avatar'>
-                          <img
-                            src='https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg'
-                            alt=''
-                          />
-                        </span>
-                        <span className='noticeboard-avatar'>
-                          <img
-                            src='https://da4e1j5r7gw87.cloudfront.net/wp-content/uploads/sites/768/2018/08/glasses-american-man-20s-hipster.jpg'
-                            alt=''
-                          />
-                        </span>
+                        {not?.shortlisted.map((x) => (
+                          <span className='noticeboard-avatar'>
+                            <img src={x?.avatar} alt='' />
+                          </span>
+                        ))}
                       </div>
                       <p
                         style={{
@@ -112,24 +105,11 @@ const NoticeBoard = ({
                     </div>
                     <div className='noticeboard-bottom-child2'>
                       <div className='noticeboard-avatars'>
-                        <span className='noticeboard-avatar'>
-                          <img
-                            src='https://pixinvent.com/materialize-material-design-admin-template/app-assets/images/user/12.jpg'
-                            alt=''
-                          />
-                        </span>
-                        <span className='noticeboard-avatar'>
-                          <img
-                            src='https://htmlstream.com/preview/unify-v2.6.2/assets/img-temp/400x450/img5.jpg'
-                            alt=''
-                          />
-                        </span>
-                        <span className='noticeboard-avatar'>
-                          <img
-                            src='https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500'
-                            alt=''
-                          />
-                        </span>
+                        {not?.applied.map((x) => (
+                          <span className='noticeboard-avatar'>
+                            <img src={x?.avatar} alt='' />
+                          </span>
+                        ))}
                       </div>
                       <p
                         style={{
