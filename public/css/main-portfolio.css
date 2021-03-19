@@ -105,6 +105,10 @@
   position: fixed;
 }
 
+.memberpopupscreen.note {
+  overflow: hidden;
+}
+
 .memberpopupscreen .memberpopup {
   z-index: 101;
   background: #fff;
@@ -122,9 +126,13 @@
   width: 480px;
   height: 540px;
   left: 35%;
-  top: 15%;
+  top: 10%;
   background-color: #f2f2f2;
   overflow: auto;
+}
+
+.memberpopupscreen.note .memberpopup.add {
+  overflow: hidden;
 }
 
 .memberpopup .mem-heading {
@@ -160,8 +168,47 @@
     contrast(92%);
 }
 
-.memberpopup.add .noteform {
-  display: block;
+.memberpopup.add .noteform form {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  margin: 0rem 1rem;
+}
+.memberpopup.add .noteform .remark {
+  margin-bottom: 0.75rem;
+}
+
+.memberpopup.add .noteform input {
+  font-size: 12px;
+  color: #272727;
+  font-family: 'Raleway', sans-serif;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  width: 100%;
+  border: none;
+  outline: none;
+  margin-right: 1rem;
+}
+.memberpopup.add .noteform .prof-flex-btn {
+  justify-self: flex-end;
+}
+
+.memberpopup.add .noteform .btn-blue.note {
+  font-size: 12px;
+  padding: 7.5px 15px;
+  margin-top: 1rem;
+  vertical-align: text-top;
+}
+
+.memberpopup.add .body.add.note .post {
+  max-height: 50vh;
+}
+
+.memberpopup.add .body.add.note .post .post-pic,
+.memberpopup.add .body.add.note .post .post-video,
+.memberpopup.add .body.add.note .post .post-audio {
+  max-height: 30vh;
 }
 
 .memberpopup .member-body {

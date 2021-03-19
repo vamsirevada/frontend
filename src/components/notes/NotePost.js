@@ -1,57 +1,44 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import add from '../../images/noun_Add Friend_2987727 (2) 2.svg';
+// import add from '../../images/noun_Add Friend_2987727 (2) 2.svg';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import { unnotePost } from '../../actions/profile';
-import nounPlus from '../../images/noun_Plus_2310779.svg';
+// import nounPlus from '../../images/noun_Plus_2310779.svg';
 import logo from '../../images/dummyimage.jpg';
+import noteimg from '../../images/icons/summarize-24px.svg';
 
 const NotePost = ({ setAlert, unnotePost, notepost }) => {
   const { post, groupName, fullName, status, avatar, remark } = notepost;
 
-  // const deny = async (user) => {
-  //   try {
-  //     await api.delete(`/profile/unnote/${user}`);
-  //     setAlert('Unnote', 'success');
-  //   } catch (err) {
-  //     setAlert(err.response.data.msg, 'danger');
-  //   }
-  // };
-
   const unnote = (e) => {
-    e.PreventDefault();
     unnotePost(post);
     setAlert('Unnote', 'success');
   };
 
   return (
-    <div className='join-grp-flex'>
+    <div className='join-grp-flex  notepost'>
       <div className='display-pic-1'>
         <img className='display-pic-1' src={avatar ? avatar : logo} alt='no' />
       </div>
       <div className='flex-right'>
-        <Link className='bold bold-1'>
-          <p>{fullName && fullName}</p>
-          <p>{groupName && groupName}</p>
+        <Link to={`posts/${post}`}>
+          <a href='#!' className='bold bold-1'>
+            {fullName && <p> Posted By: {fullName}</p>}
+
+            {groupName && <p> Posted By: {groupName}</p>}
+          </a>
         </Link>
         <p className='third-bold'>{status}</p>
 
-        <p className='third-bold'>{remark}</p>
+        <p className='third-bold'>Remark : {remark}</p>
       </div>
 
-      <div className='btn-bf'>
+      <div className='btn-gf note'>
         {' '}
-        <a onClick={unnote}>
-          <img src={add} alt='' />
-        </a>
-      </div>
-
-      <div className='btn-gf'>
-        {' '}
-        <a onClick={unnote}>
-          <img src={nounPlus} alt='' />
+        <a href='#!' onClick={unnote}>
+          <img src={noteimg} alt='' />
         </a>
       </div>
     </div>

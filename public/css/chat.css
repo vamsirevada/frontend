@@ -31,10 +31,14 @@ a {
   margin-left: 10px;
   vertical-align: middle;
   z-index: 1000;
+  right: 0px;
 }
 .close-btn img {
   display: inline-block;
   width: 8%;
+  position: absolute;
+  right: 13px;
+  top: 24px;
 }
 
 /* The popup chat - hidden by default */

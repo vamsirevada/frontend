@@ -5,16 +5,11 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { notePost } from '../../actions/profile';
 import Moment from 'react-moment';
-import path from '../../images/path.svg';
 import logo from '../../images/dummyimage.jpg';
 import poster from '../../images/play.jpg';
-import noteimg from '../../images/icons/summarize-24px.svg';
 import PostType from '../posts/PostType';
 
 const NotePostPopUp = ({
-  profile: { profiles },
-  project: { singleproject },
-  getProfiles,
   show,
   close,
   id,
@@ -48,7 +43,7 @@ const NotePostPopUp = ({
     <>
       {show && (
         <Fragment>
-          <div className='memberpopupscreen'>
+          <div className='memberpopupscreen note'>
             <div className='memberpopup add'>
               <div className='mem-heading add'>
                 <h3>Note Post</h3>
@@ -62,16 +57,18 @@ const NotePostPopUp = ({
                   <form onSubmit={(e) => onSubmit(e)}>
                     <div>
                       <label htmlFor='remark'>Note Remark :</label>
+                      <br />
                       <input
                         type='text'
                         name='remark'
+                        className='remark'
                         value={remark}
                         onChange={(e) => onChange(e)}
                       />
                     </div>
                     <div className='prof-flex-btn'>
-                      <button className='btn-blue' type='submit'>
-                        NotePost
+                      <button className='btn-blue note' type='submit'>
+                        Note
                       </button>
                     </div>
                   </form>
@@ -209,11 +206,4 @@ const NotePostPopUp = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  profile: state.profile,
-  project: state.project,
-});
-
-export default connect(mapStateToProps, { getProfiles, notePost })(
-  NotePostPopUp
-);
+export default connect(null, { getProfiles, notePost })(NotePostPopUp);

@@ -313,7 +313,10 @@ h3 {
   vertical-align: middle;
 }
 
-.left-container .about,
+.left-container .about {
+  margin: 1rem;
+}
+
 .left-container .profile-table,
 .left-container .prof-exp {
   margin: 1rem 0;
@@ -520,14 +523,12 @@ h3 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
 }
 
 .left-container .connect-info div:nth-child(1) {
   width: 50%;
   border-right: 2px solid #272727;
 }
-
 
 .connect-info p {
   font-family: 'Raleway', sans-serif;
@@ -536,15 +537,14 @@ h3 {
   line-height: 1.2rem;
 }
 
-.left-container .connect-info div:last-child p{
-text-align: end;
+.left-container .connect-info div:last-child p {
+  text-align: end;
 }
 
 .left-container .connect-info .hover-bottom:hover {
   cursor: pointer;
-  border-bottom: 2px solid #fad300 ;
+  border-bottom: 2px solid #fad300;
 }
-
 
 .connect-info .f-1 {
   font-size: 13px;

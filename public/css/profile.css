@@ -130,6 +130,12 @@ h4 {
   width: 90%;
 }
 
+.btn-gf.note {
+  background-color: #ff9391;
+  z-index: 100;
+  max-height: 30px;
+}
+
 .f-right {
   float: right;
 }

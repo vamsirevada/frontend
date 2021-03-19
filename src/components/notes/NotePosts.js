@@ -3,14 +3,7 @@ import { connect } from 'react-redux';
 import NotePost from './NotePost';
 import { getNotedPost } from '../../actions/profile';
 
-const NotePosts = ({
-  profile: {
-    profile: { user },
-    postnote,
-  },
-  getNotedPost,
-}) => {
-  console.log(postnote);
+const NotePosts = ({ profile: { postnote }, getNotedPost }) => {
   useEffect(() => {
     getNotedPost();
     //eslint-disable-next-line
