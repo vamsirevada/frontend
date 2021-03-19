@@ -73,44 +73,6 @@ const NoticeBoardItem = ({
                     </span>
                   </Link>
                 </p>
-                <div>
-                  <div className='noticeboard-bottom-child1'>
-                    <div className='noticeboard-avatars'>
-                      {not?.shortlisted.map((x) => (
-                        <span className='noticeboard-avatar'>
-                          <img src={x?.avatar} alt='' />
-                        </span>
-                      ))}
-                    </div>
-                    <p
-                      style={{
-                        color: '#27D143',
-                        textDecoration: 'underline',
-                        marginTop: '8px',
-                      }}
-                    >
-                      {not?.shortlisted.length} members Shortlisted
-                    </p>
-                  </div>
-                  <div className='noticeboard-bottom-child2'>
-                    <div className='noticeboard-avatars'>
-                      {not?.applied.map((x) => (
-                        <span className='noticeboard-avatar'>
-                          <img src={x?.avatar} alt='' />
-                        </span>
-                      ))}
-                    </div>
-                    <p
-                      style={{
-                        color: '#5D5D5D',
-                        textDecoration: 'underline',
-                        marginTop: '8px',
-                      }}
-                    >
-                      {not?.applied.length} members applied
-                    </p>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

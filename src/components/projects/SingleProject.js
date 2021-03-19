@@ -57,18 +57,18 @@ const SingleProject = ({
                   )}
 
                   <ProjectPostForm singleproject={singleproject} />
-                  <ProjectPosts
-                    profile={profile}
-                    // singleproject={singleproject}
-                    id={match.params.id}
-                  />
+                  <ProjectPosts profile={profile} id={match.params.id} />
                 </div>
               </div>
             </div>
           )}
           {displayRight && (
             <div className='right'>
-              <Notices id={match.params.id} />
+              <Notices
+                userName={profile?.user?.userName}
+                creator={singleproject?.creator}
+                id={match.params.id}
+              />
             </div>
           )}
         </div>

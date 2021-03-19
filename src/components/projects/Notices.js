@@ -7,7 +7,14 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { projectStorage } from '../../firebase/config';
 
-const Notices = ({ id, createNotice, getNotices, notice: { notices } }) => {
+const Notices = ({
+  id,
+  creator,
+  userName,
+  createNotice,
+  getNotices,
+  notice: { notices },
+}) => {
   const [show, setShow] = useState(false);
   const [viewall, setViewAll] = useState(false);
   let fileInput = React.createRef();
@@ -78,7 +85,7 @@ const Notices = ({ id, createNotice, getNotices, notice: { notices } }) => {
       {notices &&
         notices.slice(0, viewall ? notices.length : 3).map((notice, index) => (
           <div style={{ height: '330px', width: '336px' }} key={index}>
-            <Link to={`/notice/${notice?._id}`}>
+            <Link to={creator === userName ? `/notice/${notice?._id}` : '#'}>
               <img
                 height='132px'
                 width='336px'
@@ -111,7 +118,10 @@ const Notices = ({ id, createNotice, getNotices, notice: { notices } }) => {
             </Link>
           </div>
         ))}
-      <button onClick={() => setShow(true)}>Publish new notice</button>
+      {creator === userName && (
+        <button onClick={() => setShow(true)}>Publish new notice</button>
+      )}
+
       {show && (
         <>
           <div className='noticepopupscreen'>
