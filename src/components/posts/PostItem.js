@@ -62,15 +62,6 @@ const PostItem = ({
     toogleLbtn(!displayLbtn);
   };
 
-  // const onNote = (e) => {
-  //   e.preventDefault();
-  //   toogleNbtn(!displayNbtn);
-  // };
-
-  // const openDot = () => {
-  //   toogleDot(true)
-  // }
-
   const note = () => {
     // notePost(_id, formData);
     toogleNbtn(!displayNbtn);

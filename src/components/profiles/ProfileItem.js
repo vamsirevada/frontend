@@ -12,7 +12,9 @@ import { sendBuddyRequest } from '../../actions/profile';
 import { motion } from 'framer-motion';
 import { projectFirestore } from '../../firebase/config';
 import ChatPopup from '../chat/ChatPopup';
+import NotePeoplePopUp from '../posts/NotePeoplePopUp';
 import { getRealtimeConversations } from '../../actions/chat';
+import noteimg from '../../images/icons/summarize-24px.svg';
 
 const ProfileItem = ({
   auth,
@@ -26,6 +28,11 @@ const ProfileItem = ({
 }) => {
   const dispatch = useDispatch();
   const [start, setStart] = useState(false);
+  const [show, setShow] = useState(false);
+
+  const close = () => {
+    setShow(false);
+  };
 
   const chatRequest = async () => {
     setStart(true);
@@ -66,127 +73,125 @@ const ProfileItem = ({
     (doc) => doc?.type !== 'audio' || doc?.type !== 'blog'
   );
 
-  const note = async (_id) => {
-    try {
-      await api.put(`/profile/note/${_id}`);
-      setAlert('Noted', 'success');
-    } catch (err) {
-      if (err.response.data !== undefined) {
-        setAlert(err.response.data.msg, 'danger');
-      }
-    }
-  };
-
   return (
-    <div className='connect-main'>
-      <div className='connect-left'>
-        <div className='connect-left-top'>
-          <div
-            style={{
-              background: `url(${
-                avatar ? avatar : logo
-              }) no-repeat center center/cover`,
-            }}
-            className='display-pic'
-          ></div>
-          <div className='flex-c'>
-            <p>
-              <span className='bold'>
-                {user?.fullName && user?.fullName}
-                {user?.groupName && user?.groupName}
-              </span>{' '}
-              <br />
-              <span className='second-bold'>
-                {/* {user?.userName && user?.userName} */}
-              </span>{' '}
-              {/* <br /> */}
-              <span className='second-bold'>{status}</span> <br />
-              <span className='second-bold'>{location}</span>
-              <br />
-              <span className='third-bold'>
-                Connections : <span className='f-1'>{buddies.length}</span>
-              </span>
-            </p>
+    <>
+      <NotePeoplePopUp
+        show={show}
+        close={close}
+        id={_id}
+        avatar={avatar}
+        status={status}
+        user={user}
+      />
+      <div className='connect-main'>
+        <div className='connect-left'>
+          <div className='connect-left-top'>
+            <div
+              style={{
+                background: `url(${
+                  avatar ? avatar : logo
+                }) no-repeat center center/cover`,
+              }}
+              className='display-pic'
+            ></div>
+            <div className='flex-c'>
+              <p>
+                <span className='bold'>
+                  {user?.fullName && user?.fullName}
+                  {user?.groupName && user?.groupName}
+                </span>{' '}
+                <br />
+                <span className='second-bold'>
+                  {/* {user?.userName && user?.userName} */}
+                </span>{' '}
+                {/* <br /> */}
+                <span className='second-bold'>{status}</span> <br />
+                <span className='second-bold'>{location}</span>
+                <br />
+                <span className='third-bold'>
+                  Connections : <span className='f-1'>{buddies.length}</span>
+                </span>
+              </p>
+            </div>
+            <div className='note'>
+              {' '}
+              <a href='#!' onClick={() => setShow(true)}>
+                <img src={noteimg} alt='' />
+              </a>
+            </div>
+          </div>
+
+          <div className='connect-left-bottom'>
+            <div className='btn-b'>
+              {' '}
+              <Link
+                target='_blank'
+                to={`/portfolio/${user?._id}`}
+                className='btn-blue'
+              >
+                View Profile
+              </Link>
+            </div>
+            <div className='btn-b'>
+              {' '}
+              <a className='btn-blue' onClick={() => onClick()}>
+                <img src={add} alt='' />
+              </a>
+            </div>
+            <div className='btn-g'>
+              {' '}
+              <a onClick={chatRequest} className='btn-blue g-1'>
+                <img src={mail} alt='' />
+              </a>
+            </div>
           </div>
         </div>
 
-        <div className='connect-left-bottom'>
-          <div className='btn-b'>
-            {' '}
-            <Link
-              target='_blank'
-              to={`/portfolio/${user?._id}`}
-              className='btn-blue'
-            >
-              View Profile
-            </Link>
+        {displayAdd && (
+          <div className='connect-right'>
+            {filter &&
+              filter.slice(0, 4).map(
+                (doc) =>
+                  meta(doc.url) !== '.mp3' && (
+                    <a key={doc.id}>
+                      <div className='pic-1'>
+                        {doc.type === 'video' ? (
+                          <motion.video
+                            controls
+                            src={doc.url}
+                            alt='uploaded pic'
+                            initial={{
+                              opacity: 0,
+                              height: '100%',
+                              width: '100%',
+                            }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 1 }}
+                          />
+                        ) : (
+                          <motion.img
+                            src={doc.url}
+                            height='100%'
+                            width='100%'
+                            alt=''
+                          />
+                        )}
+                      </div>
+                    </a>
+                  )
+              )}
           </div>
-          <div className='btn-b'>
-            {' '}
-            <a className='btn-blue' onClick={() => onClick()}>
-              <img src={add} alt='' />
-            </a>
-          </div>
-          <div className='btn-b g'>
-            {' '}
-            <a className='btn-blue' onClick={() => note()}>
-              <img src={add} alt='' />
-            </a>
-          </div>
-
-          <div className='btn-g'>
-            {' '}
-            <a onClick={chatRequest} className='btn-blue g-1'>
-              <img src={mail} alt='' />
-            </a>
-          </div>
-        </div>
+        )}
+        {start ? (
+          <ChatPopup
+            userUid={user?._id}
+            chatProfile={user?.fullName}
+            conversations={conversations}
+            chatUserImage={avatar}
+          />
+        ) : null}
       </div>
-
-      {displayAdd && (
-        <div className='connect-right'>
-          {filter &&
-            filter.slice(0, 4).map(
-              (doc) =>
-                meta(doc.url) !== '.mp3' && (
-                  <a key={doc.id}>
-                    <div className='pic-1'>
-                      {doc.type === 'video' ? (
-                        <motion.video
-                          controls
-                          src={doc.url}
-                          alt='uploaded pic'
-                          initial={{
-                            opacity: 0,
-                            height: '100%',
-                            width: '100%',
-                          }}
-                          animate={{ opacity: 1 }}
-                          transition={{ delay: 1 }}
-                        />
-                      ) : (
-                        <motion.img
-                          src={doc.url}
-                          height='100%'
-                          width='100%'
-                          alt=''
-                        />
-                      )}
-                    </div>
-                  </a>
-                )
-            )}
-        </div>
-      )}
-      {start ? (
-        <ChatPopup
-          userUid={user?._id}
-          chatProfile={user?.fullName}
-          conversations={conversations}
-          chatUserImage={avatar}
-        />
-      ) : null}
-    </div>
+    </>
   );
 };
 

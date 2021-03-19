@@ -16,6 +16,8 @@ import {
   BUDDY_REQUEST_DECLINE,
   GET_NOTED_POST,
   GET_NOTED_POST_ERROR,
+  GET_NOTED_PEOPLE,
+  GET_NOTED_PEOPLE_ERROR,
 } from './types';
 
 // Get current users profile
@@ -105,6 +107,62 @@ export const getBuddyRequests = () => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+  }
+};
+
+//Note People using profileid
+export const notePeople = (id, formData) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const res = await api.put(`/profile/note/${id}`, formData, config);
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+    dispatch(setAlert('Post Noted succesfully', 'success'));
+  } catch (err) {
+    dispatch({
+      type: GET_NOTED_PEOPLE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+//unnote People using user id
+export const unnotePeople = (id) => async (dispatch) => {
+  try {
+    const res = await api.delete(`/profile/unnote/${id}`);
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+    dispatch(setAlert('Unnoted', 'danger'));
+    dispatch(getNotedPeople());
+  } catch (err) {
+    dispatch({
+      type: GET_NOTED_PEOPLE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+//noted people
+export const getNotedPeople = () => async (dispatch) => {
+  try {
+    const res = await api.get('/profile/notedpeople');
+
+    dispatch({
+      type: GET_NOTED_PEOPLE,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_NOTED_PEOPLE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
   }
 };
 

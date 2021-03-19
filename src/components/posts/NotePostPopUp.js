@@ -5,16 +5,11 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { notePost } from '../../actions/profile';
 import Moment from 'react-moment';
-import path from '../../images/path.svg';
 import logo from '../../images/dummyimage.jpg';
 import poster from '../../images/play.jpg';
-import noteimg from '../../images/icons/summarize-24px.svg';
 import PostType from '../posts/PostType';
 
 const NotePostPopUp = ({
-  profile: { profiles },
-  project: { singleproject },
-  getProfiles,
   show,
   close,
   id,
@@ -211,11 +206,4 @@ const NotePostPopUp = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  profile: state.profile,
-  project: state.project,
-});
-
-export default connect(mapStateToProps, { getProfiles, notePost })(
-  NotePostPopUp
-);
+export default connect(null, { getProfiles, notePost })(NotePostPopUp);
