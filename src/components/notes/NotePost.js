@@ -13,40 +13,35 @@ const NotePost = ({ setAlert, unnotePost, notepost }) => {
   const { post, groupName, fullName, status, avatar, remark } = notepost;
 
   const unnote = (e) => {
-    e.PreventDefault();
     unnotePost(post);
     setAlert('Unnote', 'success');
   };
 
   return (
-    <Link to={`posts/${post}`}>
-      <div className='join-grp-flex  notepost'>
-        <div className='display-pic-1'>
-          <img
-            className='display-pic-1'
-            src={avatar ? avatar : logo}
-            alt='no'
-          />
-        </div>
-        <div className='flex-right'>
+    <div className='join-grp-flex  notepost'>
+      <div className='display-pic-1'>
+        <img className='display-pic-1' src={avatar ? avatar : logo} alt='no' />
+      </div>
+      <div className='flex-right'>
+        <Link to={`posts/${post}`}>
           <a href='#!' className='bold bold-1'>
             {fullName && <p> Posted By: {fullName}</p>}
 
             {groupName && <p> Posted By: {groupName}</p>}
           </a>
-          <p className='third-bold'>{status}</p>
+        </Link>
+        <p className='third-bold'>{status}</p>
 
-          <p className='third-bold'>Remark : {remark}</p>
-        </div>
-
-        <div className='btn-gf note'>
-          {' '}
-          <a href='#!' onClick={unnote}>
-            <img src={noteimg} alt='' />
-          </a>
-        </div>
+        <p className='third-bold'>Remark : {remark}</p>
       </div>
-    </Link>
+
+      <div className='btn-gf note'>
+        {' '}
+        <a href='#!' onClick={unnote}>
+          <img src={noteimg} alt='' />
+        </a>
+      </div>
+    </div>
   );
 };
 

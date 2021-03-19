@@ -323,11 +323,11 @@
   align-items: center;
   margin-bottom: 1rem;
   padding: 0.5rem 1rem;
+  max-width: 325px;
 }
 
-.join-grp-flex.notepost .third-bold {
-  background-color: #f2f2f2;
-  border-radius: 10px;
+.join-grp-flex.notepost .flex-right P {
+  word-break: break-word;
 }
 
 .join-grp-flex .display-pic {
@@ -353,7 +353,7 @@
   flex-direction: column;
   line-height: 1.2rem;
   justify-content: flex-start;
-  margin-right: 4rem;
+  margin-right: 0.5rem;
 }
 .join-grp-flex .display-pic-1 {
   width: 46px;
