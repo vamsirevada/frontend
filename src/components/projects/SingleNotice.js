@@ -40,7 +40,7 @@ const SingleNotice = ({
     setShortlist(false);
   };
 
-  const shortList = (notice, item) => {
+  const handleClick = (notice, item) => {
     shortlistNotice(notice?._id, item?._id);
     setText(true);
   };
@@ -188,7 +188,7 @@ const SingleNotice = ({
                     </div>
                     <div>
                       <button
-                        onClick={shortList(notice, item)}
+                        onClick={handleClick(notice, item)}
                         className='btn-blue'
                       >
                         {text ? 'Shortlisted' : 'Shortlist'}
