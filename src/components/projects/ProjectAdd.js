@@ -15,7 +15,7 @@ const ProjectAdd = ({ singleproject }) => {
     <>
       <MembersPopup ref={modalRef} members={singleproject?.members} />
       <AddPopUp show={show} close={close} />
-      <div className='main-grid-top'>
+      <div className='main-grid-top project'>
         <div className='profile-project-box'>
           <a
             href='#!'

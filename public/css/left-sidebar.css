@@ -317,6 +317,13 @@ h3 {
   margin: 1rem;
 }
 
+.portfolio-left .about {
+  margin: 0rem;
+}
+.portfolio-left .about.project {
+  margin-top: 2.5rem;
+}
+
 .left-container .profile-table,
 .left-container .prof-exp {
   margin: 1rem 0;

@@ -45,6 +45,10 @@ a {
   width: 250px;
 }
 
+.feed-main-container .main-grid-top.project {
+  margin-bottom: 1rem;
+}
+
 .main-grid-top .profile-project-box {
   display: flex;
   justify-content: space-between;
@@ -53,7 +57,7 @@ a {
   padding: 1.5rem 1rem;
   border-radius: 20px;
   line-height: 1.3rem;
-  max-width: 80%;
+  max-width: 90%;
   margin: auto;
   margin-top: 1rem;
 }
@@ -93,7 +97,7 @@ a {
   font-size: 500;
   color: #fff;
   margin-left: 0.5rem;
-  background-color: #5d67cc;
+  background-color: #7480ff;
   padding: 10px 20px;
   border-radius: 10px;
 }

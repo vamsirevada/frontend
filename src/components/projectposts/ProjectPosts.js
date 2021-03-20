@@ -23,24 +23,28 @@ const ProjectPosts = ({
 
   return (
     <>
-      <button
+      {/* <button
         onClick={() => {
           setOwn(true);
         }}
       >
         Sort
-      </button>
+      </button> */}
       {own ? (
         <Fragment>
-          {oprojectposts.map((post) => (
-            <ProjectPostItem profile={profile} key={post._id} post={post} />
-          ))}
+          <div className='posts'>
+            {oprojectposts.map((post) => (
+              <ProjectPostItem profile={profile} key={post._id} post={post} />
+            ))}
+          </div>
         </Fragment>
       ) : (
         <Fragment>
-          {projectposts.map((post) => (
-            <ProjectPostItem profile={profile} key={post._id} post={post} />
-          ))}
+          <div className='posts'>
+            {projectposts.map((post) => (
+              <ProjectPostItem profile={profile} key={post._id} post={post} />
+            ))}
+          </div>
         </Fragment>
       )}
     </>

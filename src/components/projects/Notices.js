@@ -6,6 +6,7 @@ import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { projectStorage } from '../../firebase/config';
+import plus from '../../images/icons/noun_Plus_2310779.svg';
 
 const Notices = ({
   id,
@@ -69,65 +70,93 @@ const Notices = ({
   };
 
   return (
-    <div>
-      <span>
-        <h1>Notices</h1>
-        <span
-          onClick={() => {
-            setViewAll(!viewall);
-          }}
-          style={{ color: '#5d67cc', cursor: 'pointer', float: 'right' }}
-        >
-          View All
-        </span>
-      </span>
-
-      {notices &&
-        notices.slice(0, viewall ? notices.length : 3).map((notice, index) => (
-          <div style={{ height: '330px', width: '336px' }} key={index}>
-            <Link to={creator === userName ? `/notice/${notice?._id}` : '#'}>
-              <img
-                height='132px'
-                width='336px'
-                src={notice?.noticeImg ? notice?.noticeImg : logo}
-                alt=''
-              />
-              <div>
-                <h3>{notice?.title}</h3>
-                <span>
-                  <small>
-                    Posted{': '}
-                    <Moment format='DD MMMM, YYYY'>{notice?.date}</Moment>
-                  </small>
-                  <small style={{ float: 'right' }}>
-                    Deadline{': '}
-                    <Moment format='DD MMMM, YYYY'>{notice?.deadline}</Moment>
-                  </small>
-                </span>
-                <div>
-                  <h4>
-                    Posted by:{' '}
-                    <p
-                      style={{ color: '#7480FC', textDecoration: 'underline' }}
-                    >
-                      {notice?.project?.projectname}
-                    </p>
-                  </h4>
-                </div>
-              </div>
-            </Link>
+    <>
+      <div className='notice-main'>
+        <div className='notice-main-container'>
+          <div className='notice-main-heading'>
+            <h2>Notices</h2>
+            <p
+              onClick={() => {
+                setViewAll(!viewall);
+              }}
+            >
+              View All
+            </p>
           </div>
-        ))}
-      {creator === userName && (
-        <button onClick={() => setShow(true)}>Publish new notice</button>
-      )}
+          <hr className='Hori' />
+
+          {notices &&
+            notices
+              .slice(0, viewall ? notices.length : 3)
+              .map((notice, index) => (
+                <div key={index} className='notice-item'>
+                  <Link to={`/notice/${notice?._id}`}>
+                    <img
+                      src={notice?.noticeImg ? notice?.noticeImg : logo}
+                      alt=''
+                    />
+                    <div className='notice-item-body'>
+                      <h3>{notice?.title}</h3>
+                      <div className='notice-flex'>
+                        <p>
+                          Posted{': '}
+                          <span className='notice-flex-date'>
+                            <Moment format='DD MMM YY'>{notice?.date}</Moment>
+                          </span>
+                        </p>
+                        <p>
+                          Deadline{': '}
+                          <span className='notice-flex-date'>
+                            <Moment format='DD MMM YY'>
+                              {notice?.deadline}
+                            </Moment>
+                          </span>
+                        </p>
+                      </div>
+                      <div className='notice-body-postedby'>
+                        <p>
+                          Posted by:{' '}
+                          <span
+                            style={{
+                              color: '#7480FC',
+                            }}
+                            className='notice-postedby-name'
+                          >
+                            {notice?.project?.projectname}
+                          </span>
+                        </p>
+                      </div>
+                      <div className='notice-members-appshort'>
+                        <p>
+                          <span>{notice?.applied.length} members applied</span>
+                        </p>
+                        <p>
+                          <span>
+                            {notice?.shortlisted.length} members shortlisted
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+        </div>
+      </div>
+      <div className='notice-publish'>
+        <a href='#!' onClick={() => setShow(true)}>
+          <span className='nbtn-yellow'>
+            <img src={plus} alt='' />
+          </span>
+          <span className='publish-text'>Publish new notice</span>
+        </a>
+      </div>
 
       {show && (
         <>
           <div className='noticepopupscreen'>
             <div className='noticepopup'>
               <div className='notice-heading'>
-                <h1>Create Notice</h1>
+                <h2>Create Notice</h2>
                 <a
                   href='#!'
                   className='notice-cross'
@@ -136,7 +165,7 @@ const Notices = ({
                   <img src={close} alt='' />
                 </a>
               </div>
-              <div>
+              <div className='notice-dp'>
                 <input
                   type='file'
                   onChange={onFileChange}
@@ -156,10 +185,12 @@ const Notices = ({
               <div className='n-form notice'>
                 <form onSubmit={(e) => onSubmit(e)}>
                   <div>
-                    <label>
+                    <label className='form-label'>
                       Title <span className='blue'>*</span>
                     </label>
+                    <br />
                     <input
+                      className='notice-form-input'
                       type='text'
                       name='title'
                       value={title}
@@ -169,10 +200,12 @@ const Notices = ({
                     />
                   </div>
                   <div>
-                    <label>
+                    <label className='form-label'>
                       Deadline <span className='blue'>*</span>
                     </label>
+                    <br />
                     <input
+                      className='notice-form-input'
                       type='date'
                       name='deadline'
                       value={deadline}
@@ -182,10 +215,12 @@ const Notices = ({
                     />
                   </div>
                   <div>
-                    <label>
+                    <label className='form-label'>
                       Eligibility <span className='blue'>*</span>
                     </label>
+                    <br />
                     <input
+                      className='notice-form-input'
                       type='text'
                       name='eligibility'
                       value={eligibility}
@@ -195,8 +230,10 @@ const Notices = ({
                     />
                   </div>
                   <div>
-                    <label>Venue </label>
+                    <label className='form-label'>Venue </label>
+                    <br />
                     <input
+                      className='notice-form-input'
                       type='text'
                       name='venue'
                       value={venue}
@@ -204,11 +241,13 @@ const Notices = ({
                     />
                   </div>
                   <div>
-                    <label>Description</label>
+                    <label className='form-label'>Description</label>
+                    <br />
                     <textarea
+                      className='notice-form-input'
                       name='description'
                       id='messages'
-                      rows='8'
+                      rows='4'
                       value={description}
                       onChange={(e) => onChange(e)}
                       placeholder='Write Something about project'
@@ -216,25 +255,35 @@ const Notices = ({
                     ></textarea>
                   </div>
                   <div>
-                    <label>Required Role</label>
+                    <label className='form-label'>Required Role</label>
+                    <br />
                     <input
+                      className='notice-form-input'
                       type='text'
                       name='role'
                       value={role}
                       onChange={(e) => onChange(e)}
                     />
                   </div>
-                  <br />
-                  <button type='Submit'> Save</button>
-                  <button>Cancel</button>
-                  <br />
+                  <div className='noticebuttons'>
+                    <button type='Submit' className='notice-save'>
+                      {' '}
+                      Save
+                    </button>
+                    <button
+                      className='notice-cancel'
+                      onClick={() => setShow(false)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>
           </div>
         </>
       )}
-    </div>
+    </>
   );
 };
 
