@@ -122,8 +122,15 @@ a {
   bottom: 0px;
   right: 0px;
 }
+
 .hori {
   max-width: 90%;
+  border: 1px solid #c9c9c9;
+  opacity: 0.5;
+}
+.hori.project {
+  max-width: 100%;
+  margin-top: 0.25rem;
   border: 1px solid #c9c9c9;
   opacity: 0.5;
 }

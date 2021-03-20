@@ -94,18 +94,19 @@ const ProjectPostItem = ({
             />
           </div>
 
-          <a className='bold bold-1'>
+          <div className='name-lato'>
             {' '}
-            {fullName && fullName} {groupName && groupName} (
-            {userName && userName})<br />{' '}
-            <span className='third-bold'>
+            <Link to={`portfolio/${user?._id}`}>
+              {fullName && fullName} {groupName && groupName} <br />
+            </Link>{' '}
+            <span className='date-lato'>
               <span className='f-1'>
-                Posted on{': '}
-                <Moment format='DD MMM YY'>{date}</Moment> {', '}
                 <Moment format='hh:mm A'>{date}</Moment>
+                {', '}
+                <Moment format='DD MMM YY'>{date}</Moment>
               </span>
             </span>
-          </a>
+          </div>
         </div>
         <a
           style={{ display: userName === auth.user.userName ? '' : 'none' }}

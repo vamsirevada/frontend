@@ -19,7 +19,6 @@ const SingleProject = ({
     //eslint-disable-next-line
   }, []);
 
-  // console.log(singleproject.members);
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
 
