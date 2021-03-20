@@ -107,6 +107,7 @@ const ImageGrid = ({ id, profile }) => {
                 className='img-wrap'
                 key={doc.id}
                 layout
+                style={{ opacity: 1 }}
                 whileHover={{ opacity: 1 }}
               >
                 <div className='edit-container'>
@@ -178,6 +179,7 @@ const ImageGrid = ({ id, profile }) => {
                   className='img-wrap'
                   key={doc.id}
                   layout
+                  style={{ opacity: 1 }}
                   whileHover={{ opacity: 1 }}
                 >
                   <div className='edit-container'>
@@ -228,6 +230,7 @@ const ImageGrid = ({ id, profile }) => {
               className='img-wrap'
               key={doc.id}
               layout
+              style={{ opacity: 1 }}
               whileHover={{ opacity: 1 }}
             >
               <div className='edit-container'>
@@ -277,6 +280,7 @@ const ImageGrid = ({ id, profile }) => {
               className='img-wrap'
               key={doc.id}
               layout
+              style={{ opacity: 1 }}
               whileHover={{ opacity: 1 }}
             >
               <div className='edit-container'>
