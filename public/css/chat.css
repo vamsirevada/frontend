@@ -452,10 +452,9 @@ a {
   display: grid;
   grid-template-columns: 20% 80%;
   width: 25%;
-  /* grid-gap: 1rem; */
   align-items: center;
   background-color: #f9f6f2;
-  padding: 0.8rem;
+  padding: 1.1rem 0.8rem;
   position: fixed;
   border-bottom: 1px solid #c9c9c9;
   z-index: 10;
@@ -513,6 +512,14 @@ a {
   grid-template-columns: 20% 80%;
   align-content: center;
   /* margin-bottom: 1rem; */
+}
+
+.fullchat-chatgrid .dp {
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  margin-right: 1rem;
 }
 
 .flex-column-1 {

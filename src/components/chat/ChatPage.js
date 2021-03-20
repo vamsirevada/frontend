@@ -42,6 +42,7 @@ const ChatPage = ({
       });
     }
   };
+  console.log(logo);
 
   return (
     <div id='full-chat'>
