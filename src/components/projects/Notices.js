@@ -8,7 +8,14 @@ import { Link } from 'react-router-dom';
 import { projectStorage } from '../../firebase/config';
 import plus from '../../images/icons/noun_Plus_2310779.svg';
 
-const Notices = ({ id, createNotice, getNotices, notice: { notices } }) => {
+const Notices = ({
+  id,
+  creator,
+  userName,
+  createNotice,
+  getNotices,
+  notice: { notices },
+}) => {
   const [show, setShow] = useState(false);
   const [viewall, setViewAll] = useState(false);
   let fileInput = React.createRef();

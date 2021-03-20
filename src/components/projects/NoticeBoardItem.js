@@ -72,7 +72,6 @@ const NoticeBoardItem = ({
                     </Link>
                   </p>
                 </div>
-
                 <div className='noticeboard-member-applied'>
                   <div className='noticeboard-avatars'>
                     {not?.applied.map((x) => (
