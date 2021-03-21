@@ -47,14 +47,14 @@ const AddBlog = ({ setAlert }) => {
       const body = {
         text: description,
         url: file,
-        type: 'blog',
+        type: 'Blog',
         user: userId,
       };
       await api
         .post('/posts', body)
         .then(async (res) => {
           await collectionRef.add({
-            type: 'blog',
+            type: 'Blog',
             url: file,
             description: description,
             createdAt,

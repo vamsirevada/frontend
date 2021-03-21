@@ -1,26 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import { Link } from 'react-router-dom';
-import add from '../../images/noun_Add Friend_2987727 (2) 2.svg';
-import api from '../../utils/api';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
 import { unnotePeople } from '../../actions/profile';
-import nounPlus from '../../images/noun_Plus_2310779.svg';
 import logo from '../../images/dummyimage.jpg';
 import noteimg from '../../images/icons/summarize-24px.svg';
 
 const NotePeople = ({ setAlert, notepeople, unnotePeople }) => {
   const { user, fullName, groupName, status, avatar, remark } = notepeople;
-
-  // const deny = async (user) => {
-  //   try {
-  //     await api.delete(`/profile/unnote/${user}`);
-  //     setAlert('Unnote', 'success');
-  //   } catch (err) {
-  //     setAlert(err.response.data.msg, 'danger');
-  //   }
-  // };
 
   const unnote = () => {
     unnotePeople(user);

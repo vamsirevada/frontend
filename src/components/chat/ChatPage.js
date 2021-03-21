@@ -50,10 +50,10 @@ const ChatPage = ({
           <div
             style={{
               background: `url(${
-                auth.user.avatar ? auth.user.avatar : logo
-              }) no-repeat center center/contain`,
+                auth?.user?.avatar ? auth?.user?.avatar : logo
+              }) no-repeat center center/cover`,
             }}
-            className='dp'
+            className='display-pic'
           ></div>
           <div>
             <input
@@ -134,28 +134,6 @@ const ChatPage = ({
                 </div>
               </div>
             </div>
-            {/* <div className="fullchat-maintop-right">
-              <div className="m-1">
-                <a>
-                  <img src={videocall} alt='' />
-                </a>
-              </div>
-              <div className='m-1'>
-                <a>
-                  <img src={call} alt='' />
-                </a>
-              </div>
-              <div className='m-1'>
-                <a>
-                  <img src={attach} alt='' />
-                </a>
-              </div>
-              <div className='m-1'>
-                <a>
-                  <img src={path} alt='' />
-                </a>
-              </div>
-            </div> */}
           </div>
 
           <div className='fullchat-mainbody'>
@@ -219,12 +197,6 @@ const ChatPage = ({
                   onChange={(e) => setFormValue(e.target.value)}
                   rows='1'
                 ></textarea>
-                {/* <a>
-                  <img src={emoji} alt="" />
-                </a>
-                <a>
-                  <img src={attach} alt="" />
-                </a> */}
               </div>
               <div className='form-flex-right'>
                 <a type='submit'>

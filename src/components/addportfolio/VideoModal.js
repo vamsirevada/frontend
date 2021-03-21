@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-no-target-blank */
 import React, { useState, useEffect } from 'react';
+import { connect, useDispatch } from 'react-redux';
 import logo from '../../images/dummyimage.jpg';
 import backward from '../../images/Group 6054.svg';
 import forward from '../../images/Group 6056.svg';
@@ -11,7 +12,6 @@ import heart from '../../images/heart.svg';
 import yheart from '../../images/liked.png';
 import com from '../../images/noun_comment_767203 copy.svg';
 import CommentForm from '../posts/CommentForm';
-import { connect, useDispatch } from 'react-redux';
 import {
   getRealtimeData,
   portfolioDisLike,
@@ -19,14 +19,14 @@ import {
 } from '../../actions/portfolio';
 import Spinner from '../layout/Spinner';
 
-const Modal = ({
+const VideoModal = ({
   auth,
   portfolio: { portfolio },
   profile: { avatar, user },
-  displayImage,
+  displayVideo,
   value,
-  dispImage,
-  images,
+  dispVideo,
+  videos,
   close,
 }) => {
   const dispatch = useDispatch();
@@ -36,19 +36,17 @@ const Modal = ({
   useEffect(() => {
     const t = setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 500);
     return () => {
       clearTimeout(t);
     };
   });
 
-  // const abc = portfolio.likes.map((like) => like.user === auth?.user?._id);
+  const abc = portfolio.likes.map((like) => like.user === auth?.user?._id);
 
-  // console.log(abc);
+  const xyz = abc.find((num) => num === true);
 
-  // const xyz = abc.find((num) => num === true);
-
-  const [displayLbtn, toogleLbtn] = useState(false);
+  const [displayLbtn, toogleLbtn] = useState(xyz);
 
   const comments = [];
 
@@ -66,8 +64,8 @@ const Modal = ({
     dispatch(portfolioLike(file.id, likeObj));
   };
 
-  const unlike = (file, likes) => {
-    dispatch(portfolioDisLike(file.id, likes, auth?.user?._id));
+  const unlike = (file) => {
+    dispatch(portfolioDisLike(file.id, auth?.user?._id));
   };
 
   return (
@@ -93,17 +91,17 @@ const Modal = ({
                     ></div>
                     <div className='lh-title'>
                       <h2 className='modal-title w-100'>
-                        {images[value].title}
+                        {videos[value].title}
                       </h2>
                       <p>
                         by <span className='blue'>{user.fullName}</span>
                         {', '}
                         <Moment format='DD MMM YY'>
-                          {images[value].createdAt.toDate()}
+                          {videos[value].createdAt.toDate()}
                         </Moment>{' '}
                         {', '}
                         <Moment format='hh:mm A'>
-                          {images[value].createdAt.toDate()}
+                          {videos[value].createdAt.toDate()}
                         </Moment>
                       </p>
                     </div>
@@ -121,26 +119,31 @@ const Modal = ({
                   onClick={() => {
                     let decrement = value - 1;
                     if (decrement < 0) {
-                      decrement = images.length - 1;
+                      decrement = videos.length - 1;
                     }
-                    displayImage(decrement);
-                    dispatch(getRealtimeData(images[decrement].id));
+                    displayVideo(decrement);
+                    dispatch(getRealtimeData(videos[decrement].id));
                   }}
                   className='prev'
                 >
                   <img src={backward} alt='' />
                 </div>
                 <div className='post-pic-1'>
-                  <img src={dispImage.imageUrl} alt='' />
+                  <video
+                    controls
+                    controlsList='nodownload'
+                    src={dispVideo.videoUrl}
+                    alt=''
+                  />
                 </div>
                 <div
                   onClick={() => {
                     let increment = value + 1;
-                    if (increment > images.length - 1) {
+                    if (increment > videos.length - 1) {
                       increment = 0;
                     }
-                    displayImage(increment);
-                    dispatch(getRealtimeData(images[increment].id));
+                    displayVideo(increment);
+                    dispatch(getRealtimeData(videos[increment].id));
                   }}
                   className='prev'
                 >
@@ -152,11 +155,11 @@ const Modal = ({
             <div className='flex-des'>
               <div className='pic-des-1'>
                 <div onClick={(e) => onLike(e)}>
-                  {portfolio.likes.includes(auth?.user?._id) ? (
+                  {displayLbtn ? (
                     <div>
                       <div
                         onClick={() => {
-                          unlike(images[value]);
+                          unlike(videos[value]);
                         }}
                       >
                         <img className='r-1' src={yheart} alt='' />
@@ -167,7 +170,7 @@ const Modal = ({
                     <>
                       <div
                         onClick={() => {
-                          like(images[value]);
+                          like(videos[value]);
                         }}
                       >
                         <img className='r-1' src={heart} alt='' />
@@ -184,9 +187,7 @@ const Modal = ({
               <div className='des-right'>
                 <a className='d-1'>
                   <span className='f-1'>
-                    {portfolio.likes &&
-                      portfolio.likes.length > 0 &&
-                      portfolio.likes.length}
+                    {portfolio.likes.length > 0 && portfolio.likes.length}
                   </span>{' '}
                   Likes
                 </a>
@@ -215,4 +216,4 @@ const mapStateToProps = (state) => ({
   portfolio: state.portfolio,
 });
 
-export default connect(mapStateToProps)(Modal);
+export default connect(mapStateToProps)(VideoModal);
