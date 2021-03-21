@@ -194,10 +194,26 @@
   right: 0px;
   top: 15px;
 }
+.connect-left-top .note img {
+  width: 90%;
+  /* height: 24px;
+  width: 24px; */
+  display: inline-block;
+  margin-top: 0.15rem;
+  /* fill: rgb(249, 229, 8); */
+  filter: invert(50%) sepia(0%) saturate(1111%) hue-rotate(316deg)
+    brightness(90%) contrast(82%);
+}
+
 .connect-left-top .note:hover {
   cursor: pointer;
-  border-bottom: 3px solid #fad300;
+  border-bottom: 1px solid #fad300;
   transition: all 0.1s ease-in-out;
+}
+
+.connect-left-top .note img:hover {
+  filter: invert(79%) sepia(60%) saturate(1714%) hue-rotate(2deg)
+    brightness(101%) contrast(101%);
 }
 
 .connect-main .connect-left-top .flex-c {

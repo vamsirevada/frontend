@@ -52,155 +52,168 @@ const SingleNotice = ({
   }, [getNotice, getAppliedMembers, getShortlistedMembers, match.params.id]);
 
   return (
-    <>
-      <div className='singlenotice'>
-        <div>
+    <div className='n-detailed'>
+      <div className='n-container'>
+        <div className='singlenotice'>
           <div>
-            <img onClick={() => history.goBack()} src={back} alt='' />
+            <div>
+              {/* <img onClick={() => history.goBack()} src={back} alt='' /> */}
+              <a onClick={() => history.goBack()} href='#!' className='n-back'>
+                Back
+              </a>
+            </div>
+          </div>
+          <div className='singlenotice-left'>
+            <span>
+              <img src={notice?.noticeImg ? notice?.noticeImg : cover} alt='' />
+            </span>
+          </div>
+
+          <div className='singlenotice-info'>
+            <div className='singlenotice-project-heading'>
+              <img
+                src={
+                  notice?.project?.avatar ? notice?.project?.avatar : noticelogo
+                }
+                alt=''
+              />
+              <h1>Sci-fi movie - Trail of blood (2021)</h1>
+            </div>
+            <div className='singlenotice-title'>
+              <h1>{notice?.title}</h1>
+              <div className='singlenotice-buttons'>
+                <button type='button' className='btn-blue1'>
+                  <img src={bin} alt='' />
+                </button>
+                <button type='button' className='btn-yellow'>
+                  Edit Notice
+                </button>
+              </div>
+            </div>
+
+            <div className='noticeboardpopup-main'>
+              <div className='noticeboardpopup-content single'>
+                <h5>Posted by : </h5>{' '}
+                <span>
+                  <p>{notice?.project?.projectname}</p>
+                </span>
+              </div>
+              <div className='noticeboardpopup-content single'>
+                <h5>Posted on : </h5>{' '}
+                <span>
+                  <p>
+                    <Moment format='Do MMMM'>{notice?.date}</Moment>
+                  </p>
+                </span>
+              </div>
+              <div className='noticeboardpopup-content single'>
+                <h5>Deadline : </h5>{' '}
+                <span>
+                  <p>
+                    <Moment format='Do MMMM'>{notice?.deadline}</Moment>
+                  </p>
+                </span>
+              </div>
+              <div className='noticeboardpopup-content single'>
+                <h5>Eligibility : </h5>{' '}
+                <span>
+                  <p>{notice?.eligibility}</p>
+                </span>
+              </div>
+              <div className='noticeboardpopup-content single'>
+                <h5>Venue : </h5>{' '}
+                <span>
+                  <p>{notice?.venue}</p>
+                </span>
+              </div>
+              <div className='noticeboardpopup-content single'>
+                <h5>Role : </h5>{' '}
+                <span>
+                  <p>{notice?.role}</p>
+                </span>
+              </div>
+              <div className='noticeboardpopup-content single'>
+                <h5>Description :</h5>
+                <p>{notice?.description}</p>
+              </div>
+            </div>
           </div>
         </div>
-        <div className='singlenotice-left'>
-          <span>
-            <img src={notice?.noticeImg ? notice?.noticeImg : cover} alt='' />
-          </span>
-        </div>
-
-        <div>
-          <div className='singlenotice-project-heading'>
-            <img
-              src={
-                notice?.project?.avatar ? notice?.project?.avatar : noticelogo
+        <div className='noticemembers-sorting'>
+          <div className='noticemembers-sort'>
+            <button
+              onClick={onClick2}
+              className={
+                apply
+                  ? 'right left-top left-right-bottom'
+                  : 'left left-top left-right-bottom'
               }
-              alt=''
-            />
-            <h1>Sci-fi movie - Trail of blood (2021)</h1>
-          </div>
-          <div className='singlenotice-title'>
-            <h1>{notice?.title}</h1>
-            <div className='singlenotice-buttons'>
-              <button type='button' className='btn-blue1'>
-                <img src={bin} alt='' />
-              </button>
-              <button type='button' className='btn-yellow'>
-                Edit Notice
-              </button>
-            </div>
-          </div>
-
-          <div className='noticeboardpopup-main'>
-            <div className='noticeboardpopup-content'>
-              <h5>Posted by : </h5>{' '}
-              <span>
-                <p>{notice?.project?.projectname}</p>
+            >
+              <span className='app-mem'>
+                List of applied Members ({notice?.applied.length})
               </span>
-            </div>
-            <div className='noticeboardpopup-content'>
-              <h5>Posted on : </h5>{' '}
-              <span>
-                <p>
-                  <Moment format='Do MMMM'>{notice?.date}</Moment>
-                </p>
+            </button>
+            <button
+              onClick={onClick1}
+              className={
+                shortlist
+                  ? 'right right-top right-left-bottom'
+                  : 'left right-top right-left-bottom'
+              }
+            >
+              <span className='sho-mem'>
+                List of shortlisted members ({notice?.shortlisted.length})
               </span>
-            </div>
-            <div className='noticeboardpopup-content'>
-              <h5>Deadline : </h5>{' '}
-              <span>
-                <p>
-                  <Moment format='Do MMMM'>{notice?.deadline}</Moment>
-                </p>
-              </span>
-            </div>
-            <div className='noticeboardpopup-content'>
-              <h5>Eligibility : </h5>{' '}
-              <span>
-                <p>{notice?.eligibility}</p>
-              </span>
-            </div>
-            <div className='noticeboardpopup-content'>
-              <h5>Venue : </h5>{' '}
-              <span>
-                <p>{notice?.venue}</p>
-              </span>
-            </div>
-            <div className='noticeboardpopup-content'>
-              <h5>Role : </h5>{' '}
-              <span>
-                <p>{notice?.role}</p>
-              </span>
-            </div>
-            <div className='noticeboardpopup-content'>
-              <h5>Description :</h5>
-              <p>{notice?.description}</p>
-            </div>
+            </button>
           </div>
         </div>
-      </div>
-      <div className='noticemembers-sorting'>
-        <div className='noticemembers-sort'>
-          <button
-            onClick={onClick2}
-            className={
-              apply
-                ? 'right left-top left-right-bottom'
-                : 'left left-top left-right-bottom'
-            }
-          >
-            List of applied Members ({notice?.applied.length})
-          </button>
-          <button
-            onClick={onClick1}
-            className={
-              shortlist
-                ? 'right right-top right-left-bottom'
-                : 'left right-top right-left-bottom'
-            }
-          >
-            List of shortlisted members ({notice?.shortlisted.length})
-          </button>
+        <div className='singlenotice-noticemembers'>
+          <>
+            {shortlist ? (
+              <>
+                {shortlisted.length > 0 &&
+                  shortlisted.map((item) => (
+                    <ProfileItem
+                      key={item._id}
+                      item={item}
+                      docs={docs}
+                      displayAdd={true}
+                    />
+                  ))}
+              </>
+            ) : (
+              <>
+                {applied.length > 0 &&
+                  applied.map((item) => (
+                    <div
+                      key={item?._id}
+                      style={{
+                        display: 'flex',
+                      }}
+                    >
+                      <div>
+                        <ProfileItem
+                          item={item}
+                          docs={docs}
+                          displayAdd={true}
+                        />
+                      </div>
+                      <div>
+                        <button
+                          onClick={handleClick(notice, item)}
+                          className='btn-blue'
+                        >
+                          {text ? 'Shortlisted' : 'Shortlist'}
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+              </>
+            )}
+          </>
         </div>
       </div>
-      <div className='singlenotice-noticemembers'>
-        <>
-          {shortlist ? (
-            <>
-              {shortlisted.length > 0 &&
-                shortlisted.map((item) => (
-                  <ProfileItem
-                    key={item._id}
-                    item={item}
-                    docs={docs}
-                    displayAdd={true}
-                  />
-                ))}
-            </>
-          ) : (
-            <>
-              {applied.length > 0 &&
-                applied.map((item) => (
-                  <div
-                    key={item?._id}
-                    style={{
-                      display: 'flex',
-                    }}
-                  >
-                    <div>
-                      <ProfileItem item={item} docs={docs} displayAdd={true} />
-                    </div>
-                    <div>
-                      <button
-                        onClick={handleClick(notice, item)}
-                        className='btn-blue'
-                      >
-                        {text ? 'Shortlisted' : 'Shortlist'}
-                      </button>
-                    </div>
-                  </div>
-                ))}
-            </>
-          )}
-        </>
-      </div>
-    </>
+    </div>
   );
 };
 
