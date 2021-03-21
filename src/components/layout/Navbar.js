@@ -86,8 +86,20 @@ const Navbar = ({ logout }) => {
           </a>
         </div>
 
-        <div className='container'>
-          <div className='logo-box'></div>
+        <div
+          className={
+            feedActive || portActive || nbActive || chatActive
+              ? 'container ipad'
+              : 'container'
+          }
+        >
+          <div
+            className={
+              feedActive || portActive || nbActive || chatActive
+                ? 'logo-box ipad'
+                : 'logo-box'
+            }
+          ></div>
 
           <div className='nav-icons'>
             <div className='search active'>

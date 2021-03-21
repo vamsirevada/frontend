@@ -454,17 +454,7 @@ a:hover {
   align-items: center;
 }
 
-/* .sort-post {
-  font-size: 12px;
-  display: inline-block;
-
-} */
-
-/* .sort-post a {
-  font-size: 12px;
-} */ 
-
-.sort-post .right {
+.sort-post .right-s {
   background-color: #7480ff;
   color: #fff;
   font-size: 12px;
@@ -473,12 +463,12 @@ a:hover {
   border: 2px solid #7480ff;
   outline: none;
 }
-.sort-post .left {
+.sort-post .left-s {
   background-color: #fff;
   color: #333;
   font-size: 12px;
   font-family: 'Raleway', sans-serif;
-  padding: 0.2rem 0.75rem;
+  padding: 0.25rem 0.75rem;
   border: 2px solid #7480ff;
   outline: none;
 }
@@ -495,8 +485,4 @@ a:hover {
 }
 .sort-post .right-left-bottom {
   border-bottom-right-radius: 10px;
-}
-
-.sort-post .left {
-  padding: 0.25rem 0.75rem;
 }

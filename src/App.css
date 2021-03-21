@@ -1422,7 +1422,6 @@ input.search-btn:focus {
 .nav-icons .tab.active {
   width: 90px;
   justify-content: center;
-  /* background: rgba(228, 228, 228, 0.459); */
   background: #303030;
   border-radius: 10px;
   transition: all 0.75s;
@@ -1430,7 +1429,6 @@ input.search-btn:focus {
 .nav-icons .tab.unique.active {
   width: 120px;
   justify-content: center;
-  /* background: rgba(228, 228, 228, 0.459); */
   transition: all 0.75s;
 }
 .nav-icons .tab.unique.active.chat {

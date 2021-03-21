@@ -295,6 +295,17 @@
   display: flex;
   grid-gap: 1rem;
 }
+/* .right {
+  background-color: #f9f6f2;
+  width: 100%;
+}
+.right-hide {
+  width: 0px;
+}
+.note-slide-button {
+  position: fixed;
+  right: 0px;
+} */
 
 /* Right Join Group */
 

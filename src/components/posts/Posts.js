@@ -31,8 +31,8 @@ const Posts = ({ getBuddyPosts, getOwnPosts, post: { posts, oposts } }) => {
             onClick={onChange2}
             className={
               all
-                ? 'right left-top left-right-bottom'
-                : 'left left-top left-right-bottom'
+                ? 'right-s left-top left-right-bottom'
+                : 'left-s left-top left-right-bottom'
             }
           >
             All Posts
@@ -41,8 +41,8 @@ const Posts = ({ getBuddyPosts, getOwnPosts, post: { posts, oposts } }) => {
             onClick={onChange1}
             className={
               own
-                ? 'right right-top right-left-bottom'
-                : 'left right-top right-left-bottom'
+                ? 'right-s right-top right-left-bottom'
+                : 'left-s right-top right-left-bottom'
             }
           >
             Your Posts
