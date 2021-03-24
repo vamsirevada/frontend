@@ -26,6 +26,19 @@ html {
   color: #272727;
   background-color: #fad300;
 }
+
+.welcome-page {
+  position: relative;
+  top: 0px;
+  left: 0px;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1000;
+}
+.welcome-page .welcome-image {
+  width: inherit;
+  height: inherit;
+}
 /* Alert */
 
 .alert {
@@ -1262,7 +1275,7 @@ a {
   position: fixed;
   top: 0px;
   left: 0px;
-  z-index: 99999;
+  z-index: 999;
   width: 100%;
 }
 

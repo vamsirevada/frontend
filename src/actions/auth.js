@@ -71,7 +71,9 @@ export const register = ({ formData }) => async (dispatch) => {
 };
 
 //Login User
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password, history, welcome = false) => async (
+  dispatch
+) => {
   const body = { email, password };
   try {
     const res = await api.post('/auth', body);
@@ -81,6 +83,9 @@ export const login = (email, password) => async (dispatch) => {
       payload: res.data,
     });
     dispatch(loadUser());
+    if (welcome) {
+      history.push('/welcome');
+    }
   } catch (err) {
     const errors = err.response.data.errors;
     console.log(errors);

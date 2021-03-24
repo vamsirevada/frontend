@@ -66,20 +66,23 @@ const Portfolio = ({
   return (
     <>
       {loading ? (
+        // <div>
+        //   <div>
+        //     <img
+        //       style={{
+        //         position: 'relative',
+        //         objectFit: 'contain',
+        //       }}
+        //       src={Loading2}
+        //       alt=''
+        //     />
+        //   </div>
+        // </div>
         <div>
-          <div>
-            <img
-              style={{
-                position: 'relative',
-                objectFit: 'contain',
-              }}
-              src={Loading2}
-              alt=''
-            />
-          </div>
+          <p>Loading</p>
         </div>
       ) : (
-        <>
+        <div>
           <div className='ribbon'>
             <a onClick={(e) => onClick1(e)} className='ribbon-left'>
               <AssignmentIndIcon />
@@ -540,7 +543,7 @@ const Portfolio = ({
               </Fragment>
             )}
           </Fragment>
-        </>
+        </div>
       )}
     </>
   );

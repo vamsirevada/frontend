@@ -33,6 +33,7 @@ import ProjectList from '../projects/ProjectList';
 import SingleNotice from '../projects/SingleNotice';
 import Loading from '../Loading';
 import NoticeBoard from '../projects/NoticeBoard';
+import Welcome from '../layout/Welcome';
 
 const Routes = ({ auth: { user } }) => {
   const [loading, setLoading] = useState(true);
@@ -62,6 +63,7 @@ const Routes = ({ auth: { user } }) => {
         <>
           <Navbar />
           <Switch>
+            <PrivateRoute exact path='/welcome' component={Welcome} />
             <PrivateRoute exact path='/portfolio' component={Portfolio} />
             <PrivateRoute exact path='/portfolio/:id' component={Portfolio1} />
             <PrivateRoute exact path='/noticeboard' component={NoticeBoard} />
