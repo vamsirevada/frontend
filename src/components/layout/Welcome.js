@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import Loading2 from '../../images/Loading2.jpg';
 import { Redirect } from 'react-router';
-import Loading from './images/Loading2.jpg';
 
-const Welcome = () => {
+const Welcome = (props) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -20,10 +19,8 @@ const Welcome = () => {
   }
 
   return (
-    <div>
-      <div>
-        <img src={Loading} alt='' />
-      </div>
+    <div className='welcome-page'>
+      <img className='welcome-image' src={Loading2} alt='' />
     </div>
   );
 };

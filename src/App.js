@@ -24,7 +24,6 @@ import { ProfileProvider } from './context/profile/profile.provider';
 import './App.css';
 import ReferralPage from './components/auth/ReferralPage';
 import { LOGOUT } from './actions/types';
-import Welcome from './Welcome';
 
 const App = () => {
   useEffect(() => {
@@ -73,7 +72,6 @@ const App = () => {
                 <PrivateRoute exact path='/add' component={Add} />
                 <Route exact path='/blog' component={Blog} />
                 <Route exact path='/blog/:id' component={SingleArticle} />
-                <Route exact path='/welcome' component={Welcome} />
                 <PrivateRoute component={Routes} />
               </Switch>
             </Fragment>

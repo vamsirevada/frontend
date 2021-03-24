@@ -5,15 +5,18 @@ import api from '../../utils/api';
 import Friend from './Friend';
 import Spinner from '../layout/Spinner';
 import { getBuddiesById, getProfileById } from '../../actions/profile';
+import { getProjects } from '../../actions/project';
 import { setAlert } from '../../actions/alert';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import UseFirestore from '../addportfolio/UseFireStore';
 
 const Friends1 = ({
+  getProjects,
   getBuddiesById,
   getProfileById,
   profile: { profile, buddies, loading },
+  project: { projects },
   match,
 }) => {
   const { docs } = UseFirestore('images');
@@ -29,9 +32,10 @@ const Friends1 = ({
   };
 
   useEffect(() => {
+    getProjects(match.params.id);
     getProfileById(match.params.id);
     getBuddiesById(match.params.id);
-  }, [getBuddiesById, getProfileById, match.params.id]);
+  }, [getProjects, getBuddiesById, getProfileById, match.params.id]);
 
   return loading && profile === null ? (
     <Spinner />
@@ -71,12 +75,13 @@ const Friends1 = ({
                   <br /> Connections
                 </p>
               </Link>
-              <Link to={`/projects/${profile?.user?._id}`}>
+              <Link to={`/projectlist/${profile?.user?._id}`}>
                 <p>
                   <span className='f-1'>
-                    {profile?.experience && profile?.experience.length}
+                    {/* {profile?.experience && profile?.experience.length} */}
+                    {projects && projects.length}
                   </span>
-                  <br /> Projects Completed{' '}
+                  <br /> Projects{' '}
                 </p>
               </Link>
             </div>
@@ -122,8 +127,11 @@ Friends1.propTypes = {
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
+  project: state.project,
 });
 
-export default connect(mapStateToProps, { getProfileById, getBuddiesById })(
-  Friends1
-);
+export default connect(mapStateToProps, {
+  getProjects,
+  getProfileById,
+  getBuddiesById,
+})(Friends1);

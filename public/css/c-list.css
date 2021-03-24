@@ -99,9 +99,9 @@
 
 .profile-info-box .border-1 {
   padding-right: 1rem;
-  margin-right: 1rem;
   border-right: 2px solid #000;
 }
+
 .profile-info-box .border-1.white {
   border-right: 2px solid #fff;
 }
