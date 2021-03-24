@@ -5,8 +5,8 @@ import {
   ACCOUNT_DELETED,
   CLEAR_PROFILE,
   GET_PROFILE,
+  GET_PROFILE_BY_ID,
   GET_PROFILES,
-  GET_PROFILE_PIC,
   PROFILE_ERROR,
   UPDATE_PROFILE,
   GET_BUDDY_REQUESTS,
@@ -27,22 +27,6 @@ export const getCurrentProfile = () => async (dispatch) => {
     dispatch({
       type: GET_PROFILE,
       payload: res.data,
-    });
-  } catch (err) {
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
-  }
-};
-
-export const getCurrentProfilePic = () => async (dispatch) => {
-  try {
-    const res = await api.get('/profile/me');
-
-    dispatch({
-      type: GET_PROFILE_PIC,
-      payload: res.data.avatar,
     });
   } catch (err) {
     dispatch({
@@ -239,7 +223,7 @@ export const getProfiles = () => async (dispatch) => {
 
 export const getBuddies = () => async (dispatch) => {
   try {
-    const res = await api.get('api/profile/buddyProfiles');
+    const res = await api.get('/profile/buddyProfiles');
     dispatch({
       type: GET_BUDDIES,
       payload: res.data,
@@ -272,7 +256,7 @@ export const getProfileById = (userId) => async (dispatch) => {
   try {
     const res = await api.get(`/profile/user/${userId}`);
     dispatch({
-      type: GET_PROFILE,
+      type: GET_PROFILE_BY_ID,
       payload: res.data,
     });
   } catch (err) {

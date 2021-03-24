@@ -9,7 +9,7 @@ import { sendBuddyRequest } from '../../actions/profile';
 import { motion } from 'framer-motion';
 
 const Friend = ({
-  profile: { _id, avatar, user, status, location, buddies, requests },
+  profile: { _id, avatar, user, status, location, buddies },
   sendBuddyRequest,
   displayAdd,
   remove,
@@ -29,10 +29,14 @@ const Friend = ({
     return ext;
   };
 
-  const documents = docs && docs.filter((doc) => doc?.userId === user?._id);
-  const filter = documents.filter(
-    (doc) => doc?.type !== 'audio' || doc?.type !== 'blog'
-  );
+  const documents =
+    docs &&
+    docs.filter(
+      (doc) =>
+        doc?.userId === user?._id &&
+        doc?.type !== 'Audio' &&
+        doc?.type !== 'Blog'
+    );
 
   return (
     <div className='connect-main '>
@@ -69,8 +73,7 @@ const Friend = ({
           <div className='btn-b'>
             {' '}
             <Link to={`/portfolio/${user?._id}`} className='btn-blue'>
-              {/* <img src={add} alt='' /> */}
-              View Profile
+              View Portfolio
             </Link>
           </div>
           <div className='btn-b'>
@@ -91,30 +94,27 @@ const Friend = ({
 
       {displayAdd && (
         <div className='connect-right'>
-          {filter &&
-            filter.slice(0, 4).map(
-              (doc) =>
-                meta(doc.url) !== '.mp3' && (
-                  <div className='pic-1' key={doc.id}>
-                    {doc.type === 'video' ? (
-                      <motion.video
-                        controls
-                        src={doc.url}
-                        alt='uploaded pic'
-                        initial={{
-                          opacity: 0,
-                          height: '100%',
-                          width: '100%',
-                        }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 1 }}
-                      />
-                    ) : (
-                      <img src={doc.url} height='100%' width='100%' alt='' />
-                    )}
-                  </div>
-                )
-            )}
+          {documents &&
+            documents.slice(0, 4).map((doc) => (
+              <div className='pic-1' key={doc.id}>
+                {doc.type === 'Video' ? (
+                  <motion.video
+                    controls
+                    src={doc.url}
+                    alt='uploaded pic'
+                    initial={{
+                      opacity: 0,
+                      height: '100%',
+                      width: '100%',
+                    }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1 }}
+                  />
+                ) : (
+                  <img src={doc.url} height='100%' width='100%' alt='' />
+                )}
+              </div>
+            ))}
         </div>
       )}
     </div>

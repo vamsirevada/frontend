@@ -1,9 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import store from '../../store';
-import { connect } from 'react-redux';
-import { getCurrentProfile } from '../../actions/profile';
-import { getRealtimeNotifications } from '../../actions/notification';
 import Portfolio from '../portfolio/Portfolio';
 import Portfolio1 from '../portfolio/Portfolio1';
 import CreateProfile from '../profile-forms/Createprofile';
@@ -34,18 +30,7 @@ import SingleNotice from '../projects/SingleNotice';
 import NoticeBoard from '../projects/NoticeBoard';
 import Welcome from '../layout/Welcome';
 
-const Routes = ({ auth: { user } }) => {
-  useEffect(() => {
-    store.dispatch(getCurrentProfile());
-    if (user?._id) {
-      store.dispatch(
-        getRealtimeNotifications({
-          uid_1: user?._id,
-        })
-      );
-    }
-  }, [user?._id]);
-
+const Routes = () => {
   return (
     <>
       <Navbar />
@@ -86,8 +71,4 @@ const Routes = ({ auth: { user } }) => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps)(Routes);
+export default Routes;

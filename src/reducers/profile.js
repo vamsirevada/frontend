@@ -1,6 +1,6 @@
-import logo from '../images/dummyimage.jpg';
 import {
   GET_PROFILE,
+  GET_PROFILE_BY_ID,
   GET_PROFILES,
   PROFILE_ERROR,
   CLEAR_PROFILE,
@@ -14,12 +14,11 @@ import {
   GET_NOTED_POST_ERROR,
   GET_NOTED_PEOPLE,
   GET_NOTED_PEOPLE_ERROR,
-  GET_PROFILE_PIC,
 } from '../actions/types';
 
 const initialState = {
   profile: null,
-  avatar: logo,
+  profile1: null,
   profiles: [],
   buddies: [],
   requests: [],
@@ -42,10 +41,11 @@ export default function (state = initialState, action) {
         profile: payload,
         loading: false,
       };
-    case GET_PROFILE_PIC:
+    case GET_PROFILE_BY_ID:
       return {
         ...state,
-        avatar: payload,
+        profile1: payload,
+        loading: false,
       };
     case BUDDY_REQUEST_SENT:
       return {

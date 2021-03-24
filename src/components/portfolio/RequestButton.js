@@ -1,23 +1,23 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect, Fragment } from "react";
-import PropTypes from "prop-types";
-import add from "../../images/noun_Add Friend_2987727 (2) 2.svg";
-import { connect } from "react-redux";
-import { sendBuddyRequest, getProfileById } from "../../actions/profile";
+import React, { useState, useEffect, Fragment } from 'react';
+import PropTypes from 'prop-types';
+import add from '../../images/noun_Add Friend_2987727 (2) 2.svg';
+import { connect } from 'react-redux';
+import { sendBuddyRequest, getProfileById } from '../../actions/profile';
 
 const RequestButton = ({
   peerid,
   reloadid,
   sendBuddyRequest,
   getProfileById,
-  profile: { profile },
+  profile: { profile1 },
   isGroup,
   user,
 }) => {
-  const [btn, setBtn] = useState({ text: "Button Loading", disabled: true });
+  const [btn, setBtn] = useState({ text: 'Button Loading', disabled: true });
 
   const findRequestState = () => {
-    let { requests, buddies } = profile;
+    let { requests, buddies } = profile1;
 
     let exists;
 
@@ -25,32 +25,23 @@ const RequestButton = ({
     exists = buddies.filter((buddy) => buddy === user._id);
     if (exists.length > 0) {
       return setBtn({
-        text: "friend",
+        text: 'Friend',
         disabled: true,
       });
     }
-
-    // Check if peer sent a request
-    // exists = requests.map((request) => request === user._id);
-    // if (exists.length > 0) {
-    //   return setBtn({
-    //     text: 'Accept request',
-    //     disabled: false,
-    //   });
-    // }
 
     // Check if you have sent a request
     exists = requests.filter((request) => request === user._id);
     if (exists.length > 0) {
       return setBtn({
-        text: "requested",
+        text: 'Requested',
         disabled: true,
       });
     }
 
     // Set to default
     return setBtn({
-      text: "Connect",
+      text: 'Connect',
       disabled: false,
     });
   };
@@ -73,13 +64,13 @@ const RequestButton = ({
 
   return (
     <Fragment>
-      <div className="btns">
+      <div className='btns'>
         <a
           className={`btn-white ${btn.text}`}
           disabled={btn.disabled}
           onClick={() => onClick()}
         >
-          <img className="resize" src={add} alt="" />
+          <img className='resize' src={add} alt='' />
           {btn.text}
         </a>
       </div>

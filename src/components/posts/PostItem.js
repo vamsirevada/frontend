@@ -45,8 +45,6 @@ const PostItem = ({
   const abc = likes.map((like) => like.user === auth?.user?._id);
   const xyz = abc.find((num) => num === true);
 
-  console.log(xyz);
-
   const postnoted = profile?.postnote.map((e) => e.post === _id);
 
   const rei = postnoted.find((num) => num === true);

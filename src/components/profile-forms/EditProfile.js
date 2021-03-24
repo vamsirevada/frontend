@@ -16,7 +16,6 @@ import AddClients from './AddClients';
 import AddGroupAward from './AddGroupAward';
 import AddContact from './AddContact';
 import { projectStorage } from '../../firebase/config';
-import { ProfileContext } from '../../context/profile/profile.context';
 
 const EditProfile = ({
   profile: { profile, loading },
@@ -25,7 +24,6 @@ const EditProfile = ({
   history,
 }) => {
   let fileInput = React.createRef();
-  const { img, setImg } = useContext(ProfileContext);
   const [formData, setFormData] = useState({
     location: '',
     avatar: '',
@@ -82,8 +80,6 @@ const EditProfile = ({
       ...formData,
       avatar: await fileRef.getDownloadURL(),
     });
-    localStorage.setItem('profilepicture', await fileRef.getDownloadURL());
-    setImg(await fileRef.getDownloadURL());
 
     createProfile(
       { ...formData, avatar: await fileRef.getDownloadURL() },

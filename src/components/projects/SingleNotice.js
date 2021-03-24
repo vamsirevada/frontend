@@ -9,7 +9,6 @@ import {
 } from '../../actions/notice';
 import Moment from 'react-moment';
 import cover from '../../images/Article-1b.png';
-import back from '../../images/icons/back.svg';
 import noticelogo from '../../images/noticelogo.png';
 import bin from '../../images/noun_bin_2832480.svg';
 import './NoticeBoard.css';
@@ -57,7 +56,6 @@ const SingleNotice = ({
         <div className='singlenotice'>
           <div>
             <div>
-              {/* <img onClick={() => history.goBack()} src={back} alt='' /> */}
               <a onClick={() => history.goBack()} href='#!' className='n-back'>
                 Back
               </a>

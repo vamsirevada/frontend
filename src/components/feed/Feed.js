@@ -59,7 +59,7 @@ const Feed = () => {
               {/* <a onClick={(e) => onClick3(e)} className='note-slide-button'>
                 <img src={noteimg} alt='' />
               </a> */}
-              <div classname='note-slide'>
+              <div className='note-slide'>
                 <NotePeoples />
                 <NotePosts />
               </div>
