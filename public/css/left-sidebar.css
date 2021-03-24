@@ -16,13 +16,6 @@ h3 {
   font-size: 16px;
 }
 
-/* p {
-  font-size: 14px;
-  text-align: inherit;
-} */
-
-/*  Left-display images */
-
 .prof-pic {
   width: 3.5rem;
   height: 3.5rem;
@@ -30,43 +23,31 @@ h3 {
 }
 /* individual */
 .prof-pic.p1 {
-  /* background: url("../img/MaskGroup48.svg") no-repeat center center/cover; */
-  background-color: transparent;
+  background: no-repeat center center/cover;
 }
 .prof-pic.p2 {
-  /* background: url('../images/Mask\ Group\ 48.svg') no-repeat center center/cover; */
   background-color: transparent;
 }
 .prof-pic.p3 {
-  /* background: url('../img/brand.svg') no-repeat center center/cover; */
-  background-color: transparent;
+  background: no-repeat center center/cover;
 }
+
 .prof-pic.p4 {
-  /* background: url('../img/logo.png') no-repeat center center/cover; */
-  background-color: transparent;
+  background: rgb(0, 0, 0) no-repeat center center/cover;
 }
 .prof-pic.p5 {
-  /* background: url('../img/AdobePhotoshopCCicon@2x.png') no-repeat center
-    center/cover; */
   background-color: transparent;
 }
 .prof-pic.p6 {
-  /* background: url('../images/616px-Adobe_After_Effects_CC_icon.svg@2x.png')
-    no-repeat center center/cover; */
   background-color: transparent;
 }
 .prof-pic.p7 {
-  /* background: url('../img/optimized_large_thumb_stage.png') no-repeat center
-    center/cover; */
-  background-color: transparent;
+  background: rgba(0, 0, 0, 0.8) no-repeat center center/cover;
 }
 .prof-pic.p8 {
-  /* background: url('../images/elegacy-events---logo-design_1x.png') no-repeat
-    center center/cover; */
   background-color: transparent;
 }
 .prof-pic.p9 {
-  /* background: url('../images/Image\ 119.png') no-repeat center center/cover; */
   background-color: transparent;
 }
 

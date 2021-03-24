@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
+import thumbnail from '../../images/icons/Thumbnail.jpg';
 
 const PortfolioLeftEducation = ({
   education: { school, degree, fieldofstudy, from, to },
@@ -8,7 +9,7 @@ const PortfolioLeftEducation = ({
   <div className='prof-btn'>
     <div className='prof-btn-flex'>
       <div className='prof-top prof-top-edu'>
-        <div className='prof-pic p3'></div>
+        <img className='prof-pic p3' src={thumbnail} alt='' />
         <div>
           <p>
             <span className='bold'>{school}</span> <br />
