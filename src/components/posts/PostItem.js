@@ -18,7 +18,6 @@ import noteimg from '../../images/icons/summarize-24px.svg';
 import poster from '../../images/play.jpg';
 import PostType from './PostType';
 import { projectFirestore } from '../../firebase/config';
-import Spinner from '../layout/Spinner';
 import NotePostPopUp from '../posts/NotePostPopUp';
 
 const PostItem = ({
@@ -45,6 +44,9 @@ const PostItem = ({
 }) => {
   const abc = likes.map((like) => like.user === auth?.user?._id);
   const xyz = abc.find((num) => num === true);
+
+  console.log(xyz);
+
   const postnoted = profile?.postnote.map((e) => e.post === _id);
 
   const rei = postnoted.find((num) => num === true);
@@ -54,8 +56,6 @@ const PostItem = ({
   const [displayLbtn, toogleLbtn] = useState(xyz);
   const [displayNbtn, toogleNbtn] = useState(rei);
   const [displayAddCmt, toogleAddCmt] = useState(false);
-  const [displayComment, toogleComment] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   const onLike = (e) => {
     e.preventDefault();
@@ -264,16 +264,7 @@ const PostItem = ({
               <span className='f-1'>{likes.length > 0 && likes.length}</span>{' '}
               Likes
             </a>
-            <a
-              onClick={() => {
-                toogleComment(!displayComment);
-                toogleAddCmt(!displayAddCmt);
-                setTimeout(() => {
-                  setLoading(!loading);
-                }, 500);
-              }}
-              className='d-1'
-            >
+            <a className='d-1'>
               <span className='f-1'>
                 {comments.length > 0 && comments.length}
               </span>{' '}
@@ -281,31 +272,29 @@ const PostItem = ({
             </a>
           </div>
         </div>
-
-        {displayComment && (
+        {comments.length > 0 && (
           <div>
-            {loading ? (
-              <Spinner />
-            ) : (
-              <Fragment>
-                <div className='comments'>
-                  {comments.slice(0, 3).map((comment) => (
-                    <CommentItem
-                      key={comment._id}
-                      comment={comment}
-                      postId={_id}
-                    />
-                  ))}
+            <Fragment>
+              <div className='comments'>
+                {comments.slice(0, 3).map((comment) => (
+                  <CommentItem
+                    key={comment._id}
+                    comment={comment}
+                    postId={_id}
+                  />
+                ))}
+                {comments.length > 3 && (
                   <div className='load'>
                     <Link to={`/posts/${_id}`} className='loadmore'>
                       Load more
                     </Link>
                   </div>
-                </div>
-              </Fragment>
-            )}
+                )}
+              </div>
+            </Fragment>
           </div>
         )}
+
         {displayAddCmt && (
           <div>
             <CommentForm

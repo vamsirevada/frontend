@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
-import nounPlus from '../../images/icons/noun_Plus_2310779.svg';
 import bin from '../../images/icons/noun_bin_2832480.svg';
 import { deleteComment } from '../../actions/post';
 import logo from '../../images/dummyimage.jpg';

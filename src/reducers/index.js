@@ -9,6 +9,7 @@ import notification from './notification';
 import project from './project';
 import notice from './notice';
 import projectpost from './projectpost';
+import portfolio from './portfolio';
 
 export default combineReducers({
   alert,
@@ -21,4 +22,5 @@ export default combineReducers({
   project,
   notice,
   projectpost,
+  portfolio,
 });

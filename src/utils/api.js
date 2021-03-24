@@ -1,6 +1,5 @@
 import axios from 'axios';
 import store from '../store';
-import { LOGOUT } from '../actions/types';
 import { setAlert } from '../actions/alert';
 
 const api = axios.create({
