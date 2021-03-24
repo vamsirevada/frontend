@@ -66,17 +66,29 @@ const Portfolio = ({
   return (
     <>
       {loading ? (
-        <div>
-          <div>
-            <img
-              style={{
-                position: 'relative',
-                objectFit: 'contain',
-              }}
-              src={Loading2}
-              alt=''
-            />
-          </div>
+        // <div>
+        //   <div>
+        //     <img
+        //       style={{
+        //         position: 'relative',
+        //         objectFit: 'contain',
+        //       }}
+        //       src={Loading2}
+        //       alt=''
+        //     />
+        //   </div>
+        // </div>
+        <div
+          style={{
+            display: 'flex',
+            textAlign: 'center',
+            justifyContent: 'center',
+            flexDirection: 'column',
+            minHeight: '100vh',
+            margin: 0,
+          }}
+        >
+          <p>Loading....</p>
         </div>
       ) : (
         <>

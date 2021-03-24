@@ -36,7 +36,7 @@ const Modal = ({
   useEffect(() => {
     const t = setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 500);
     return () => {
       clearTimeout(t);
     };

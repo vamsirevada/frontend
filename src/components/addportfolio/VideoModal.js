@@ -42,11 +42,13 @@ const VideoModal = ({
     };
   });
 
-  const abc = portfolio.likes.map((like) => like.user === auth?.user?._id);
+  // const abc = portfolio.likes.map((like) => like.user === auth?.user?._id);
 
-  const xyz = abc.find((num) => num === true);
+  // console.log(abc);
 
-  const [displayLbtn, toogleLbtn] = useState(xyz);
+  // const xyz = abc.find((num) => num === true);
+
+  const [displayLbtn, toogleLbtn] = useState(false);
 
   const comments = [];
 
