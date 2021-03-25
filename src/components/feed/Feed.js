@@ -38,7 +38,7 @@ const Feed = () => {
         </a>
       </div>
       <div>
-        <div id='feed'>
+        <div className={ipadRight ? 'feed' : 'feed right-hide'}>
           <div className='left'>
             <div id='left-sidebar'>
               <MiniPortfolio />
@@ -56,15 +56,15 @@ const Feed = () => {
           )}
           {displayRight && (
             <div className='right'>
-              {/* <a onClick={(e) => onClick3(e)} className='note-slide-button'>
+              <a onClick={(e) => onClick3(e)} className='note-slide-button'>
                 <img src={noteimg} alt='' />
-              </a> */}
-              <div classname='note-slide'>
+              </a>
+              <div className='note-slide'>
                 <NotePeoples />
                 <NotePosts />
               </div>
 
-              <ChatSideBar />
+              {/* <ChatSideBar /> */}
             </div>
           )}
         </div>

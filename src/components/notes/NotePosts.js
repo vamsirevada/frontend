@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import NotePost from './NotePost';
 import { getNotedPost } from '../../actions/profile';
@@ -8,13 +8,25 @@ const NotePosts = ({ profile: { postnote }, getNotedPost }) => {
     getNotedPost();
     //eslint-disable-next-line
   }, [getNotedPost]);
+
+  const [show, setShow] = useState(true);
   return (
     <Fragment>
       <div id='join-grp'>
-        <h5>Noted Posts</h5>
-        {postnote === null ? (
-          <h3>Loading</h3>
-        ) : (
+        <div className='note-people-head'>
+          <h5>Noted Posts</h5>
+          <div className='note-head-btn'>
+            <a href='#!' onClick={() => setShow(false)}>
+              Hide
+            </a>
+            <span className='note-line'>|</span>
+            <a href='#!' onClick={() => setShow(true)}>
+              Show
+            </a>
+          </div>
+        </div>
+
+        {show && (
           <Fragment>
             {postnote === null ? (
               <Fragment>

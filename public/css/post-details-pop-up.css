@@ -452,6 +452,10 @@ a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* position: sticky;
+  top: 200px;
+  z-index: 100;
+  background-color: #fff; */
 }
 
 .sort-post .right-s {

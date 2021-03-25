@@ -34,6 +34,7 @@ import SingleNotice from '../projects/SingleNotice';
 import Loading from '../Loading';
 import NoticeBoard from '../projects/NoticeBoard';
 import Welcome from '../layout/Welcome';
+import ChatSideBar from '../chat/ChatSideBar';
 
 const Routes = ({ auth: { user } }) => {
   const [loading, setLoading] = useState(true);
@@ -115,6 +116,7 @@ const Routes = ({ auth: { user } }) => {
             />
             <Route exact path='*' component={NotFound} />
           </Switch>
+          <ChatSideBar />
         </>
       )}
     </>
