@@ -23,12 +23,6 @@ const Friend = ({
     sendRequest();
   };
 
-  const meta = (url) => {
-    var new_url = url.substring(0, url.indexOf('?alt'));
-    const ext = new_url.substring(new_url.lastIndexOf('.'));
-    return ext;
-  };
-
   const documents =
     docs &&
     docs.filter(

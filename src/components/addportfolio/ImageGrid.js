@@ -9,7 +9,7 @@ import { getRealtimeData } from '../../actions/portfolio';
 import './Gallery.css';
 import Audio from '../../images/audio.svg';
 import Modal from './Modal';
-import { connect, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import VideoModal from './VideoModal';
 
 const ImageGrid = ({ id, profile }) => {

@@ -3,7 +3,6 @@ import nounPlus from '../../images/icons/noun_Plus_2310779.svg';
 import { getProfiles } from '../../actions/profile';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Moment from 'react-moment';
 import { notePeople } from '../../actions/profile';
 import logo from '../../images/dummyimage.jpg';
 
