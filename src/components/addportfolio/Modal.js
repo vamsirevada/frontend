@@ -34,7 +34,6 @@ const Modal = ({
   close,
 }) => {
   const dispatch = useDispatch();
-  const [displayAddCmt, toogleAddCmt] = useState(false);
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('');
 
@@ -77,6 +76,7 @@ const Modal = ({
     };
     dispatch(portfolioComment(file.id, commentObj));
     setText('');
+    dispatch(getRealtimeData(file.id));
   };
 
   const removeComment = () => {
@@ -165,7 +165,7 @@ const Modal = ({
             <div className='flex-des'>
               <div className='pic-des-1'>
                 <div onClick={(e) => onLike(e)}>
-                  {portfolio.likes.includes(auth?.user?._id) ? (
+                  {displayLbtn ? (
                     <div>
                       <div
                         onClick={() => {
@@ -189,11 +189,7 @@ const Modal = ({
                     </>
                   )}
                 </div>
-                <div
-                  onClick={() => {
-                    toogleAddCmt(!displayAddCmt);
-                  }}
-                >
+                <div>
                   <img className='r-1' src={com} alt='' />
                   <span className='d-1'>Comment</span>
                 </div>
@@ -215,6 +211,34 @@ const Modal = ({
                   </span>{' '}
                   Comment
                 </a>
+              </div>
+            </div>
+            <div>
+              <p>{images[value].description}</p>
+            </div>
+            <div className='comment-box'>
+              <div>
+                <img className='comment-pic' src={auth?.user?.avatar} alt='' />
+              </div>
+              <div className='cmt-1'>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    comment(images[value]);
+                  }}
+                >
+                  <input
+                    type='text'
+                    name='comment'
+                    placeholder='Write a Comment...'
+                    value={text}
+                    onChange={(e) => setText(e.target.value)}
+                  />
+
+                  <button type='submit' className='btn-blue'>
+                    <img src={plane} alt='' />
+                  </button>
+                </form>
               </div>
             </div>
             {portfolio.comments && portfolio.comments.length > 0 && (
@@ -270,37 +294,6 @@ const Modal = ({
                     <hr className='Hori' />
                   </Fragment>
                 ))}
-              </div>
-            )}
-            {displayAddCmt && (
-              <div className='comment-box'>
-                <div>
-                  <img
-                    className='comment-pic'
-                    src={auth?.user?.avatar}
-                    alt=''
-                  />
-                </div>
-                <div className='cmt-1'>
-                  <form
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      comment(images[value]);
-                    }}
-                  >
-                    <input
-                      type='text'
-                      name='comment'
-                      placeholder='Write a Comment...'
-                      value={text}
-                      onChange={(e) => setText(e.target.value)}
-                    />
-
-                    <button type='submit' className='btn-blue'>
-                      <img src={plane} alt='' />
-                    </button>
-                  </form>
-                </div>
               </div>
             )}
           </div>
