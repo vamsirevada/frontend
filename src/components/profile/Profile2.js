@@ -1,8 +1,9 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getProjects } from '../../actions/project';
 import briefcase from '../../images/icons/nounBriefcase.svg';
 import nounEducation from '../../images/icons/noun_education_2177318.svg';
 import nounAwards from '../../images/icons/noun_Trophy_2135552.svg';
@@ -27,8 +28,18 @@ import GroupProfileAward from './GroupProfileAward';
 import GroupPartner from './GroupPartner';
 import GroupClient from './GroupClient';
 
-const Profile2 = ({ profile: { profile, loading }, auth: { user } }) => {
-  const { isGroup } = user;
+const Profile2 = ({
+  profile: { profile, loading },
+  auth: { user },
+  project: { projects },
+  getProjects,
+}) => {
+  const { isGroup, _id } = user;
+
+  useEffect(() => {
+    getProjects(_id);
+    //eslint-disable-next-line
+  }, [getProjects, _id]);
 
   return isGroup ? (
     <Fragment>
@@ -50,7 +61,7 @@ const Profile2 = ({ profile: { profile, loading }, auth: { user } }) => {
                     </p>
                   </div>
                 </div>
-                <ProfileTop profile={profile} />
+                <ProfileTop profile={profile} projects={projects} />
                 <GroupProfileAbout profile={profile} />
                 <hr className='new' />
                 <GroupProfileFound profile={profile} />
@@ -276,7 +287,11 @@ const Profile2 = ({ profile: { profile, loading }, auth: { user } }) => {
                     </p>
                   </div>
                 </div>
-                <ProfileTop profile={profile} isGroup={isGroup} />
+                <ProfileTop
+                  profile={profile}
+                  isGroup={isGroup}
+                  projects={projects}
+                />
                 <ProfileAbout profile={profile} />
                 <hr className='new' />
                 <div id='prof-exp'>
@@ -460,7 +475,8 @@ Profile2.propTypes = {
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
+  project: state.project,
   auth: state.auth,
 });
 
-export default connect(mapStateToProps)(Profile2);
+export default connect(mapStateToProps, { getProjects })(Profile2);

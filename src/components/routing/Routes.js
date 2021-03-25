@@ -68,6 +68,7 @@ const Routes = () => {
         <PrivateRoute exact path='/projectlist/:id' component={ProjectList} />
         <Route exact path='*' component={NotFound} />
       </Switch>
+      <ChatSideBar />
     </>
   );
 };

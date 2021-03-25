@@ -77,6 +77,7 @@ const Modal = ({
     };
     dispatch(portfolioComment(file.id, commentObj));
     setText('');
+    dispatch(getRealtimeData(file.id));
   };
 
   const removeComment = () => {

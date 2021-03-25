@@ -73,7 +73,7 @@ const Friend = ({
           <div className='btn-b'>
             {' '}
             <Link to={`/portfolio/${user?._id}`} className='btn-blue'>
-              View Portfolio
+              <span className='hide'>View</span>Portfolio
             </Link>
           </div>
           <div className='btn-b'>

@@ -55,15 +55,16 @@ const Feed = () => {
           )}
           {displayRight && (
             <div className='right'>
-              <a onClick={(e) => onClick3(e)} className='note-slide-button'>
-                <img src={noteimg} alt='' />
-              </a>
               <div className='note-slide'>
                 <NotePeoples />
                 <NotePosts />
               </div>
             </div>
           )}
+          <a onClick={(e) => onClick3(e)} className='note-slide-button'>
+            {/* <img src={noteimg} alt='' /> */}
+            {ipadRight ? <p>Hide</p> : <p>Show</p>}
+          </a>
         </div>
       </div>
     </>
