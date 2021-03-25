@@ -50,7 +50,7 @@ const MiniPortfolio = ({
 
           <div className='connect-info'>
             <div>
-              <Link to='/friends'>
+              <Link to={`/friends/${profile?.user?._id}`}>
                 <p>
                   <span className='f-1'>{profile?.buddies.length}</span>
                   <br />

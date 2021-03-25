@@ -11,7 +11,7 @@ const ProjectList = ({
   match,
   getProfileById,
   getProjects,
-  profile: { profile, loading },
+  profile: { profile1, loading },
   project: { projects },
   auth: { user },
 }) => {
@@ -19,7 +19,7 @@ const ProjectList = ({
     getProfileById(match.params.id);
     getProjects(match.params.id);
   }, [getProfileById, getProjects, match.params.id]);
-  return loading && profile === null ? (
+  return loading && profile1 === null ? (
     <Spinner />
   ) : (
     <Fragment>
@@ -28,38 +28,38 @@ const ProjectList = ({
           <div className='c-list-head'>
             <div className='flex'>
               <div className='display-pic'>
-                <img className='display-pic' src={profile.avatar} alt='' />
+                <img className='display-pic' src={profile1?.avatar} alt='' />
               </div>
               <h2 className='name name-f'>
-                {profile?.user.fullName && profile?.user.fullName}
+                {profile1?.user?.fullName && profile1?.user?.fullName}
               </h2>
               <h2 className='name name-f'>
-                {profile?.user.groupName && profile?.user.groupName}
+                {profile1?.user?.groupName && profile1?.user?.groupName}
               </h2>
             </div>
             <div>
-              <p className='blue'>{profile?.status && profile?.status}</p>
+              <p className='blue'>{profile1?.status && profile1?.status}</p>
             </div>
             <div>
               <p>
                 {/* <img className='resize' src={loc} alt='' />{' '} */}
                 <span className='gray'>
                   {' '}
-                  {profile?.location && profile?.location}
+                  {profile1?.location && profile1?.location}
                 </span>
               </p>
             </div>
 
             <div className='profile-info-box'>
-              <Link to={`/friends/${profile?.user._id}`}>
+              <Link to={`/friends/${profile1?.user?._id}`}>
                 <p className='border-1'>
                   <span className='f-1'>
-                    {profile?.buddies && profile?.buddies.length}
+                    {profile1?.buddies && profile1?.buddies.length}
                   </span>
                   <br /> Connections
                 </p>
               </Link>
-              <Link to={`/projectlist/${profile?.user._id}`}>
+              <Link to={`/projectlist/${profile1?.user?._id}`}>
                 <p>
                   <span className='f-1'>
                     {/* {profile?.experience && profile?.experience.length} */}
@@ -88,7 +88,7 @@ const ProjectList = ({
                             <ProjectTemp
                               key={project._id}
                               project={project}
-                              profile={profile}
+                              profile={profile1}
                               user={user}
                             />
                           ))}

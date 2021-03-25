@@ -24,11 +24,11 @@ const NotePost = ({ setAlert, unnotePost, notepost }) => {
       </div>
       <div className='flex-right'>
         <Link to={`posts/${post}`}>
-          <a href='#!' className='bold bold-1'>
+          <div className='bold bold-1'>
             {fullName && <p> Posted By: {fullName}</p>}
 
             {groupName && <p> Posted By: {groupName}</p>}
-          </a>
+          </div>
         </Link>
         <p className='third-bold'>{status}</p>
 

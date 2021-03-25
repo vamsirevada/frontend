@@ -1,9 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import store from '../../store';
-import { connect } from 'react-redux';
-import { getCurrentProfile } from '../../actions/profile';
-import { getRealtimeNotifications } from '../../actions/notification';
 import Portfolio from '../portfolio/Portfolio';
 import Portfolio1 from '../portfolio/Portfolio1';
 import CreateProfile from '../profile-forms/Createprofile';
@@ -31,100 +27,49 @@ import ChatPage from '../chat/ChatPage';
 import SingleProject from '../projects/SingleProject';
 import ProjectList from '../projects/ProjectList';
 import SingleNotice from '../projects/SingleNotice';
-import Loading from '../Loading';
 import NoticeBoard from '../projects/NoticeBoard';
 import Welcome from '../layout/Welcome';
 import ChatSideBar from '../chat/ChatSideBar';
 
-const Routes = ({ auth: { user } }) => {
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    store.dispatch(getCurrentProfile());
-    if (user?._id) {
-      store.dispatch(
-        getRealtimeNotifications({
-          uid_1: user?._id,
-        })
-      );
-    }
-    const t = setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-    return () => {
-      clearTimeout(t);
-    };
-  }, [user?._id]);
-
+const Routes = () => {
   return (
     <>
-      {loading ? (
-        <Loading />
-      ) : (
-        <>
-          <Navbar />
-          <Switch>
-            <PrivateRoute exact path='/welcome' component={Welcome} />
-            <PrivateRoute exact path='/portfolio' component={Portfolio} />
-            <PrivateRoute exact path='/portfolio/:id' component={Portfolio1} />
-            <PrivateRoute exact path='/noticeboard' component={NoticeBoard} />
-            <PrivateRoute exact path='/addfiles' component={AddPortfolio} />
-            <PrivateRoute
-              exact
-              path='/create-profile'
-              component={CreateProfile}
-            />
-            <PrivateRoute
-              exact
-              path='/create-group-profile'
-              component={CreateGroupProfile}
-            />
-            <PrivateRoute exact path='/edit-profile' component={EditProfile} />
-            <PrivateRoute exact path='/profile' component={Profile2} />
-            <PrivateRoute exact path='/profiles' component={Profiles} />
-            <PrivateRoute
-              exact
-              path='/create-project'
-              component={CreateProject}
-            />
-            <PrivateRoute
-              exact
-              path='/add-experience'
-              component={AddExperience}
-            />
-            <PrivateRoute
-              exact
-              path='/add-education'
-              component={AddEducation}
-            />
-            <PrivateRoute exact path='/add-award' component={AddAward} />
-            <PrivateRoute exact path='/add-events' component={AddEvents} />
-            <PrivateRoute exact path='/add-skills' component={AddSkills} />
-            <PrivateRoute exact path='/posts' component={Posts} />
-            <PrivateRoute exact path='/posts/:id' component={Post} />
-            <PrivateRoute exact path='/project/:id' component={SingleProject} />
-            <PrivateRoute exact path='/notice/:id' component={SingleNotice} />
-            <PrivateRoute exact path='/feed' component={Feed} />
-            <PrivateRoute exact path='/friends' component={Friends} />
-            <PrivateRoute exact path='/chats' component={ChatPage} />
-            <PrivateRoute exact path='/friends/:id' component={Friends1} />
-            <PrivateRoute exact path='/projects/:id' component={Projects} />
-            <PrivateRoute
-              exact
-              path='/projectlist/:id'
-              component={ProjectList}
-            />
-            <Route exact path='*' component={NotFound} />
-          </Switch>
-          <ChatSideBar />
-        </>
-      )}
+      <Navbar />
+      <Switch>
+        <PrivateRoute exact path='/welcome' component={Welcome} />
+        <PrivateRoute exact path='/portfolio' component={Portfolio} />
+        <PrivateRoute exact path='/portfolio/:id' component={Portfolio1} />
+        <PrivateRoute exact path='/noticeboard' component={NoticeBoard} />
+        <PrivateRoute exact path='/addfiles' component={AddPortfolio} />
+        <PrivateRoute exact path='/create-profile' component={CreateProfile} />
+        <PrivateRoute
+          exact
+          path='/create-group-profile'
+          component={CreateGroupProfile}
+        />
+        <PrivateRoute exact path='/edit-profile' component={EditProfile} />
+        <PrivateRoute exact path='/profile' component={Profile2} />
+        <PrivateRoute exact path='/profiles' component={Profiles} />
+        <PrivateRoute exact path='/create-project' component={CreateProject} />
+        <PrivateRoute exact path='/add-experience' component={AddExperience} />
+        <PrivateRoute exact path='/add-education' component={AddEducation} />
+        <PrivateRoute exact path='/add-award' component={AddAward} />
+        <PrivateRoute exact path='/add-events' component={AddEvents} />
+        <PrivateRoute exact path='/add-skills' component={AddSkills} />
+        <PrivateRoute exact path='/posts' component={Posts} />
+        <PrivateRoute exact path='/posts/:id' component={Post} />
+        <PrivateRoute exact path='/project/:id' component={SingleProject} />
+        <PrivateRoute exact path='/notice/:id' component={SingleNotice} />
+        <PrivateRoute exact path='/feed' component={Feed} />
+        <PrivateRoute exact path='/friends' component={Friends} />
+        <PrivateRoute exact path='/chats' component={ChatPage} />
+        <PrivateRoute exact path='/friends/:id' component={Friends1} />
+        <PrivateRoute exact path='/projects/:id' component={Projects} />
+        <PrivateRoute exact path='/projectlist/:id' component={ProjectList} />
+        <Route exact path='*' component={NotFound} />
+      </Switch>
     </>
   );
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps)(Routes);
+export default Routes;

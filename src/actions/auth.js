@@ -13,7 +13,6 @@ import {
   AUTH_ERROR,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
-  CLEAR_PROFILE,
   LOGOUT,
   REFERRAL_SUCESS,
 } from './types';
@@ -71,21 +70,14 @@ export const register = ({ formData }) => async (dispatch) => {
 };
 
 //Login User
-export const login = (email, password, history, welcome = false) => async (
-  dispatch
-) => {
+export const login = (email, password) => async (dispatch) => {
   const body = { email, password };
   try {
     const res = await api.post('/auth', body);
-
     dispatch({
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
-    dispatch(loadUser());
-    if (welcome) {
-      history.push('/welcome');
-    }
   } catch (err) {
     const errors = err.response.data.errors;
     console.log(errors);
@@ -266,15 +258,6 @@ export const sendReferral = ({ email }) => async (dispatch) => {
   }
 };
 
-export const logout = () => ({ type: LOGOUT });
-
-//Logout /clear profile
-// export const logout = () => async (dispatch) => {
-//   try {
-//     // await api.get('/auth/signout');
-//     dispatch({ type: CLEAR_PROFILE });
-//     dispatch({ type: LOGOUT });
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
+export const logout = () => async (dispatch) => {
+  dispatch({ type: LOGOUT });
+};

@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, Fragment, useEffect, useContext } from 'react';
 import api from '../../utils/api';
+import store from '../../store';
 import maskGroup from '../../images/maskGroup.svg';
 import searchIcon from '../../images/searchIcon.svg';
 import home from '../../images/Home.svg';
@@ -11,12 +12,12 @@ import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
 import { Link, useHistory } from 'react-router-dom';
 import { SearchContext } from '../../context/search.context';
-import { ProfileContext } from '../../context/profile/profile.context';
 import ArtTrackIcon from '@material-ui/icons/ArtTrack';
 import { grey } from '@material-ui/core/colors';
 import logo from '../../images/dummyimage.jpg';
+import { getRealtimeNotifications } from '../../actions/notification';
 
-const Navbar = ({ logout }) => {
+const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
   const history = useHistory();
   const [displayMenu, toogleMenu] = useState(false);
   const [feedActive, toogleFeedActive] = useState(false);
@@ -24,7 +25,6 @@ const Navbar = ({ logout }) => {
   const [nbActive, toogleNbActive] = useState(false);
   const [chatActive, toogleChatActive] = useState(false);
   const { Addsearch, clearSearch } = useContext(SearchContext);
-  const { img, setImg } = useContext(ProfileContext);
   const [value, setValue] = useState('');
 
   const onChange = (e) => {
@@ -33,12 +33,14 @@ const Navbar = ({ logout }) => {
   };
 
   useEffect(() => {
-    const getProfilepic = async () => {
-      const res = await api.get('/profile/me');
-      setImg(res.data?.avatar);
-    };
-    getProfilepic();
-  }, [setImg]);
+    if (user?._id) {
+      store.dispatch(
+        getRealtimeNotifications({
+          uid_1: user?._id,
+        })
+      );
+    }
+  }, [user?._id]);
 
   const _onsearch = async () => {
     clearSearch();
@@ -176,7 +178,7 @@ const Navbar = ({ logout }) => {
             <div>
               <img
                 className='dis'
-                src={img ? img : logo}
+                src={profile?.avatar ? profile?.avatar : logo}
                 onClick={() => {
                   toogleMenu(true);
                   setTimeout(() => {
@@ -219,4 +221,9 @@ Navbar.propTypes = {
   logout: PropTypes.func.isRequired,
 };
 
-export default connect(null, { logout })(Navbar);
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  profile: state.profile,
+});
+
+export default connect(mapStateToProps, { logout })(Navbar);

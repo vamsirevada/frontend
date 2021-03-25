@@ -8,7 +8,6 @@ import NotePosts from '../notes/NotePosts';
 import notify from '../../images/noun_notification_887294.svg';
 import noteimg from '../../images/icons/summarize-24px.svg';
 import BallotIcon from '@material-ui/icons/Ballot';
-import ChatSideBar from '../chat/ChatSideBar';
 
 const Feed = () => {
   const [displayLeft, toogleLeft] = useState(true);
@@ -63,8 +62,6 @@ const Feed = () => {
                 <NotePeoples />
                 <NotePosts />
               </div>
-
-              {/* <ChatSideBar /> */}
             </div>
           )}
         </div>

@@ -5,33 +5,25 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { login } from '../../actions/auth';
 
-const Login = ({ login, isAuthenticated, history }) => {
+const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-  // const [loading, setLoading] = useState(false);
 
   const { email, password } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
-  const welcome = (e) => {
-    return <Redirect to='/welcome' />;
-  };
-
   const onSubmit = async (e) => {
     e.preventDefault();
     login(email, password);
-    // setTimeout(() => {
-    //   welcome();
-    // }, 20000);
   };
 
   //Redirect if logged in
   if (isAuthenticated) {
-    return <Redirect to='/portfolio' />;
+    return <Redirect to='/welcome' />;
   }
 
   return (

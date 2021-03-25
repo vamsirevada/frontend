@@ -124,12 +124,8 @@ const ProfileItem = ({
           <div className='connect-left-bottom'>
             <div className='btn-b'>
               {' '}
-              <Link
-                target='_blank'
-                to={`/portfolio/${user?._id}`}
-                className='btn-blue'
-              >
-                View Profile
+              <Link to={`/portfolio/${user?._id}`} className='btn-blue'>
+                View Portfolio
               </Link>
             </div>
             <div className='btn-b'>
