@@ -23,6 +23,7 @@ a {
   bottom: 0px;
   right: 28px;
   min-width: 228px;
+  z-index: 1000;
 }
 .close-btn {
   font-family: 'Raleway', sans-serif;
@@ -460,6 +461,13 @@ a {
   z-index: 10;
 }
 
+.fullchat-lefttop .display-pic {
+  width: 85%;
+  max-width: 3rem;
+  height: 100%;
+  border-radius: 15%;
+}
+
 .fullchat-lefttop input {
   font-family: 'Raleway', sans-serif;
   font-size: 14px;
@@ -516,7 +524,8 @@ a {
 
 .fullchat-chatgrid .dp {
   display: inline-block;
-  width: 48px;
+  width: 75%;
+  /* width: 48px; */
   height: 48px;
   border-radius: 10px;
   margin-right: 1rem;

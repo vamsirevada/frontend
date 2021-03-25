@@ -29,6 +29,7 @@ import ProjectList from '../projects/ProjectList';
 import SingleNotice from '../projects/SingleNotice';
 import NoticeBoard from '../projects/NoticeBoard';
 import Welcome from '../layout/Welcome';
+import ChatSideBar from '../chat/ChatSideBar';
 
 const Routes = () => {
   return (

@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 
-#feed-main .feed-main-container {
+.feed-main .feed-main-container {
   width: 100%;
   margin: auto;
 }
@@ -20,6 +20,9 @@
   margin-bottom: 0.5rem;
   background-color: #f8f8f8;
   border-radius: 15px;
+  /* position: sticky;
+  top: 104px;
+  z-index: 100; */
 }
 
 .feed-main-container .post-some-grid.c-1 {
@@ -279,6 +282,8 @@
   vertical-align: middle;
   cursor: pointer;
   padding-right: 0.25rem;
+  filter: invert(50%) sepia(0%) saturate(0%) hue-rotate(214deg) brightness(90%)
+    contrast(85%);
 }
 
 .post-pic .pic-des-1 .d-1 {
@@ -306,6 +311,15 @@
   position: fixed;
   right: 0px;
 } */
+.note-slide-button {
+  display: none;
+}
+
+.right .note-slide {
+  position: sticky;
+  top: 104px;
+  overflow: scroll;
+}
 
 /* Right Join Group */
 
@@ -315,8 +329,28 @@
   /* margin-bottom: 1rem; */
 }
 
-#join-grp h5 {
+#join-grp .note-people-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 1rem;
+}
+
+.note-head-btn a {
+  background-color: transparent;
+  outline: none;
+  border: none;
+  color: #7480ff;
+  font-size: 12px;
+}
+.note-head-btn a:hover {
+  border-bottom: 1px solid #7480ff;
+}
+.note-head-btn .note-line {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  color: #7480ff;
+  font-size: 0.8rem;
 }
 
 .join-grp-flex {

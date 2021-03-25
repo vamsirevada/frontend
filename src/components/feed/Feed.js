@@ -8,7 +8,6 @@ import NotePosts from '../notes/NotePosts';
 import notify from '../../images/noun_notification_887294.svg';
 import noteimg from '../../images/icons/summarize-24px.svg';
 import BallotIcon from '@material-ui/icons/Ballot';
-import ChatSideBar from '../chat/ChatSideBar';
 
 const Feed = () => {
   const [displayLeft, toogleLeft] = useState(true);
@@ -38,7 +37,7 @@ const Feed = () => {
         </a>
       </div>
       <div>
-        <div id='feed'>
+        <div className={ipadRight ? 'feed' : 'feed right-hide'}>
           <div className='left'>
             <div id='left-sidebar'>
               <MiniPortfolio />
@@ -56,15 +55,13 @@ const Feed = () => {
           )}
           {displayRight && (
             <div className='right'>
-              {/* <a onClick={(e) => onClick3(e)} className='note-slide-button'>
+              <a onClick={(e) => onClick3(e)} className='note-slide-button'>
                 <img src={noteimg} alt='' />
-              </a> */}
+              </a>
               <div className='note-slide'>
                 <NotePeoples />
                 <NotePosts />
               </div>
-
-              <ChatSideBar />
             </div>
           )}
         </div>
