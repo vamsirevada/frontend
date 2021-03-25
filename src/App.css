@@ -2189,6 +2189,9 @@ input.search-btn:focus {
     justify-self: flex-end;
     width: 50%;
   }
+  .connect-main .connect-left-bottom {
+    margin: 0rem;
+  }
   /* Landing page */
 
   #page-1 .flex-content .container1 .content {
@@ -2246,12 +2249,26 @@ input.search-btn:focus {
     grid-template-columns: 70% 30%;
     grid-gap: 0.5rem;
   }
+  .portfolio.project {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    /* grid-template-columns: 350px 1.75fr 1fr; */
+  }
+  .portfolio.project .portfolio-left {
+    display: none;
+  }
   .flex-des {
     display: grid;
     grid-template-columns: 50% 50%;
   }
   .pic-des-1 .d-1 {
     display: inline-block;
+  }
+
+  .right .note-slide {
+    position: sticky;
+    top: 160px;
+    overflow: scroll;
   }
 
   .feed.right-hide .left {
@@ -2281,8 +2298,40 @@ input.search-btn:focus {
     height: 180px;
   }
   .c-list-container .c-list-head {
-    width: 75%;
+    width: 100%;
   }
+
+  .noticeboard-main .noticeboard-main-container {
+    grid-template-columns: repeat(2, 50%);
+  }
+
+  .noticeboardpopupscreen .noticeboardpopup {
+    top: 25%;
+    left: 22%;
+  }
+
+  #full-chat {
+    grid-template-columns: 38% 62%;
+  }
+  .fullchat-chatgrid {
+    grid-template-columns: 25% 75%;
+  }
+  #fullchat-left .fullchat-lefttop {
+    width: 37%;
+  }
+  #fullchat-right {
+    width: 100%;
+    height: 95vh;
+  }
+  .fullchat-type {
+    width: 62%;
+    height: 70px;
+    position: fixed;
+    right: 0px;
+    bottom: -10px;
+    z-index: 10001;
+  }
+
   .flex .name {
     padding: 0rem 0.5rem;
     font-size: 1rem;
