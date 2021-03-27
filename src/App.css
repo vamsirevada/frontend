@@ -133,7 +133,8 @@ a {
 }
 
 #page-1 .nav .logo {
-  width: 150px;
+  width: 10rem;
+  margin-top: 1rem;
 }
 
 /* Page-1 content */
@@ -1988,8 +1989,10 @@ input.search-btn:focus {
 }
 .notice-main-container .notice-item {
   width: 100%;
+  max-width: 300px;
   height: 280px;
   background-color: #fff;
+  margin: auto;
   margin-bottom: 2rem;
   border-radius: 15px;
   box-shadow: 0px 5px 30px #00000019;
@@ -2086,16 +2089,71 @@ input.search-btn:focus {
   .feed {
     display: grid;
     grid-template-columns: 28% 47% 25%;
-    grid-gap: 1rem;
+    grid-gap: 0rem;
   }
   .feed-main-container .post-some-grid {
     display: grid;
     grid-template-columns: 60% 15% 25%;
     padding: 0.5rem 0.5rem;
   }
+  .join-grp-flex.notepost {
+    grid-template-columns: 25% 60% 15%;
+  }
   .post-some-grid .attach {
     justify-self: flex-end;
   }
+  .connect-info p {
+    font-size: 13px;
+  }
+  .left-container .connect-info div:nth-child(1) {
+    width: 57%;
+  }
+  .noticeboard-main .noticeboard-main-container {
+    grid-template-columns: repeat(3, 33.3%);
+    height: 251px;
+  }
+
+  .noticeboardpopupscreen .noticeboardpopup {
+    top: 15%;
+    left: 30%;
+  }
+
+  #full-chat {
+    grid-template-columns: 30% 70%;
+  }
+  .fullchat-type {
+    width: 70%;
+    z-index: 1000;
+  }
+
+  #fullchat-left .fullchat-lefttop {
+    width: 28%;
+  }
+
+  .portfolio.project {
+    grid-template-columns: 280px 1.5fr 1fr;
+    grid-gap: 0rem;
+    position: relative;
+  }
+
+  .portfolio.project .portfolio-left #left-sidebar {
+    position: sticky;
+    top: 72px;
+    left: 0px;
+  }
+  .notice-main-container .notice-item img {
+    width: 100%;
+    height: 40%;
+    border-radius: 15px 15px 0px 0px;
+  }
+  .notice-item .notice-item-body {
+    padding: 0.5rem 1rem;
+    line-height: 1rem;
+  }
+  .notice-main {
+    height: 24%;
+  }
+
   .post-pic .flex {
     display: grid;
     grid-template-columns: 30% 70%;
@@ -2374,6 +2432,45 @@ input.search-btn:focus {
     grid-template-columns: 1fr 1fr;
     grid-gap: 1.5rem;
     /* max-height: 180px; */
+  }
+  .main-grid-top.miniProjectInfo .profile-project-box {
+    display: block;
+  }
+  .notice-main-container .notice-item img {
+    width: 100%;
+    height: 40%;
+    border-radius: 15px 15px 0px 0px;
+  }
+  .notice-item .notice-item-body {
+    padding: 0.5rem 1rem;
+    line-height: 1rem;
+  }
+  .notice-main {
+    height: 40%;
+  }
+  .memberpopupscreen .memberpopup {
+    left: 30%;
+  }
+  .memberpopupscreen .memberpopup.add {
+    left: 20%;
+    top: 17%;
+  }
+  .singlenotice .singlenotice-left {
+    display: none;
+  }
+  .n-detailed .n-container .singlenotice {
+    grid-template-columns: 100%;
+  }
+  .singlenotice .singlenotice-info {
+    justify-self: center;
+  }
+  .connect-main {
+    display: grid;
+    grid-template-columns: 35% 65%;
+    grid-gap: 0rem;
+  }
+  .connect-main .connect-left-bottom {
+    grid-template-columns: 45% 22.5% 22.5%;
   }
 }
 /* iphone-x */

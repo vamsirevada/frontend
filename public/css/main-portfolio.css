@@ -98,9 +98,9 @@
   left: 0px;
   background: rgba(6, 6, 6, 0.8);
   /* opacity: 0.8; */
-  z-index: 100;
+  z-index: 1001;
   width: 100vw;
-  height: 100vw;
+  height: 100vh;
   overflow: hidden;
   position: fixed;
 }
@@ -408,8 +408,8 @@
   font-size: 13px;
   font-family: 'Raleway', sans-serif;
   font-weight: bolder;
-  /* color: #5d5d5d; */
-  color: #7480ff;
+  color: #5d5d5d;
+  /* color: #7480ff; */
 }
 .n-form.notice .notice-form-input {
   width: 100%;

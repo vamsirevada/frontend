@@ -61,6 +61,26 @@ a {
   margin: auto;
   margin-top: 1rem;
 }
+.main-grid-top.miniProjectInfo .profile-project-box {
+  padding: 1rem;
+  display: none;
+}
+
+.main-grid-top.miniProjectInfo .profile-project-box .left-heading {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.main-grid-top.miniProjectInfo .profile-project-box .left-heading .display-pic {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 20px;
+  margin: 0rem;
+  margin-right: 1rem;
+}
+.main-grid-top.miniProjectInfo .profile-project-box .left-heading .name {
+  font-size: 1.2rem;
+}
 
 .main-grid-top .profile-info-box a {
   color: #fff;

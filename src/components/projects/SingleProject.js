@@ -7,6 +7,7 @@ import Notices from './Notices';
 import ProjectAdd from './ProjectAdd';
 import ProjectPostForm from '../projectposts/ProjectPostForm';
 import ProjectPosts from '../projectposts/ProjectPosts';
+import MiniProjectInfo from './MiniProjectInfo';
 
 const SingleProject = ({
   profile: { profile },
@@ -51,6 +52,9 @@ const SingleProject = ({
             <div className='center'>
               <div id='feed-main'>
                 <div className='feed-main-container'>
+                  {singleproject !== null && (
+                    <MiniProjectInfo singleproject={singleproject} />
+                  )}
                   {singleproject !== null && (
                     <ProjectAdd singleproject={singleproject} />
                   )}

@@ -125,7 +125,7 @@ const ProfileItem = ({
             <div className='btn-b'>
               {' '}
               <Link to={`/portfolio/${user?._id}`} className='btn-blue'>
-                View Portfolio
+                Portfolio
               </Link>
             </div>
             <div className='btn-b'>
