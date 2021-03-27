@@ -136,7 +136,7 @@ const ImageGrid = ({ id, profile }) => {
           onClick={() => {
             setViewAllVideo(!viewAllVideo);
           }}
-          style={{ color: '#5d67cc', cursor: 'pointer' }}
+          style={{ color: '#5d67cc', cursor: 'pointer', fontSize: '14px' }}
         >
           View All
         </div>
@@ -207,7 +207,7 @@ const ImageGrid = ({ id, profile }) => {
           onClick={() => {
             setViewAllImg(!viewAllImg);
           }}
-          style={{ color: '#5d67cc', cursor: 'pointer' }}
+          style={{ color: '#5d67cc', cursor: 'pointer', fontSize: '14px' }}
         >
           View All
         </div>
