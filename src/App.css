@@ -1932,7 +1932,7 @@ input.search-btn:focus {
 .comment-box {
   display: grid;
   grid-template-columns: 8% 92%;
-  align-items: center;
+  align-items: flex-start;
   padding: 0.75rem 1rem;
 }
 .comment-box div:nth-child(1) {
@@ -1970,7 +1970,7 @@ input.search-btn:focus {
   padding-bottom: 1rem;
   position: sticky;
   top: 0px;
-  background-color: #f8f8f8;
+  background-color: inherit;
   z-index: 50;
 }
 .notice-main-container .notice-main-heading h2 {
@@ -3036,7 +3036,7 @@ input.search-btn:focus {
     display: flex;
   }
 
-  #navbar .logo-box {
+  .navbar .logo-box {
     display: none;
   }
 
@@ -3046,11 +3046,11 @@ input.search-btn:focus {
   .navbar .container {
     width: 100%;
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 100%;
   }
   .navbar .nav-icons {
     margin-right: 1rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0rem;
   }
   .navbar .nav-icons .icon img,
   .navbar .nav-icons .icon svg,
@@ -3065,6 +3065,13 @@ input.search-btn:focus {
     filter: invert(60%) sepia(99%) saturate(427%) hue-rotate(9deg)
       brightness(111%) contrast(102%);
   }
+  .note-slide-button {
+    display: none;
+  }
+  .feed.right-hide .center .feed-main-container {
+    max-width: 100%;
+    margin: auto;
+  }
   .c-list-container .c-list-head {
     display: none;
   }
@@ -3077,12 +3084,15 @@ input.search-btn:focus {
   }
   .connect-main .connect-left {
     background-color: #f4f4f4;
+    width: 90%;
+    margin: auto;
   }
   .connect-main .connect-left-bottom {
     padding: 0.5rem;
-    width: 100%;
+    width: 72%;
     display: grid;
-    grid-template-columns: 50% 20% 20%;
+    grid-template-columns: 45% 20% 20%;
+    float: right;
     height: 100%;
     grid-gap: 0.3rem;
     align-items: center;
@@ -3096,6 +3106,13 @@ input.search-btn:focus {
     width: 90%;
     margin: auto;
     margin-top: 1rem;
+    padding: 0rem;
+  }
+  .connect-main .connect-left-top {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: relative;
   }
   .page .container {
     max-width: 1240px;
@@ -3144,7 +3161,7 @@ input.search-btn:focus {
     padding-right: 0.5rem;
     padding-left: 0.5rem;
     margin-right: 0.5rem;
-    border-right: 2px solid #fff;
+    border-right: 2px solid #000;
   }
 
   .ribbon {
@@ -3215,6 +3232,7 @@ input.search-btn:focus {
     justify-content: center;
     position: relative;
     bottom: -40px;
+    display: none;
   }
   .hide div {
     width: 100%;
@@ -3412,7 +3430,8 @@ input.search-btn:focus {
     padding-top: 2rem;
   }
   #main-grid .main-grid-container {
-    width: 100%;
+    width: 90%;
+    margin: auto;
     padding: 0rem 1rem;
   }
   .profile-info-box p {
@@ -3430,8 +3449,16 @@ input.search-btn:focus {
   }
   .feed .center,
   .feed .right {
-    width: 90%;
+    width: 96%;
     margin: auto;
+  }
+  .nav-icons .tab.unique.active {
+    width: 125px;
+    justify-content: center;
+    transition: all 0.75s;
+  }
+  .nav-icons .tab.unique.active.notice {
+    width: 140px;
   }
   #join-grp {
     width: 90%;
@@ -3467,6 +3494,70 @@ input.search-btn:focus {
   }
   .img-wrap {
     margin-bottom: 1.5rem;
+    /* min-height: 200px; */
+  }
+  .post-pop-up-container .main-post-container .main-post-top {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 15% 70% 15%;
+    /* grid-gap: 1rem; */
+    align-items: center;
+    margin-top: 4rem;
+  }
+  .noticeboard-main .noticeboard-main-container {
+    grid-template-columns: 100%;
+    width: 90%;
+    margin: auto;
+  }
+  .noticeboardpopupscreen .noticeboardpopup {
+    top: 16%;
+    left: 9%;
+    width: 83%;
+  }
+  .portfolio.project {
+    display: grid;
+    grid-template-columns: 100%;
+    top: 126px;
+  }
+  .pic-des-1 .d-1 {
+    display: none;
+  }
+  .comment-box .cmt-1 {
+    padding: 0rem 0rem 0rem 0.75rem;
+  }
+  .comment-box .cmt-1 {
+    padding: 0rem 0rem 0rem 0.75rem;
+  }
+  .memberpopupscreen .memberpopup.add {
+    left: 10%;
+    top: 14%;
+    width: 80%;
+  }
+  .memberpopup.add .noteform form {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    align-items: flex-start;
+    padding: 0rem;
+  }
+
+  .memberpopup.add .noteform form div:nth-child(1) {
+    width: 100%;
+  }
+  .memberpopup.add .noteform .prof-flex-btn {
+    align-self: flex-end;
+    margin-bottom: 0.5rem;
+  }
+  .memberpopup.add .noteform .btn-blue.note {
+    font-size: 12px;
+    padding: 7.5px 15px;
+    margin-top: 0rem;
+  }
+  .notice-main {
+    height: 50%;
+  }
+  .noticeboardpopup-content h5 {
+    width: 35%;
   }
   .backdrop {
     top: 124px;

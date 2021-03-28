@@ -132,6 +132,7 @@
   left: 35%;
   background-color: #fff;
   border-radius: 15px;
+  max-height: 80%;
 }
 
 .noticeboardpopup .noticeboardpopup-heading {
