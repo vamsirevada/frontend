@@ -11,7 +11,6 @@ const ProjectPosts = ({
   id,
   projectpost: { projectposts, oprojectposts, loading },
 }) => {
-  console.log(id);
   const [own, setOwn] = useState(false);
 
   useEffect(() => {
