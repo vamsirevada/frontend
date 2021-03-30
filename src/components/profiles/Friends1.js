@@ -102,10 +102,10 @@ const Friends1 = ({
                 </Fragment>
               ) : (
                 <Fragment>
-                  {buddies.map((profile) => (
+                  {buddies.map((item) => (
                     <Friend
-                      key={profile?._id}
-                      profile={profile}
+                      key={item?._id}
+                      item={item}
                       remove={remove}
                       displayAdd={true}
                       docs={docs}

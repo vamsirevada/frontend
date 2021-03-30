@@ -46,13 +46,6 @@ const VideoModal = ({
     };
   });
 
-  const [displayLbtn, toogleLbtn] = useState(false);
-
-  const onLike = (e) => {
-    e.preventDefault();
-    toogleLbtn(!displayLbtn);
-  };
-
   const like = (file) => {
     const likeObj = {
       user: auth?.user?._id,
@@ -169,8 +162,11 @@ const VideoModal = ({
               <div className='des-comm-box'>
                 <div className='flex-des'>
                   <div className='pic-des-1'>
-                    <div onClick={(e) => onLike(e)}>
-                      {displayLbtn ? (
+                    <div>
+                      {portfolio.likes &&
+                      portfolio.likes
+                        .map((x) => x.user === auth?.user?._id)
+                        .find((x) => x === true) ? (
                         <div>
                           <div
                             onClick={() => {
