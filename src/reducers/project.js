@@ -6,6 +6,7 @@ import {
   CREATE_PROJECT,
   DELETE_PROJECT,
   PROJECT_ERROR,
+  UPDATE_PROJECT,
 } from '../actions/types';
 
 const initialState = {
@@ -30,6 +31,7 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case GET_PROJECT:
+    case UPDATE_PROJECT:
       return {
         ...state,
         isCreated: false,

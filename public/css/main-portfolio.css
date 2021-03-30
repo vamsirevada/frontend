@@ -118,7 +118,7 @@
   z-index: 101;
   background: #fff;
   display: block;
-  width: 320px;
+  width: 400px;
   height: 540px;
   border-radius: 10px;
   position: absolute;
@@ -264,6 +264,24 @@
   display: flex;
   align-items: center;
   padding: 0.5rem 1rem;
+}
+
+.memberpopup .member-body .member-button {
+  position: absolute;
+  right: 20px;
+  cursor: pointer;
+}
+
+.memberpopup .member-button-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.memberpopup .member-body .member-button .resize {
+  width: 5px;
+  top: 25%;
+  right: 45%;
 }
 
 .memberpopup .body.add {

@@ -6,6 +6,7 @@ import {
   PROJECT_INVITE_SENT,
   PROJECT_INVITE_CANCEL,
   CREATE_PROJECT,
+  UPDATE_PROJECT,
   PROJECT_ERROR,
   DELETE_PROJECT,
 } from './types';
@@ -103,6 +104,25 @@ export const cancelProjectInvite = (project_id, profile_id) => async (
       payload: err.response.data.msg,
     });
 
+    dispatch(setAlert(err.response.data.msg, 'danger'));
+  }
+};
+
+// Make Admin
+export const makeAdmin = (project_id, user_id) => async (dispatch) => {
+  try {
+    console.log('hi');
+    const res = await api.post(`/project/admin/${project_id}/${user_id}`);
+    console.log(res.data);
+    dispatch({
+      type: UPDATE_PROJECT,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROJECT_ERROR,
+      payload: err.response.data.msg,
+    });
     dispatch(setAlert(err.response.data.msg, 'danger'));
   }
 };

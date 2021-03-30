@@ -2,10 +2,8 @@ import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import api from '../../utils/api';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Friend from './Friend';
 import { getBuddies } from '../../actions/profile';
-import { getProjects } from '../../actions/project';
 import { setAlert } from '../../actions/alert';
 import UseFirestore from '../addportfolio/UseFireStore';
 
