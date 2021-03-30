@@ -18,13 +18,53 @@ const Landing = ({ isAuthenticated }) => {
 
   return (
     <>
-      <Page1 />
-      <Page2 />
-      <Page3 />
-      <Page4 />
-      <Page5 />
-      <Page6 />
-      <Page7 />
+      <div class='dotstyle dotstyle-fillup'>
+        <ul>
+          <li class='current'>
+            <a href='#p-1'>Page1</a>
+          </li>
+          <li>
+            <a href='#p-2'>Page2</a>
+          </li>
+          <li>
+            <a href='#p-3'>Page3</a>
+          </li>
+          <li>
+            <a href='#p-4'>Page4</a>
+          </li>
+          <li>
+            <a href='#p-5'>Page5</a>
+          </li>
+          <li>
+            <a href='#p-6'>Page6</a>
+          </li>
+          <li>
+            <a href='#p-7'>Page7</a>
+          </li>
+        </ul>
+      </div>
+      <div id='p-1'>
+        <Page1 />
+      </div>
+
+      <div id='p-2'>
+        <Page2 />
+      </div>
+      <div id='p-3'>
+        <Page3 />
+      </div>
+      <div id='p-4'>
+        <Page4 />
+      </div>
+      <div id='p-5'>
+        <Page5 />
+      </div>
+      <div id='p-6'>
+        <Page6 />
+      </div>
+      <div id='p-7'>
+        <Page7 />
+      </div>
       <Footer />
     </>
   );
