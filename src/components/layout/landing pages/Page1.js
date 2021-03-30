@@ -6,9 +6,22 @@ import fulllogo from '../../../images/Logo files/png/Vanity_logo-06.png';
 const Page1 = () => {
   return (
     <Fragment>
-      <div id='page-1' className='page'>
+      <div
+        id='page-1'
+        className='page'
+        data-aos='fade'
+        data-aos-delay='25'
+        data-aos-duration='250'
+        data-aos-easing='ease'
+      >
         <div className='container'>
-          <div className='nav'>
+          <div
+            className='nav'
+            data-aos='fade-down'
+            // data-aos-delay='25'
+            data-aos-duration='400'
+            data-aos-easing='ease-in'
+          >
             <img className='logo' src={fulllogo} alt='Logo' />
             <div>
               <ul>
@@ -26,7 +39,12 @@ const Page1 = () => {
           </div>
           <div className='flex-content'>
             <div className='container1'>
-              <div className='content'>
+              <div
+                className='content'
+                data-aos='fade-right'
+                data-aos-duration='400'
+                data-aos-easing='ease-in-out'
+              >
                 <h1 className='ft-heading'>
                   Networking platform for Media & Entertainment community
                 </h1>
@@ -36,7 +54,14 @@ const Page1 = () => {
                   industry professionals under one roof and facilitate them with
                   productive tools that will ensure success.
                 </p>
-                <Link to='/register' className='btn yellow'>
+                <Link
+                  to='/register'
+                  className='btn yellow'
+                  data-aos='fade-left'
+                  data-aos-delay='100'
+                  data-aos-duration='600'
+                  data-aos-easing='ease'
+                >
                   Get started
                 </Link>
 
