@@ -1,22 +1,51 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import add from '../../images/noun_Add Friend_2987727 (2).svg';
 import mail from '../../images/chat.svg';
-import { connect } from 'react-redux';
+import logo from '../../images/dummyimage.jpg';
+import { connect, useDispatch } from 'react-redux';
 import { sendBuddyRequest } from '../../actions/profile';
 import { motion } from 'framer-motion';
+import { projectFirestore } from '../../firebase/config';
+import ChatPopup from '../chat/ChatPopup';
+import { getRealtimeConversations } from '../../actions/chat';
+import noteimg from '../../images/icons/summarize-24px.svg';
 
 const Friend = ({
-  profile: { _id, avatar, user, status, location, buddies },
+  auth,
+  profile: { profile },
+  item: { _id, avatar, user, status, location, buddies },
+  chat: { conversations },
   sendBuddyRequest,
   displayAdd,
-  remove,
   docs,
 }) => {
+  const dispatch = useDispatch();
+  const [start, setStart] = useState(false);
+
+  const chatRequest = async () => {
+    setStart(true);
+    dispatch(
+      getRealtimeConversations({
+        uid_1: auth?.user?._id,
+        uid_2: user?._id,
+      })
+    );
+  };
+
   const sendRequest = async () => {
     await sendBuddyRequest(_id);
+    projectFirestore.collection('notifications').add({
+      sender: profile?._id,
+      senderName: auth?.user?.userName,
+      avatar: auth?.user?.avatar,
+      receiver: user?._id,
+      type: 'request',
+      read: false,
+      createdAt: new Date(),
+    });
   };
 
   const onClick = () => {
@@ -38,7 +67,9 @@ const Friend = ({
         <div className='connect-left-top'>
           <div
             style={{
-              background: `url(${avatar}) no-repeat center center/cover`,
+              background: `url(${
+                avatar ? avatar : logo
+              }) no-repeat center center/cover`,
             }}
             className='display-pic'
           ></div>
@@ -79,7 +110,7 @@ const Friend = ({
 
           <div className='btn-g'>
             {' '}
-            <a className='btn-blue g-1' onClick={() => remove(_id)}>
+            <a onClick={chatRequest} className='btn-blue g-1'>
               <img src={mail} alt='' />
             </a>
           </div>
@@ -105,19 +136,32 @@ const Friend = ({
                     transition={{ delay: 1 }}
                   />
                 ) : (
-                  <img src={doc.url} height='100%' width='100%' alt='' />
+                  <motion.img src={doc.url} height='100%' width='100%' alt='' />
                 )}
               </div>
             ))}
         </div>
       )}
+      {start ? (
+        <ChatPopup
+          userUid={user?._id}
+          chatProfile={user?.fullName}
+          conversations={conversations}
+          chatUserImage={avatar}
+        />
+      ) : null}
     </div>
   );
 };
 
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  profile: state.profile,
+  chat: state.chat,
+});
+
 Friend.propTypes = {
-  profile: PropTypes.object.isRequired,
   sendBuddyRequest: PropTypes.func.isRequired,
 };
 
-export default connect(null, { sendBuddyRequest })(Friend);
+export default connect(mapStateToProps, { sendBuddyRequest })(Friend);
