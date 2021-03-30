@@ -137,78 +137,80 @@ const SingleNotice = ({
             </div>
           </div>
         </div>
-        <div className='noticemembers-sorting'>
-          <div className='noticemembers-sort'>
-            <button
-              onClick={onClick2}
-              className={
-                apply
-                  ? 'right left-top left-right-bottom'
-                  : 'left left-top left-right-bottom'
-              }
-            >
-              <span className='app-mem'>
-                List of applied Members ({notice?.applied.length})
-              </span>
-            </button>
-            <button
-              onClick={onClick1}
-              className={
-                shortlist
-                  ? 'right right-top right-left-bottom'
-                  : 'left right-top right-left-bottom'
-              }
-            >
-              <span className='sho-mem'>
-                List of shortlisted members ({notice?.shortlisted.length})
-              </span>
-            </button>
+        <div className='noticemembers-box'>
+          <div className='noticemembers-sorting'>
+            <div className='noticemembers-sort'>
+              <button
+                onClick={onClick2}
+                className={
+                  apply
+                    ? 'right left-top left-right-bottom'
+                    : 'left left-top left-right-bottom'
+                }
+              >
+                <span className='app-mem'>
+                  List of applied Members ({notice?.applied.length})
+                </span>
+              </button>
+              <button
+                onClick={onClick1}
+                className={
+                  shortlist
+                    ? 'right right-top right-left-bottom'
+                    : 'left right-top right-left-bottom'
+                }
+              >
+                <span className='sho-mem'>
+                  List of shortlisted members ({notice?.shortlisted.length})
+                </span>
+              </button>
+            </div>
           </div>
-        </div>
-        <div className='singlenotice-noticemembers'>
-          <>
-            {shortlist ? (
-              <>
-                {shortlisted.length > 0 &&
-                  shortlisted.map((item) => (
-                    <ProfileItem
-                      key={item._id}
-                      item={item}
-                      docs={docs}
-                      displayAdd={true}
-                    />
-                  ))}
-              </>
-            ) : (
-              <>
-                {applied.length > 0 &&
-                  applied.map((item) => (
-                    <div
-                      key={item?._id}
-                      style={{
-                        display: 'flex',
-                      }}
-                    >
-                      <div>
-                        <ProfileItem
-                          item={item}
-                          docs={docs}
-                          displayAdd={true}
-                        />
+          <div className='singlenotice-noticemembers'>
+            <>
+              {shortlist ? (
+                <>
+                  {shortlisted.length > 0 &&
+                    shortlisted.map((item) => (
+                      <ProfileItem
+                        key={item._id}
+                        item={item}
+                        docs={docs}
+                        displayAdd={true}
+                      />
+                    ))}
+                </>
+              ) : (
+                <>
+                  {applied.length > 0 &&
+                    applied.map((item) => (
+                      <div
+                        key={item?._id}
+                        style={{
+                          display: 'flex',
+                        }}
+                      >
+                        <div>
+                          <ProfileItem
+                            item={item}
+                            docs={docs}
+                            displayAdd={true}
+                          />
+                        </div>
+                        <div>
+                          <button
+                            onClick={handleClick(notice, item)}
+                            className='btn-blue'
+                          >
+                            {text ? 'Shortlisted' : 'Shortlist'}
+                          </button>
+                        </div>
                       </div>
-                      <div>
-                        <button
-                          onClick={handleClick(notice, item)}
-                          className='btn-blue'
-                        >
-                          {text ? 'Shortlisted' : 'Shortlist'}
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-              </>
-            )}
-          </>
+                    ))}
+                </>
+              )}
+            </>
+          </div>
         </div>
       </div>
     </div>

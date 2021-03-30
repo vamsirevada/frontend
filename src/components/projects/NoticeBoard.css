@@ -132,6 +132,7 @@
   left: 35%;
   background-color: #fff;
   border-radius: 15px;
+  max-height: 80%;
 }
 
 .noticeboardpopup .noticeboardpopup-heading {
@@ -216,6 +217,17 @@
   align-items: flex-start;
   position: relative;
 }
+
+.n-detailed .n-container .noticemembers-box {
+  width: 90%;
+  margin: auto;
+}
+.n-detailed .n-container .noticemembers-box .noticemembers-sorting {
+  margin: 1.5rem 0rem;
+}
+.n-detailed .n-container .noticemembers-box .singlenotice-noticemembers {
+  margin-bottom: 1rem;
+}
 .n-container .singlenotice .n-back {
   background-color: #fad300;
   border-radius: 10px;
@@ -293,9 +305,9 @@
   opacity: 0.8;
 }
 
-.noticemembers-sorting {
+/* .noticemembers-sorting {
   margin: 3.1rem;
-}
+} */
 
 .noticemembers-sort button {
   width: 50%;
@@ -330,9 +342,9 @@
   padding: 0.25rem 0.75rem;
 }
 
-.singlenotice-noticemembers {
+/* .singlenotice-noticemembers {
   margin: 80px;
-}
+} */
 .noticemembers-sort .app-mem,
 .noticemembers-sort .sho-mem {
   font-size: 1rem;

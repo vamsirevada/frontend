@@ -23,7 +23,7 @@ a {
   bottom: 0px;
   right: 28px;
   min-width: 228px;
-  z-index: 1000;
+  z-index: 999;
 }
 .close-btn {
   font-family: 'Raleway', sans-serif;
@@ -52,6 +52,7 @@ a {
   width: 280px;
   max-height: 700px;
   overflow-y: auto;
+  z-index: 1000;
 }
 
 /* Add styles to the form container */

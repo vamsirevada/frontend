@@ -159,143 +159,155 @@ const VideoModal = ({
                   <img src={forward} alt='' />
                 </div>
               </div>
-            </div>
-            <div className='flex-des'>
-              <div className='pic-des-1'>
-                <div>
-                  {portfolio.likes &&
-                  portfolio.likes
-                    .map((x) => x.user === auth?.user?._id)
-                    .find((x) => x === true) ? (
+              <div className='des-comm-box'>
+                <div className='flex-des'>
+                  <div className='pic-des-1'>
                     <div>
-                      <div
-                        onClick={() => {
-                          unlike(videos[value]);
-                        }}
-                      >
-                        <img className='r-1' src={yheart} alt='' />
-                        <span className='d-1'>Liked</span>
-                      </div>
-                    </div>
-                  ) : (
-                    <>
-                      <div
-                        onClick={() => {
-                          like(videos[value]);
-                        }}
-                      >
-                        <img className='r-1' src={heart} alt='' />
-                        <span className='d-1'>Like</span>
-                      </div>
-                    </>
-                  )}
-                </div>
-                <div>
-                  <img className='r-1' src={com} alt='' />
-                  <span className='d-1'>Comment</span>
-                </div>
-              </div>
-              <div className='des-right'>
-                <a className='d-1'>
-                  <span className='f-1'>
-                    {portfolio.likes &&
-                      portfolio.likes.length > 0 &&
-                      portfolio.likes.length}
-                  </span>{' '}
-                  Likes
-                </a>
-                <a className='d-1'>
-                  <span className='f-1'>
-                    {portfolio.comments &&
-                      portfolio.comments.length > 0 &&
-                      portfolio.comments.length}
-                  </span>{' '}
-                  Comment
-                </a>
-              </div>
-            </div>
-            <div>
-              <p>{videos[value].description}</p>
-            </div>
-            <div className='comment-box'>
-              <div>
-                <img className='comment-pic' src={auth?.user?.avatar} alt='' />
-              </div>
-              <div className='cmt-1'>
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    comment(videos[value]);
-                  }}
-                >
-                  <input
-                    type='text'
-                    name='comment'
-                    placeholder='Write a Comment...'
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                  />
-
-                  <button type='submit' className='btn-blue'>
-                    <img src={plane} alt='' />
-                  </button>
-                </form>
-              </div>
-            </div>
-            {portfolio.comments && portfolio.comments.length > 0 && (
-              <div className='comments'>
-                {portfolio.comments.map((comment, index) => (
-                  <Fragment key={index}>
-                    <div className='comment-box'>
-                      <div>
-                        <Link to={`portfolio/${comment?.user}`}>
-                          <img
-                            className='comment-pic'
-                            src={
-                              comment?.commentedUserAvatar
-                                ? comment?.commentedUserAvatar
-                                : logo
-                            }
-                            alt=''
-                          />
-                        </Link>
-                      </div>
-                      <div className='cmt-1 list'>
+                      {portfolio.likes &&
+                      portfolio.likes
+                        .map((x) => x.user === auth?.user?._id)
+                        .find((x) => x === true) ? (
                         <div>
+                          <div
+                            onClick={() => {
+                              unlike(videos[value]);
+                            }}
+                          >
+                            <img className='r-1' src={yheart} alt='' />
+                            <span className='d-1'>Liked</span>
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <div
+                            onClick={() => {
+                              like(videos[value]);
+                            }}
+                          >
+                            <img className='r-1' src={heart} alt='' />
+                            <span className='d-1'>Like</span>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                    <div>
+                      <img className='r-1' src={com} alt='' />
+                      <span className='d-1'>Comment</span>
+                    </div>
+                  </div>
+                  <div className='des-right'>
+                    <a className='d-1'>
+                      <span className='f-1'>
+                        {portfolio.likes &&
+                          portfolio.likes.length > 0 &&
+                          portfolio.likes.length}
+                      </span>{' '}
+                      Likes
+                    </a>
+                    <a className='d-1'>
+                      <span className='f-1'>
+                        {portfolio.comments &&
+                          portfolio.comments.length > 0 &&
+                          portfolio.comments.length}
+                      </span>{' '}
+                      Comment
+                    </a>
+                  </div>
+                </div>
+                <div className='popup-description'>
+                  <p>{videos[value].description}</p>
+                </div>
+                <hr className='Hori' />
+                <div className='comment-box'>
+                  <div>
+                    <img
+                      className='comment-pic'
+                      src={auth?.user?.avatar}
+                      alt=''
+                    />
+                  </div>
+                  <div className='cmt-1'>
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        comment(videos[value]);
+                      }}
+                    >
+                      <input
+                        type='text'
+                        name='comment'
+                        placeholder='Write a Comment...'
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
+                      />
+
+                      <button type='submit' className='btn-blue'>
+                        <img src={plane} alt='' />
+                      </button>
+                    </form>
+                  </div>
+                </div>
+                <hr className='Hori' />
+                {portfolio.comments && portfolio.comments.length > 0 && (
+                  <div className='comments'>
+                    <div className='comment-box-heading'>
+                      <h5>Comments</h5>
+                    </div>
+                    {portfolio.comments.map((comment, index) => (
+                      <Fragment key={index}>
+                        <div className='comment-box'>
                           <div>
                             <Link to={`portfolio/${comment?.user}`}>
-                              <span className='d-1'>
-                                {comment?.fullName && comment?.fullName}
-                              </span>{' '}
+                              <img
+                                className='comment-pic'
+                                src={
+                                  comment?.commentedUserAvatar
+                                    ? comment?.commentedUserAvatar
+                                    : logo
+                                }
+                                alt=''
+                              />
                             </Link>
-                            {/* <span className='d-2'>
+                          </div>
+                          <div className='cmt-1 list'>
+                            <div>
+                              <div>
+                                <Link to={`portfolio/${comment?.user}`}>
+                                  <span className='d-1'>
+                                    {comment?.fullName && comment?.fullName}
+                                  </span>{' '}
+                                </Link>
+                                {/* <span className='d-2'>
                               <Moment format='DD MMM YYYY, hh:mm a'>
                                 {comment.commentedTime}
                               </Moment>
                             </span> */}
-                          </div>
-                          <div className='d-3'>
-                            <p>{comment.commentText}</p>
+                              </div>
+                              <div className='d-3'>
+                                <p>{comment.commentText}</p>
+                              </div>
+                            </div>
+                            <div>
+                              {!auth.loading &&
+                                comment?.user === auth.user._id && (
+                                  <button
+                                    type='button'
+                                    className='btn-blue btn-red'
+                                    onClick={removeComment}
+                                  >
+                                    <img src={bin} alt='' />
+                                  </button>
+                                )}
+                            </div>
                           </div>
                         </div>
-                        <div>
-                          {!auth.loading && comment?.user === auth.user._id && (
-                            <button
-                              type='button'
-                              className='btn-blue btn-red'
-                              onClick={removeComment}
-                            >
-                              <img src={bin} alt='' />
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                    <hr className='Hori' />
-                  </Fragment>
-                ))}
+                        <hr className='Hori' />
+                      </Fragment>
+                    ))}
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </div>
       )}

@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../../images/Vanity_logo-01.png';
+import fulllogo from '../../../images/Logo files/png/Vanity_logo-06.png';
 
 const Page1 = () => {
   return (
@@ -8,7 +9,7 @@ const Page1 = () => {
       <div id='page-1' className='page'>
         <div className='container'>
           <div className='nav'>
-            <img className='logo' src={logo} alt='Logo' />
+            <img className='logo' src={fulllogo} alt='Logo' />
             <div>
               <ul>
                 <li>

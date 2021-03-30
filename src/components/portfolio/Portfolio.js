@@ -466,20 +466,18 @@ const Portfolio = ({
                           </div>
                         )}
                         {profile.experience.length === 0 &&
-                        profile.founder.length === 0 ? (
-                          <div className='add-profile'>
-                            <hr />
-                            <p>
-                              To add Experience/ Education/ Skills/
-                              Team-Members/ Awards etc., Click Add to Profile
-                            </p>
-                            <Link to='/profile' className='btn-white'>
-                              Add Profile
-                            </Link>
-                          </div>
-                        ) : (
-                          <p className='hide'> noting</p>
-                        )}
+                          profile.founder.length === 0 && (
+                            <div className='add-profile'>
+                              <hr />
+                              <p>
+                                To add Experience/ Education/ Skills/
+                                Team-Members/ Awards etc., Click Add to Profile
+                              </p>
+                              <Link to='/profile' className='btn-white'>
+                                Add Profile
+                              </Link>
+                            </div>
+                          )}
                       </div>
                     </div>
                   </div>
