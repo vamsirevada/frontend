@@ -267,6 +267,7 @@ a {
   height: 100vh;
   position: relative;
   z-index: 15;
+  /* background: linear-gradient(180deg, #a3605f 0%, #d07977 5%, #ff9391 10%); */
 }
 
 .page-columns .column {
@@ -316,7 +317,12 @@ a {
 }
 
 .page-columns .column-2 h1 {
+  position: relative;
   padding-right: 10px;
+  font-size: 45px;
+  /* transition: 0.5s;
+  transform-origin: right;
+  transform: scaleX(1); */
 }
 
 .page-columns .column-2 p {

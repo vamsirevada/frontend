@@ -22,6 +22,8 @@ import { SearchProvider } from './context/search.provider';
 import './App.css';
 import ReferralPage from './components/auth/ReferralPage';
 import { LOGOUT } from './actions/types';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const App = () => {
   useEffect(() => {
@@ -38,6 +40,8 @@ const App = () => {
         });
       }
     });
+
+    AOS.init();
   }, []);
 
   return (

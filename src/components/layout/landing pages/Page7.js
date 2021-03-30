@@ -5,7 +5,14 @@ import macbook from '../../../images/macbook_white@2x.png';
 const Page7 = () => {
   return (
     <Fragment>
-      <div id='page-7' className='page7-columns page'>
+      <div
+        id='page-7'
+        className='page7-columns page'
+        data-aos='fade'
+        data-aos-delay='25'
+        data-aos-duration='500'
+        data-aos-easing='ease'
+      >
         <div className='container'>
           <div className='column'>
             <div className='column-2'>
@@ -19,7 +26,7 @@ const Page7 = () => {
                 according to the needs of user so that you get purposeful
                 information on opportunities spanning across the country.
               </p>
-              <Link to='/register' className='btn'>
+              <Link to='/register' className='btn' data-aos='fade-left'>
                 Get started
               </Link>
             </div>
