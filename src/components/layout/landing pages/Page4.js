@@ -14,12 +14,24 @@ const Page4 = () => {
       >
         <div className='container'>
           <div className='column'>
-            <div className='column-1'>
+            <div
+              className='column-1'
+              data-aos='zoom-in'
+              data-aos-delay='25'
+              data-aos-duration='500'
+              data-aos-easing='ease'
+            >
               <img className='collobrate' src={create} alt='collobrate' />
               <br />
             </div>
 
-            <div className='column-2'>
+            <div
+              className='column-2'
+              data-aos='fade-right'
+              data-aos-delay='25'
+              data-aos-duration='500'
+              data-aos-easing='ease'
+            >
               <h1 className='ft-heading ft-heading-light'>
                 Create and share Portfolio
               </h1>

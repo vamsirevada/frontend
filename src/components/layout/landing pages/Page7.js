@@ -15,7 +15,13 @@ const Page7 = () => {
       >
         <div className='container'>
           <div className='column'>
-            <div className='column-2'>
+            <div
+              className='column-2'
+              data-aos='fade-left'
+              data-aos-delay='25'
+              data-aos-duration='500'
+              data-aos-easing='ease'
+            >
               <h1 className='ft-heading '>
                 One stop for finding top industry creatives
               </h1>
@@ -30,7 +36,13 @@ const Page7 = () => {
                 Get started
               </Link>
             </div>
-            <div className='column-1'>
+            <div
+              className='column-1'
+              data-aos='fade-right'
+              data-aos-delay='25'
+              data-aos-duration='500'
+              data-aos-easing='ease'
+            >
               <img className='collobrate' src={macbook} alt='collobrate' />
               <div className='circlebox'></div>
               <div className='rotatebox'></div>

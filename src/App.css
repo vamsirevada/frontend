@@ -29,58 +29,88 @@ html {
 
 .dotstyle ul {
   position: relative;
+  position: fixed;
   display: inline-block;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin: 0;
   padding: 0;
   list-style: none;
   cursor: default;
+  width: 8%;
+  height: 100vh;
+  z-index: 1001;
 }
 .dotstyle li {
   position: relative;
   display: block;
-  float: left;
+  /* float: left; */
   margin: 0 16px;
-  width: 16px;
-  height: 16px;
+  margin-bottom: 1.25rem;
+  width: 10px;
+  height: 10px;
   cursor: pointer;
 }
-
-/* .dotstyle li a {
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  outline: none;
-  border-radius: 50%;
-  background-color: #000;
-  background-color: rgba(255, 255, 255, 1);
-  text-indent: -999em;
-  cursor: pointer; 
-  position: absolute;
-} */
 
 .dotstyle li a {
   top: 0;
   left: 0;
-  width: 1rem;
-  height: 1rem;
+  width: 0.5rem;
+  height: 0.5rem;
   border-radius: 50%;
   outline: none;
   border-radius: 50%;
   color: #000;
-  background-color: #000;
+  background-color: #c9c9c980;
   /* background-color: rgba(255, 255, 255, 1); */
   text-indent: -999em;
   cursor: pointer;
   position: absolute;
 }
+.dotstyle li a:hover {
+  transform: scale(1.5, 1.5);
+  /* box-shadow: inset 0 0 0 2px #fff; */
+  transition: all 0.3s;
+}
+
+.dotstyle li .dot1,
+.dotstyle li .dot7 {
+  background-color: #c9c9c980;
+}
+
+.dotstyle li .dot.header2,
+.dotstyle li .dot.header5,
+.dotstyle li .dot.header6 {
+  background-color: #272727;
+}
+.dotstyle li .dot.header3,
+.dotstyle li .dot.header4 {
+  background-color: #000000;
+}
+
+.dotstyle li .dot.dot1.header,
+.dotstyle li .dot.dot7.header7 {
+  background-color: #7480ff;
+  transform: scale(1.5, 1.5);
+}
+.dotstyle li .dot.dot2.header2,
+.dotstyle li .dot.dot3.header3,
+.dotstyle li .dot.dot4.header4,
+.dotstyle li .dot.dot5.header5,
+.dotstyle li .dot.dot6.header6 {
+  background-color: #fff;
+  transform: scale(1.5, 1.5);
+}
 
 /* Fill up */
 .dotstyle-fillup li a {
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0);
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 1);
-  transition: background 0.3s;
+  /* background-color: rgba(0, 0, 0, 0); */
+  /* box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 1); */
+  box-shadow: inset 0 0 0 2px #fad300;
+  transition: all 0.3s;
 }
 
 .dotstyle-fillup li a::after {
@@ -96,7 +126,8 @@ html {
 }
 
 .dotstyle-fillup li a:hover,
-.dotstyle-fillup li a:focus {
+.dotstyle-fillup li a:focus,
+.dotstyle-fillup li a.active {
   background-color: rgba(0, 0, 0, 0.2);
 }
 

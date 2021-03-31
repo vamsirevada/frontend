@@ -10,6 +10,7 @@ const Page1 = () => {
         id='page-1'
         className='page'
         data-aos='fade'
+        data-aos-anchor-placement='top-bottom'
         data-aos-delay='25'
         data-aos-duration='250'
         data-aos-easing='ease'

@@ -14,7 +14,13 @@ const Page5 = () => {
       >
         <div className='container'>
           <div className='column'>
-            <div className='column-2'>
+            <div
+              className='column-2'
+              data-aos='fade-left'
+              data-aos-delay='25'
+              data-aos-duration='500'
+              data-aos-easing='ease'
+            >
               <h1 className='ft-heading ft-heading-light black'>
                 Give, Find, and Seize Opportunities
               </h1>
@@ -27,7 +33,13 @@ const Page5 = () => {
               </p>
             </div>
 
-            <div className='column-1'>
+            <div
+              className='column-1'
+              data-aos='zoom-out'
+              data-aos-delay='25'
+              data-aos-duration='500'
+              data-aos-easing='ease'
+            >
               <img className='collobrate' src={give} alt='collobrate' />
             </div>
 

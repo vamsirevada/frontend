@@ -7,14 +7,20 @@ const Page2 = () => {
       <div
         id='page-2'
         className='page-columns page'
-        data-aos='fade'
-        // data-aos-delay='10'
+        data-aos='slide-up'
+        data-aos-delay='10'
         data-aos-duration='250'
         data-aos-easing='ease'
       >
         <div className='container'>
           <div className='column'>
-            <div className='column-1'>
+            <div
+              className='column-1'
+              data-aos='fade-right'
+              data-aos-delay='10'
+              data-aos-duration='250'
+              data-aos-easing='ease'
+            >
               <img
                 className='macimage'
                 src={macbook}
@@ -23,7 +29,13 @@ const Page2 = () => {
               <div className='circlebox'></div>
             </div>
 
-            <div className='column-2'>
+            <div
+              className='column-2'
+              data-aos='fade-left'
+              data-aos-delay='10'
+              data-aos-duration='250'
+              data-aos-easing='ease'
+            >
               <h1 className='ft-heading ft-heading-light'>
                 Discover top industry professionals
               </h1>

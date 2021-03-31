@@ -15,7 +15,13 @@ const Page3 = () => {
       >
         <div className='container'>
           <div className='column'>
-            <div className='column-2'>
+            <div
+              className='column-2'
+              data-aos='fade-down-right'
+              data-aos-delay='50'
+              data-aos-duration='400'
+              data-aos-easing='linear'
+            >
               <h1 className='ft-heading ft-heading-light'>
                 Connect and Collaborate
               </h1>
@@ -26,7 +32,13 @@ const Page3 = () => {
               </p>
             </div>
 
-            <div className='column-1'>
+            <div
+              className='column-1'
+              data-aos='fade-down-left'
+              data-aos-delay='30'
+              data-aos-duration='400'
+              data-aos-easing='linear'
+            >
               <img className='collobrate' src={perry} alt='collobrate' />
               <br />
               <img src={volo} alt='chat' />

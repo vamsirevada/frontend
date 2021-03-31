@@ -14,11 +14,23 @@ const Page6 = () => {
       >
         <div className='container'>
           <div className='column'>
-            <div className='column-1'>
+            <div
+              className='column-1'
+              data-aos='zoom-in-up'
+              data-aos-delay='25'
+              data-aos-duration='500'
+              data-aos-easing='ease'
+            >
               <img className='collobrate' src={manage} alt='collobrate' />
               <br />
             </div>
-            <div className='column-2'>
+            <div
+              className='column-2'
+              data-aos='fade-right'
+              data-aos-delay='25'
+              data-aos-duration='500'
+              data-aos-easing='linear'
+            >
               <h1 className='ft-heading ft-heading-light'>
                 Easily manage your projects
               </h1>
