@@ -1,7 +1,12 @@
 import React, { useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { markNotificationsRead } from '../../actions/notification';
-import { accept, decline } from '../../actions/profile';
+import {
+  accept,
+  decline,
+  acceptProjectInvite,
+  declineProjectInvite,
+} from '../../actions/profile';
 import logo from '../../images/dummyimage.jpg';
 import IconButton from '@material-ui/core/IconButton';
 import Badge from '@material-ui/core/Badge';
@@ -57,7 +62,6 @@ const NotificationPopup = ({
             badgeContent={
               notifications.filter((not) => not.read === false).length
             }
-            // color='secondary'
           >
             <NotificationsIcon
               style={{
@@ -96,11 +100,7 @@ const NotificationPopup = ({
       notifications.map((not) => {
         return (
           <div>
-            <div
-              className='notif-element'
-              // style={{ listStyle: 'none' }}
-              key={not?.createdAt}
-            >
+            <div className='notif-element' key={not?.createdAt}>
               {not.type === 'like' && (
                 <>
                   <img
@@ -247,5 +247,7 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   accept,
   decline,
+  acceptProjectInvite,
+  declineProjectInvite,
   markNotificationsRead,
 })(NotificationPopup);

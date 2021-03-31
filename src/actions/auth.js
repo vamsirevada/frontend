@@ -47,7 +47,7 @@ export const loadWriter = () => async (dispatch) => {
 };
 
 //Register User
-export const register = ({ formData }) => async (dispatch) => {
+export const register = (formData) => async (dispatch) => {
   try {
     const res = await api.post('/users', formData);
 
@@ -56,10 +56,8 @@ export const register = ({ formData }) => async (dispatch) => {
       payload: res.data,
     });
     dispatch(loadUser());
-    dispatch(setAlert('User Registered Successful', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
-
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }

@@ -14,6 +14,7 @@ import {
   GET_NOTED_POST_ERROR,
   GET_NOTED_PEOPLE,
   GET_NOTED_PEOPLE_ERROR,
+  PROJECT_INVITE_DECLINED,
 } from '../actions/types';
 
 const initialState = {
@@ -114,6 +115,11 @@ export default function (state = initialState, action) {
         error: payload,
         // profile: null,
         loading: false,
+      };
+    case PROJECT_INVITE_DECLINED:
+      return {
+        ...state,
+        prompt: action.payload,
       };
     default:
       return state;

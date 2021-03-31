@@ -1,19 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { Fragment, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import vlogo from "../../images/vanitylogo3.png";
-import { setAlert } from "../../actions/alert";
-import { register } from "../../actions/auth";
-import PropTypes from "prop-types";
+import React, { Fragment, useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import vlogo from '../../images/vanitylogo3.png';
+import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
+import PropTypes from 'prop-types';
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    fullName: "",
-    userName: "",
-    email: "",
-    password: "",
-    password2: "",
+    fullName: '',
+    userName: '',
+    email: '',
+    password: '',
+    password2: '',
     userpermission: false,
     // code: "",
   });
@@ -25,7 +25,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     password,
     password2,
     userpermission,
-    // code,
   } = formData;
 
   const onChange = (e) =>
@@ -34,52 +33,51 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      setAlert("Password do not match", "danger");
+      setAlert('Password do not match', 'danger');
     } else {
-      // code also needs to be included below later
       register({ fullName, userName, email, password, userpermission });
-      setAlert("User Registered Successful", "success");
+      setAlert('User Registered Successful', 'success');
     }
   };
 
   //Redirect if logged in
   if (isAuthenticated) {
-    return <Redirect to="/create-profile" />;
+    return <Redirect to='/create-profile' />;
   }
 
   return (
     <Fragment>
-      <div id="signup" className="signup">
-        <div className="column-1">
-          <div className="logo-black">
-            <Link to="/">
-              <img src={vlogo} alt="" />
+      <div id='signup' className='signup'>
+        <div className='column-1'>
+          <div className='logo-black'>
+            <Link to='/'>
+              <img src={vlogo} alt='' />
             </Link>
           </div>
         </div>
 
-        <div className="column-2">
-          <div className="signup-column">
-            <div className="signup-top">
-              <h3 className="signup-heading">Sign up to Vanity</h3>
+        <div className='column-2'>
+          <div className='signup-column'>
+            <div className='signup-top'>
+              <h3 className='signup-heading'>Sign up to Vanity</h3>
             </div>
 
-            <div className="signup-usertype">
-              <h4 className="signup-label">
+            <div className='signup-usertype'>
+              <h4 className='signup-label'>
                 Do you want to create an individual or Group account?
               </h4>
-              <div className="ut-flexform">
-                <Link to="/register" className="ut-btn-light-border">
+              <div className='ut-flexform'>
+                <Link to='/register' className='ut-btn-light-border'>
                   individual
                 </Link>
                 <br />
-                <Link to="/groupregister" className="ut-btn-light">
+                <Link to='/groupregister' className='ut-btn-light'>
                   Group
                 </Link>
               </div>
             </div>
 
-            <form className="flex-form-1" onSubmit={(e) => onSubmit(e)}>
+            <form className='flex-form-1' onSubmit={(e) => onSubmit(e)}>
               {/* <div className="usergroup">
                 <label htmlFor="referral-code" className="signup-label">
                   Enter the referral code <span className="blue">*</span>
@@ -99,98 +97,98 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                   onChange={(e) => onChange(e)}
                 />
               </div> */}
-              <div className="usergroup">
-                <label htmlFor="fullName" className="signup-label">
+              <div className='usergroup'>
+                <label htmlFor='fullName' className='signup-label'>
                   Full Name
                 </label>
                 <input
-                  type="text"
-                  name="fullName"
+                  type='text'
+                  name='fullName'
                   value={fullName}
                   onChange={(e) => onChange(e)}
-                  className="btn-light"
+                  className='btn-light'
                 />
               </div>
 
-              <div className="usergroup">
-                <label htmlFor="userName" className="signup-label">
+              <div className='usergroup'>
+                <label htmlFor='userName' className='signup-label'>
                   UserName
                 </label>
                 <input
-                  type="text"
-                  name="userName"
+                  type='text'
+                  name='userName'
                   value={userName}
                   onChange={(e) => onChange(e)}
-                  className="btn-light"
+                  className='btn-light'
                 />
               </div>
 
-              <div className="usergroup">
-                <label htmlFor="email" className="signup-label">
+              <div className='usergroup'>
+                <label htmlFor='email' className='signup-label'>
                   E-mail
                 </label>
                 <input
-                  type="email"
-                  name="email"
+                  type='email'
+                  name='email'
                   value={email}
                   onChange={(e) => onChange(e)}
-                  className="btn-light"
+                  className='btn-light'
                 />
               </div>
-              <div className="usergroup">
-                <label htmlFor="password" className="signup-label">
+              <div className='usergroup'>
+                <label htmlFor='password' className='signup-label'>
                   Create Password
                 </label>
                 <input
-                  type="password"
-                  name="password"
+                  type='password'
+                  name='password'
                   value={password}
                   onChange={(e) => onChange(e)}
-                  className="btn-light"
+                  className='btn-light'
                 />
               </div>
 
-              <div className="usergroup">
-                <label htmlFor="password2" className="signup-label">
+              <div className='usergroup'>
+                <label htmlFor='password2' className='signup-label'>
                   Retype Password
                 </label>
                 <input
-                  type="password"
-                  name="password2"
+                  type='password'
+                  name='password2'
                   value={password2}
                   onChange={(e) => onChange(e)}
-                  className="btn-light"
+                  className='btn-light'
                 />
               </div>
 
-              <div className="user-permission usergroup">
-                Already have an account?{" "}
-                <Link to="/login" className="referral-request">
+              <div className='user-permission usergroup'>
+                Already have an account?{' '}
+                <Link to='/login' className='referral-request'>
                   Login
                 </Link>
               </div>
 
-              <div className="user-permission usergroup">
+              <div className='user-permission usergroup'>
                 <input
-                  type="checkbox"
-                  name="userpermission"
+                  type='checkbox'
+                  name='userpermission'
                   value={userpermission}
-                  id="permission"
+                  id='permission'
                   onChange={(e) => {
                     setFormData({
                       ...formData,
                       userpermission: !userpermission,
                     });
                   }}
-                />{" "}
-                Creating an account means you’re agree with our{" "}
-                <a className="referral-request">Terms of Service</a>,
-                <a className="referral-request"> Privacy Policy</a>, and our
+                />{' '}
+                Creating an account means you’re agree with our{' '}
+                <a className='referral-request'>Terms of Service</a>,
+                <a className='referral-request'> Privacy Policy</a>, and our
                 default Notification Settings.
               </div>
 
-              <button type="Submit" className="btn-yellow">
-                {" "}
+              <button type='Submit' className='btn-yellow'>
+                {' '}
                 Sign Up
               </button>
               <br />
