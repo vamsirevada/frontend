@@ -40,8 +40,6 @@ const Page6 = () => {
                 across India, effectively increasing your productivity &
                 efficiency.
               </p>
-              <br />
-              <h3 className='ft-heading ft-heading-light'>Coming Soon...</h3>
             </div>
           </div>
         </div>
