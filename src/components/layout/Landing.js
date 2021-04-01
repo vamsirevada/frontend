@@ -50,8 +50,6 @@ const Landing = ({ isAuthenticated }) => {
     return () => window.removeEventListener('scroll', listenScrollEvent);
   }, []);
 
-  console.log(header);
-
   if (isAuthenticated) {
     return <Redirect to='/portfolio' />;
   }

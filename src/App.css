@@ -27,6 +27,7 @@ html {
   background-color: #fad300;
 }
 
+/* Landing page pagination */
 .dotstyle ul {
   position: relative;
   position: fixed;
@@ -115,6 +116,173 @@ html {
 .welcome-page .welcome-image {
   width: inherit;
   height: inherit;
+}
+
+/* Loading Screen */
+.loader-screen {
+  background-image: radial-gradient(#f5f7fa, #f4f4f4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Lato', sans-serif;
+  margin: 0;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  z-index: 2000;
+}
+/* CSS for animated bouncing loader. */
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Loader circles */
+.loader > span {
+  background: #7480ff;
+  width: 9px;
+  height: 22px;
+  border-radius: 35%;
+  margin: 5rem 0.5rem;
+  opacity: 1;
+  /* animation: bouncingLoader 0.6s infinite alternate; */
+  animation: growLoader 1s infinite normal linear;
+}
+
+.loader > span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.loader > span:nth-child(2) {
+  animation-delay: 0.2s;
+  height: 33px;
+}
+
+.loader > span:nth-child(3) {
+  animation-delay: 0.3s;
+  height: 44px;
+}
+.loader > span:nth-child(4) {
+  animation-delay: 0.4s;
+  height: 33px;
+}
+.loader > span:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.loader > span:nth-child(6) {
+  animation-delay: 0.6s;
+  height: 33px;
+}
+.loader > span:nth-child(7) {
+  animation-delay: 0.7s;
+  height: 44px;
+}
+.loader > span:nth-child(8) {
+  animation-delay: 0.8s;
+  height: 33px;
+}
+.loader > span:nth-child(9) {
+  animation-delay: 0.9s;
+}
+
+@keyframes growLoader {
+  0% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  25% {
+    transform: scaleY(0.75);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scaleY(0.5);
+    opacity: 0.5;
+  }
+  75% {
+    transform: scaleY(0.25);
+    opacity: 0.25;
+  }
+  100% {
+    transform: scaleY(0);
+    opacity: 0;
+  }
+}
+
+/* Welcome Screen */
+.welcome-screen {
+  background-image: radial-gradient(#f5f7fa, #f4f4f4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: 'Lato', sans-serif;
+  margin: 0;
+  position: relative;
+  top: 0px;
+  left: 0px;
+  z-index: 2000;
+}
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 1;
+  animation: showwelcome 2.5s ease;
+}
+.welcome img {
+  display: inline-block;
+  width: 3.5rem;
+  height: 3.5rem;
+  opacity: 1;
+}
+.welcome h1 {
+  margin-top: 0.5rem;
+  font-weight: 700;
+  color: #272727;
+}
+
+@keyframes showwelcome {
+  50% {
+    opacity: 0.75;
+  }
+  60% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.welcome-hide {
+  display: none;
+}
+
+.motto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  animation: showmotto 2.5s linear;
+}
+
+.motto p {
+  font-size: 1.5rem;
+  font-family: 'Raleway', sans-serif;
+}
+
+@keyframes showmotto {
+  50% {
+    opacity: 1;
+  }
+}
+
+.motto-hide {
+  display: none;
 }
 
 /* Alert */

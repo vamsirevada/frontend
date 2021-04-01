@@ -47,7 +47,7 @@ export const loadWriter = () => async (dispatch) => {
 };
 
 //Register User
-export const register = ({ formData }) => async (dispatch) => {
+export const register = (formData) => async (dispatch) => {
   try {
     const res = await api.post('/users', formData);
 

@@ -30,12 +30,16 @@ import SingleNotice from '../projects/SingleNotice';
 import NoticeBoard from '../projects/NoticeBoard';
 import Welcome from '../layout/Welcome';
 import ChatSideBar from '../chat/ChatSideBar';
+import Loader from '../layout/Loader';
+import WelcomeScreen from '../layout/WelcomeScreen';
 
 const Routes = () => {
   return (
     <>
       <Navbar />
       <Switch>
+        <PrivateRoute exact path='/loader' component={Loader} />
+        <PrivateRoute exact path='/welcomescreen' component={WelcomeScreen} />
         <PrivateRoute exact path='/welcome' component={Welcome} />
         <PrivateRoute exact path='/portfolio' component={Portfolio} />
         <PrivateRoute exact path='/portfolio/:id' component={Portfolio1} />
