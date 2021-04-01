@@ -25,7 +25,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     password,
     password2,
     userpermission,
-    // code,
   } = formData;
 
   const onChange = (e) =>
@@ -36,8 +35,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     if (password !== password2) {
       setAlert('Password do not match', 'danger');
     } else {
-      // code also needs to be included below later
-      console.log(formData);
       register({ fullName, userName, email, password, userpermission });
       setAlert('User Registered Successful', 'success');
     }

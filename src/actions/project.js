@@ -111,7 +111,6 @@ export const cancelProjectInvite = (project_id, profile_id) => async (
 // Make Admin
 export const makeAdmin = (project_id, user_id) => async (dispatch) => {
   try {
-    console.log('hi');
     const res = await api.post(`/project/admin/${project_id}/${user_id}`);
     console.log(res.data);
     dispatch({
