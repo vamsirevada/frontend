@@ -42,10 +42,6 @@ const Page5 = () => {
             >
               <img className='collobrate' src={give} alt='collobrate' />
             </div>
-
-            <h3 className='ft-heading ft-heading-light black'>
-              Coming Soon...
-            </h3>
           </div>
         </div>
       </div>
