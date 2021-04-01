@@ -1,0 +1,17 @@
+.card-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.card-loader {
+  position: absolute;
+  z-index: 1000;
+}
+
+.card-container .card-loader img {
+  width: 300px;
+}

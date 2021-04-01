@@ -1,14 +1,14 @@
-import React, { Fragment, useState } from "react";
-import { Link, Redirect } from "react-router-dom";
-import vlogo from "../../images/vanitylogo3.png";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import { login } from "../../actions/auth";
+import React, { Fragment, useState } from 'react';
+import { Link, Redirect } from 'react-router-dom';
+import vlogo from '../../images/vanitylogo3.png';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { login } from '../../actions/auth';
 
 const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const { email, password } = formData;
@@ -23,75 +23,75 @@ const Login = ({ login, isAuthenticated }) => {
 
   //Redirect if logged in
   if (isAuthenticated) {
-    return <Redirect to="/portfolio" />;
+    return <Redirect to='/welcome' />;
   }
 
   return (
     <Fragment>
-      <div id="login" className="login">
-        <div className="column-l1">
-          <div className="logo-black">
-            <Link to="/">
-              <img src={vlogo} alt="" />
+      <div id='login' className='login'>
+        <div className='column-l1'>
+          <div className='logo-black'>
+            <Link to='/'>
+              <img src={vlogo} alt='' />
             </Link>
           </div>
         </div>
 
-        <div className="column-l2">
-          <div className="login-column">
-            <div className="signup-top">
-              <h3 className="signup-heading">Login to Vanity</h3>
-              <p className="signup-para">
+        <div className='column-l2'>
+          <div className='login-column'>
+            <div className='signup-top'>
+              <h3 className='signup-heading'>Login to Vanity</h3>
+              <p className='signup-para'>
                 Hey ! Welcome, Please login into your account
               </p>
-              <p className="signup-para invite">
-                {" "}
-                <Link to="/invite">
-                  <span className="referral-request-1">Invite friends</span>
+              <p className='signup-para invite'>
+                {' '}
+                <Link to='/invite'>
+                  <span className='referral-request-1'>Invite friends</span>
                 </Link>
               </p>
             </div>
-            <br className="hide" />
-            <form className="flex-form-l1" onSubmit={(e) => onSubmit(e)}>
-              <div className="usergroup">
-                <label htmlFor="email" className="signup-label">
+            <br className='hide' />
+            <form className='flex-form-l1' onSubmit={(e) => onSubmit(e)}>
+              <div className='usergroup'>
+                <label htmlFor='email' className='signup-label'>
                   Email:
                 </label>
                 <input
-                  type="text"
-                  name="email"
+                  type='text'
+                  name='email'
                   value={email}
                   onChange={(e) => onChange(e)}
-                  className="btn-light"
+                  className='btn-light'
                 />
               </div>
 
-              <div className="usergroup">
-                <label htmlFor="password" className="signup-label">
+              <div className='usergroup'>
+                <label htmlFor='password' className='signup-label'>
                   Password
                 </label>
                 <input
-                  type="password"
-                  name="password"
+                  type='password'
+                  name='password'
                   value={password}
                   onChange={(e) => onChange(e)}
-                  className="btn-light"
+                  className='btn-light'
                 />
               </div>
 
-              <div className="fgt">
-                <Link to="/forgot-password" className="fgt-1">
+              <div className='fgt'>
+                <Link to='/forgot-password' className='fgt-1'>
                   Forgot Password
                 </Link>
-                <Link to="/register">
-                  <span className="referral-request">
+                <Link to='/register'>
+                  <span className='referral-request'>
                     Don't have an account?
                   </span>
                 </Link>
               </div>
               <br />
-              <button type="Submit" className="btn-yellow">
-                {" "}
+              <button type='Submit' className='btn-yellow'>
+                {' '}
                 Login
               </button>
               <br />

@@ -2,9 +2,11 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import gps from '../../images/icons/noun_Location_3139654.svg';
+import { Link } from 'react-router-dom';
 
 const ProfileTop = ({
   profile: { user, buddies, location, status, experience, avatar },
+  projects,
 }) => {
   return (
     <div className='profile-pic'>
@@ -15,18 +17,18 @@ const ProfileTop = ({
               <img className='display-pic' src={avatar} alt='' />
             </div>
             <div className='profile-info-box'>
-              <a href='#!'>
+              <Link to={`/friends/${user?._id}`}>
                 <p className='border-1 white'>
                   <span className='f-1'>{buddies && buddies.length}</span>
                   <br /> Connections
                 </p>
-              </a>
-              <a href='#!'>
-                <p className='white'>
-                  <span className='f-1'>{experience && experience.length}</span>
+              </Link>
+              <Link to={`/projectlist/${user?._id}`}>
+                <p>
+                  <span className='f-1'>{projects && projects.length}</span>
                   <br /> Projects{' '}
                 </p>
-              </a>
+              </Link>
             </div>
           </div>
           <div className='profile-right'>

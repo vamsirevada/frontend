@@ -9,11 +9,11 @@ a {
 
 /* Button used to open the chat form - fixed at the bottom of the page */
 .open-button {
-  background-color: #f8f8f8;
+  background-color: #f1f1f1;
   color: #272727;
   padding: 1rem 1.5rem;
   font-family: 'Raleway', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   border: none;
   cursor: pointer;
@@ -22,7 +22,24 @@ a {
   position: fixed;
   bottom: 0px;
   right: 28px;
-  width: 228px;
+  min-width: 228px;
+  z-index: 999;
+}
+.close-btn {
+  font-family: 'Raleway', sans-serif;
+  color: #fff;
+  background-color: #7480ff;
+  margin-left: 10px;
+  vertical-align: middle;
+  z-index: 1000;
+  right: 0px;
+}
+.close-btn img {
+  display: inline-block;
+  width: 8%;
+  position: absolute;
+  right: 13px;
+  top: 24px;
 }
 
 /* The popup chat - hidden by default */
@@ -32,18 +49,17 @@ a {
   bottom: 0px;
   right: 0px;
   z-index: 9;
-  width: 260px;
+  width: 280px;
   max-height: 700px;
-  overflow-y: hidden;
-  /* height: 80%; */
+  overflow-y: auto;
+  z-index: 1000;
 }
 
 /* Add styles to the form container */
-.form-container {
-  max-width: 300px;
-  padding: 0.5rem 0;
+.chat-container {
+  /* max-width: 300px; */
   background-color: #f8f8f8;
-  border-radius: 0px;
+  border-radius: 10px 0px 0px 0px;
   height: 100%;
 }
 
@@ -61,7 +77,7 @@ a {
 }
 .chat-popup h4 {
   font-family: 'Lato', sans-serif;
-  font-size: 18px;
+  font-size: 14px;
   color: #272727;
   padding: 0 1rem;
   margin: 0.5rem 0;
@@ -70,7 +86,7 @@ a {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.5rem;
 }
 
 .chat-popup .flex:hover {
@@ -86,17 +102,17 @@ a {
   margin-left: 1rem;
 }
 
-.dp {
+.flex .dp {
   display: inline-block;
-  width: 48px;
-  height: 48px;
-  border-radius: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
   background: url('../images/Image\ 29@2x.png') no-repeat center center/cover;
   z-index: 1;
   position: relative;
 }
 
-.dp::before {
+.flex .dp::before {
   content: '';
   display: inline-block;
   width: 12px;
@@ -108,8 +124,15 @@ a {
   bottom: 0px;
   right: 0px;
 }
+
 .hori {
   max-width: 90%;
+  border: 1px solid #c9c9c9;
+  opacity: 0.5;
+}
+.hori.project {
+  max-width: 100%;
+  margin-top: 0.25rem;
   border: 1px solid #c9c9c9;
   opacity: 0.5;
 }
@@ -122,30 +145,36 @@ a {
 }
 
 /* Full-width textarea */
-.form-container input {
-  width: 90%;
-  padding: 16px;
-  margin: 0.5rem 1rem;
+
+.chat-container .chat-search {
+  display: flex;
+  align-items: center;
   border: 0.5px solid #e5e5e5;
   background: #fff;
-  resize: none;
   border-radius: 15px;
+}
+
+.chat-container .chat-search input {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem 1rem;
   font-family: 'Raleway', sans-serif;
   font-size: 14px;
   color: #5d5d5d;
   outline: none;
   z-index: 1;
+  border: none;
+  width: 100%;
 }
 
-.form-container input::after {
+/* .chat-container input::after {
   content: 'helihwe';
   background-color: firebrick;
   background: url('../images/search\ icon.png') no-repeat center center/cover;
   z-index: 10;
-}
+} */
 
 /* Set a style for the submit/send button */
-.form-container .btn {
+.chat-container .drop-btn {
   background-color: transparent;
   border: none;
   cursor: pointer;
@@ -153,17 +182,17 @@ a {
   outline: none;
 }
 
-.form-container .btn img {
+.chat-container .drop-btn img {
   display: inline-block;
-  width: 60%;
+  width: 40%;
   transform: rotate(90deg);
 }
 
 /* Add some hover effects to buttons */
-.form-container .open-button:hover {
+.chat-container .open-button:hover {
   opacity: 1;
 }
-.form-container .btn:hover {
+.chat-container .btn:hover {
   opacity: 0.5;
 }
 
@@ -173,12 +202,21 @@ a {
   position: fixed;
   bottom: 0px;
   right: 320px;
-  width: 200px;
+  /* width: 200px; */
   background-color: #7480fc;
   color: #fff;
   font-family: 'Lato', sans-serif;
   font-size: 16px;
   padding: 1rem 1rem 0.5rem 1rem;
+}
+
+.open-button.open-button-1 #individual-chat {
+  background-color: #7480fc;
+  color: #fff;
+  font-family: 'Raleway', sans-serif;
+  font-size: 14px;
+  outline: none;
+  border: none;
 }
 
 .chat-popup-1 {
@@ -266,9 +304,9 @@ a {
 
 .dp-1 {
   display: inline-block;
-  width: 32px;
-  height: 32px;
-  border-radius: 30%;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   background: url('../images/Image\ 6@2x.png') no-repeat center center/cover;
   z-index: 1;
   position: relative;
@@ -285,6 +323,10 @@ a {
   position: relative;
   vertical-align: middle;
   margin-right: 0.5rem;
+}
+
+.chatboxtop-left .chat-top-name {
+  line-height: 18px;
 }
 
 .dp-1::before {
@@ -306,7 +348,7 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 1rem;
+  padding: 0.75rem 1.25rem;
   border-radius: 15px 15px 0 0;
 }
 
@@ -340,10 +382,17 @@ a {
 
 .chatbox-top .chatboxtop-right .resize img {
   display: inline-block;
-  height: 15px;
-  margin-right: 0.5rem;
+  height: 14px;
+  margin-top: 3px;
+  margin-right: 0.75rem;
+  vertical-align: text-top;
 }
-
+.chatbox-top .chatboxtop-right .cancel img {
+  display: inline-block;
+  height: 20px;
+  margin-right: 0.5rem;
+  vertical-align: text-top;
+}
 .form-container-2 .form-grid {
   display: grid;
   grid-template-columns: 80% 20%;
@@ -405,13 +454,19 @@ a {
   display: grid;
   grid-template-columns: 20% 80%;
   width: 25%;
-  /* grid-gap: 1rem; */
   align-items: center;
   background-color: #f9f6f2;
-  padding: 0.8rem;
+  padding: 1.1rem 0.8rem;
   position: fixed;
   border-bottom: 1px solid #c9c9c9;
   z-index: 10;
+}
+
+.fullchat-lefttop .display-pic {
+  width: 85%;
+  max-width: 3rem;
+  height: 100%;
+  border-radius: 15%;
 }
 
 .fullchat-lefttop input {
@@ -466,6 +521,15 @@ a {
   grid-template-columns: 20% 80%;
   align-content: center;
   /* margin-bottom: 1rem; */
+}
+
+.fullchat-chatgrid .dp {
+  display: inline-block;
+  width: 75%;
+  /* width: 48px; */
+  height: 48px;
+  border-radius: 10px;
+  margin-right: 1rem;
 }
 
 .flex-column-1 {
@@ -553,6 +617,7 @@ a {
 
 #fullchat-right {
   width: 100%;
+  height: 90vh;
   overflow: auto;
 }
 

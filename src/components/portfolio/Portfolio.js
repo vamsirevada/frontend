@@ -2,7 +2,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCurrentProfile } from '../../actions/profile';
+import { getProjects } from '../../actions/project';
 import Spinner from '../layout/Spinner';
 import briefcase from '../../images/icons/nounBriefcase.svg';
 import nounEducation from '../../images/icons/noun_education_2177318.svg';
@@ -29,13 +29,14 @@ import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import { Link } from 'react-router-dom';
 
 const Portfolio = ({
-  getCurrentProfile,
+  getProjects,
   auth: { user },
-  profile: { profile, loading },
+  profile: { profile },
+  project: { projects },
 }) => {
   useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
+    getProjects(user?._id);
+  }, [getProjects, user?._id]);
 
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
@@ -56,17 +57,16 @@ const Portfolio = ({
 
   return (
     <>
-      <div className='ribbon'>
-        <a onClick={(e) => onClick1(e)} className='ribbon-left'>
-          <AssignmentIndIcon />
-        </a>
-        <a onClick={(e) => onClick2(e)} className='ribbon-right'>
-          <InsertPhotoIcon />
-        </a>
-      </div>
-      {loading && profile === null ? (
-        <Spinner />
-      ) : (
+      <div>
+        <div className='ribbon'>
+          <a onClick={(e) => onClick1(e)} className='ribbon-left'>
+            <AssignmentIndIcon />
+          </a>
+          <a onClick={(e) => onClick2(e)} className='ribbon-right'>
+            <InsertPhotoIcon />
+          </a>
+        </div>
+
         <Fragment>
           {profile !== null ? (
             <Fragment>
@@ -75,7 +75,6 @@ const Portfolio = ({
                   <div className='portfolio-left'>
                     <div id='left-sidebar'>
                       <div className='left-container'>
-                        {/* <PortfolioLeftTopIcons /> */}
                         <PortfolioLeftTop profile={profile} />
                         <EditButton profile={profile} />
                         <PortfolioLeftAbout profile={profile} />
@@ -467,20 +466,18 @@ const Portfolio = ({
                           </div>
                         )}
                         {profile.experience.length === 0 &&
-                        profile.founder.length === 0 ? (
-                          <div className='add-profile'>
-                            <hr />
-                            <p>
-                              To add Experience/ Education/ Skills/
-                              Team-Members/ Awards etc., Click Add to Profile
-                            </p>
-                            <Link to='/profile' className='btn-white'>
-                              Add Profile
-                            </Link>
-                          </div>
-                        ) : (
-                          <p className='hide'> noting</p>
-                        )}
+                          profile.founder.length === 0 && (
+                            <div className='add-profile'>
+                              <hr />
+                              <p>
+                                To add Experience/ Education/ Skills/
+                                Team-Members/ Awards etc., Click Add to Profile
+                              </p>
+                              <Link to='/profile' className='btn-white'>
+                                Add Profile
+                              </Link>
+                            </div>
+                          )}
                       </div>
                     </div>
                   </div>
@@ -491,7 +488,10 @@ const Portfolio = ({
                     <div id='main-grid' className='port-grid'>
                       <div className='main-grid-container'>
                         {profile !== null && (
-                          <PortfolioRightTop profile={profile} />
+                          <PortfolioRightTop
+                            profile={profile}
+                            projects={projects}
+                          />
                         )}
                         <div className='main-grid-body'>
                           {profile !== null && (
@@ -506,34 +506,25 @@ const Portfolio = ({
             </Fragment>
           ) : (
             <Fragment>
-              {/* You have not yet setup a portfolio, Please add some info
-          {user.isGroup ? (
-            <Fragment>
-              <Link to='/create-group-profile'>Create portfolio</Link>
-            </Fragment>
-          ) : (
-            <Fragment>
-              <Link to='/create-profile'>Create portfolio</Link>
-            </Fragment>
-          )} */}
               <Spinner />
             </Fragment>
           )}
         </Fragment>
-      )}
+      </div>
     </>
   );
 };
 
 Portfolio.propTypes = {
-  getCurrentProfile: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
+  project: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
+  project: state.project,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile })(Portfolio);
+export default connect(mapStateToProps, { getProjects })(Portfolio);

@@ -60,10 +60,29 @@
   #portfolio {
     width: 100%;
     display: grid;
-    grid-template-columns: 40% 60%;
+    grid-template-columns: 40% 55%;
   }
   .main-grid-top .profile-info-box {
     width: 220px;
+  }
+  #main-grid {
+    margin: 0rem;
+  }
+  #main-grid .main-grid-container {
+    width: 100%;
+    padding: 0rem;
+  }
+  .navbar .logo-box.ipad {
+    display: none;
+    transition: all 2s ease;
+  }
+  .navbar .container.ipad {
+    width: 100%;
+    height: 72px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    transition: all 1s ease;
   }
 }
 

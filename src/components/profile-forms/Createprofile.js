@@ -1,25 +1,23 @@
-import React, { Fragment, useContext, useState } from "react";
-import { withRouter } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { createProfile } from "../../actions/profile";
-import { projectStorage } from "../../firebase/config";
-import { ProfileContext } from "../../context/profile/profile.context";
-import logo from "../../images/dummyimage.jpg";
+import React, { Fragment, useState } from 'react';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { createProfile } from '../../actions/profile';
+import { projectStorage } from '../../firebase/config';
+import logo from '../../images/dummyimage.jpg';
 
 const Createprofile = ({ createProfile, history }) => {
   let fileInput = React.createRef();
-  const { img, setImg } = useContext(ProfileContext);
 
   const [formData, setFormData] = useState({
-    location: "",
-    avatar: "",
-    status: "",
-    bio: "",
-    dob: "",
-    gender: "",
-    hometown: "",
-    languageknown: "",
+    location: '',
+    avatar: '',
+    status: '',
+    bio: '',
+    dob: '',
+    gender: '',
+    hometown: '',
+    languageknown: '',
   });
 
   const {
@@ -39,15 +37,13 @@ const Createprofile = ({ createProfile, history }) => {
 
   const onFileChange = async (e) => {
     const file = e.target.files[0];
-    const storageRef = projectStorage.ref("profilepictures");
+    const storageRef = projectStorage.ref('profilepictures');
     const fileRef = storageRef.child(file.name);
     await fileRef.put(file);
     setFormData({
       ...formData,
       avatar: await fileRef.getDownloadURL(),
     });
-
-    setImg(await fileRef.getDownloadURL());
 
     createProfile(
       { ...formData, avatar: await fileRef.getDownloadURL() },
@@ -67,159 +63,159 @@ const Createprofile = ({ createProfile, history }) => {
 
   return (
     <Fragment>
-      <div id="c-profile">
-        <div className="container">
-          <div className="create-container">
+      <div id='c-profile'>
+        <div className='container'>
+          <div className='create-container'>
             <h2>Create your Profile</h2>
-            <div className="dp">
+            <div className='dp'>
               <input
-                type="file"
+                type='file'
                 onChange={onFileChange}
                 hidden={true}
                 ref={fileInput}
               />
-              <div className="display-pic">
+              <div className='display-pic'>
                 <img
-                  className="display-pic"
+                  className='display-pic'
                   src={avatar ? avatar : logo}
-                  alt=""
+                  alt=''
                 />
               </div>
-              <button className="btn-yellow" onClick={onOpenFileDialog}>
+              <button className='btn-yellow' onClick={onOpenFileDialog}>
                 Upload Picture
               </button>
             </div>
 
-            <div className="c-form">
+            <div className='c-form'>
               <form onSubmit={(e) => onSubmit(e)}>
                 <div>
-                  <label htmlFor="location">
-                    Location <span className="blue">*</span>
+                  <label htmlFor='location'>
+                    Location <span className='blue'>*</span>
                   </label>
                   <input
-                    type="text"
-                    name="location"
+                    type='text'
+                    name='location'
                     // id='location'
                     value={location}
                     onChange={(e) => onChange(e)}
-                    placeholder="Enter Your Location"
+                    placeholder='Enter Your Location'
                     required
                   />
                 </div>
                 <div>
-                  <label htmlFor="profession">
-                    Profession <span className="blue">*</span>
+                  <label htmlFor='profession'>
+                    Profession <span className='blue'>*</span>
                   </label>
                   <input
-                    type="text"
-                    name="status"
-                    id="Profession"
+                    type='text'
+                    name='status'
+                    id='Profession'
                     value={status}
                     onChange={(e) => onChange(e)}
-                    placeholder="Enter Your Designation"
+                    placeholder='Enter Your Designation'
                     required
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="about">About</label>
+                  <label htmlFor='about'>About</label>
                   <textarea
-                    name="bio"
-                    id="messages"
-                    rows="10"
+                    name='bio'
+                    id='messages'
+                    rows='10'
                     value={bio}
                     onChange={(e) => onChange(e)}
-                    placeholder="Write Something about yourself"
+                    placeholder='Write Something about yourself'
                     required
                   ></textarea>
                 </div>
 
                 <div>
-                  <label htmlFor="dob">
-                    Date of Birth <span className="blue">*</span>
+                  <label htmlFor='dob'>
+                    Date of Birth <span className='blue'>*</span>
                   </label>
                   <input
-                    type="date"
-                    name="dob"
+                    type='date'
+                    name='dob'
                     value={dob}
                     onChange={(e) => onChange(e)}
-                    className="date"
+                    className='date'
                     required
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="Gender">
-                    {" "}
-                    Gender <span className="blue">*</span>
+                  <label htmlFor='Gender'>
+                    {' '}
+                    Gender <span className='blue'>*</span>
                   </label>
                   <input
-                    className="gender"
-                    type="radio"
-                    name="gender"
-                    value="Male"
-                    checked={gender === "Male"}
+                    className='gender'
+                    type='radio'
+                    name='gender'
+                    value='Male'
+                    checked={gender === 'Male'}
                     onChange={(e) => onChange(e)}
                   />
-                  Male{" "}
+                  Male{' '}
                   <input
-                    className="gender"
-                    type="radio"
-                    name="gender"
-                    value="Female"
-                    checked={gender === "Female"}
+                    className='gender'
+                    type='radio'
+                    name='gender'
+                    value='Female'
+                    checked={gender === 'Female'}
                     onChange={(e) => onChange(e)}
                   />
-                  Female{" "}
+                  Female{' '}
                   <input
-                    className="gender"
-                    type="radio"
-                    name="gender"
-                    value="Others"
-                    checked={gender === "Others"}
+                    className='gender'
+                    type='radio'
+                    name='gender'
+                    value='Others'
+                    checked={gender === 'Others'}
                     onChange={(e) => onChange(e)}
                   />
-                  Others{" "}
+                  Others{' '}
                   <input
-                    className="gender"
-                    type="radio"
-                    name="gender"
-                    value="Prefer not to say"
-                    checked={gender === "Prefer not to say"}
+                    className='gender'
+                    type='radio'
+                    name='gender'
+                    value='Prefer not to say'
+                    checked={gender === 'Prefer not to say'}
                     onChange={(e) => onChange(e)}
                   />
-                  Prefer not to say{" "}
+                  Prefer not to say{' '}
                 </div>
                 <div>
-                  <label htmlFor="hometown">
-                    Hometown <span className="blue">*</span>
+                  <label htmlFor='hometown'>
+                    Hometown <span className='blue'>*</span>
                   </label>
                   <input
-                    type="text"
-                    name="hometown"
+                    type='text'
+                    name='hometown'
                     value={hometown}
                     onChange={(e) => onChange(e)}
-                    id="hometown"
+                    id='hometown'
                     required
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="Language">
-                    Language proficiency :<span className="blue">*</span>
+                  <label htmlFor='Language'>
+                    Language proficiency :<span className='blue'>*</span>
                   </label>
                   <input
-                    type="text"
-                    name="languageknown"
+                    type='text'
+                    name='languageknown'
                     value={languageknown}
                     onChange={(e) => onChange(e)}
-                    id="Language"
+                    id='Language'
                     required
                   />
                 </div>
                 <br />
-                <button type="Submit" className="btn-blue f-right">
-                  {" "}
+                <button type='Submit' className='btn-blue f-right'>
+                  {' '}
                   Save changes
                 </button>
                 <br />

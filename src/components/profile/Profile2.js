@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getCurrentProfile } from '../../actions/profile';
+import { getProjects } from '../../actions/project';
 import briefcase from '../../images/icons/nounBriefcase.svg';
 import nounEducation from '../../images/icons/noun_education_2177318.svg';
 import nounAwards from '../../images/icons/noun_Trophy_2135552.svg';
@@ -29,15 +29,17 @@ import GroupPartner from './GroupPartner';
 import GroupClient from './GroupClient';
 
 const Profile2 = ({
-  getCurrentProfile,
   profile: { profile, loading },
   auth: { user },
+  project: { projects },
+  getProjects,
 }) => {
-  useEffect(() => {
-    getCurrentProfile();
-  }, [getCurrentProfile]);
+  const { isGroup, _id } = user;
 
-  const { isGroup } = user;
+  useEffect(() => {
+    getProjects(_id);
+    //eslint-disable-next-line
+  }, [getProjects, _id]);
 
   return isGroup ? (
     <Fragment>
@@ -59,7 +61,7 @@ const Profile2 = ({
                     </p>
                   </div>
                 </div>
-                <ProfileTop profile={profile} />
+                <ProfileTop profile={profile} projects={projects} />
                 <GroupProfileAbout profile={profile} />
                 <hr className='new' />
                 <GroupProfileFound profile={profile} />
@@ -259,34 +261,6 @@ const Profile2 = ({
                   </div>
                 </div>
                 <hr className='new' />
-                {/* <div id='prof-exp'>
-                  <div className='prof-exp-container'>
-                    <div className='prof-heading'>
-                      <h3>
-                        <span className='m-1'>Contact Us </span>{' '}
-                      </h3>
-                    </div>
-
-                    <div className='prof-btn prof-btn-2'>
-                      <div className='prof-btn-grid prof-btn-grid-g'>
-                        {profile.contactus.length > 0 ? (
-                          <Fragment>
-                            {profile.contactus.map((contactus) => (
-                              <GroupContact
-                                key={contactus._id}
-                                awards={contactus}
-                              />
-                            ))}
-                          </Fragment>
-                        ) : (
-                          <Fragment>
-                            <p> Add Details</p>
-                          </Fragment>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                </div> */}
               </div>
             </div>
           </div>
@@ -313,7 +287,11 @@ const Profile2 = ({
                     </p>
                   </div>
                 </div>
-                <ProfileTop profile={profile} isGroup={isGroup} />
+                <ProfileTop
+                  profile={profile}
+                  isGroup={isGroup}
+                  projects={projects}
+                />
                 <ProfileAbout profile={profile} />
                 <hr className='new' />
                 <div id='prof-exp'>
@@ -497,9 +475,8 @@ Profile2.propTypes = {
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
+  project: state.project,
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, {
-  getCurrentProfile,
-})(Profile2);
+export default connect(mapStateToProps, { getProjects })(Profile2);

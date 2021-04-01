@@ -1,121 +1,320 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, forwardRef, useImperativeHandle } from "react";
-import logo from "../../images/dummyimage.jpg";
-import backward from "../../images/Group 6054.svg";
-import forward from "../../images/Group 6056.svg";
-import close from "../../images/close.svg";
-import Moment from "react-moment";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react/jsx-no-target-blank */
+import React, { useState, useEffect } from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import logo from '../../images/dummyimage.jpg';
+import backward from '../../images/Group 6054.svg';
+import forward from '../../images/Group 6056.svg';
+import cancel from '../../images/close.svg';
+import Moment from 'react-moment';
+import heart from '../../images/heart.svg';
+import yheart from '../../images/liked.png';
+import com from '../../images/noun_comment_767203 copy.svg';
+import plane from '../../images/noun_paper plane_367806 copy.svg';
+import bin from '../../images/icons/noun_bin_2832480.svg';
+import {
+  getRealtimeData,
+  portfolioDisLike,
+  portfolioLike,
+  portfolioComment,
+} from '../../actions/portfolio';
+import Spinner from '../layout/Spinner';
+import { Fragment } from 'react';
 
-const Modal = forwardRef(
-  ({ profile: { avatar, user }, images, videos }, ref) => {
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [current, setCurrent] = useState(0);
-    const files = videos.concat(images);
+const Modal = ({
+  auth,
+  portfolio: { portfolio },
+  profile: { avatar, user },
+  displayImage,
+  value,
+  dispImage,
+  images,
+  close,
+}) => {
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
+  const [text, setText] = useState('');
 
-    const length = files.length;
-
-    const handleShow = (index) => {
-      setModalIsOpen(true);
+  useEffect(() => {
+    const t = setTimeout(() => {
+      setLoading(false);
+    }, 500);
+    return () => {
+      clearTimeout(t);
     };
+  });
 
-    const handleClose = () => {
-      setModalIsOpen(false);
+  const like = (file) => {
+    const likeObj = {
+      user: auth?.user?._id,
+      fullName: auth?.user?.fullName,
+      likedUserAvatar: auth?.user?.avatar,
     };
+    dispatch(portfolioLike(file.id, likeObj));
+    dispatch(getRealtimeData(file.id));
+  };
 
-    useImperativeHandle(ref, () => {
-      return {
-        openModal: (index) => handleShow(index),
-        close: () => handleClose(),
-      };
-    });
+  const unlike = (file, likes) => {
+    dispatch(portfolioDisLike(file.id, likes, auth?.user?._id));
+  };
 
-    const nextSlide = () => {
-      setCurrent(current === length - 1 ? 0 : current + 1);
+  const comment = (file) => {
+    const commentObj = {
+      user: auth?.user?._id,
+      fullName: auth?.user?.fullName,
+      commentedUserAvatar: auth?.user?.avatar,
+      commentText: text,
+      commentedTime: new Date(),
     };
+    dispatch(portfolioComment(file.id, commentObj));
+    setText('');
+    dispatch(getRealtimeData(file.id));
+  };
 
-    const prevSlide = () => {
-      setCurrent(current === 0 ? length - 1 : current - 1);
-    };
+  const removeComment = () => {
+    console.log('removed');
+  };
 
-    if (!Array.isArray(files) || files.length <= 0) {
-      return null;
-    }
-
-    return (
-      <>
-        {modalIsOpen &&
-          files.map((file, index) => (
-            <div
-              key={index}
-              className={`post-pop-up ${
-                index === current ? "slide active" : "slide"
-              }`}
-            >
-              <div className="post-pop-up-container">
-                <div>
-                  <div className="flex">
-                    <div className="flex-left">
-                      <div className="flex-1">
-                        <div
-                          className="display-pic"
-                          style={{
-                            background: `url(${
-                              avatar ? avatar : logo
-                            }) no-repeat center center/cover`,
-                          }}
-                        ></div>
-                        <div className="lh-title">
-                          <h2 className="modal-title w-100">{file.title}</h2>
-                          {/* <br /> */}
-                          <p>
-                            by <span className="blue">{user.fullName}</span>
-                            {", "}
-                            <Moment format="DD MMM YY">
-                              {file.createdAt.toDate()}
-                            </Moment>{" "}
-                            {", "}
-                            <Moment format="hh:mm A">
-                              {file.createdAt.toDate()}
-                            </Moment>
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex-right">
-                      <img src={close} onClick={handleClose} alt="" />
+  return (
+    <>
+      {loading ? (
+        <div className='post-pop-up'>
+          <Spinner />
+        </div>
+      ) : (
+        <div className='post-pop-up'>
+          <div className='post-pop-up-container'>
+            <div>
+              <div className='flex'>
+                <div className='flex-left'>
+                  <div className='flex-1'>
+                    <div
+                      className='display-pic'
+                      style={{
+                        background: `url(${
+                          avatar ? avatar : logo
+                        }) no-repeat center center/cover`,
+                      }}
+                    ></div>
+                    <div className='lh-title'>
+                      <h2 className='modal-title w-100'>
+                        {images[value].title}
+                      </h2>
+                      <p>
+                        by <span className='blue'>{user.fullName}</span>
+                        {', '}
+                        <Moment format='DD MMM YY'>
+                          {images[value].createdAt.toDate()}
+                        </Moment>{' '}
+                        {', '}
+                        <Moment format='hh:mm A'>
+                          {images[value].createdAt.toDate()}
+                        </Moment>
+                      </p>
                     </div>
                   </div>
-                  <hr className="hori" />
                 </div>
-
-                <div className="main-post-container">
-                  <div className="main-post-top">
-                    <div onClick={prevSlide} className="prev">
-                      <img src={backward} alt="" />
-                    </div>
-                    <div className="post-pic-1">
-                      {file.type === "photo" ? (
-                        <img src={file.url} alt="" />
-                      ) : (
-                        <video
-                          controls
-                          controlsList="nodownload"
-                          src={file.url}
-                          alt=""
-                        />
-                      )}
-                    </div>
-                    <div onClick={nextSlide} className="prev">
-                      {" "}
-                      <img src={forward} alt="" />
-                    </div>
-                  </div>
+                <div className='flex-right'>
+                  <img src={cancel} onClick={close} alt='' />
                 </div>
               </div>
+              <hr className='hori' />
             </div>
-          ))}
-      </>
-    );
-  }
-);
-export default Modal;
+            <div className='main-post-container'>
+              <div className='main-post-top'>
+                <div
+                  onClick={() => {
+                    let decrement = value - 1;
+                    if (decrement < 0) {
+                      decrement = images.length - 1;
+                    }
+                    displayImage(decrement);
+                    dispatch(getRealtimeData(images[decrement].id));
+                  }}
+                  className='prev'
+                >
+                  <img src={backward} alt='' />
+                </div>
+                <div className='post-pic-1'>
+                  <img src={dispImage.imageUrl} alt='' />
+                </div>
+                <div
+                  onClick={() => {
+                    let increment = value + 1;
+                    if (increment > images.length - 1) {
+                      increment = 0;
+                    }
+                    displayImage(increment);
+                    dispatch(getRealtimeData(images[increment].id));
+                  }}
+                  className='prev'
+                >
+                  {' '}
+                  <img src={forward} alt='' />
+                </div>
+              </div>
+              <div className='des-comm-box'>
+                <div className='flex-des'>
+                  <div className='pic-des-1'>
+                    <div>
+                      {portfolio.likes &&
+                      portfolio.likes
+                        .map((x) => x.user === auth?.user?._id)
+                        .find((x) => x === true) ? (
+                        <div>
+                          <div
+                            onClick={() => {
+                              unlike(images[value]);
+                            }}
+                          >
+                            <img className='r-1' src={yheart} alt='' />
+                            <span className='d-1'>Liked</span>
+                          </div>
+                        </div>
+                      ) : (
+                        <>
+                          <div
+                            onClick={() => {
+                              like(images[value]);
+                            }}
+                          >
+                            <img className='r-1' src={heart} alt='' />
+                            <span className='d-1'>Like</span>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                    <div>
+                      <img className='r-1' src={com} alt='' />
+                      <span className='d-1'>Comment</span>
+                    </div>
+                  </div>
+                  <div className='des-right'>
+                    <a className='d-1'>
+                      <span className='f-1'>
+                        {portfolio.likes &&
+                          portfolio.likes.length > 0 &&
+                          portfolio.likes.length}
+                      </span>{' '}
+                      Likes
+                    </a>
+                    <a className='d-1'>
+                      <span className='f-1'>
+                        {portfolio.comments &&
+                          portfolio.comments.length > 0 &&
+                          portfolio.comments.length}
+                      </span>{' '}
+                      Comment
+                    </a>
+                  </div>
+                </div>
+                <div className='popup-description'>
+                  <p>{images[value].description}</p>
+                </div>
+                <hr className='Hori' />
+                <div className='comment-box'>
+                  <div>
+                    <img
+                      className='comment-pic'
+                      src={auth?.user?.avatar}
+                      alt=''
+                    />
+                  </div>
+                  <div className='cmt-1'>
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        comment(images[value]);
+                      }}
+                    >
+                      <input
+                        type='text'
+                        name='comment'
+                        placeholder='Write a Comment...'
+                        value={text}
+                        onChange={(e) => setText(e.target.value)}
+                      />
+
+                      <button type='submit' className='btn-blue'>
+                        <img src={plane} alt='' />
+                      </button>
+                    </form>
+                  </div>
+                </div>
+                <hr className='Hori' />
+                {portfolio.comments && portfolio.comments.length > 0 && (
+                  <div className='comments'>
+                    <div className='comment-box-heading'>
+                      <h5>Comments</h5>
+                    </div>
+                    {portfolio.comments.map((comment, index) => (
+                      <Fragment key={index}>
+                        <div className='comment-box'>
+                          <div>
+                            <Link to={`portfolio/${comment?.user}`}>
+                              <img
+                                className='comment-pic'
+                                src={
+                                  comment?.commentedUserAvatar
+                                    ? comment?.commentedUserAvatar
+                                    : logo
+                                }
+                                alt=''
+                              />
+                            </Link>
+                          </div>
+                          <div className='cmt-1 list'>
+                            <div>
+                              <div>
+                                <Link to={`portfolio/${comment?.user}`}>
+                                  <span className='d-1'>
+                                    {comment?.fullName && comment?.fullName}
+                                  </span>{' '}
+                                </Link>
+
+                                {/* <span className='d-2'>
+                                  <Moment format='DD MMM YYYY, hh:mm a'>
+                                    {comment.commentedTime}
+                                  </Moment>
+                                </span> */}
+                              </div>
+                              <div className='d-3'>
+                                <p>{comment.commentText}</p>
+                              </div>
+                            </div>
+                            <div>
+                              {!auth.loading &&
+                                comment?.user === auth.user._id && (
+                                  <button
+                                    type='button'
+                                    className='btn-blue btn-red'
+                                    onClick={removeComment}
+                                  >
+                                    <img src={bin} alt='' />
+                                  </button>
+                                )}
+                            </div>
+                          </div>
+                        </div>
+                        <hr className='Hori' />
+                      </Fragment>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  portfolio: state.portfolio,
+});
+
+export default connect(mapStateToProps)(Modal);

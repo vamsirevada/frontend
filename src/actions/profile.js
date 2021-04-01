@@ -1,22 +1,30 @@
-import axios from "axios";
-import { setAlert } from "./alert";
-
+// import api from 'api';
+import api from '../utils/api';
+import { setAlert } from './alert';
 import {
   ACCOUNT_DELETED,
   CLEAR_PROFILE,
   GET_PROFILE,
+  GET_PROFILE_BY_ID,
   GET_PROFILES,
   PROFILE_ERROR,
   UPDATE_PROFILE,
+  GET_BUDDY_REQUESTS,
   BUDDY_REQUEST_SENT,
   GET_BUDDIES,
   GET_BUDDIES_ERROR,
-} from "./types";
+  BUDDY_REQUEST_DECLINE,
+  GET_NOTED_POST,
+  GET_NOTED_POST_ERROR,
+  GET_NOTED_PEOPLE,
+  GET_NOTED_PEOPLE_ERROR,
+  PROJECT_INVITE_DECLINED,
+} from './types';
 
 // Get current users profile
 export const getCurrentProfile = () => async (dispatch) => {
   try {
-    const res = await axios.get("/api/profile/me");
+    const res = await api.get('/profile/me');
     dispatch({
       type: GET_PROFILE,
       payload: res.data,
@@ -32,29 +40,218 @@ export const getCurrentProfile = () => async (dispatch) => {
 // Send a friend request
 export const sendBuddyRequest = (id) => async (dispatch) => {
   try {
-    const res = await axios.put(`/api/profile/request/${id}`);
-
+    const res = await api.put(`/profile/request/${id}`);
     dispatch({
       type: BUDDY_REQUEST_SENT,
       payload: res.data.msg,
     });
-    dispatch(setAlert(" Add Request Sent", "success"));
-
-    getCurrentProfile();
+    dispatch(setAlert(' Add Request Sent', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
       payload: err.response.data.msg,
     });
+    dispatch(setAlert(err.response.data.msg, 'danger'));
+  }
+};
 
-    dispatch(setAlert(err.response.data.msg, "danger"));
+export const accept = (id) => async (dispatch) => {
+  try {
+    const res = await api.put(`/profile/buddy/${id}`);
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const decline = (id) => async (dispatch) => {
+  try {
+    const res = await api.delete(`/profile/request/${id}`);
+    dispatch({
+      type: BUDDY_REQUEST_DECLINE,
+      payload: res.data.msg,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: err.response.data.msg,
+    });
+  }
+};
+
+export const getBuddyRequests = () => async (dispatch) => {
+  try {
+    const res = await api.get('api/profile/buddyRequests');
+    dispatch({
+      type: GET_BUDDY_REQUESTS,
+      payload: res.data,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+//Note People using profileid
+export const notePeople = (id, formData) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const res = await api.put(`/profile/note/${id}`, formData, config);
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+    dispatch(setAlert('Post Noted succesfully', 'success'));
+  } catch (err) {
+    dispatch({
+      type: GET_NOTED_PEOPLE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+//unnote People using user id
+export const unnotePeople = (id) => async (dispatch) => {
+  try {
+    const res = await api.delete(`/profile/unnote/${id}`);
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+    dispatch(setAlert('Unnoted', 'danger'));
+    dispatch(getNotedPeople());
+  } catch (err) {
+    dispatch({
+      type: GET_NOTED_PEOPLE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+//noted people
+export const getNotedPeople = () => async (dispatch) => {
+  try {
+    const res = await api.get('/profile/notedpeople');
+
+    dispatch({
+      type: GET_NOTED_PEOPLE,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_NOTED_PEOPLE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+//Note Post
+export const notePost = (id, formData) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const res = await api.put(`/profile/note/post/${id}`, formData, config);
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+    dispatch(setAlert('Post Noted succesfully', 'success'));
+    dispatch(getNotedPost());
+  } catch (err) {
+    dispatch({
+      type: GET_NOTED_POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+//unnote Post
+export const unnotePost = (id) => async (dispatch) => {
+  try {
+    const res = await api.delete(`/profile/unnote/post/${id}`);
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+    dispatch(setAlert('post Unnoted', 'danger'));
+  } catch (err) {
+    dispatch({
+      type: GET_NOTED_POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+//noted posts
+export const getNotedPost = () => async (dispatch) => {
+  try {
+    const res = await api.get('/profile/notedpost');
+
+    dispatch({
+      type: GET_NOTED_POST,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_NOTED_POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Accept Project Invite
+export const acceptProjectInvite = (project_id) => async (dispatch) => {
+  try {
+    const res = await api.put(`/invite/${project_id}`);
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+// Decline Project Invite
+export const declineProjectInvite = (project_id) => async (dispatch) => {
+  try {
+    const res = await api.delete(`/invite/${project_id}`);
+    dispatch({
+      type: PROJECT_INVITE_DECLINED,
+      payload: res.data.msg,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: err.response.data.msg,
+    });
   }
 };
 
 //get All Profile
 export const getProfiles = () => async (dispatch) => {
   try {
-    const res = await axios.get("/api/profile");
+    const res = await api.get('/profile');
     dispatch({
       type: GET_PROFILES,
       payload: res.data,
@@ -69,13 +266,11 @@ export const getProfiles = () => async (dispatch) => {
 
 export const getBuddies = () => async (dispatch) => {
   try {
-    const res = await axios.get("api/profile/buddyProfiles");
+    const res = await api.get('/profile/buddyProfiles');
     dispatch({
       type: GET_BUDDIES,
       payload: res.data,
     });
-
-    console.log(res.data);
   } catch (err) {
     dispatch({
       type: GET_BUDDIES_ERROR,
@@ -86,7 +281,7 @@ export const getBuddies = () => async (dispatch) => {
 
 export const getBuddiesById = (userId) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/profile/buddyProfiles/${userId}`);
+    const res = await api.get(`/profile/buddyProfiles/${userId}`);
     dispatch({
       type: GET_BUDDIES,
       payload: res.data,
@@ -102,10 +297,9 @@ export const getBuddiesById = (userId) => async (dispatch) => {
 //get Profile by Id
 export const getProfileById = (userId) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/profile/user/${userId}`);
-
+    const res = await api.get(`/profile/user/${userId}`);
     dispatch({
-      type: GET_PROFILE,
+      type: GET_PROFILE_BY_ID,
       payload: res.data,
     });
   } catch (err) {
@@ -121,29 +315,23 @@ export const createProfile = (formData, history, edit = false) => async (
   dispatch
 ) => {
   try {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const res = await axios.post("/api/profile", formData, config);
+    const res = await api.post('/profile', formData);
 
     dispatch({
       type: GET_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert(edit ? "Profile Updated" : "Profile Created", "success"));
+    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
 
     if (!edit) {
-      history.push("/portfolio");
+      history.push('/portfolio');
     }
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: PROFILE_ERROR,
@@ -157,23 +345,23 @@ export const addExperience = (formData) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
-    const res = await axios.put("/api/profile/experience", formData, config);
+    const res = await api.put('/profile/experience', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Experience Added", "success"));
+    dispatch(setAlert('Experience Added', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: PROFILE_ERROR,
@@ -186,14 +374,14 @@ export const addExperience = (formData) => async (dispatch) => {
 
 export const deleteExperience = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/experience/${id}`);
+    const res = await api.delete(`api/profile/experience/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Experience Removed", "success"));
+    dispatch(setAlert('Experience Removed', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -207,23 +395,23 @@ export const addEducation = (formData) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
-    const res = await axios.put("/api/profile/education", formData, config);
+    const res = await api.put('/profile/education', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Education Added", "success"));
+    dispatch(setAlert('Education Added', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: PROFILE_ERROR,
@@ -236,14 +424,14 @@ export const addEducation = (formData) => async (dispatch) => {
 
 export const deleteEducation = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/education/${id}`);
+    const res = await api.delete(`api/profile/education/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Education Removed", "success"));
+    dispatch(setAlert('Education Removed', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -257,23 +445,23 @@ export const addAward = (formData) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
-    const res = await axios.put("/api/profile/awards", formData, config);
+    const res = await api.put('/profile/awards', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Award Added", "success"));
+    dispatch(setAlert('Award Added', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: PROFILE_ERROR,
@@ -286,14 +474,14 @@ export const addAward = (formData) => async (dispatch) => {
 
 export const deleteAward = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/awards/${id}`);
+    const res = await api.delete(`api/profile/awards/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Award Removed", "success"));
+    dispatch(setAlert('Award Removed', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -307,23 +495,23 @@ export const addEvent = (formData) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
-    const res = await axios.put("/api/profile/events", formData, config);
+    const res = await api.put('/profile/events', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Event Added", "success"));
+    dispatch(setAlert('Event Added', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: PROFILE_ERROR,
@@ -336,14 +524,14 @@ export const addEvent = (formData) => async (dispatch) => {
 
 export const deleteEvent = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/events/${id}`);
+    const res = await api.delete(`api/profile/events/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Event Removed", "success"));
+    dispatch(setAlert('Event Removed', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -357,23 +545,23 @@ export const addSkills = (formData) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
-    const res = await axios.put("/api/profile/skills", formData, config);
+    const res = await api.put('/profile/skills', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Skill Added", "success"));
+    dispatch(setAlert('Skill Added', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: PROFILE_ERROR,
@@ -386,14 +574,14 @@ export const addSkills = (formData) => async (dispatch) => {
 
 export const deleteSkills = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/skills/${id}`);
+    const res = await api.delete(`api/profile/skills/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Skill Removed", "success"));
+    dispatch(setAlert('Skill Removed', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -407,23 +595,23 @@ export const addMembers = (formData) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
-    const res = await axios.put("/api/profile/addteam", formData, config);
+    const res = await api.put('/profile/addteam', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Team Member Added", "success"));
+    dispatch(setAlert('Team Member Added', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: PROFILE_ERROR,
@@ -436,14 +624,14 @@ export const addMembers = (formData) => async (dispatch) => {
 
 export const deleteMember = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/addteam/${id}`);
+    const res = await api.delete(`api/profile/addteam/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Team Member Removed", "success"));
+    dispatch(setAlert('Team Member Removed', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -457,27 +645,23 @@ export const addSpecialisation = (formData) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
-    const res = await axios.put(
-      "/api/profile/specialisation",
-      formData,
-      config
-    );
+    const res = await api.put('/profile/specialisation', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Specialisation Added", "success"));
+    dispatch(setAlert('Specialisation Added', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: PROFILE_ERROR,
@@ -490,14 +674,14 @@ export const addSpecialisation = (formData) => async (dispatch) => {
 
 export const deleteSpecialisation = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/specialisation/${id}`);
+    const res = await api.delete(`api/profile/specialisation/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Specialisation Removed", "success"));
+    dispatch(setAlert('Specialisation Removed', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -511,23 +695,23 @@ export const addPartner = (formData) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
-    const res = await axios.put("/api/profile/partners", formData, config);
+    const res = await api.put('/profile/partners', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Partner Added", "success"));
+    dispatch(setAlert('Partner Added', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: PROFILE_ERROR,
@@ -540,14 +724,14 @@ export const addPartner = (formData) => async (dispatch) => {
 
 export const deletePartner = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/partners/${id}`);
+    const res = await api.delete(`api/profile/partners/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Partner Removed", "success"));
+    dispatch(setAlert('Partner Removed', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -561,23 +745,23 @@ export const addClient = (formData) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
-    const res = await axios.put("/api/profile/clients", formData, config);
+    const res = await api.put('/profile/clients', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Client Added", "success"));
+    dispatch(setAlert('Client Added', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: PROFILE_ERROR,
@@ -590,14 +774,14 @@ export const addClient = (formData) => async (dispatch) => {
 
 export const deleteClient = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/clients/${id}`);
+    const res = await api.delete(`api/profile/clients/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Client Removed", "success"));
+    dispatch(setAlert('Client Removed', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -611,23 +795,23 @@ export const addContact = (formData) => async (dispatch) => {
   try {
     const config = {
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
     };
 
-    const res = await axios.put("/api/profile/contactus", formData, config);
+    const res = await api.put('/profile/contactus', formData, config);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Successfully Added", "success"));
+    dispatch(setAlert('Successfully Added', 'success'));
   } catch (err) {
     const errors = err.response.data.errors;
 
     if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
     }
     dispatch({
       type: PROFILE_ERROR,
@@ -640,14 +824,14 @@ export const addContact = (formData) => async (dispatch) => {
 
 export const deleteContact = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`api/profile/contacts/${id}`);
+    const res = await api.delete(`/profile/contacts/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
 
-    dispatch(setAlert("Award Removed", "success"));
+    dispatch(setAlert('Award Removed', 'success'));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
@@ -658,14 +842,14 @@ export const deleteContact = (id) => async (dispatch) => {
 
 //Delete account & profile
 export const deleteAccount = () => async (dispatch) => {
-  if (window.confirm("Are you sure? This can Not be undone!")) {
+  if (window.confirm('Are you sure? This can Not be undone!')) {
     try {
-      await axios.delete("api/profile");
+      await api.delete('/profile');
 
       dispatch({ type: CLEAR_PROFILE });
       dispatch({ type: ACCOUNT_DELETED });
 
-      dispatch(setAlert("Your account has been permanantly deleted"));
+      dispatch(setAlert('Your account has been permanantly deleted'));
     } catch (err) {
       dispatch({
         type: PROFILE_ERROR,

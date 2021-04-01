@@ -1,9 +1,9 @@
 // Your web app's Firebase configuration
-import firebase from "firebase/app";
-import "firebase/storage";
-import "firebase/firestore";
+import firebase from 'firebase/app';
+import 'firebase/storage';
+import 'firebase/firestore';
 
-require("dotenv").config();
+require('dotenv').config();
 
 var firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,

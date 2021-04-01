@@ -1,44 +1,84 @@
-import React, { Fragment, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { getBuddyPosts, getOwnPosts } from "../../actions/post";
-import Spinner from "../layout/Spinner";
-import PostItem from "./PostItem";
+import React, { Fragment, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { getBuddyPosts, getOwnPosts } from '../../actions/post';
+import PostItem from './PostItem';
 
-const Posts = ({
-  profile: { profile },
-  getBuddyPosts,
-  getOwnPosts,
-  id,
-  post: { posts, oposts, loading },
-}) => {
+const Posts = ({ getBuddyPosts, getOwnPosts, post: { posts, oposts } }) => {
+  const [own, setOwn] = useState(false);
+  const [all, setAll] = useState(true);
+
+  const onChange1 = () => {
+    setOwn(true);
+    setAll(false);
+  };
+
+  const onChange2 = () => {
+    setAll(true);
+    setOwn(false);
+  };
+
   useEffect(() => {
-    getBuddyPosts(id);
-    getOwnPosts(id);
-  }, [getBuddyPosts, getOwnPosts, id]);
+    getBuddyPosts();
+    getOwnPosts();
+  }, [getBuddyPosts, getOwnPosts]);
 
-  return loading ? (  
-    <Spinner />
-  ) : (
-    <Fragment>
-      {/* {oposts.map((post) => (
-        <PostItem key={post._id} post={post} />
-      ))} */}
-      {posts.map((post) => (
-        <PostItem profile={profile} key={post._id} post={post} />
-      ))}
-    </Fragment>
+  return (
+    <>
+      <div className='sort-feed'>
+        <div className='sort-post'>
+          <button
+            onClick={onChange2}
+            className={
+              all
+                ? 'right-s left-top left-right-bottom'
+                : 'left-s left-top left-right-bottom'
+            }
+          >
+            All Posts
+          </button>
+          <button
+            onClick={onChange1}
+            className={
+              own
+                ? 'right-s right-top right-left-bottom'
+                : 'left-s right-top right-left-bottom'
+            }
+          >
+            Your Posts
+          </button>
+        </div>
+      </div>
+
+      {own ? (
+        <div className='posts'>
+          <Fragment>
+            {oposts.map((post) => (
+              <PostItem key={post._id} post={post} />
+            ))}
+          </Fragment>
+        </div>
+      ) : (
+        <div className='posts'>
+          <Fragment>
+            {posts.map((post) => (
+              <PostItem key={post._id} post={post} />
+            ))}
+          </Fragment>
+        </div>
+      )}
+    </>
   );
 };
 
 Posts.propTypes = {
+  getBuddyPosts: PropTypes.func.isRequired,
+  getOwnPosts: PropTypes.func.isRequired,
   post: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   post: state.post,
-  profile: state.profile,
 });
 
 export default connect(mapStateToProps, { getBuddyPosts, getOwnPosts })(Posts);

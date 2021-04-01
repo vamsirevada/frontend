@@ -1,9 +1,9 @@
-import React, { Fragment, useEffect } from "react";
-import Project from "./Project";
-import Spinner from "../layout/Spinner";
-import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import { getProfileById } from "../../actions/profile";
+import React, { Fragment, useEffect } from 'react';
+import Project from './Project';
+import Spinner from '../layout/Spinner';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { getProfileById } from '../../actions/profile';
 // import briefcase from '../../images/icons/nounBriefcase.svg';
 
 const Projects = ({ match, getProfileById, profile: { profile, loading } }) => {
@@ -14,37 +14,37 @@ const Projects = ({ match, getProfileById, profile: { profile, loading } }) => {
     <Spinner />
   ) : (
     <Fragment>
-      <div className="c-list">
-        <div className="c-list-container c-1">
-          <div className="c-list-head">
-            <div className="flex">
-              <div className="display-pic">
-                <img className="display-pic" src={profile.avatar} alt="" />
+      <div className='c-list'>
+        <div className='c-list-container c-1'>
+          <div className='c-list-head'>
+            <div className='flex'>
+              <div className='display-pic'>
+                <img className='display-pic' src={profile.avatar} alt='' />
               </div>
-              <h2 className="name name-f">
+              <h2 className='name name-f'>
                 {profile?.user.fullName && profile?.user.fullName}
               </h2>
-              <h2 className="name name-f">
+              <h2 className='name name-f'>
                 {profile?.user.groupName && profile?.user.groupName}
               </h2>
             </div>
             <div>
-              <p className="blue">{profile?.status && profile?.status}</p>
+              <p className='blue'>{profile?.status && profile?.status}</p>
             </div>
             <div>
               <p>
                 {/* <img className='resize' src={loc} alt='' />{' '} */}
-                <span className="gray">
-                  {" "}
+                <span className='gray'>
+                  {' '}
                   {profile?.location && profile?.location}
                 </span>
               </p>
             </div>
 
-            <div className="profile-info-box">
+            <div className='profile-info-box'>
               <Link to={`/friends/${profile?.user._id}`}>
-                <p className="border-1">
-                  <span className="f-1">
+                <p className='border-1'>
+                  <span className='f-1'>
                     {profile?.buddies && profile?.buddies.length}
                   </span>
                   <br /> Connections
@@ -52,22 +52,22 @@ const Projects = ({ match, getProfileById, profile: { profile, loading } }) => {
               </Link>
               <Link to={`/projects/${profile?.user._id}`}>
                 <p>
-                  <span className="f-1">
+                  <span className='f-1'>
                     {profile?.experience && profile?.experience.length}
                   </span>
-                  <br /> Projects Completed{" "}
+                  <br /> Projects Completed{' '}
                 </p>
               </Link>
             </div>
           </div>
-          <div className="search-flex search-flex-1">
+          <div className='search-flex search-flex-1'>
             <div>
-              <h1 className="name name-f">Projects</h1>
+              <h1 className='name name-f'>Projects</h1>
             </div>
           </div>
-          <hr className="hori" />
-          <div className="project">
-            <div className="project-container">
+          <hr className='hori' />
+          <div className='project'>
+            <div className='project-container'>
               {profile?.experience.length > 0 ? (
                 <Fragment>
                   {profile?.experience.length > 0 && (
@@ -88,7 +88,7 @@ const Projects = ({ match, getProfileById, profile: { profile, loading } }) => {
                   )}
                 </Fragment>
               ) : (
-                <h3 style={{ textAlign: "center" }}>None </h3>
+                <h3 style={{ textAlign: 'center' }}>None </h3>
               )}
             </div>
           </div>

@@ -16,11 +16,11 @@ a {
 a:hover {
   cursor: pointer;
 }
-p {
+/* p {
   font-size: 16px;
   font-family: 'Raleway', sans-serif;
   color: #5d5d5d;
-}
+} */
 
 .blue {
   color: #7480ff;
@@ -38,11 +38,13 @@ p {
   height: 100%;
   background: rgba(255, 255, 255, 1);
   z-index: 100000;
+  overflow-y: auto;
 }
 
 .post-pop-up-container {
   width: 90%;
   margin: auto;
+  padding-bottom: 10rem;
 }
 
 .post-pop-up-container .flex {
@@ -101,11 +103,40 @@ p {
 .post-pop-up-container .main-post-container .main-post-top {
   width: 100%;
   display: grid;
-  grid-template-columns: 20% 60% 20%;
-  grid-gap: 1rem;
+  grid-template-columns: 15% 70% 15%;
+  /* grid-gap: 1rem; */
   align-items: center;
   margin-top: 4rem;
 }
+.post-pop-up-container .main-post-container .des-comm-box {
+  width: 75%;
+  margin: auto;
+}
+.post-pop-up-container .main-post-container .des-comm-box .flex-des {
+  width: 93%;
+  margin: auto;
+  border-radius: 15px;
+  margin-top: 1rem;
+}
+.post-pop-up-container .main-post-container .des-comm-box .popup-description {
+  font-size: 0.8rem;
+  color: #5d5d5d;
+  margin: 1rem 0rem;
+  padding: 0rem 2.75rem;
+  text-align: justify;
+  word-break: break-word;
+}
+.post-pop-up-container .main-post-container .des-comm-box .comments {
+  margin-top: 1rem;
+}
+.post-pop-up-container
+  .main-post-container
+  .des-comm-box
+  .comments
+  .comment-box-heading {
+  padding: 0.75rem 1rem;
+}
+
 .post-pop-up-container .main-post-container .main-post-top .prev {
   justify-self: center;
 }
@@ -445,4 +476,48 @@ p {
 .post-comment .m-1 {
   margin-left: 0.5rem;
   margin-bottom: 1rem;
+}
+
+.sort-feed {
+  margin: 1rem 0rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* position: sticky;
+  top: 200px;
+  z-index: 100;
+  background-color: #fff; */
+}
+
+.sort-post .right-s {
+  background-color: #7480ff;
+  color: #fff;
+  font-size: 12px;
+  font-family: 'Raleway', sans-serif;
+  padding: 0.25rem 0.75rem;
+  border: 2px solid #7480ff;
+  outline: none;
+}
+.sort-post .left-s {
+  background-color: #fff;
+  color: #333;
+  font-size: 12px;
+  font-family: 'Raleway', sans-serif;
+  padding: 0.25rem 0.75rem;
+  border: 2px solid #7480ff;
+  outline: none;
+}
+
+.sort-post .left-top {
+  border-top-left-radius: 10px;
+}
+
+.sort-post .right-top {
+  border-top-right-radius: 10px;
+}
+.sort-post .left-right-bottom {
+  border-bottom-left-radius: 10px;
+}
+.sort-post .right-left-bottom {
+  border-bottom-right-radius: 10px;
 }

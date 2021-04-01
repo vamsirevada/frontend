@@ -8,6 +8,7 @@ import {
   GET_POST,
   ADD_COMMENT,
   REMOVE_COMMENT,
+  CLEAR_POST,
 } from '../actions/types';
 
 const initialState = {
@@ -72,11 +73,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         post: { ...state.post, comments: payload },
-        // posts: state.posts.map((post) =>
-        //   post._id === payload.id
-        //     ? { ...post, comments: payload.comments }
-        //     : post
-        // ),
         loading: false,
       };
     case REMOVE_COMMENT:
@@ -88,6 +84,14 @@ export default function (state = initialState, action) {
             (comment) => comment._id !== payload
           ),
         },
+        loading: false,
+      };
+    case CLEAR_POST:
+      return {
+        ...state,
+        posts: null,
+        oposts: null,
+        post: null,
         loading: false,
       };
     default:
