@@ -215,7 +215,7 @@ export const getNotedPost = () => async (dispatch) => {
 // Accept Project Invite
 export const acceptProjectInvite = (project_id) => async (dispatch) => {
   try {
-    const res = await api.put(`/invite/${project_id}`);
+    const res = await api.put(`profile/invite/${project_id}`);
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
@@ -235,11 +235,13 @@ export const acceptProjectInvite = (project_id) => async (dispatch) => {
 // Decline Project Invite
 export const declineProjectInvite = (project_id) => async (dispatch) => {
   try {
-    const res = await api.delete(`/invite/${project_id}`);
+    console.log('hit');
+    const res = await api.delete(`profile/invite/${project_id}`);
     dispatch({
       type: PROJECT_INVITE_DECLINED,
       payload: res.data.msg,
     });
+    console.log(res.data.msg);
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,

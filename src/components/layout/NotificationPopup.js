@@ -25,16 +25,7 @@ const NotificationPopup = ({
   const [open, setOpen] = useState(false);
 
   const add = (id) => {
-    projectFirestore
-      .collection('notifications')
-      .where('sender', '==', id)
-      .where('type', '==', 'request')
-      .get()
-      .then((i) => {
-        i.forEach((d) => {
-          d.ref.delete();
-        });
-      });
+    remove(id);
     projectFirestore.collection('notifications').add({
       sender: user?._id,
       senderName: user?.userName,
@@ -45,6 +36,45 @@ const NotificationPopup = ({
       createdAt: new Date(),
     });
   };
+
+  // const add1 = (id) => {
+  //   remove1(id);
+  //   projectFirestore.collection('notifications').add({
+  //     sender: user?._id,
+  //     senderName: user?.userName,
+  //     avatar: user?.avatar,
+  //     receiver: id,
+  //     type: 'project_accept',
+  //     read: false,
+  //     createdAt: new Date(),
+  //   });
+  // };
+
+  const remove = (id) => {
+    projectFirestore
+      .collection('notifications')
+      .where('sender', '==', id)
+      .where('type', '==', 'request')
+      .get()
+      .then((i) => {
+        i.forEach((d) => {
+          d.ref.delete();
+        });
+      });
+  };
+
+  // const remove1 = (id) => {
+  //   projectFirestore
+  //     .collection('notifications')
+  //     .where('sender', '==', id)
+  //     .where('type', '==', 'invite')
+  //     .get()
+  //     .then((i) => {
+  //       i.forEach((d) => {
+  //         d.ref.delete();
+  //       });
+  //     });
+  // };
 
   const onMenuOpened = () => {
     const unreadNotificationsIds = notifications
@@ -154,8 +184,8 @@ const NotificationPopup = ({
                       </button>
                       <button
                         onClick={() => {
-                          accept(not.sender);
-                          add(not.sender);
+                          decline(not.sender);
+                          remove(not.sender);
                         }}
                         className='nb-white'
                       >
@@ -187,10 +217,32 @@ const NotificationPopup = ({
                     src={not.avatar ? not.avatar : logo}
                     alt=''
                   />
-                  <p>
-                    <span className='notif-bold'>{not.senderName}</span> sent
-                    you a invite{' '}
-                  </p>
+                  <div className='notify-width'>
+                    <p>
+                      <span className='notif-bold'>{not.senderName}</span> sent
+                      you a invite{' '}
+                    </p>
+                    <div className='notify-button'>
+                      <button
+                        className='nb-blue'
+                        onClick={() => {
+                          acceptProjectInvite(not.sender);
+                          // add1(not.sender);
+                        }}
+                      >
+                        Accept
+                      </button>
+                      <button
+                        className='nb-white'
+                        onClick={() => {
+                          declineProjectInvite(not.sender);
+                          // remove1(not.sender);
+                        }}
+                      >
+                        Decline
+                      </button>
+                    </div>
+                  </div>
                 </>
               )}
             </div>
