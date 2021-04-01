@@ -233,7 +233,7 @@ html {
   justify-content: center;
   align-items: center;
   opacity: 1;
-  animation: showwelcome 2.5s ease;
+  animation: showwelcome 2.6s ease;
 }
 .welcome img {
   display: inline-block;

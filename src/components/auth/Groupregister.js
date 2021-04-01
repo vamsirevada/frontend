@@ -53,7 +53,7 @@ const Groupregister = ({ setAlert, groupRegister, isAuthenticated }) => {
 
   //Redirect if logged in
   if (isAuthenticated) {
-    return <Redirect to='/create-group-profile' />;
+    return <Redirect to='/welcomeRscreen' />;
   }
 
   return (

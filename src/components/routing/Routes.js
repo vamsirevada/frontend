@@ -2,8 +2,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Portfolio from '../portfolio/Portfolio';
 import Portfolio1 from '../portfolio/Portfolio1';
-import CreateProfile from '../profile-forms/Createprofile';
-import CreateGroupProfile from '../profile-forms/CreateGroupProfile';
 import CreateProject from '../project-forms/CreateProject';
 import EditProfile from '../profile-forms/EditProfile';
 import AddExperience from '../profile-forms/AddExperience';
@@ -28,10 +26,11 @@ import SingleProject from '../projects/SingleProject';
 import ProjectList from '../projects/ProjectList';
 import SingleNotice from '../projects/SingleNotice';
 import NoticeBoard from '../projects/NoticeBoard';
-import Welcome from '../layout/Welcome';
+
 import ChatSideBar from '../chat/ChatSideBar';
 import Loader from '../layout/Loader';
 import WelcomeScreen from '../layout/WelcomeScreen';
+import WelcomeRscreen from '../layout/WelcomeRscreen';
 
 const Routes = () => {
   return (
@@ -40,17 +39,11 @@ const Routes = () => {
       <Switch>
         <PrivateRoute exact path='/loader' component={Loader} />
         <PrivateRoute exact path='/welcomescreen' component={WelcomeScreen} />
-        <PrivateRoute exact path='/welcome' component={Welcome} />
+        <PrivateRoute exact path='/welcomeRscreen' component={WelcomeRscreen} />
         <PrivateRoute exact path='/portfolio' component={Portfolio} />
         <PrivateRoute exact path='/portfolio/:id' component={Portfolio1} />
         <PrivateRoute exact path='/noticeboard' component={NoticeBoard} />
         <PrivateRoute exact path='/addfiles' component={AddPortfolio} />
-        <PrivateRoute exact path='/create-profile' component={CreateProfile} />
-        <PrivateRoute
-          exact
-          path='/create-group-profile'
-          component={CreateGroupProfile}
-        />
         <PrivateRoute exact path='/edit-profile' component={EditProfile} />
         <PrivateRoute exact path='/profile' component={Profile2} />
         <PrivateRoute exact path='/profiles' component={Profiles} />

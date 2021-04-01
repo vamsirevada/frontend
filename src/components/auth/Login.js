@@ -23,7 +23,7 @@ const Login = ({ login, isAuthenticated }) => {
 
   //Redirect if logged in
   if (isAuthenticated) {
-    return <Redirect to='/welcome' />;
+    return <Redirect to='/welcomescreen' />;
   }
 
   return (

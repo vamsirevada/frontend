@@ -15,6 +15,7 @@ import {
   LOGIN_SUCCESS,
   LOGOUT,
   REFERRAL_SUCESS,
+  GROUP_REGISTER_SUCCESS,
 } from './types';
 
 //Load User
@@ -148,7 +149,7 @@ export const groupRegister = ({
     const res = await api.post('/users/group', body, config);
 
     dispatch({
-      type: REGISTER_SUCCESS,
+      type: GROUP_REGISTER_SUCCESS,
       payload: res.data,
     });
   } catch (err) {

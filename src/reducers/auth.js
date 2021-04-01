@@ -11,6 +11,7 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   ACCOUNT_DELETED,
+  GROUP_REGISTER_SUCCESS,
 } from '../actions/types';
 
 const initialState = {
@@ -48,6 +49,15 @@ export default function (state = initialState, action) {
         isAuthenticated: true,
         loading: false,
       };
+    case GROUP_REGISTER_SUCCESS:
+      return {
+        ...state,
+        ...payload,
+        isAuthenticated: true,
+        loading: false,
+        isGroup: true,
+      };
+
     case WRITER_REGISTER_SUCCESS:
     case WRITER_LOGIN_SUCCESS:
       localStorage.setItem('writertoken', payload.token);

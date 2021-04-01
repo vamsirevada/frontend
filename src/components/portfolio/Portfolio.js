@@ -27,6 +27,7 @@ import GPortfolioLeftContact from './GPortfolioLeftContact';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import { Link } from 'react-router-dom';
+import { getCurrentProfile } from '../../actions/profile';
 
 const Portfolio = ({
   getProjects,
@@ -36,6 +37,7 @@ const Portfolio = ({
 }) => {
   useEffect(() => {
     getProjects(user?._id);
+    getCurrentProfile();
   }, [getProjects, user?._id]);
 
   const [displayLeft, toogleLeft] = useState(true);
@@ -57,7 +59,12 @@ const Portfolio = ({
 
   return (
     <>
-      <div>
+      <div
+        data-aos='fade-out'
+        data-aos-delay='10'
+        data-aos-duration='500'
+        data-aos-easing='ease-in'
+      >
         <div className='ribbon'>
           <a onClick={(e) => onClick1(e)} className='ribbon-left'>
             <AssignmentIndIcon />
@@ -527,4 +534,6 @@ const mapStateToProps = (state) => ({
   project: state.project,
 });
 
-export default connect(mapStateToProps, { getProjects })(Portfolio);
+export default connect(mapStateToProps, { getCurrentProfile, getProjects })(
+  Portfolio
+);

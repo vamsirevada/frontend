@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Loader from './Loader';
 import { Redirect } from 'react-router';
 import logo from '../../images/Logo files/png/Vanity_logo-05.png';
+import { connect } from 'react-redux';
 
-const WelcomeScreen = () => {
+const WelcomeRscreen = ({ isGroup }) => {
   const [welcome, setWelcome] = useState(true);
   const [motto, setMotto] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -24,8 +25,12 @@ const WelcomeScreen = () => {
     };
   });
 
-  if (loading) {
-    return <Redirect to='/portfolio' />;
+  if (isGroup && loading) {
+    return <Redirect to='/create-group-profile' />;
+  }
+
+  if (!isGroup && loading) {
+    return <Redirect to='/create-profile' />;
   }
 
   return (
@@ -50,14 +55,15 @@ const WelcomeScreen = () => {
         </section>
 
         <section className={motto ? 'motto' : 'motto-hide'}>
-          <p>
-            Bringing you to the right place, time and people for your right
-            opportunity.
-          </p>
+          <p>Lets create your profile.</p>
         </section>
       </div>
     </>
   );
 };
 
-export default WelcomeScreen;
+const mapStateToProps = (state) => ({
+  isGroup: state.auth.isGroup,
+});
+
+export default connect(mapStateToProps)(WelcomeRscreen);

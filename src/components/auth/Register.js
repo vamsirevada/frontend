@@ -15,7 +15,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     password: '',
     password2: '',
     userpermission: false,
-    // code: "",
   });
 
   const {
@@ -42,7 +41,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 
   //Redirect if logged in
   if (isAuthenticated) {
-    return <Redirect to='/create-profile' />;
+    return <Redirect to='/welcomeRscreen' />;
   }
 
   return (

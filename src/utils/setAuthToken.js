@@ -8,7 +8,6 @@ const setAuthToken = (token) => {
     api.defaults.headers.common['x-auth-token'] = token;
     localStorage.setItem('token', token);
     store.dispatch(loadUser());
-    store.dispatch(getCurrentProfile());
   } else {
     delete api.defaults.headers.common['x-auth-token'];
     localStorage.removeItem('token');

@@ -24,6 +24,8 @@ import ReferralPage from './components/auth/ReferralPage';
 import { LOGOUT } from './actions/types';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import CreateProfile from './components/profile-forms/Createprofile';
+import CreateGroupProfile from './components/profile-forms/CreateGroupProfile';
 
 const App = () => {
   useEffect(() => {
@@ -68,6 +70,16 @@ const App = () => {
               <PrivateRoute exact path='/add' component={Add} />
               <Route exact path='/blog' component={Blog} />
               <Route exact path='/blog/:id' component={SingleArticle} />
+              <PrivateRoute
+                exact
+                path='/create-profile'
+                component={CreateProfile}
+              />
+              <PrivateRoute
+                exact
+                path='/create-group-profile'
+                component={CreateGroupProfile}
+              />
               <PrivateRoute component={Routes} />
             </Switch>
           </Fragment>

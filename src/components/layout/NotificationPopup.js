@@ -20,6 +20,8 @@ const NotificationPopup = ({
   notification: { notifications },
   accept,
   decline,
+  acceptProjectInvite,
+  declineProjectInvite,
   markNotificationsRead,
 }) => {
   const [open, setOpen] = useState(false);
