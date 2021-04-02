@@ -27,17 +27,14 @@ import GPortfolioLeftContact from './GPortfolioLeftContact';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import { Link } from 'react-router-dom';
-import { getCurrentProfile } from '../../actions/profile';
 
 const Portfolio = ({
-  getCurrentProfile,
   getProjects,
   auth: { user },
   profile: { profile },
   project: { projects },
 }) => {
   useEffect(() => {
-    getCurrentProfile();
     getProjects(user?._id);
   }, [getProjects, user?._id]);
 
@@ -535,6 +532,4 @@ const mapStateToProps = (state) => ({
   project: state.project,
 });
 
-export default connect(mapStateToProps, { getCurrentProfile, getProjects })(
-  Portfolio
-);
+export default connect(mapStateToProps, { getProjects })(Portfolio);
