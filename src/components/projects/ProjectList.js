@@ -1,11 +1,10 @@
 import React, { Fragment, useEffect } from 'react';
 import ProjectTemp from './ProjectTemp';
-import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getProfileById } from '../../actions/profile';
 import { getProjects } from '../../actions/project';
-// import briefcase from '../../images/icons/nounBriefcase.svg';
+import Loader from '../layout/Loader';
 
 const ProjectList = ({
   match,
@@ -20,7 +19,7 @@ const ProjectList = ({
     getProjects(match.params.id);
   }, [getProfileById, getProjects, match.params.id]);
   return loading && profile1 === null ? (
-    <Spinner />
+    <Loader />
   ) : (
     <Fragment>
       <div className='c-list'>

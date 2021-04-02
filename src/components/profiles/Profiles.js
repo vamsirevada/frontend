@@ -1,11 +1,11 @@
 import React, { Fragment, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
-import Spinner from '../layout/Spinner';
 import { getProfiles } from '../../actions/profile';
 import { connect } from 'react-redux';
 import ProfileItem from './ProfileItem';
 import { SearchContext } from '../../context/search.context';
 import UseFirestore from '../addportfolio/UseFireStore';
+import Loader from '../layout/Loader';
 
 const Profiles = ({ getProfiles, profile: { profile, profiles, loading } }) => {
   useEffect(() => {
@@ -21,7 +21,7 @@ const Profiles = ({ getProfiles, profile: { profile, profiles, loading } }) => {
   return (
     <Fragment>
       {loading ? (
-        <Spinner />
+        <Loader />
       ) : (
         <Fragment>
           <div className='c-list'>

@@ -20,7 +20,7 @@ import {
   portfolioLike,
   portfolioComment,
 } from '../../actions/portfolio';
-import Spinner from '../layout/Spinner';
+import Loader from '../layout/Loader';
 import { Fragment } from 'react';
 
 const Modal = ({
@@ -81,7 +81,7 @@ const Modal = ({
     <>
       {loading ? (
         <div className='post-pop-up'>
-          <Spinner />
+          <Loader />
         </div>
       ) : (
         <div className='post-pop-up'>

@@ -1,17 +1,16 @@
 import React, { Fragment, useEffect } from 'react';
 import Project from './Project';
-import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getProfileById } from '../../actions/profile';
-// import briefcase from '../../images/icons/nounBriefcase.svg';
+import Loader from '../layout/Loader';
 
 const Projects = ({ match, getProfileById, profile: { profile, loading } }) => {
   useEffect(() => {
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
   return loading && profile === null ? (
-    <Spinner />
+    <Loader />
   ) : (
     <Fragment>
       <div className='c-list'>
