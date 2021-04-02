@@ -30,14 +30,15 @@ import { Link } from 'react-router-dom';
 import { getCurrentProfile } from '../../actions/profile';
 
 const Portfolio = ({
+  getCurrentProfile,
   getProjects,
   auth: { user },
   profile: { profile },
   project: { projects },
 }) => {
   useEffect(() => {
-    getProjects(user?._id);
     getCurrentProfile();
+    getProjects(user?._id);
   }, [getProjects, user?._id]);
 
   const [displayLeft, toogleLeft] = useState(true);
