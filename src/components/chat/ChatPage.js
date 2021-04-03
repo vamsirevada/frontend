@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { getBuddiesById } from '../../actions/profile';
+import { getProjects } from '../../actions/project';
 import { getRealtimeConversations, updateMessage } from '../../actions/chat';
 import { connect, useDispatch } from 'react-redux';
 import sendbutton from '../../images/sendbutton.svg';
@@ -15,7 +16,9 @@ import background from '../../images/Rectangle.png';
 const ChatPage = ({
   auth,
   getBuddiesById,
+  getProjects,
   profile: { buddies },
+  project: { projects },
   chat: { conversations },
 }) => {
   const dispatch = useDispatch();
@@ -27,7 +30,8 @@ const ChatPage = ({
 
   useEffect(() => {
     getBuddiesById(auth?.user?._id);
-  }, [getBuddiesById, auth?.user?._id]);
+    getProjects(auth?.user?._id);
+  }, [getBuddiesById, getProjects, auth?.user?._id]);
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -42,7 +46,6 @@ const ChatPage = ({
       });
     }
   };
-  console.log(logo);
 
   return (
     <div id='full-chat'>
@@ -93,7 +96,9 @@ const ChatPage = ({
                     >
                       <div
                         style={{
-                          background: `url(${profile.avatar}) no-repeat center center/cover`,
+                          background: `url(${
+                            profile?.avatar ? profile?.avatar : logo
+                          }) no-repeat center center/cover`,
                         }}
                         className='dp'
                       ></div>
@@ -103,9 +108,39 @@ const ChatPage = ({
                         </div>
                         <div className='chat-body'>
                           <p>{profile.location}</p>
-                          {/* <div className="bubble">
-                            <p>2</p>
-                          </div> */}
+                        </div>
+                      </div>
+                    </div>
+                    <hr className='hori-2' />
+                  </Fragment>
+                ))}
+            </div>
+            <div className='chats'>
+              <div className='chats-heading'>
+                <h3>
+                  ProjectGroups{' '}
+                  <span className='blue'>({projects.length})</span>
+                </h3>
+                <a className='blue'>See More</a>
+              </div>
+              {projects &&
+                projects.map((project) => (
+                  <Fragment key={project?._id}>
+                    <div className='fullchat-chatgrid'>
+                      <div
+                        style={{
+                          background: `url(${
+                            project?.avatar ? project?.avatar : logo
+                          }) no-repeat center center/cover`,
+                        }}
+                        className='dp'
+                      ></div>
+                      <div className='flex-column-1'>
+                        <div className='chat-name'>
+                          <a>{project?.projectname}</a>
+                        </div>
+                        <div className='chat-body'>
+                          <p>{project?.location}</p>
                         </div>
                       </div>
                     </div>
@@ -230,8 +265,10 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
   chat: state.chat,
+  project: state.project,
 });
 
 export default connect(mapStateToProps, {
   getBuddiesById,
+  getProjects,
 })(ChatPage);

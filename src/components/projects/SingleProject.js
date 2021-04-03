@@ -56,11 +56,15 @@ const SingleProject = ({
                   {singleproject !== null && (
                     <MiniProjectInfo singleproject={singleproject} />
                   )}
-                  {singleproject !== null && (
-                    <ProjectAdd singleproject={singleproject} />
-                  )}
-
-                  <ProjectPostForm singleproject={singleproject} />
+                  {singleproject?.admin &&
+                    singleproject?.admin
+                      .map((x) => x?.user === profile?.user?._id)
+                      .find((x) => x === true) && (
+                      <>
+                        <ProjectAdd singleproject={singleproject} />
+                        <ProjectPostForm singleproject={singleproject} />
+                      </>
+                    )}
                   <ProjectPosts profile={profile} id={match.params.id} />
                 </div>
               </div>
@@ -69,8 +73,8 @@ const SingleProject = ({
           {displayRight && (
             <div className='right'>
               <Notices
-                userName={profile?.user?.userName}
-                creator={singleproject?.creator}
+                userId={profile?.user?._id}
+                singleproject={singleproject}
                 id={match.params.id}
               />
             </div>

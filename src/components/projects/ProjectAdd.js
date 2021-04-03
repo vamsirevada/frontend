@@ -1,26 +1,33 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import MembersPopup from './MembersPopUp';
 import AddPopUp from './AddPopUp';
 
 const ProjectAdd = ({ singleproject }) => {
-  const modalRef = useRef();
   const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const hide = () => {
+    setShow(false);
+  };
 
   const close = () => {
-    setShow(false);
+    setOpen(false);
   };
 
   return (
     <>
-      <MembersPopup ref={modalRef} members={singleproject?.members} />
-      <AddPopUp show={show} close={close} />
+      <MembersPopup
+        open={open}
+        close={close}
+        members={singleproject?.members}
+      />
+      <AddPopUp show={show} hide={hide} />
       <div className='main-grid-top project'>
         <div className='profile-project-box'>
           <a
-            href='#!'
             onClick={() => {
-              modalRef.current.open();
+              setOpen(true);
             }}
           >
             <p className='border-1 pro'>

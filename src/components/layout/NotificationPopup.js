@@ -25,6 +25,7 @@ const NotificationPopup = ({
   markNotificationsRead,
 }) => {
   const [open, setOpen] = useState(false);
+  const [status, setStatus] = useState('');
 
   const add = (id) => {
     remove(id);
@@ -39,18 +40,18 @@ const NotificationPopup = ({
     });
   };
 
-  // const add1 = (id) => {
-  //   remove1(id);
-  //   projectFirestore.collection('notifications').add({
-  //     sender: user?._id,
-  //     senderName: user?.userName,
-  //     avatar: user?.avatar,
-  //     receiver: id,
-  //     type: 'project_accept',
-  //     read: false,
-  //     createdAt: new Date(),
-  //   });
-  // };
+  const add1 = (id) => {
+    remove1(id);
+    projectFirestore.collection('notifications').add({
+      sender: user?._id,
+      senderName: user?.userName,
+      avatar: user?.avatar,
+      receiver: id,
+      type: 'project_accept',
+      read: false,
+      createdAt: new Date(),
+    });
+  };
 
   const remove = (id) => {
     projectFirestore
@@ -65,18 +66,18 @@ const NotificationPopup = ({
       });
   };
 
-  // const remove1 = (id) => {
-  //   projectFirestore
-  //     .collection('notifications')
-  //     .where('sender', '==', id)
-  //     .where('type', '==', 'invite')
-  //     .get()
-  //     .then((i) => {
-  //       i.forEach((d) => {
-  //         d.ref.delete();
-  //       });
-  //     });
-  // };
+  const remove1 = (id) => {
+    projectFirestore
+      .collection('notifications')
+      .where('sender', '==', id)
+      .where('type', '==', 'invite')
+      .get()
+      .then((i) => {
+        i.forEach((d) => {
+          d.ref.delete();
+        });
+      });
+  };
 
   const onMenuOpened = () => {
     const unreadNotificationsIds = notifications
@@ -129,9 +130,9 @@ const NotificationPopup = ({
 
   const notificationsMarkup =
     notifications && notifications.length > 0 ? (
-      notifications.map((not) => {
+      notifications.map((not, index) => {
         return (
-          <div>
+          <div key={index}>
             <div className='notif-element' key={not?.createdAt}>
               {not.type === 'like' && (
                 <>
@@ -219,30 +220,47 @@ const NotificationPopup = ({
                     src={not.avatar ? not.avatar : logo}
                     alt=''
                   />
-                  <div className='notify-width'>
-                    <p>
+                  <div className='project-notification'>
+                    <p className='notify-width'>
                       <span className='notif-bold'>{not.senderName}</span> sent
                       you a invite{' '}
                     </p>
-                    <div className='notify-button'>
-                      <button
-                        className='nb-blue'
-                        onClick={() => {
-                          acceptProjectInvite(not.sender);
-                          // add1(not.sender);
+                    <div className='project-invite'>
+                      <form
+                        className='project-invite-form'
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          acceptProjectInvite(not.sender, { status });
+                          setStatus('');
+                          add1(not.sender);
                         }}
                       >
-                        Accept
-                      </button>
-                      <button
-                        className='nb-white'
-                        onClick={() => {
-                          declineProjectInvite(not.sender);
-                          // remove1(not.sender);
-                        }}
-                      >
-                        Decline
-                      </button>
+                        <div>
+                          <input
+                            type='text'
+                            placeholder='write a status...'
+                            name='status'
+                            value={status}
+                            onChange={(e) => setStatus(e.target.value)}
+                          />
+                        </div>
+                        <div>
+                          <button className='proj-btn-blue' type='submit'>
+                            Accept
+                          </button>
+                        </div>
+                      </form>
+                      <div>
+                        <button
+                          className='proj-btn-white'
+                          onClick={() => {
+                            declineProjectInvite(not.sender);
+                            remove1(not.sender);
+                          }}
+                        >
+                          Decline
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </>

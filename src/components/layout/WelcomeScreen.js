@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import Loader from './Loader';
 import { Redirect } from 'react-router';
 import logo from '../../images/Logo files/png/Vanity_logo-05.png';
 
