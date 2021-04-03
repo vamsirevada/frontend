@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
 
 :root {
   --primary: #efb6b2;
@@ -21,9 +21,7 @@
 
 .img-wrap {
   overflow: hidden;
-  /* height: 0; */
   width: 100%;
-  /* padding: 50% 0; */
   height: 180px;
   /* padding controls height, will always be perfectly square regardless of width */
   position: relative;
@@ -31,21 +29,30 @@
   background-color: #f4f4f4;
   border-radius: 15px;
   margin: auto;
-  /* object-fit: cover; */
 }
+.img-wrap .title-hide {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  color: #fff;
+  padding: 0.25rem 1rem;
+  background-color: #212121;
+  z-index: 100;
+  opacity: 0;
+}
+
+.img-wrap:hover .title-hide {
+  cursor: pointer;
+  opacity: 1;
+  transition: all 0.6s linear;
+}
+
 .img-wrap img {
-  /* min-width: 100%;
-  min-height: 100%;
-  max-width: 150%; */
   display: inline-block;
   height: inherit;
   min-width: 100%;
   width: auto;
   object-fit: contain;
-  /* 
-  position: absolute;
-  top: 0;
-  left: 0; */
 }
 
 .img-wrap video {
@@ -197,7 +204,7 @@
   color: white;
 } */
 .btn-white-top {
-  font-family: "Raleway", sans-serif;
+  font-family: 'Raleway', sans-serif;
   cursor: pointer;
   display: inline-block;
   background-color: #fff;
