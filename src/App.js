@@ -21,6 +21,7 @@ import SingleArticle from './components/article/SingleArticle';
 import { SearchProvider } from './context/search.provider';
 import './App.css';
 import ReferralPage from './components/auth/ReferralPage';
+import Help from './components/about/Help';
 import { LOGOUT } from './actions/types';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -52,6 +53,7 @@ const App = () => {
             <Alert />
             <Switch>
               <Route exact path='/' component={Landing} />
+              <Route exact path='/help' component={Help} />
               <Route exact path='/register' component={Register} />
               <Route exact path='/groupregister' component={Groupregister} />
               <Route exact path='/login' component={Login} />
