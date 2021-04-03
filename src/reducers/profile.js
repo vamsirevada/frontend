@@ -15,6 +15,7 @@ import {
   GET_NOTED_PEOPLE,
   GET_NOTED_PEOPLE_ERROR,
   PROJECT_INVITE_DECLINED,
+  PROJECT_INVITE_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -120,6 +121,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         prompt: action.payload,
+      };
+    case PROJECT_INVITE_ERROR:
+      return {
+        ...state,
+        error: payload,
+        loading: false,
       };
     default:
       return state;

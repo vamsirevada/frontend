@@ -233,7 +233,7 @@ html {
   justify-content: center;
   align-items: center;
   opacity: 1;
-  animation: showwelcome 2.5s ease;
+  animation: showwelcome 2.6s ease;
 }
 .welcome img {
   display: inline-block;
@@ -2024,11 +2024,65 @@ input.search-btn:focus {
   cursor: pointer;
   opacity: 0.8;
 }
+
 .navbar .nav-icons .notif-dis .notif-element img {
   height: 36px;
   width: 36px;
   border-radius: 10px;
   object-fit: cover;
+}
+
+.project-invite {
+  display: grid;
+  grid-template-columns: 75% 25%;
+}
+
+.project-invite-form {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  grid-gap: 5px;
+  padding-left: 10px;
+}
+
+.project-invite-form input {
+  font-size: 12px;
+  color: #272727;
+  font-family: 'Raleway', sans-serif;
+  padding: 5px 10px;
+  border-radius: 10px;
+  width: 100%;
+  border: none;
+  outline: none;
+}
+
+.project-invite .project-invite-form .proj-btn-blue {
+  font-size: 12px;
+  color: #fff;
+  background-color: #7480ff;
+  padding: 5px 10px;
+  border-radius: 10px;
+  outline: none;
+  border: 1px solid #7480ff;
+}
+
+.project-invite .project-invite-form .proj-btn-blue:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.project-invite .proj-btn-white {
+  font-size: 12px;
+  color: #5d5d5d;
+  background-color: #fff;
+  padding: 5px 10px;
+  border-radius: 10px;
+  outline: none;
+  border: 1px #5d5d5d solid;
+}
+
+.project-invite .proj-btn-white:hover {
+  cursor: pointer;
+  opacity: 0.8;
 }
 
 .navbar .nav-icons .notif-dis .notif-element p {

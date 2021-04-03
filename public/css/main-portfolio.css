@@ -266,6 +266,31 @@
   padding: 0.5rem 1rem;
 }
 
+.memberpopup .tooltip {
+  background-color: #f2f2f2;
+  box-shadow: 0px 3px 3px #00000040;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.memberpopup .tooltip li {
+  display: block;
+  font-size: 1rem;
+  color: #272727;
+  padding: 0.35rem 0.75rem;
+  opacity: 0.8;
+}
+
+.memberpopup .tooltip li:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.memberpopup .tooltip-hidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .memberpopup .member-body .member-button {
   position: absolute;
   right: 20px;

@@ -19,6 +19,7 @@ import {
   GET_NOTED_PEOPLE,
   GET_NOTED_PEOPLE_ERROR,
   PROJECT_INVITE_DECLINED,
+  PROJECT_INVITE_ERROR,
 } from './types';
 
 // Get current users profile
@@ -213,20 +214,16 @@ export const getNotedPost = () => async (dispatch) => {
 };
 
 // Accept Project Invite
-export const acceptProjectInvite = (project_id) => async (dispatch) => {
+export const acceptProjectInvite = (project_id, status) => async (dispatch) => {
   try {
-    const res = await api.put(`/profile/invite/${project_id}`);
+    const res = await api.put(`/profile/invite/${project_id}`, status);
     dispatch({
       type: UPDATE_PROFILE,
       payload: res.data,
     });
   } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
     dispatch({
-      type: PROFILE_ERROR,
+      type: PROJECT_INVITE_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
@@ -235,16 +232,14 @@ export const acceptProjectInvite = (project_id) => async (dispatch) => {
 // Decline Project Invite
 export const declineProjectInvite = (project_id) => async (dispatch) => {
   try {
-    console.log('hit');
     const res = await api.delete(`/profile/invite/${project_id}`);
     dispatch({
       type: PROJECT_INVITE_DECLINED,
       payload: res.data.msg,
     });
-    console.log(res.data.msg);
   } catch (err) {
     dispatch({
-      type: PROFILE_ERROR,
+      type: PROJECT_INVITE_ERROR,
       payload: err.response.data.msg,
     });
   }

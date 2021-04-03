@@ -112,7 +112,59 @@ export const cancelProjectInvite = (project_id, profile_id) => async (
 export const makeAdmin = (project_id, user_id) => async (dispatch) => {
   try {
     const res = await api.post(`/project/admin/${project_id}/${user_id}`);
-    console.log(res.data);
+    dispatch({
+      type: UPDATE_PROJECT,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROJECT_ERROR,
+      payload: err.response.data.msg,
+    });
+    dispatch(setAlert(err.response.data.msg, 'danger'));
+  }
+};
+
+// Remove Admin
+export const removeAdmin = (project_id, user_id) => async (dispatch) => {
+  try {
+    const res = await api.delete(`/project/admin/d/${project_id}/${user_id}`);
+    dispatch({
+      type: UPDATE_PROJECT,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROJECT_ERROR,
+      payload: err.response.data.msg,
+    });
+    dispatch(setAlert(err.response.data.msg, 'danger'));
+  }
+};
+
+// Make Moderator
+export const makeModerator = (project_id, user_id) => async (dispatch) => {
+  try {
+    const res = await api.post(`/project/moderator/${project_id}/${user_id}`);
+    dispatch({
+      type: UPDATE_PROJECT,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROJECT_ERROR,
+      payload: err.response.data.msg,
+    });
+    dispatch(setAlert(err.response.data.msg, 'danger'));
+  }
+};
+
+// Remove Moderator
+export const removeModerator = (project_id, user_id) => async (dispatch) => {
+  try {
+    const res = await api.delete(
+      `/project/moderator/d/${project_id}/${user_id}`
+    );
     dispatch({
       type: UPDATE_PROJECT,
       payload: res.data,

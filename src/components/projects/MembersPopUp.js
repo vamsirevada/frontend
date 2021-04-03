@@ -1,104 +1,143 @@
-import React, {
-  Fragment,
-  useState,
-  forwardRef,
-  useImperativeHandle,
-} from 'react';
+import React, { Fragment, useState } from 'react';
 import nounPlus from '../../images/icons/noun_Plus_2310779.svg';
 import logo from '../../images/dummyimage.jpg';
 import { Link, useParams } from 'react-router-dom';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
-import { makeAdmin } from '../../actions/project';
+import { usePopper } from 'react-popper';
 
-const MembersPopUp = forwardRef(({ members }, ref) => {
-  const [boxIsOpen, setBoxIsOpen] = useState(false);
-  const [isOpen, setOpen] = useState(false);
-  const [userid, setUserId] = useState('');
+import {
+  makeAdmin,
+  removeAdmin,
+  makeModerator,
+  removeModerator,
+} from '../../actions/project';
+import { connect } from 'react-redux';
+
+const MembersPopUp = ({
+  open,
+  close,
+  members,
+  makeAdmin,
+  removeAdmin,
+  makeModerator,
+  removeModerator,
+}) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [id, setId] = useState(null);
+
+  const [referenceElement, setReferenceElement] = useState(null);
+  const [popperElement, setPopperElement] = useState(null);
   const params = useParams();
 
-  const handleOpen = () => {
-    setBoxIsOpen(true);
-  };
-
-  const handleClose = () => {
-    setBoxIsOpen(false);
-  };
-
-  useImperativeHandle(ref, () => {
-    return {
-      open: () => handleOpen(),
-      close: () => handleClose(),
-    };
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: 'top-end',
   });
 
-  const remove = () => {
-    console.log('remove');
+  const handleClick = (e) => {
+    if (e.target.classList.contains('memberpopup')) {
+      setIsOpen(false);
+    }
   };
 
   return (
     <>
-      {boxIsOpen && (
+      {open && (
         <Fragment>
-          <div className='memberpopupscreen'>
-            <div className='memberpopup'>
+          <div
+            className='memberpopupscreen'
+            onClick={(e) => {
+              if (e.target.classList.contains('memberpopupscreen')) {
+                close();
+                setIsOpen(false);
+              }
+            }}
+          >
+            <div className='memberpopup' onClick={handleClick}>
               <div className='mem-heading'>
                 <h3>Project Members</h3>
-                <a href='#!' className='member-cross' onClick={handleClose}>
+                <a href='#!' className='member-cross' onClick={close}>
                   <img src={nounPlus} alt='' />
                 </a>
               </div>
               {members.length > 0 ? (
-                <Fragment>
-                  {members.map((member, index) => (
-                    <div key={index} className='member-body'>
-                      <div
-                        style={{
-                          background: `url(${
-                            member.avatar ? member.avatar : logo
-                          }) no-repeat center center/cover`,
-                        }}
-                        className='dp'
-                      ></div>
-                      <div className='flex-column-1'>
-                        <div className='chat-name'>
-                          <Link to={`/portfolio/${member.user}`}>
-                            {member.fullName && member.fullName}
-                          </Link>
-                          <Link to={`/portfolio/${member.user}`}>
-                            {member.groupName && member.groupName}
-                          </Link>
+                <>
+                  <Fragment>
+                    {members.map((member, index) => (
+                      <div key={index} className='member-body'>
+                        <div
+                          style={{
+                            background: `url(${
+                              member.avatar ? member.avatar : logo
+                            }) no-repeat center center/cover`,
+                          }}
+                          className='dp'
+                        ></div>
+                        <div className='flex-column-1'>
+                          <div className='chat-name'>
+                            <Link to={`/portfolio/${member.user}`}>
+                              {member.fullName && member.fullName}
+                            </Link>
+                            <Link to={`/portfolio/${member.user}`}>
+                              {member.groupName && member.groupName}
+                            </Link>
+                          </div>
+                          <div className='chat-body'>
+                            <p>{member.status}</p>
+                          </div>
                         </div>
-                        <div className='chat-body'>
-                          <p>{member.status}</p>
+                        <div ref={setReferenceElement}>
+                          <div
+                            style={{
+                              display: member.status !== 'Admin' ? '' : 'none',
+                            }}
+                            className='member-button'
+                            onClick={() => {
+                              setIsOpen(!isOpen);
+                              setId(member.user);
+                            }}
+                          >
+                            <MoreHorizIcon />
+                          </div>
                         </div>
                       </div>
-                      <div
-                        style={{
-                          display: member.status !== 'Admin' ? '' : 'none',
-                        }}
-                        className='member-button'
-                        onClick={() => {
-                          setOpen(!isOpen);
-                          setUserId(member.user);
-                        }}
-                      >
-                        <MoreHorizIcon />
-                      </div>
-                    </div>
-                  ))}
-                  {isOpen && (
-                    <ul>
+                    ))}
+                    <ul
+                      className={isOpen ? 'tooltip' : 'tooltip-hidden'}
+                      ref={setPopperElement}
+                      style={styles.popper}
+                      {...attributes.popper}
+                    >
                       <li
                         onClick={() => {
-                          makeAdmin(params.id, userid);
+                          makeAdmin(params.id, id);
                         }}
                       >
                         Make Admin
                       </li>
-                      <li>Make Moderator</li>
+                      <li
+                        onClick={() => {
+                          makeModerator(params.id, id);
+                        }}
+                      >
+                        Make Moderator
+                      </li>
+                      <li
+                        onClick={() => {
+                          removeAdmin(params.id, id);
+                        }}
+                      >
+                        Remove Admin
+                      </li>
+                      <li
+                        onClick={() => {
+                          removeModerator(params.id, id);
+                        }}
+                      >
+                        Remove Moderator
+                      </li>
                     </ul>
-                  )}
-                </Fragment>
+                  </Fragment>
+                </>
               ) : (
                 <p>Add Members</p>
               )}
@@ -108,6 +147,11 @@ const MembersPopUp = forwardRef(({ members }, ref) => {
       )}
     </>
   );
-});
+};
 
-export default MembersPopUp;
+export default connect(null, {
+  makeAdmin,
+  removeAdmin,
+  makeModerator,
+  removeModerator,
+})(MembersPopUp);

@@ -12,7 +12,7 @@ const AddPopUp = ({
   project: { singleproject },
   getProfiles,
   show,
-  close,
+  hide,
 }) => {
   const { search, Addsearch, clearSearch } = useContext(SearchContext);
   const [value, setValue] = useState('');
@@ -49,7 +49,7 @@ const AddPopUp = ({
             <div className='memberpopup add'>
               <div className='mem-heading add'>
                 <h3>Add Project Members</h3>
-                <a href='#!' className='member-cross' onClick={close}>
+                <a href='#!' className='member-cross' onClick={hide}>
                   <img src={nounPlus} alt='' />
                 </a>
               </div>

@@ -1,6 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import Spinner from '../layout/Spinner';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getProjects } from '../../actions/project';
@@ -27,6 +26,7 @@ import GroupProfileEvent from './GroupProfileEvent';
 import GroupProfileAward from './GroupProfileAward';
 import GroupPartner from './GroupPartner';
 import GroupClient from './GroupClient';
+import Loader from '../layout/Loader';
 
 const Profile2 = ({
   profile: { profile, loading },
@@ -44,7 +44,7 @@ const Profile2 = ({
   return isGroup ? (
     <Fragment>
       {profile === null || loading ? (
-        <Spinner />
+        <Loader />
       ) : (
         <Fragment>
           <div id='c-profile'>
@@ -270,7 +270,7 @@ const Profile2 = ({
   ) : (
     <Fragment>
       {profile === null || loading ? (
-        <Spinner />
+        <Loader />
       ) : (
         <Fragment>
           <div id='c-profile'>

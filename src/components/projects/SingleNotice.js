@@ -27,7 +27,7 @@ const SingleNotice = ({
   const [apply, setApply] = useState(true);
   const [shortlist, setShortlist] = useState(false);
   const { docs } = UseFirestore('images');
-  const [text, setText] = useState('false');
+  const [text, setText] = useState(false);
 
   const onClick1 = () => {
     setShortlist(true);
@@ -39,8 +39,8 @@ const SingleNotice = ({
     setShortlist(false);
   };
 
-  const handleClick = (notice, item) => {
-    shortlistNotice(notice?._id, item?._id);
+  const handleClick = (id) => {
+    shortlistNotice(notice?._id, id);
     setText(true);
   };
 
@@ -199,7 +199,7 @@ const SingleNotice = ({
                         </div>
                         <div>
                           <button
-                            onClick={handleClick(notice, item)}
+                            onClick={handleClick(item?._id)}
                             className='btn-blue'
                           >
                             {text ? 'Shortlisted' : 'Shortlist'}

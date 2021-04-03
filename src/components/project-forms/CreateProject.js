@@ -3,7 +3,7 @@ import { Redirect, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getProjects, createProject } from '../../actions/project';
-import { projectFirestore, projectStorage } from '../../firebase/config';
+import { projectStorage } from '../../firebase/config';
 import logo from '../../images/dummyimage.jpg';
 
 const Createproject = ({
@@ -48,9 +48,6 @@ const Createproject = ({
   const onSubmit = (e) => {
     e.preventDefault();
     createProject(formData, history);
-    projectFirestore.collection('projectmessages').add({
-      groupname: projectname,
-    });
   };
 
   if (isCreated) {

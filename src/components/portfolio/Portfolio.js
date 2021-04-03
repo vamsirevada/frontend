@@ -3,7 +3,7 @@ import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getProjects } from '../../actions/project';
-import Spinner from '../layout/Spinner';
+import Loader from '../layout/Loader';
 import briefcase from '../../images/icons/nounBriefcase.svg';
 import nounEducation from '../../images/icons/noun_education_2177318.svg';
 import nounSkill from '../../images/icons/noun_skill_1863702.svg';
@@ -57,7 +57,12 @@ const Portfolio = ({
 
   return (
     <>
-      <div>
+      <div
+        data-aos='fade-out'
+        data-aos-delay='10'
+        data-aos-duration='500'
+        data-aos-easing='ease-in'
+      >
         <div className='ribbon'>
           <a onClick={(e) => onClick1(e)} className='ribbon-left'>
             <AssignmentIndIcon />
@@ -505,9 +510,7 @@ const Portfolio = ({
               </div>
             </Fragment>
           ) : (
-            <Fragment>
-              <Spinner />
-            </Fragment>
+            <Loader />
           )}
         </Fragment>
       </div>

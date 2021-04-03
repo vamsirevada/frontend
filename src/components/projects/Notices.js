@@ -10,8 +10,8 @@ import plus from '../../images/icons/noun_Plus_2310779.svg';
 
 const Notices = ({
   id,
-  creator,
-  userName,
+  singleproject,
+  userId,
   createNotice,
   getNotices,
   notice: { notices },
@@ -142,14 +142,19 @@ const Notices = ({
               ))}
         </div>
       </div>
-      <div className='notice-publish'>
-        <a href='#!' onClick={() => setShow(true)}>
-          <span className='nbtn-yellow'>
-            <img src={plus} alt='' />
-          </span>
-          <span className='publish-text'>Publish new notice</span>
-        </a>
-      </div>
+      {singleproject?.admin &&
+        singleproject?.admin
+          .map((x) => x?.user === userId)
+          .find((x) => x === true) && (
+          <div className='notice-publish'>
+            <a href='#!' onClick={() => setShow(true)}>
+              <span className='nbtn-yellow'>
+                <img src={plus} alt='' />
+              </span>
+              <span className='publish-text'>Publish new notice</span>
+            </a>
+          </div>
+        )}
 
       {show && (
         <>

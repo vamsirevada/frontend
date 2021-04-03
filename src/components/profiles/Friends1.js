@@ -3,13 +3,13 @@ import React, { Fragment, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import api from '../../utils/api';
 import Friend from './Friend';
-import Spinner from '../layout/Spinner';
 import { getProfileById, getBuddiesById } from '../../actions/profile';
 import { getProjects } from '../../actions/project';
 import { setAlert } from '../../actions/alert';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import UseFirestore from '../addportfolio/UseFireStore';
+import Loader from '../layout/Loader';
 
 const Friends1 = ({
   getProfileById,
@@ -38,7 +38,7 @@ const Friends1 = ({
   }, [getProfileById, getProjects, getBuddiesById, match.params.id]);
 
   return loading && profile1 === null ? (
-    <Spinner />
+    <Loader />
   ) : (
     <Fragment>
       <div className='c-list'>
@@ -93,7 +93,7 @@ const Friends1 = ({
           </div>
           <hr className='hori' />
           {buddies.empty === null ? (
-            <Spinner />
+            <Loader />
           ) : (
             <Fragment>
               {buddies.empty ? (
