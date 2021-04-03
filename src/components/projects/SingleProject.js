@@ -62,9 +62,9 @@ const SingleProject = ({
                       .find((x) => x === true) && (
                       <>
                         <ProjectAdd singleproject={singleproject} />
-                        <ProjectPostForm singleproject={singleproject} />
                       </>
                     )}
+                  <ProjectPostForm singleproject={singleproject} />
                   <ProjectPosts profile={profile} id={match.params.id} />
                 </div>
               </div>
