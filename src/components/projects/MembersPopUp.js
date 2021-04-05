@@ -30,7 +30,7 @@ const MembersPopUp = ({
   const params = useParams();
 
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement: 'top-end',
+    placement: 'top-start',
   });
 
   const handleClick = (e) => {

@@ -144,12 +144,11 @@ html {
 .loader > span {
   background: #7480ff;
   width: 9px;
-  height: 22px;
-  border-radius: 35%;
+  height: 33px;
+  border-radius: 30%;
   margin: 5rem 0.5rem;
   opacity: 1;
-  /* animation: bouncingLoader 0.6s infinite alternate; */
-  animation: growLoader 1s infinite normal linear;
+  animation: growLoader 0.5s infinite normal linear;
 }
 
 .loader > span:nth-child(1) {
@@ -157,35 +156,35 @@ html {
 }
 
 .loader > span:nth-child(2) {
-  animation-delay: 0.2s;
-  height: 33px;
+  animation-delay: 0.05s;
+  height: 44px;
 }
 
 .loader > span:nth-child(3) {
+  animation-delay: 0.15s;
+  height: 55px;
+}
+.loader > span:nth-child(4) {
+  animation-delay: 0.2s;
+  height: 44px;
+}
+.loader > span:nth-child(5) {
+  animation-delay: 0.25s;
+}
+.loader > span:nth-child(6) {
   animation-delay: 0.3s;
   height: 44px;
 }
-.loader > span:nth-child(4) {
-  animation-delay: 0.4s;
-  height: 33px;
-}
-.loader > span:nth-child(5) {
-  animation-delay: 0.5s;
-}
-.loader > span:nth-child(6) {
-  animation-delay: 0.6s;
-  height: 33px;
-}
 .loader > span:nth-child(7) {
-  animation-delay: 0.7s;
-  height: 44px;
+  animation-delay: 0.35s;
+  height: 55px;
 }
 .loader > span:nth-child(8) {
-  animation-delay: 0.8s;
-  height: 33px;
+  animation-delay: 0.4s;
+  height: 44px;
 }
 .loader > span:nth-child(9) {
-  animation-delay: 0.9s;
+  animation-delay: 0.45s;
 }
 
 @keyframes growLoader {

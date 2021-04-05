@@ -9,6 +9,7 @@ import ProjectPostForm from '../projectposts/ProjectPostForm';
 import ProjectPosts from '../projectposts/ProjectPosts';
 import MiniProjectInfo from './MiniProjectInfo';
 import BallotIcon from '@material-ui/icons/Ballot';
+import ExpenseTracker from './Expenses/ExpenseTracker';
 
 const SingleProject = ({
   profile: { profile },
@@ -20,7 +21,6 @@ const SingleProject = ({
     getProject(match.params.id);
     //eslint-disable-next-line
   }, []);
-
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
 
@@ -77,6 +77,7 @@ const SingleProject = ({
                 singleproject={singleproject}
                 id={match.params.id}
               />
+              <ExpenseTracker />
             </div>
           )}
         </div>
