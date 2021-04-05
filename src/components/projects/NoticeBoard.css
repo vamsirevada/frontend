@@ -110,6 +110,8 @@
   color: #5d5d5d;
   /* text-decoration: underline; */
   margin-top: 10px;
+  display: flex;
+  align-items: center;
 }
 
 .noticeboardpopupscreen {

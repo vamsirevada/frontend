@@ -510,7 +510,7 @@ const Portfolio = ({
               </div>
             </Fragment>
           ) : (
-            <Loader />
+            <Loader data-aos-duration='1000' />
           )}
         </Fragment>
       </div>

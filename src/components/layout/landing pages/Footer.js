@@ -4,7 +4,7 @@ import logo from '../../../images/vanitylogo1.png';
 const Footer = () => {
   return (
     <div id='main-footer'>
-      <div className='ft-para'>Vanity &copy; 2021</div>
+      <div className='ft-para'> &copy; Vanity 2021, All Rights Reserved.</div>
       <div className='center'>
         <img src={logo} alt='logo' />
       </div>
