@@ -1,23 +1,28 @@
 import React from 'react';
-// import Footer from "../layouts/Footer";
-import { Link } from 'react-router-dom';
+import Navbar from './layout/NavbarBlog';
+import Footer from './layout/landing pages/Footer';
+// import { Link } from 'react-router-dom';
 
 const NotFound = () => {
   return (
     <>
+      <Navbar />
       <div className='home height'>
         <div className='error-box'>
-          <h1>404</h1>
-          <h2>Page Not Found</h2>
+          {/* <h1>404</h1> */}
+          <h2>Under maintainence</h2>
           <p>
-            We are sorry. But the page you are looking for cannot be found.{' '}
+            We are sorry. we are working to make vanity website more awesome, We
+            will be getting back to you shortly. Inconvenience Regretted. <br />
+            <br /> Regards,
+            <br /> Team Vanity{' '}
           </p>
-          <Link to='/' className='button-one'>
+          {/* <Link to='/' className='button-one'>
             Go To HomePage
-          </Link>
+          </Link> */}
         </div>
-        {/* <Footer /> */}
       </div>
+      <Footer />
     </>
   );
 };

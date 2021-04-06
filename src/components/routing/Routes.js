@@ -64,7 +64,7 @@ const Routes = ({ auth: { user } }) => {
         <PrivateRoute exact path='/friends/:id' component={Friends1} />
         <PrivateRoute exact path='/projects/:id' component={Projects} />
         <PrivateRoute exact path='/projectlist/:id' component={ProjectList} />
-        <Route exact path='*' component={NotFound} />
+        {/* <Route exact path='*' component={NotFound} /> */}
       </Switch>
       {/* {user?._id && <ChatSideBar />} */}
     </>
