@@ -122,7 +122,7 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
             </div>
 
             <div
-              className={feedActive ? 'tab active' : 'tab'}
+              className={feedActive ? 'tab active' : 'tab classnamefeed'}
               onClick={toggleF}
             >
               <Link className='icon' to='/feed'>
@@ -131,7 +131,11 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
               </Link>
             </div>
             <div
-              className={portActive ? 'tab active unique' : 'tab unique'}
+              className={
+                portActive
+                  ? 'tab active unique'
+                  : 'tab unique classnameportfolio '
+              }
               onClick={toggleP}
             >
               <Link className='icon' to='/portfolio'>
@@ -148,7 +152,9 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
             </div>
             <div
               className={
-                nbActive ? 'tab active unique notice' : 'tab unique not'
+                nbActive
+                  ? 'tab active unique notice'
+                  : 'tab unique not classnamenoticeboard'
               }
               onClick={toggleNb}
             >
@@ -166,7 +172,9 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
               </Link>
             </div>
             <div
-              className={chatActive ? 'tab active unique chat' : 'tab'}
+              className={
+                chatActive ? 'tab active unique chat' : 'tab classnamechat'
+              }
               onClick={toggleC}
             >
               <Link to='/chats' className='chat icon'>

@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { ShepherdTour } from 'react-shepherd';
 import setAuthToken from './utils/setAuthToken';
 import PrivateRoute from './components/routing/PrivateRoute';
 import store from './store';
@@ -21,13 +22,24 @@ import CreateGroupProfile from './components/profile-forms/CreateGroupProfile';
 import SingleArticle from './components/article/SingleArticle';
 import CreateProfile from './components/profile-forms/Createprofile';
 import Help from './components/about/Help';
-// import NotFound from './components/NotFound';
+import NotFound from './components/NotFound';
 import ReferralPage from './components/auth/ReferralPage';
 import { SearchProvider } from './context/search.provider';
 import './App.css';
 import { LOGOUT } from './actions/types';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import 'shepherd.js/dist/css/shepherd.css';
+import steps from './steps';
+
+const tourOptions = {
+  defaultStepOptions: {
+    cancelIcon: {
+      enabled: true,
+    },
+    useModalOverlay: true,
+  },
+};
 
 const App = () => {
   useEffect(() => {
