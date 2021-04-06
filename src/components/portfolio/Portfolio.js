@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getProjects } from '../../actions/project';
@@ -27,6 +27,7 @@ import GPortfolioLeftContact from './GPortfolioLeftContact';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import { Link } from 'react-router-dom';
+import { ShepherdTourContext } from 'react-shepherd';
 
 const Portfolio = ({
   getProjects,
@@ -37,6 +38,8 @@ const Portfolio = ({
   useEffect(() => {
     getProjects(user?._id);
   }, [getProjects, user?._id]);
+
+  const tour = useContext(ShepherdTourContext);
 
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
@@ -80,6 +83,7 @@ const Portfolio = ({
                   <div className='portfolio-left'>
                     <div id='left-sidebar'>
                       <div className='left-container'>
+                        <button onClick={tour.start}>Start Tour</button>
                         <PortfolioLeftTop profile={profile} />
                         <EditButton profile={profile} />
                         <PortfolioLeftAbout profile={profile} />

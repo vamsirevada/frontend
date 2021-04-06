@@ -32,7 +32,7 @@ const PortfolioRightTop = ({
             <div></div>
             <Link to={'/addfiles'}>
               <h4>
-                <span className='bg-1'>Add to Portfolio</span>
+                <span className='bg-1 addtoportfolio'>Add to Portfolio</span>
               </h4>
             </Link>
           </div>

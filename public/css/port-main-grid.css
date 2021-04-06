@@ -24,6 +24,10 @@ a {
   padding: 1rem;
 }
 
+.shepherd-target {
+  border-radius: 10px;
+}
+
 .main-grid-container .main-grid-top {
   display: grid;
   /* grid-template-columns: 33.3% 66.6%; */
