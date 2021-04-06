@@ -127,7 +127,7 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
             >
               <Link className='icon' to='/feed'>
                 <img src={home} className='white' alt='portfolio' />
-                <p>Feed</p>
+                <p>Home</p>
               </Link>
             </div>
             <div

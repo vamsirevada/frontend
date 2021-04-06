@@ -381,7 +381,8 @@ a {
 }
 
 .page .container {
-  max-width: 1240px;
+  /* max-width: 1240px; */
+  max-width: 80%;
   height: 100%;
   margin: auto;
   padding: 0 40px;

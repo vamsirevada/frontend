@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
+import thumbnail from '../../images/icons/Thumbnail-01.png';
 
 const GPortfolioLeftTeam = ({ team: { name, status, from, to } }) => (
   <div className='prof-top prof-top-edu'>
-    <div className='prof-pic p1'></div>
+    <img className='prof-pic p1' src={thumbnail} alt='' />
     <div>
       <p>
         <span className='bold bold-1'>{name}</span> <br />

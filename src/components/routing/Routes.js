@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Portfolio from '../portfolio/Portfolio';
 import Portfolio1 from '../portfolio/Portfolio1';
@@ -21,7 +21,7 @@ import Friends1 from '../profiles/Friends1';
 import Projects from '../profiles/Projects';
 import AddPortfolio from '../addportfolio/AddPortfolio';
 import PrivateRoute from './PrivateRoute';
-import NotFound from '../NotFound';
+// import NotFound from '../NotFound';
 import ChatPage from '../chat/ChatPage';
 import SingleProject from '../projects/SingleProject';
 import ProjectList from '../projects/ProjectList';
@@ -66,7 +66,7 @@ const Routes = ({ auth: { user } }) => {
         <PrivateRoute exact path='/projectlist/:id' component={ProjectList} />
         {/* <Route exact path='*' component={NotFound} /> */}
       </Switch>
-      {/* {user?._id && <ChatSideBar />} */}
+      {user?._id && <ChatSideBar />}
     </>
   );
 };

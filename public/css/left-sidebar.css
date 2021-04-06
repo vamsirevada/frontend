@@ -33,7 +33,7 @@ h3 {
 }
 
 .prof-pic.p4 {
-  background: rgb(0, 0, 0) no-repeat center center/cover;
+  background: no-repeat center center/cover;
 }
 .prof-pic.p5 {
   background-color: transparent;
@@ -42,7 +42,7 @@ h3 {
   background-color: transparent;
 }
 .prof-pic.p7 {
-  background: rgba(0, 0, 0, 0.8) no-repeat center center/cover;
+  background: no-repeat center center/cover;
 }
 .prof-pic.p8 {
   background-color: transparent;
@@ -222,6 +222,7 @@ h3 {
   height: 5rem;
   border-radius: 20px;
   background: url('../img/dummyimage.jpg') no-repeat center center/cover;
+  object-fit: cover;
 }
 
 .display-pic-g {

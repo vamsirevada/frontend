@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
-import thumbnail from '../../images/icons/Thumbnail.jpg';
+import thumbnail from '../../images/icons/Thumbnail-01.png';
 
 const PortfolioLeftEducation = ({
   education: { school, degree, fieldofstudy, from, to },

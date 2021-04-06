@@ -305,7 +305,7 @@ const ImageGrid = ({ id, profile }) => {
                 poster={Audio}
                 src={doc.url}
                 alt='uploaded pic'
-                initial={{ opacity: 0 }}
+                initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
               />
@@ -315,7 +315,7 @@ const ImageGrid = ({ id, profile }) => {
       <h3>
         Blog <span style={{ color: '#5d67cc' }}>({blog.length})</span>
       </h3>
-      <div className='img-grid'>
+      <div className='img-grid blog'>
         {blog &&
           blog.map((doc) => (
             <motion.div

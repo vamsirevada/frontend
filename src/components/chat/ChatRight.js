@@ -39,7 +39,7 @@ const ChatRight = ({
           ></div>
           <div className='flex-column'>
             <div className='chat-name'>
-              <a>{chatProfile?.user?.fullName}</a>
+              <a href='#!'>{chatProfile?.user?.fullName}</a>
             </div>
             <div className='chat-body'>
               <p>Active Now</p>
@@ -111,7 +111,7 @@ const ChatRight = ({
             ></textarea>
           </div>
           <div className='form-flex-right'>
-            <a type='submit'>
+            <a href='#!' type='submit'>
               <img src={sendbutton} onClick={sendMessage} alt='' />
             </a>
           </div>
