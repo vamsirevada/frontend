@@ -2,24 +2,28 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import { getBuddiesById } from '../../actions/profile';
-import { getRealtimeConversations, updateMessage } from '../../actions/chat';
+import { getProjects } from '../../actions/project';
+import { getRealtimeConversations } from '../../actions/chat';
 import { connect, useDispatch } from 'react-redux';
-import sendbutton from '../../images/sendbutton.svg';
+
 import attach from '../../images/attach.svg';
 import logo from '../../images/dummyimage.jpg';
 import emoji from '../../images/emoji.svg';
 import path from '../../images/path.svg';
 import videocall from '../../images/videocall.png';
 import background from '../../images/Rectangle.png';
+import ChatRight from './ChatRight';
 
 const ChatPage = ({
   auth,
   getBuddiesById,
+  getProjects,
   profile: { buddies },
+  project: { projects },
   chat: { conversations },
 }) => {
   const dispatch = useDispatch();
-  const [formValue, setFormValue] = useState('');
+
   const [chatProfile, setChatProfile] = useState('');
   const [chatStarted, setChatStarted] = useState(false);
   const [chatUserImage, setChatUserImage] = useState(logo);
@@ -27,22 +31,8 @@ const ChatPage = ({
 
   useEffect(() => {
     getBuddiesById(auth?.user?._id);
-  }, [getBuddiesById, auth?.user?._id]);
-
-  const sendMessage = async (e) => {
-    e.preventDefault();
-    const msgObj = {
-      user_uid_1: auth?.user?._id,
-      user_uid_2: userUid,
-      formValue,
-    };
-    if (formValue !== '') {
-      dispatch(updateMessage(msgObj)).then(() => {
-        setFormValue('');
-      });
-    }
-  };
-  console.log(logo);
+    getProjects(auth?.user?._id);
+  }, [getBuddiesById, getProjects, auth?.user?._id]);
 
   return (
     <div id='full-chat'>
@@ -93,7 +83,9 @@ const ChatPage = ({
                     >
                       <div
                         style={{
-                          background: `url(${profile.avatar}) no-repeat center center/cover`,
+                          background: `url(${
+                            profile?.avatar ? profile?.avatar : logo
+                          }) no-repeat center center/cover`,
                         }}
                         className='dp'
                       ></div>
@@ -103,9 +95,39 @@ const ChatPage = ({
                         </div>
                         <div className='chat-body'>
                           <p>{profile.location}</p>
-                          {/* <div className="bubble">
-                            <p>2</p>
-                          </div> */}
+                        </div>
+                      </div>
+                    </div>
+                    <hr className='hori-2' />
+                  </Fragment>
+                ))}
+            </div>
+            <div className='chats'>
+              <div className='chats-heading'>
+                <h3>
+                  ProjectGroups{' '}
+                  <span className='blue'>({projects.length})</span>
+                </h3>
+                <a className='blue'>See More</a>
+              </div>
+              {projects &&
+                projects.map((project) => (
+                  <Fragment key={project?._id}>
+                    <div className='fullchat-chatgrid'>
+                      <div
+                        style={{
+                          background: `url(${
+                            project?.avatar ? project?.avatar : logo
+                          }) no-repeat center center/cover`,
+                        }}
+                        className='dp'
+                      ></div>
+                      <div className='flex-column-1'>
+                        <div className='chat-name'>
+                          <a>{project?.projectname}</a>
+                        </div>
+                        <div className='chat-body'>
+                          <p>{project?.location}</p>
                         </div>
                       </div>
                     </div>
@@ -117,96 +139,13 @@ const ChatPage = ({
         </div>
       </aside>
       {chatStarted ? (
-        <section id='fullchat-right'>
-          <div className='fullchat-maintop'>
-            <div className='fullchat-maintop-left'>
-              <div
-                style={{
-                  background: `url(${chatUserImage}) no-repeat center center/cover`,
-                }}
-                className='dp-4'
-              ></div>
-              <div className='flex-column'>
-                <div className='chat-name'>
-                  <a>{chatProfile?.user?.fullName}</a>
-                </div>
-                <div className='chat-body'>
-                  <p>Active Now</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className='fullchat-mainbody'>
-            <div className='fullchat-mainbody-container'>
-              <div className='flex-c'>
-                {conversations.map((con, index) => (
-                  <div
-                    key={index}
-                    className={`${
-                      auth.user._id === con.user_uid_1 ? 'flex-c-r' : 'flex-2'
-                    }`}
-                  >
-                    {auth?.user?._id !== con?.user_uid_1 && (
-                      <span
-                        style={{
-                          background: `url(${chatUserImage}) no-repeat center center/cover`,
-                        }}
-                        className='dp-2'
-                      ></span>
-                    )}
-                    <div
-                      className={`${
-                        auth?.user?._id === con?.user_uid_1
-                          ? 'flex-c-r-left'
-                          : 'flex-2-c'
-                      }`}
-                    >
-                      <p
-                        className={`${
-                          auth?.user?._id === con?.user_uid_1 ? 'b-1' : 'b-2'
-                        }`}
-                      >
-                        {con.formValue}
-                      </p>
-                      <small className='i-1'>
-                        {new Date(con?.createdAt?.toDate()).toLocaleString()}
-                      </small>
-                    </div>
-                    {auth?.user?._id === con?.user_uid_1 && (
-                      <span
-                        style={{
-                          background: `url(${auth?.user?.avatar}) no-repeat center center/cover`,
-                        }}
-                        className='dp-4-1 flex-c-r-right'
-                      ></span>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className='fullchat-type'>
-            <div className='form-grid'>
-              <div className='form-flex-left'>
-                <textarea
-                  type='text'
-                  name='typemessage'
-                  value={formValue}
-                  placeholder='Type your Message'
-                  onChange={(e) => setFormValue(e.target.value)}
-                  rows='1'
-                ></textarea>
-              </div>
-              <div className='form-flex-right'>
-                <a type='submit'>
-                  <img src={sendbutton} onClick={sendMessage} alt='' />
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ChatRight
+          conversations={conversations}
+          auth={auth}
+          chatProfile={chatProfile}
+          chatUserImage={chatUserImage}
+          userUid={userUid}
+        />
       ) : (
         <section
           id='fullchat-right'
@@ -230,8 +169,10 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
   chat: state.chat,
+  project: state.project,
 });
 
 export default connect(mapStateToProps, {
   getBuddiesById,
+  getProjects,
 })(ChatPage);

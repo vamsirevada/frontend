@@ -189,7 +189,7 @@ const ImageGrid = ({ id, profile }) => {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1 }}
                 />
-                <p>{doc.title}</p>
+                <p className='title-hide'>{doc.title}</p>
               </motion.div>
             ))}
       </div>
@@ -260,7 +260,7 @@ const ImageGrid = ({ id, profile }) => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1 }}
                   />
-                  <p>{doc.title}</p>
+                  <p className='title-hide'>{doc.title}</p>
                 </motion.div>
               )
           )}

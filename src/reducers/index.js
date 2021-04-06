@@ -10,6 +10,7 @@ import project from './project';
 import notice from './notice';
 import projectpost from './projectpost';
 import portfolio from './portfolio';
+import expense from './expense';
 
 export default combineReducers({
   alert,
@@ -23,4 +24,5 @@ export default combineReducers({
   notice,
   projectpost,
   portfolio,
+  expense,
 });

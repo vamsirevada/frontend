@@ -112,7 +112,7 @@ const EditProfile = ({
               />
               <img
                 className='display-pic'
-                src={avatar ? avatar : logo}
+                src={avatar ? avatar : profile?.avatar}
                 alt=''
               />
               <button className='btn-yellow' onClick={onOpenFileDialog}>
