@@ -16,6 +16,20 @@ import AddClients from './AddClients';
 import AddGroupAward from './AddGroupAward';
 import AddContact from './AddContact';
 import { projectStorage } from '../../firebase/config';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
+const initialState = {
+  location: '',
+  avatar: '',
+  status: '',
+  bio: '',
+  founder: '',
+  dob: '',
+  gender: '',
+  hometown: '',
+  languageknown: '',
+};
 
 const EditProfile = ({
   profile: { profile, loading },
@@ -24,36 +38,21 @@ const EditProfile = ({
   history,
 }) => {
   let fileInput = React.createRef();
-  const [formData, setFormData] = useState({
-    location: '',
-    avatar: '',
-    status: '',
-    bio: '',
-    founder: '',
-    dob: '',
-    gender: '',
-    hometown: '',
-    languageknown: '',
-  });
+  const [progress, setProgress] = useState(0);
+  const [show, setShow] = useState(false);
+  const [formData, setFormData] = useState(initialState);
 
   const { isGroup } = user;
 
   useEffect(() => {
-    setFormData({
-      location: loading || !profile.location ? '' : profile.location,
-      avatar: loading || !profile.avatar ? '' : profile.avatar,
-      status: loading || !profile.status ? '' : profile.status,
-      bio: loading || !profile.bio ? '' : profile.bio,
-      founder: loading || !profile.founder ? '' : profile.founder,
-      dob: loading || !profile.dob ? '' : profile.dob,
-      gender: loading || !profile.gender ? '' : profile.gender,
-      hometown: loading || !profile.hometown ? '' : profile.hometown,
-      languageknown:
-        loading || !profile.languageknown ? '' : profile.languageknown,
-      experience: loading || !profile.experience ? '' : profile.experience,
-    });
-    //eslint-disable-next-line
-  }, []);
+    if (!loading && profile) {
+      const profileData = { ...initialState };
+      for (const key in profile) {
+        if (key in profileData) profileData[key] = profile[key];
+      }
+      setFormData(profileData);
+    }
+  }, [loading, profile]);
 
   const {
     location,
@@ -67,6 +66,9 @@ const EditProfile = ({
     languageknown,
   } = formData;
 
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
   const onOpenFileDialog = () => {
     fileInput.current.click();
   };
@@ -75,21 +77,21 @@ const EditProfile = ({
     const file = e.target.files[0];
     const storageRef = projectStorage.ref('profilepictures');
     const fileRef = storageRef.child(file.name);
-    await fileRef.put(file);
+    await fileRef.put(file).on('state_changed', (snap) => {
+      let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+      setProgress(Math.round(percentage));
+      setShow(true);
+    });
     setFormData({
       ...formData,
       avatar: await fileRef.getDownloadURL(),
     });
-
     createProfile(
       { ...formData, avatar: await fileRef.getDownloadURL() },
       history,
       true
     );
   };
-
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -110,17 +112,19 @@ const EditProfile = ({
                 hidden={true}
                 ref={fileInput}
               />
-              <img
-                className='display-pic'
-                src={avatar ? avatar : profile?.avatar}
-                alt=''
-              />
+              <img className='display-pic' src={avatar} alt='' />
+
               <button className='btn-yellow' onClick={onOpenFileDialog}>
                 Upload Picture
               </button>
+              {show && (
+                <div style={{ width: 50, height: 50, margin: 'auto' }}>
+                  <CircularProgressbar value={progress} text={`${progress}%`} />
+                </div>
+              )}
             </div>
             <div className='c-form'>
-              <form onSubmit={(e) => onSubmit(e)}>
+              <form onSubmit={onSubmit}>
                 <div>
                   <label htmlFor='status'>
                     Type of Group <span className='blue'>*</span>
@@ -129,7 +133,7 @@ const EditProfile = ({
                     type='text'
                     name='status'
                     value={status}
-                    onChange={(e) => onChange(e)}
+                    onChange={onChange}
                     placeholder='Enter Your Designation'
                   />
                 </div>
@@ -141,7 +145,7 @@ const EditProfile = ({
                     type='text'
                     name='founder'
                     value={founder}
-                    onChange={(e) => onChange(e)}
+                    onChange={onChange}
                   />
                 </div>
                 <div>
@@ -153,7 +157,7 @@ const EditProfile = ({
                     name='location'
                     // id='location'
                     value={location}
-                    onChange={(e) => onChange(e)}
+                    onChange={onChange}
                     placeholder='Enter Your Location'
                   />
                 </div>
@@ -164,7 +168,7 @@ const EditProfile = ({
                     id='messages'
                     rows='10'
                     value={bio}
-                    onChange={(e) => onChange(e)}
+                    onChange={onChange}
                     placeholder='Write Something about yourself'
                   ></textarea>
                 </div>
@@ -209,12 +213,18 @@ const EditProfile = ({
                 ref={fileInput}
               />
               <img className='display-pic' src={avatar} alt='' />
+              {show && (
+                <div style={{ width: 50, height: 50, margin: 'auto' }}>
+                  <CircularProgressbar value={progress} text={`${progress}%`} />
+                </div>
+              )}
+
               <button className='btn-yellow' onClick={onOpenFileDialog}>
                 Upload Picture
               </button>
             </div>
             <div className='c-form'>
-              <form onSubmit={(e) => onSubmit(e)}>
+              <form onSubmit={onSubmit}>
                 <div>
                   <label htmlFor='location'>
                     Location <span className='blue'>*</span>
@@ -223,7 +233,7 @@ const EditProfile = ({
                     type='text'
                     name='location'
                     value={location}
-                    onChange={(e) => onChange(e)}
+                    onChange={onChange}
                     placeholder='Enter Your Location'
                   />
                 </div>
@@ -236,7 +246,7 @@ const EditProfile = ({
                     name='status'
                     id='Profession'
                     value={status}
-                    onChange={(e) => onChange(e)}
+                    onChange={onChange}
                     placeholder='Enter Your Designation'
                   />
                 </div>
@@ -248,7 +258,7 @@ const EditProfile = ({
                     id='messages'
                     rows='10'
                     value={bio}
-                    onChange={(e) => onChange(e)}
+                    onChange={onChange}
                     placeholder='Write Something about yourself'
                   ></textarea>
                 </div>
@@ -260,8 +270,8 @@ const EditProfile = ({
                   <input
                     type='date'
                     name='dob'
-                    value={dob}
-                    onChange={(e) => onChange(e)}
+                    value={dob.slice(0, 10)}
+                    onChange={onChange}
                     className='date'
                   />
                 </div>
@@ -277,7 +287,7 @@ const EditProfile = ({
                     name='gender'
                     value='Male'
                     checked={gender === 'Male'}
-                    onChange={(e) => onChange(e)}
+                    onChange={onChange}
                   />
                   Male{' '}
                   <input
@@ -286,7 +296,7 @@ const EditProfile = ({
                     name='gender'
                     value='Female'
                     checked={gender === 'Female'}
-                    onChange={(e) => onChange(e)}
+                    onChange={onChange}
                   />
                   Female{' '}
                   <input
@@ -295,7 +305,7 @@ const EditProfile = ({
                     name='gender'
                     value='Others'
                     checked={gender === 'Others'}
-                    onChange={(e) => onChange(e)}
+                    onChange={onChange}
                   />
                   Others{' '}
                   <input
@@ -304,7 +314,7 @@ const EditProfile = ({
                     name='gender'
                     value='Prefer not to say'
                     checked={gender === 'Prefer not to say'}
-                    onChange={(e) => onChange(e)}
+                    onChange={onChange}
                   />
                   Prefer not to say{' '}
                 </div>
@@ -316,7 +326,7 @@ const EditProfile = ({
                     type='text'
                     name='hometown'
                     value={hometown}
-                    onChange={(e) => onChange(e)}
+                    onChange={onChange}
                     id='hometown'
                   />
                 </div>
@@ -329,7 +339,7 @@ const EditProfile = ({
                     type='text'
                     name='languageknown'
                     value={languageknown}
-                    onChange={(e) => onChange(e)}
+                    onChange={onChange}
                     id='Language'
                   />
                 </div>

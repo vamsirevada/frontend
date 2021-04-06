@@ -7,10 +7,12 @@ import path from '../../images/path.svg';
 import { projectFirestore, projectStorage } from '../../firebase/config';
 import { getRealtimeData } from '../../actions/portfolio';
 import './Gallery.css';
-import Audio from '../../images/audio.svg';
+// import Audio from '../../images/audio.svg';
 import Modal from './Modal';
 import { useDispatch } from 'react-redux';
 import VideoModal from './VideoModal';
+import poster from '../../images/play.jpg';
+import AudioModal from './AudioModal';
 
 const ImageGrid = ({ id, profile }) => {
   const dispatch = useDispatch();
@@ -20,9 +22,11 @@ const ImageGrid = ({ id, profile }) => {
   const [viewAllVideo, setViewAllVideo] = useState(false);
   const [showImage, setShowImage] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
+  const [showAudio, setShowAudio] = useState(false);
   const [value, setValue] = useState(0);
   const [dispImage, setDispImage] = useState({ imageUrl: '' });
   const [dispVideo, setDispVideo] = useState({ videoUrl: '' });
+  const [dispAudio, setDispAudio] = useState({ audioUrl: '' });
 
   const _remove = async (name, type) => {
     if (type === 'blog') {
@@ -66,9 +70,9 @@ const ImageGrid = ({ id, profile }) => {
     docs && docs.filter((i) => i.userId === id && i?.type === 'Video');
   const images =
     docs && docs.filter((i) => i?.userId === id && i?.type === 'Picture');
-  const audio =
+  const audios =
     docs && docs.filter((i) => i?.userId === id && i?.type === 'Audio');
-  const blog =
+  const blogs =
     docs && docs.filter((i) => i?.userId === id && i?.type === 'Blog');
 
   const displayImage = (index) => {
@@ -97,6 +101,19 @@ const ImageGrid = ({ id, profile }) => {
     setShowVideo(false);
   };
 
+  const displayAudio = (index) => {
+    const audio = audios[index];
+    setDispAudio({
+      audioUrl: audio.url,
+    });
+    setValue(index);
+    setShowAudio(true);
+  };
+
+  const hideAudio = () => {
+    setShowAudio(false);
+  };
+
   return (
     <span>
       {showImage && (
@@ -116,6 +133,16 @@ const ImageGrid = ({ id, profile }) => {
           videos={videos}
           profile={profile}
           close={hideVideo}
+          value={value}
+        />
+      )}
+      {showAudio && (
+        <AudioModal
+          displayAudio={displayAudio}
+          dispAudio={dispAudio}
+          audios={audios}
+          profile={profile}
+          close={hideAudio}
           value={value}
         />
       )}
@@ -266,11 +293,11 @@ const ImageGrid = ({ id, profile }) => {
           )}
       </div>
       <h3>
-        Audio <span style={{ color: '#5d67cc' }}>({audio.length})</span>
+        Audio <span style={{ color: '#5d67cc' }}>({audios.length})</span>
       </h3>
       <div className='img-grid'>
-        {audio &&
-          audio.map((doc, index) => (
+        {audios &&
+          audios.map((doc, index) => (
             <motion.div
               className='img-wrap'
               key={doc.id}
@@ -302,7 +329,11 @@ const ImageGrid = ({ id, profile }) => {
                 )}
               </div>
               <motion.video
-                poster={Audio}
+                onClick={() => {
+                  displayAudio(index);
+                  dispatch(getRealtimeData(doc.id));
+                }}
+                poster={poster}
                 src={doc.url}
                 alt='uploaded pic'
                 initial={{ opacity: 0 }}
@@ -313,11 +344,11 @@ const ImageGrid = ({ id, profile }) => {
           ))}
       </div>
       <h3>
-        Blog <span style={{ color: '#5d67cc' }}>({blog.length})</span>
+        Blog <span style={{ color: '#5d67cc' }}>({blogs.length})</span>
       </h3>
       <div className='img-grid'>
-        {blog &&
-          blog.map((doc) => (
+        {blogs &&
+          blogs.map((doc) => (
             <motion.div
               className='img-wrap'
               key={doc.id}
