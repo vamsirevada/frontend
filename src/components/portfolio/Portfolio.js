@@ -513,7 +513,7 @@ const Portfolio = ({
               </div>
               <button onClick={tour.start} className='demo-tour-button'>
                 Start Demo Tour
-                <span class='tooltiptext'>
+                <span className='tooltiptext'>
                   <div className='arrow-up'></div>
                   Take a Tour to get to know about features of website
                 </span>

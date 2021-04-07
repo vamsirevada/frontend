@@ -22,6 +22,10 @@ import {
 } from '../../actions/portfolio';
 import Loader from '../layout/Loader';
 import { Fragment } from 'react';
+import { projectFirestore } from '../../firebase/config';
+import EditIcon from '@material-ui/icons/Edit';
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
 
 const VideoModal = ({
   auth,
@@ -36,6 +40,10 @@ const VideoModal = ({
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('');
+  const [edit, setEdit] = useState(false);
+  const [titleedit, setTitleEdit] = useState(false);
+  const [des, setDes] = useState('');
+  const [ptitle, setPtitle] = useState('');
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -45,6 +53,38 @@ const VideoModal = ({
       clearTimeout(t);
     };
   });
+
+  const changeEditMode = () => {
+    setEdit(true);
+  };
+
+  const editTitleMode = () => {
+    setTitleEdit(true);
+  };
+
+  const editTitleModeClose = () => {
+    setTitleEdit(false);
+  };
+
+  const cancelEditMode = () => {
+    setEdit(false);
+  };
+
+  const updateEditMode = () => {
+    projectFirestore.collection('images').doc(portfolio.id).update({
+      description: des,
+    });
+    setEdit(false);
+    dispatch(getRealtimeData(portfolio.id));
+  };
+
+  const updateTitle = () => {
+    projectFirestore.collection('images').doc(portfolio.id).update({
+      title: ptitle,
+    });
+    setTitleEdit(false);
+    dispatch(getRealtimeData(portfolio.id));
+  };
 
   const like = (file) => {
     const likeObj = {
@@ -98,18 +138,41 @@ const VideoModal = ({
                       }}
                     ></div>
                     <div className='lh-title'>
-                      <h2 className='modal-title w-100'>
-                        {videos[value].title}
-                      </h2>
+                      {titleedit ? (
+                        <div className='popup-title'>
+                          <input
+                            type='text'
+                            defaultValue={portfolio.title}
+                            onChange={(e) => setPtitle(e.target.value)}
+                          />
+                          <div className='popup-editbutton'>
+                            <div onClick={updateTitle}>
+                              <CheckIcon color='primary' />
+                            </div>
+                            <div onClick={editTitleModeClose}>
+                              <CloseIcon color='secondary' />
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className='popup-title'>
+                          <h2 className='modal-title w-100'>
+                            {portfolio.title}
+                          </h2>
+                          <div onClick={editTitleMode}>
+                            <EditIcon />
+                          </div>
+                        </div>
+                      )}
                       <p>
                         by <span className='blue'>{user.fullName}</span>
                         {', '}
                         <Moment format='DD MMM YY'>
-                          {videos[value].createdAt.toDate()}
+                          {portfolio.createdAt.toDate()}
                         </Moment>{' '}
                         {', '}
                         <Moment format='hh:mm A'>
-                          {videos[value].createdAt.toDate()}
+                          {portfolio.createdAt.toDate()}
                         </Moment>
                       </p>
                     </div>
@@ -131,6 +194,8 @@ const VideoModal = ({
                     }
                     displayVideo(decrement);
                     dispatch(getRealtimeData(videos[decrement].id));
+                    setTitleEdit(false);
+                    setEdit(false);
                   }}
                   className='prev'
                 >
@@ -152,6 +217,8 @@ const VideoModal = ({
                     }
                     displayVideo(increment);
                     dispatch(getRealtimeData(videos[increment].id));
+                    setEdit(false);
+                    setTitleEdit(false);
                   }}
                   className='prev'
                 >
@@ -174,7 +241,7 @@ const VideoModal = ({
                             }}
                           >
                             <img className='r-1' src={yheart} alt='' />
-                            <span className='d-1'>Liked</span>
+                            <span className='d-1'>Apperciated</span>
                           </div>
                         </div>
                       ) : (
@@ -185,7 +252,7 @@ const VideoModal = ({
                             }}
                           >
                             <img className='r-1' src={heart} alt='' />
-                            <span className='d-1'>Like</span>
+                            <span className='d-1'>Apperciate</span>
                           </div>
                         </>
                       )}
@@ -214,9 +281,31 @@ const VideoModal = ({
                     </a>
                   </div>
                 </div>
-                <div className='popup-description'>
-                  <p>{videos[value].description}</p>
-                </div>
+                {edit ? (
+                  <div className='popup-description'>
+                    <textarea
+                      cols='15'
+                      rows='2'
+                      defaultValue={portfolio.description}
+                      onChange={(e) => setDes(e.target.value)}
+                    />
+                    <div className='popup-editbutton'>
+                      <div onClick={updateEditMode}>
+                        <CheckIcon color='primary' />
+                      </div>
+                      <div onClick={cancelEditMode}>
+                        <CloseIcon color='secondary' />
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className='popup-description'>
+                    <p>{portfolio.description}</p>
+                    <div onClick={changeEditMode}>
+                      <EditIcon />
+                    </div>
+                  </div>
+                )}
                 <hr className='Hori' />
                 <div className='comment-box'>
                   <div>

@@ -122,7 +122,6 @@ a:hover {
   width: 100%;
   display: grid;
   grid-template-columns: 15% 70% 15%;
-  /* grid-gap: 1rem; */
   align-items: center;
   margin-top: 4rem;
 }
@@ -200,7 +199,7 @@ a:hover {
 .post-pop-up-container .main-post-container .main-post-top .post-pic-1 video {
   width: 100% !important;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   vertical-align: middle;
   border-radius: 20px;
   outline: none;

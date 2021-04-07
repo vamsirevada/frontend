@@ -148,10 +148,10 @@ const Modal = ({
                           />
                           <div className='popup-editbutton'>
                             <div onClick={updateTitle}>
-                              <CheckIcon />
+                              <CheckIcon color='primary' />
                             </div>
                             <div onClick={editTitleModeClose}>
-                              <CloseIcon />
+                              <CloseIcon color='secondary' />
                             </div>
                           </div>
                         </div>
@@ -195,6 +195,8 @@ const Modal = ({
                     }
                     displayImage(decrement);
                     dispatch(getRealtimeData(images[decrement].id));
+                    setTitleEdit(false);
+                    setEdit(false);
                   }}
                   className='prev'
                 >
@@ -211,6 +213,8 @@ const Modal = ({
                     }
                     displayImage(increment);
                     dispatch(getRealtimeData(images[increment].id));
+                    setTitleEdit(false);
+                    setEdit(false);
                   }}
                   className='prev'
                 >
@@ -233,7 +237,7 @@ const Modal = ({
                             }}
                           >
                             <img className='r-1' src={yheart} alt='' />
-                            <span className='d-1'>Liked</span>
+                            <span className='d-1'>Apperciated</span>
                           </div>
                         </div>
                       ) : (
@@ -244,7 +248,7 @@ const Modal = ({
                             }}
                           >
                             <img className='r-1' src={heart} alt='' />
-                            <span className='d-1'>Like</span>
+                            <span className='d-1'>Apperciate</span>
                           </div>
                         </>
                       )}
@@ -283,7 +287,7 @@ const Modal = ({
                     />
                     <div className='popup-editbutton'>
                       <div onClick={updateEditMode}>
-                        <CheckIcon />
+                        <CheckIcon color='primary' />
                       </div>
                       <div onClick={cancelEditMode}>
                         <CloseIcon color='secondary' />

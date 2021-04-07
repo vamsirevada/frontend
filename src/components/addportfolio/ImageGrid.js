@@ -1,11 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import UseFirestore from './UseFireStore';
 import api from '../../utils/api';
 import { motion } from 'framer-motion';
 import path from '../../images/path.svg';
 import poster from '../../images/poster.png';
-import poster1 from '../../images/poster1.gif';
 import { projectFirestore, projectStorage } from '../../firebase/config';
 import { getRealtimeData } from '../../actions/portfolio';
 import './Gallery.css';
@@ -20,6 +19,8 @@ const ImageGrid = ({ id, profile }) => {
   const { docs } = UseFirestore('images');
   const [viewAllImg, setViewAllImg] = useState(false);
   const [viewAllVideo, setViewAllVideo] = useState(false);
+  const [viewAllAudio, setViewAllAudio] = useState(false);
+  const [viewAllBlog, setViewAllBlog] = useState(false);
   const [showImage, setShowImage] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const [showAudio, setShowAudio] = useState(false);
@@ -58,12 +59,6 @@ const ImageGrid = ({ id, profile }) => {
         url: name?.url,
       });
     }
-  };
-
-  const meta = (url) => {
-    var new_url = url.substring(0, url.indexOf('?alt'));
-    const ext = new_url.substring(new_url.lastIndexOf('.'));
-    return ext;
   };
 
   const videos =
@@ -115,7 +110,7 @@ const ImageGrid = ({ id, profile }) => {
   };
 
   return (
-    <span>
+    <span className='img-grid-container'>
       {showImage && (
         <Modal
           displayImage={displayImage}
@@ -147,31 +142,15 @@ const ImageGrid = ({ id, profile }) => {
         />
       )}
 
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
+      <div className='img-grid-heading'>
         <h3>
-          Videos
-          <span style={{ color: '#5d67cc' }}>({videos.length})</span>
+          Videos <span>({videos.length})</span>
         </h3>
-        <div
-          onClick={() => {
-            setViewAllVideo(!viewAllVideo);
-          }}
-          style={{ color: '#5d67cc', cursor: 'pointer', fontSize: '14px' }}
-        >
-          View All
-        </div>
       </div>
       <div className='img-grid'>
         {videos &&
           videos
-            .slice(0, viewAllVideo ? videos.length : 3)
+            .slice(0, viewAllVideo ? videos.length : 9)
             .map((doc, index) => (
               <motion.div
                 className='img-wrap'
@@ -220,137 +199,24 @@ const ImageGrid = ({ id, profile }) => {
               </motion.div>
             ))}
       </div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
-        <h3>
-          Pictures <span style={{ color: '#5d67cc' }}>({images.length})</span>
-        </h3>
+      {videos.length > 9 && (
         <div
+          className='load'
           onClick={() => {
-            setViewAllImg(!viewAllImg);
+            setViewAllVideo(!viewAllVideo);
           }}
-          style={{ color: '#5d67cc', cursor: 'pointer', fontSize: '14px' }}
         >
-          View All
+          <div className='loadmore'>View All</div>
         </div>
+      )}
+      <div className='img-grid-heading'>
+        <h3>
+          Pictures <span>({images.length})</span>
+        </h3>
       </div>
-
       <div className='img-grid'>
         {images &&
-          images.slice(0, viewAllImg ? images.length : 3).map(
-            (doc, index) =>
-              meta(doc.url) !== '.mp4' && (
-                <motion.div
-                  className='img-wrap'
-                  key={doc.id}
-                  layout
-                  style={{ opacity: 1 }}
-                  whileHover={{ opacity: 1 }}
-                >
-                  <div className='edit-container'>
-                    <div
-                      onClick={() => {
-                        setEdit(edit === doc.url ? '' : doc.url);
-                      }}
-                      className='edit'
-                    >
-                      <img src={path} className='resize' alt='' />
-                    </div>
-
-                    {edit === doc.url && (
-                      <div className='edit-text-box'>
-                        <div
-                          className='edit-text'
-                          onClick={() => {
-                            _remove(doc);
-                          }}
-                        >
-                          Remove Project
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                  <motion.img
-                    onClick={() => {
-                      displayImage(index);
-                      dispatch(getRealtimeData(doc.id));
-                    }}
-                    src={doc.url}
-                    alt='uploaded pic'
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1 }}
-                  />
-                  <p className='title-hide'>{doc.title}</p>
-                </motion.div>
-              )
-          )}
-      </div>
-      <h3>
-        Audio <span style={{ color: '#5d67cc' }}>({audios.length})</span>
-      </h3>
-      <div className='img-grid'>
-        {audios &&
-          audios.map((doc, index) => (
-            <motion.div
-              className='img-wrap-audio'
-              key={doc.id}
-              layout
-              style={{ opacity: 1 }}
-              whileHover={{ opacity: 1 }}
-            >
-              <div className='edit-container'>
-                <div
-                  onClick={() => {
-                    setEdit(edit === doc.url ? '' : doc.url);
-                  }}
-                  className='edit'
-                >
-                  <img src={path} className='resize' alt='' />
-                </div>
-
-                {edit === doc.url && (
-                  <div className='edit-text-box'>
-                    <div
-                      className='edit-text'
-                      onClick={() => {
-                        _remove(doc);
-                      }}
-                    >
-                      Remove Project
-                    </div>
-                  </div>
-                )}
-              </div>
-              <motion.video
-                onClick={() => {
-                  displayAudio(index);
-                  dispatch(getRealtimeData(doc.id));
-                }}
-                poster={poster}
-                controls
-                src={doc.url}
-                alt='uploaded pic'
-                initial={{ opacity: 1 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-              />
-              <p className='title-hide'>{doc.title}</p>
-            </motion.div>
-          ))}
-      </div>
-      <h3>
-        Blog <span style={{ color: '#5d67cc' }}>({blogs.length})</span>
-      </h3>
-      <div className='img-grid blog'>
-        {blogs &&
-          blogs.map((doc) => (
+          images.slice(0, viewAllImg ? images.length : 9).map((doc, index) => (
             <motion.div
               className='img-wrap'
               key={doc.id}
@@ -367,7 +233,135 @@ const ImageGrid = ({ id, profile }) => {
                 >
                   <img src={path} className='resize' alt='' />
                 </div>
+                {edit === doc.url && (
+                  <div className='edit-text-box'>
+                    <div
+                      className='edit-text'
+                      onClick={() => {
+                        _remove(doc);
+                      }}
+                    >
+                      Remove Project
+                    </div>
+                  </div>
+                )}
+              </div>
+              <motion.img
+                onClick={() => {
+                  displayImage(index);
+                  dispatch(getRealtimeData(doc.id));
+                }}
+                src={doc.url}
+                alt='uploaded pic'
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 1 }}
+              />
+              <p className='title-hide'>{doc.title}</p>
+            </motion.div>
+          ))}
+      </div>
+      {images.length > 9 && (
+        <div
+          className='load'
+          onClick={() => {
+            setViewAllImg(!viewAllImg);
+          }}
+        >
+          <div className='loadmore'>View All</div>
+        </div>
+      )}
+      <div className='img-grid-heading'>
+        <h3>
+          Audios <span>({audios.length})</span>
+        </h3>
+      </div>
+      <div className='img-grid'>
+        {audios &&
+          audios
+            .slice(0, viewAllAudio ? audios.length : 9)
+            .map((doc, index) => (
+              <motion.div
+                className='img-wrap'
+                key={doc.id}
+                layout
+                style={{ opacity: 1 }}
+                whileHover={{ opacity: 1 }}
+              >
+                <div className='edit-container'>
+                  <div
+                    onClick={() => {
+                      setEdit(edit === doc.url ? '' : doc.url);
+                    }}
+                    className='edit'
+                  >
+                    <img src={path} className='resize' alt='' />
+                  </div>
 
+                  {edit === doc.url && (
+                    <div className='edit-text-box'>
+                      <div
+                        className='edit-text'
+                        onClick={() => {
+                          _remove(doc);
+                        }}
+                      >
+                        Remove Project
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <motion.video
+                  onClick={() => {
+                    displayAudio(index);
+                    dispatch(getRealtimeData(doc.id));
+                  }}
+                  poster={poster}
+                  controls
+                  src={doc.url}
+                  alt='uploaded pic'
+                  initial={{ opacity: 1 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1 }}
+                />
+                <p className='title-hide'>{doc.title}</p>
+              </motion.div>
+            ))}
+      </div>
+      {audios.length > 9 && (
+        <div
+          className='load'
+          onClick={() => {
+            setViewAllAudio(!viewAllAudio);
+          }}
+        >
+          <div className='loadmore'>View All</div>
+        </div>
+      )}
+      <div className='img-grid-heading'>
+        <h3>
+          Blog <span>({blogs.length})</span>
+        </h3>
+      </div>
+      <div className='img-grid blog'>
+        {blogs &&
+          blogs.slice(0, viewAllBlog ? blogs.length : 9).map((doc) => (
+            <motion.div
+              className='img-wrap'
+              key={doc.id}
+              layout
+              style={{ opacity: 1 }}
+              whileHover={{ opacity: 1 }}
+            >
+              <div className='edit-container'>
+                <div
+                  onClick={() => {
+                    setEdit(edit === doc.url ? '' : doc.url);
+                  }}
+                  className='edit'
+                >
+                  <img src={path} className='resize' alt='' />
+                </div>
                 {edit === doc.url && (
                   <div className='edit-text-box'>
                     <div
@@ -394,6 +388,16 @@ const ImageGrid = ({ id, profile }) => {
             </motion.div>
           ))}
       </div>
+      {blogs.length > 9 && (
+        <div
+          className='load'
+          onClick={() => {
+            setViewAllBlog(!viewAllBlog);
+          }}
+        >
+          <div className='loadmore'>View All</div>
+        </div>
+      )}
     </span>
   );
 };
