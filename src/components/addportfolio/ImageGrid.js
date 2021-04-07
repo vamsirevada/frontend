@@ -1,9 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import UseFirestore from './UseFireStore';
 import api from '../../utils/api';
 import { motion } from 'framer-motion';
 import path from '../../images/path.svg';
+import poster from '../../images/poster.png';
+import poster1 from '../../images/poster1.gif';
 import { projectFirestore, projectStorage } from '../../firebase/config';
 import { getRealtimeData } from '../../actions/portfolio';
 import './Gallery.css';
@@ -11,7 +13,7 @@ import './Gallery.css';
 import Modal from './Modal';
 import { useDispatch } from 'react-redux';
 import VideoModal from './VideoModal';
-import poster from '../../images/play.jpg';
+// import poster from '../../images/play.jpg';
 import AudioModal from './AudioModal';
 
 const ImageGrid = ({ id, profile }) => {
@@ -334,12 +336,14 @@ const ImageGrid = ({ id, profile }) => {
                   dispatch(getRealtimeData(doc.id));
                 }}
                 poster={poster}
+                controls
                 src={doc.url}
                 alt='uploaded pic'
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
               />
+              <p className='title-hide'>{doc.title}</p>
             </motion.div>
           ))}
       </div>

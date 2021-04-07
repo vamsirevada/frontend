@@ -22,6 +22,10 @@ import {
 } from '../../actions/portfolio';
 import Loader from '../layout/Loader';
 import { Fragment } from 'react';
+import { projectFirestore } from '../../firebase/config';
+import EditIcon from '@material-ui/icons/Edit';
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
 
 const Modal = ({
   auth,
@@ -36,6 +40,10 @@ const Modal = ({
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('');
+  const [edit, setEdit] = useState(false);
+  const [titleedit, setTitleEdit] = useState(false);
+  const [des, setDes] = useState('');
+  const [ptitle, setPtitle] = useState('');
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -45,6 +53,38 @@ const Modal = ({
       clearTimeout(t);
     };
   });
+
+  const changeEditMode = () => {
+    setEdit(true);
+  };
+
+  const editTitleMode = () => {
+    setTitleEdit(true);
+  };
+
+  const editTitleModeClose = () => {
+    setTitleEdit(false);
+  };
+
+  const cancelEditMode = () => {
+    setEdit(false);
+  };
+
+  const updateEditMode = () => {
+    projectFirestore.collection('images').doc(portfolio.id).update({
+      description: des,
+    });
+    setEdit(false);
+    dispatch(getRealtimeData(portfolio.id));
+  };
+
+  const updateTitle = () => {
+    projectFirestore.collection('images').doc(portfolio.id).update({
+      title: ptitle,
+    });
+    setTitleEdit(false);
+    dispatch(getRealtimeData(portfolio.id));
+  };
 
   const like = (file) => {
     const likeObj = {
@@ -99,18 +139,41 @@ const Modal = ({
                       }}
                     ></div>
                     <div className='lh-title'>
-                      <h2 className='modal-title w-100'>
-                        {images[value].title}
-                      </h2>
+                      {titleedit ? (
+                        <div className='popup-title'>
+                          <input
+                            type='text'
+                            defaultValue={portfolio.title}
+                            onChange={(e) => setPtitle(e.target.value)}
+                          />
+                          <div className='popup-editbutton'>
+                            <div onClick={updateTitle}>
+                              <CheckIcon />
+                            </div>
+                            <div onClick={editTitleModeClose}>
+                              <CloseIcon />
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className='popup-title'>
+                          <h2 className='modal-title w-100'>
+                            {portfolio.title}
+                          </h2>
+                          <div onClick={editTitleMode}>
+                            <EditIcon />
+                          </div>
+                        </div>
+                      )}
                       <p>
                         by <span className='blue'>{user.fullName}</span>
                         {', '}
                         <Moment format='DD MMM YY'>
-                          {images[value].createdAt.toDate()}
+                          {portfolio.createdAt.toDate()}
                         </Moment>{' '}
                         {', '}
                         <Moment format='hh:mm A'>
-                          {images[value].createdAt.toDate()}
+                          {portfolio.createdAt.toDate()}
                         </Moment>
                       </p>
                     </div>
@@ -210,9 +273,32 @@ const Modal = ({
                     </a>
                   </div>
                 </div>
-                <div className='popup-description'>
-                  <p>{images[value].description}</p>
-                </div>
+                {edit ? (
+                  <div className='popup-description'>
+                    <textarea
+                      cols='15'
+                      rows='2'
+                      defaultValue={portfolio.description}
+                      onChange={(e) => setDes(e.target.value)}
+                    />
+                    <div className='popup-editbutton'>
+                      <div onClick={updateEditMode}>
+                        <CheckIcon />
+                      </div>
+                      <div onClick={cancelEditMode}>
+                        <CloseIcon color='secondary' />
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <div className='popup-description'>
+                    <p>{portfolio.description}</p>
+                    <div onClick={changeEditMode}>
+                      <EditIcon />
+                    </div>
+                  </div>
+                )}
+
                 <hr className='Hori' />
                 <div className='comment-box'>
                   <div>
@@ -273,12 +359,6 @@ const Modal = ({
                                     {comment?.fullName && comment?.fullName}
                                   </span>{' '}
                                 </Link>
-
-                                {/* <span className='d-2'>
-                                  <Moment format='DD MMM YYYY, hh:mm a'>
-                                    {comment.commentedTime}
-                                  </Moment>
-                                </span> */}
                               </div>
                               <div className='d-3'>
                                 <p>{comment.commentText}</p>

@@ -80,6 +80,24 @@ a:hover {
 .post-pop-up-container .flex .flex-1 .lh-title {
   line-height: 1.4rem;
 }
+
+.post-pop-up-container .flex .flex-1 .lh-title .popup-title {
+  display: flex;
+  justify-content: space-between;
+}
+
+.popup-title input {
+  width: 100%;
+  color: #272727;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1rem;
+  background: #f8f8f8;
+  outline: none;
+  border: none;
+  padding: 0.5rem 0.2rem;
+  border-radius: 10px;
+}
+
 .post-pop-up-container .flex .flex-1 .lh-title p {
   font-size: 0.8rem;
 }
@@ -125,7 +143,28 @@ a:hover {
   padding: 0rem 2.75rem;
   text-align: justify;
   word-break: break-word;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
+
+.popup-description textarea {
+  width: 90%;
+  color: #272727;
+  font-family: 'Raleway', sans-serif;
+  font-size: 1rem;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  background: #f8f8f8;
+  padding: 1rem 1rem 1rem 0rem;
+}
+
+.popup-editbutton {
+  display: flex;
+  align-items: center;
+}
+
 .post-pop-up-container .main-post-container .des-comm-box .comments {
   margin-top: 1rem;
 }

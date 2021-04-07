@@ -11,7 +11,7 @@ export const getRealtimeData = (fileId) => {
       .then((data) => {
         dispatch({
           type: GET_DATA,
-          payload: data.data(),
+          payload: { id: data.id, ...data.data() },
         });
       });
   };

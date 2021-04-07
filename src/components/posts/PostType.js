@@ -1,12 +1,12 @@
 const PostType = (type) => {
-  if (type === "photo") {
-    return "photo";
-  } else if (type === "blog") {
-    return "blog";
-  } else if (type === "audio") {
-    return "audio";
-  } else if (type === "video") {
-    return "video";
+  if (type === "Picture") {
+    return "Picture";
+  } else if (type === "Blog") {
+    return "Blog";
+  } else if (type === "Audio") {
+    return "Audio";
+  } else if (type === "Video") {
+    return "Video";
   } else {
     return "default";
   }
