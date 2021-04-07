@@ -37,8 +37,8 @@ const tourOptions = {
     cancelIcon: {
       enabled: true,
     },
-    useModalOverlay: true,
   },
+  useModalOverlay: true,
 };
 
 const App = () => {
@@ -62,45 +62,51 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <SearchProvider>
-        <Router>
-          <Fragment>
-            <Alert />
-            <Switch>
-              {/* <Route exact path='/' component={NotFound} /> */}
-              <Route exact path='/' component={Landing} />
-              <Route exact path='/help' component={Help} />
-              <Route exact path='/register' component={Register} />
-              <Route exact path='/groupregister' component={Groupregister} />
-              <Route exact path='/login' component={Login} />
-              <Route exact path='/forgot-password' component={Forgot} />
-              <Route
-                exact
-                path='/reset-password/:resetPasswordToken'
-                component={Reset}
-              />
-              <Route exact path='/invite' component={Invite} />
-              <Route exact path='/referral' component={ReferralPage} />
-              <Route exact path='/writerlogin' component={WriterLogin} />
-              <Route exact path='/writerregister' component={WriterRegister} />
-              <PrivateRoute exact path='/add' component={Add} />
-              <Route exact path='/blog' component={Blog} />
-              <Route exact path='/blog/:id' component={SingleArticle} />
-              <PrivateRoute
-                exact
-                path='/create-profile'
-                component={CreateProfile}
-              />
-              <PrivateRoute
-                exact
-                path='/create-group-profile'
-                component={CreateGroupProfile}
-              />
-              <PrivateRoute component={Routes} />
-            </Switch>
-          </Fragment>
-        </Router>
-      </SearchProvider>
+      <ShepherdTour steps={steps} tourOptions={tourOptions}>
+        <SearchProvider>
+          <Router>
+            <Fragment>
+              <Alert />
+              <Switch>
+                {/* <Route exact path='/' component={NotFound} /> */}
+                <Route exact path='/' component={Landing} />
+                <Route exact path='/help' component={Help} />
+                <Route exact path='/register' component={Register} />
+                <Route exact path='/groupregister' component={Groupregister} />
+                <Route exact path='/login' component={Login} />
+                <Route exact path='/forgot-password' component={Forgot} />
+                <Route
+                  exact
+                  path='/reset-password/:resetPasswordToken'
+                  component={Reset}
+                />
+                <Route exact path='/invite' component={Invite} />
+                <Route exact path='/referral' component={ReferralPage} />
+                <Route exact path='/writerlogin' component={WriterLogin} />
+                <Route
+                  exact
+                  path='/writerregister'
+                  component={WriterRegister}
+                />
+                <PrivateRoute exact path='/add' component={Add} />
+                <Route exact path='/blog' component={Blog} />
+                <Route exact path='/blog/:id' component={SingleArticle} />
+                <PrivateRoute
+                  exact
+                  path='/create-profile'
+                  component={CreateProfile}
+                />
+                <PrivateRoute
+                  exact
+                  path='/create-group-profile'
+                  component={CreateGroupProfile}
+                />
+                <PrivateRoute component={Routes} />
+              </Switch>
+            </Fragment>
+          </Router>
+        </SearchProvider>
+      </ShepherdTour>
     </Provider>
   );
 };

@@ -130,6 +130,7 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
                 <p>Home</p>
               </Link>
             </div>
+            {/* <div className='one'></div> */}
             <div
               className={
                 portActive

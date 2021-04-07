@@ -28,7 +28,6 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import { Link } from 'react-router-dom';
 import { ShepherdTourContext } from 'react-shepherd';
-
 const Portfolio = ({
   getProjects,
   auth: { user },

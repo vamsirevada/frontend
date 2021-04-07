@@ -2,8 +2,8 @@
 export default [
   {
     id: 'welcome',
-    title: 'Feed',
-    text: `You can see you and your friends feed with posts`,
+    title: 'Home',
+    text: `You can see your and your friends posts`,
     attachTo: { element: '.classnamefeed', on: 'bottom' },
     classes: 'shepherd shepherd-welcome',
     buttons: [

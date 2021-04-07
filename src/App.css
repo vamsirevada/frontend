@@ -16,6 +16,10 @@ html {
   scroll-behavior: smooth;
 }
 
+.shepherd-button-secondary {
+  background-color: #7480ff;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;

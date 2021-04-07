@@ -29,7 +29,6 @@ const PortfolioRightTop = ({
       <div className='mutual-frds'>
         {type !== 'edit' && (
           <div className='prof-heading-flex'>
-            <div></div>
             <Link to={'/addfiles'}>
               <h4>
                 <span className='bg-1 addtoportfolio'>Add to Portfolio</span>
