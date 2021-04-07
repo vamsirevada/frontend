@@ -29,8 +29,9 @@ import './App.css';
 import { LOGOUT } from './actions/types';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import 'shepherd.js/dist/css/shepherd.css';
+// import 'shepherd.js/dist/css/shepherd.css';
 import steps from './steps';
+import './steps.css';
 
 const tourOptions = {
   defaultStepOptions: {
