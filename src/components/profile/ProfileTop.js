@@ -33,11 +33,8 @@ const ProfileTop = ({
           </div>
           <div className='profile-right'>
             <h2 className='heading-2'>
-              {user.isGroup ? (
-                <Fragment>{user.groupName}</Fragment>
-              ) : (
-                <Fragment>{user.fullName}</Fragment>
-              )}
+              {user?.groupName && user.groupName}
+              {user?.fullName && user.fullName}
             </h2>
             <p className='white'>@{user.userName}</p>
             <p className='white'>{status}</p>

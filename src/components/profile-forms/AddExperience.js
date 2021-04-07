@@ -79,6 +79,7 @@ const AddExperience = ({ addExperience }) => {
                         name='title'
                         value={title}
                         onChange={(e) => onChange(e)}
+                        required
                       />
                     </div>
                     <div>
@@ -88,6 +89,7 @@ const AddExperience = ({ addExperience }) => {
                         name='company'
                         value={company}
                         onChange={(e) => onChange(e)}
+                        required
                       />
                     </div>
                     <div>
@@ -119,6 +121,7 @@ const AddExperience = ({ addExperience }) => {
                           value={from}
                           onChange={(e) => onChange(e)}
                           placeholder='from date'
+                          required
                         />
 
                         <span className='c-align'>to</span>

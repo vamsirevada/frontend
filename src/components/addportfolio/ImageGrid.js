@@ -11,7 +11,8 @@ import './Gallery.css';
 import Modal from './Modal';
 import { useDispatch } from 'react-redux';
 import VideoModal from './VideoModal';
-import poster from '../../images/play.jpg';
+// import poster from '../../images/play.jpg';
+import poster from '../../images/icons/Thumbnail-01.png';
 import AudioModal from './AudioModal';
 
 const ImageGrid = ({ id, profile }) => {
@@ -299,7 +300,7 @@ const ImageGrid = ({ id, profile }) => {
         {audios &&
           audios.map((doc, index) => (
             <motion.div
-              className='img-wrap'
+              className='img-wrap-audio'
               key={doc.id}
               layout
               style={{ opacity: 1 }}
@@ -333,13 +334,15 @@ const ImageGrid = ({ id, profile }) => {
                   displayAudio(index);
                   dispatch(getRealtimeData(doc.id));
                 }}
-                poster={poster}
+                controls
+                // poster={poster}
                 src={doc.url}
                 alt='uploaded pic'
                 initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
               />
+              <p className='title-hide'>{doc.title}</p>
             </motion.div>
           ))}
       </div>
@@ -347,8 +350,8 @@ const ImageGrid = ({ id, profile }) => {
         Blog <span style={{ color: '#5d67cc' }}>({blogs.length})</span>
       </h3>
       <div className='img-grid blog'>
-        {blog &&
-          blog.map((doc) => (
+        {blogs &&
+          blogs.map((doc) => (
             <motion.div
               className='img-wrap'
               key={doc.id}

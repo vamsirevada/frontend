@@ -3,15 +3,15 @@ export default [
   {
     id: 'welcome',
     title: 'Home',
-    text: `You can see your and your friends posts`,
+    text: `A place where you can see your friends and your own posts`,
     attachTo: { element: '.classnamefeed', on: 'bottom' },
     classes: 'shepherd shepherd-welcome',
     buttons: [
-      {
-        type: 'cancel',
-        classes: 'shepherd-button-secondary',
-        text: 'Exit',
-      },
+      // {
+      //   type: 'cancel',
+      //   classes: 'shepherd-button-secondary',
+      //   text: 'Exit',
+      // },
       {
         type: 'next',
         text: 'Next',
@@ -21,7 +21,7 @@ export default [
   {
     id: 'installation',
     title: 'Portfolio',
-    text: 'Where you can see your own portfolio',
+    text: 'Where you can bulid and view your portfolio',
     attachTo: { element: '.classnameportfolio', on: 'bottom' },
     buttons: [
       {
@@ -38,7 +38,9 @@ export default [
   {
     id: 'usage',
     title: 'NoticeBoard',
-    text: ['Notices Regarding your Projects will appear here'],
+    text: [
+      'A personalised place for your all information related to industry opportunities, film festivals etc.,',
+    ],
     attachTo: { element: '.classnamenoticeboard', on: 'bottom' },
     buttons: [
       {
@@ -71,8 +73,25 @@ export default [
   },
   {
     id: 'centered-example',
+    title: 'Edit Profile',
+    text: `Place where you can edit profile, invite friends, create projects`,
+    attachTo: { element: '.dp-popup-demo-tour', on: 'bottom' },
+    buttons: [
+      {
+        type: 'back',
+        classes: 'shepherd-button-secondary',
+        text: 'Back',
+      },
+      {
+        type: 'next',
+        text: 'Next',
+      },
+    ],
+  },
+  {
+    id: 'centered-example',
     title: 'Add to Portfolio',
-    text: `You can make your portfolio here`,
+    text: `This is the place where all the magic happens, here you can upload all your videos, images, audio files and link your blogs  `,
     attachTo: { element: '.addtoportfolio', on: 'bottom' },
     buttons: [
       {
@@ -87,10 +106,27 @@ export default [
     ],
   },
   {
+    id: 'centered-example',
+    title: 'Add Profle',
+    text: `This is the place where you can update about your education, experience, workshops attended, awards etc.,   `,
+    attachTo: { element: '.profile-tour-button', on: 'bottom' },
+    buttons: [
+      {
+        type: 'back',
+        classes: 'shepherd-button-secondary',
+        text: 'Back',
+      },
+      {
+        type: 'next',
+        text: 'Next',
+      },
+    ],
+  },
+  {
     id: 'followup',
-    title: 'Learn more',
+    title: 'Thank you',
     text: 'End of the tour, Once again welcome to Vanity!',
-    attachTo: { element: '#portfolio', on: 'top' },
+    // attachTo: { element: '.end-tour-popup', on: 'top' },
     scrollTo: true,
     buttons: [
       {
@@ -100,7 +136,7 @@ export default [
       },
       {
         type: 'next',
-        text: 'Done',
+        text: 'End Tour',
       },
     ],
   },

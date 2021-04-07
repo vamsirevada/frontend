@@ -12,6 +12,7 @@ import AddSkills from '../profile-forms/AddSkills';
 import AddAward from '../profile-forms/AddAward';
 import Profiles from '../profiles/Profiles';
 import Profile2 from '../profile/Profile2';
+import Profile from '../profile/Profile';
 import Posts from '../posts/Posts';
 import Post from '../post/Post';
 import Feed from '../feed/Feed';
@@ -47,6 +48,7 @@ const Routes = ({ auth: { user } }) => {
         <PrivateRoute exact path='/addfiles' component={AddPortfolio} />
         <PrivateRoute exact path='/edit-profile' component={EditProfile} />
         <PrivateRoute exact path='/profile' component={Profile2} />
+        <PrivateRoute exact path='/profile/:id' component={Profile} />
         <PrivateRoute exact path='/profiles' component={Profiles} />
         <PrivateRoute exact path='/create-project' component={CreateProject} />
         <PrivateRoute exact path='/add-experience' component={AddExperience} />
@@ -56,7 +58,7 @@ const Routes = ({ auth: { user } }) => {
         <PrivateRoute exact path='/add-skills' component={AddSkills} />
         <PrivateRoute exact path='/posts' component={Posts} />
         <PrivateRoute exact path='/posts/:id' component={Post} />
-        <PrivateRoute exact path='/project/:id' component={SingleProject} />
+        {/* <PrivateRoute exact path='/project/:id' component={SingleProject} /> */}
         <PrivateRoute exact path='/notice/:id' component={SingleNotice} />
         <PrivateRoute exact path='/feed' component={Feed} />
         <PrivateRoute exact path='/friends' component={Friends} />

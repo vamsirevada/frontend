@@ -34,6 +34,7 @@ const AddPhoto = ({ setAlert }) => {
       setAlert('Please add a Description', 'danger', 1000);
     } else {
       setUpload(true);
+      setDisplay(preview);
     }
   };
 

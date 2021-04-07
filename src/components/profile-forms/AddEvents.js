@@ -1,16 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { Fragment, useState } from "react";
-import { connect } from "react-redux";
-import { addEvent } from "../../actions/profile";
-import nounevent from "../../images/icons/noun_event_1828492.svg";
-import PropTypes from "prop-types";
-import c31 from "../../images/Component 31.svg";
+import React, { Fragment, useState } from 'react';
+import { connect } from 'react-redux';
+import { addEvent } from '../../actions/profile';
+import nounevent from '../../images/icons/noun_event_1828492.svg';
+import PropTypes from 'prop-types';
+import c31 from '../../images/Component 31.svg';
 
 const AddEvents = ({ profile: { profile }, addEvent }) => {
   const [formData, setFormData] = useState({
-    event: "",
-    date: "",
-    description: "",
+    event: '',
+    date: '',
+    description: '',
   });
 
   const [displayEve, toogleEve] = useState(false);
@@ -24,70 +24,72 @@ const AddEvents = ({ profile: { profile }, addEvent }) => {
     e.preventDefault();
     addEvent(formData);
     setFormData({
-      event: "",
-      date: "",
-      description: "",
+      event: '',
+      date: '',
+      description: '',
     });
   };
 
   return (
     <Fragment>
-      <div id="prof-exp">
-        <div className="prof-exp-container">
-          <div className="prof-heading">
+      <div id='prof-exp'>
+        <div className='prof-exp-container'>
+          <div className='prof-heading'>
             <h3>
-              <img className="breifcase" src={nounevent} alt="edu" />{" "}
-              <span className="m-1">Events :</span>{" "}
+              <img className='breifcase' src={nounevent} alt='edu' />{' '}
+              <span className='m-1'>Events :</span>{' '}
             </h3>
 
-            <div className="prof-heading-flex">
+            <div className='prof-heading-flex'>
               <a onClick={() => toogleEve(!displayEve)}>
-                <img src={c31} alt="c31" />
+                <img src={c31} alt='c31' />
               </a>
             </div>
           </div>
 
           {displayEve && (
             <Fragment>
-              <div className="prof-box">
-                <form onSubmit={(e) => onSubmit(e)} className="prof-left">
-                  <div className="prof-flex-a1">
+              <div className='prof-box'>
+                <form onSubmit={(e) => onSubmit(e)} className='prof-left'>
+                  <div className='prof-flex-a1'>
                     <div>
-                      <label htmlFor="event">Event Name :</label>
+                      <label htmlFor='event'>Event Name :</label>
                       <br />
                       <input
-                        type="text"
-                        name="event"
+                        type='text'
+                        name='event'
                         value={event}
                         onChange={(e) => onChange(e)}
+                        required
                       />
                     </div>
                     <div>
-                      <label htmlFor="date">Date :</label> <br />
+                      <label htmlFor='date'>Date :</label> <br />
                       <input
-                        className="b-1"
-                        type="date"
-                        name="date"
+                        className='b-1'
+                        type='date'
+                        name='date'
                         value={date}
                         onChange={(e) => onChange(e)}
-                        placeholder="date"
+                        placeholder='date'
+                        required
                       />
                     </div>
                     <div>
-                      <label htmlFor="description">Description</label>
+                      <label htmlFor='description'>Description</label>
                       <br />
                       <textarea
-                        name="description"
+                        name='description'
                         value={description}
                         onChange={(e) => onChange(e)}
-                        id="award-des"
-                        cols="30"
-                        rows="5"
+                        id='award-des'
+                        cols='30'
+                        rows='5'
                       ></textarea>
                     </div>
                   </div>
-                  <div className="prof-flex-btn">
-                    <button type="submit" className="btn-blue">
+                  <div className='prof-flex-btn'>
+                    <button type='submit' className='btn-blue'>
                       Add
                     </button>
                   </div>

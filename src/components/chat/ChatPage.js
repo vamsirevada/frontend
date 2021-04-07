@@ -91,7 +91,13 @@ const ChatPage = ({
                       ></div>
                       <div className='flex-column-1'>
                         <div className='chat-name'>
-                          <a>{profile.user.fullName}</a>
+                          <a>
+                            {profile?.user?.fullName && profile?.user?.fullName}
+                          </a>
+                          <a>
+                            {profile?.user?.groupName &&
+                              profile?.user?.groupName}
+                          </a>
                         </div>
                         <div className='chat-body'>
                           <p>{profile.location}</p>

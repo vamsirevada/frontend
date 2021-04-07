@@ -79,10 +79,10 @@ const Friend = ({
                 {user?.fullName && user?.fullName}
                 {user?.groupName && user?.groupName}
               </span>{' '}
-              <br />
-              <span className='second-bold'>
+              {/* <br /> */}
+              {/* <span className='second-bold'>
                 {user?.userName && user?.userName}
-              </span>{' '}
+              </span>{' '} */}
               <br />
               <span className='second-bold'>{status}</span> <br />
               <span className='second-bold'>{location}</span>

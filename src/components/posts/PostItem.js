@@ -219,14 +219,14 @@ const PostItem = ({
                 <Fragment>
                   <div onClick={unlike}>
                     <img className='r-1' src={yheart} alt='' />
-                    <span className='d-1'>Liked</span>
+                    <span className='d-1'>Apperciated</span>
                   </div>
                 </Fragment>
               ) : (
                 <Fragment>
                   <div onClick={like}>
                     <img className='r-1' src={heart} alt='' />
-                    <span className='d-1'>Like</span>
+                    <span className='d-1'>Apperciate</span>
                   </div>
                 </Fragment>
               )}
