@@ -28,7 +28,6 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import { Link } from 'react-router-dom';
 import { ShepherdTourContext } from 'react-shepherd';
-
 const Portfolio = ({
   getProjects,
   auth: { user },
@@ -83,11 +82,10 @@ const Portfolio = ({
                   <div className='portfolio-left'>
                     <div id='left-sidebar'>
                       <div className='left-container'>
-                        <button onClick={tour.start}>Start Tour</button>
                         <PortfolioLeftTop profile={profile} />
                         <EditButton profile={profile} />
                         <PortfolioLeftAbout profile={profile} />
-                        {profile.founder.length > 0 && (
+                        {profile?.founder.length > 0 && (
                           <div className='prof-exp'>
                             <div className='prof-exp-heading'>
                               <h3> Founder </h3>
@@ -502,6 +500,7 @@ const Portfolio = ({
                             projects={projects}
                           />
                         )}
+
                         <div className='main-grid-body'>
                           {profile !== null && (
                             <PortfolioRightBody profile={profile} />
@@ -512,6 +511,13 @@ const Portfolio = ({
                   </div>
                 )}
               </div>
+              <button onClick={tour.start} className='demo-tour-button'>
+                Start Demo Tour
+                <span class='tooltiptext'>
+                  <div className='arrow-up'></div>
+                  Take a Tour to get to know about features of website
+                </span>
+              </button>
             </Fragment>
           ) : (
             <Loader data-aos-duration='1000' />

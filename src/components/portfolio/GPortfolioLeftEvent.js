@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
+import thumbnail from '../../images/icons/Thumbnail-01.png';
 
 const GPortfolioLeftEvent = ({ events: { event, date, description } }) => (
   <div className='prof-top'>
-    <div className='prof-pic g6'></div>
+    <img className='prof-pic g6' src={thumbnail} alt='' />
     <div>
       <p>
         <span className='bold'>

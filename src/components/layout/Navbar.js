@@ -127,9 +127,10 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
             >
               <Link className='icon' to='/feed'>
                 <img src={home} className='white' alt='portfolio' />
-                <p>Feed</p>
+                <p>Home</p>
               </Link>
             </div>
+            {/* <div className='one'></div> */}
             <div
               className={
                 portActive
@@ -189,32 +190,48 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
                 src={profile?.avatar ? profile?.avatar : logo}
                 onClick={() => {
                   toogleMenu(true);
-                  setTimeout(() => {
-                    toogleMenu(false);
-                  }, 5000);
                 }}
                 alt=''
               />
 
               {displayMenu && (
                 <Fragment>
-                  <div className='arrow-up'></div>
-                  <ul className='no-dis' id='dis-dd'>
-                    <li>
-                      <Link to='/profile'> View Profile</Link>
-                    </li>
-                    <li>
-                      <Link to='/invite'> Invite Friends</Link>
-                    </li>
-                    <li>
-                      <Link to='/create-project'> Create Project</Link>
-                    </li>
-                    <li>
-                      <a onClick={logout} className='signOut' type='button'>
-                        Logout
-                      </a>
-                    </li>
-                  </ul>
+                  <div
+                    className='dp-popup-demo-tour'
+                    onClick={(e) => {
+                      if (e.target.classList.contains('dp-popup-demo-tour')) {
+                        toogleMenu(false);
+                      }
+                    }}
+                  >
+                    <div className='arrow-up'></div>
+                    <ul
+                      className='no-dis'
+                      id='dis-dd'
+                      onClick={(e) => {
+                        toogleMenu(false);
+                      }}
+                    >
+                      <li
+                      // onClick={(e) => {
+                      //   toogleMenu(false);
+                      // }}
+                      >
+                        <Link to='/profile'>View Profile</Link>
+                      </li>
+                      <li>
+                        <Link to='/invite'> Invite Friends</Link>
+                      </li>
+                      <li>
+                        <Link to='/create-project'> Create Project</Link>
+                      </li>
+                      <li>
+                        <a onClick={logout} className='signOut' type='button'>
+                          Logout
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
                 </Fragment>
               )}
             </div>

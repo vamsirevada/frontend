@@ -229,7 +229,7 @@
   height: 78px;
   border-radius: 15px;
   margin-right: 1rem;
-  margin-top: 1rem;
+  margin-top: 0.75rem;
 }
 
 .connect-main .connect-left-top .flex-c .bold {
@@ -258,8 +258,8 @@
 .connect-main .connect-left-bottom {
   padding: 0.5rem 0rem;
   width: 100%;
-  display: grid;
-  grid-template-columns: 50% 20% 20%;
+  display: flex;
+  align-items: center;
   height: 100%;
   grid-gap: 0.3rem;
   align-items: center;

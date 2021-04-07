@@ -60,7 +60,7 @@
 
 #portfolio {
   display: grid;
-  grid-template-columns: 26% 61%;
+  grid-template-columns: 26% 70%;
 
   grid-gap: 1rem;
   position: relative;

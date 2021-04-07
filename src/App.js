@@ -69,7 +69,7 @@ const App = () => {
             <Fragment>
               <Alert />
               <Switch>
-                <Route exact path='/' component={NotFound} />
+                {/* <Route exact path='/' component={NotFound} /> */}
                 <Route exact path='/' component={Landing} />
                 <Route exact path='/help' component={Help} />
                 <Route exact path='/register' component={Register} />

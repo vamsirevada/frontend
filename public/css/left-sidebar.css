@@ -21,6 +21,73 @@ h3 {
   height: 3.5rem;
   border-radius: 15px;
 }
+.dp-popup-demo-tour {
+  display: inline-block;
+}
+
+.demo-tour-button {
+  position: fixed;
+  display: inline-block;
+  right: 25px;
+  top: 100px;
+  padding: 0.5rem;
+  border-radius: 10px;
+  background-color: #fad300;
+  color: #272727;
+  font-family: 'Raleway', sans-serif;
+  border: none;
+  outline: none;
+  animation: growdemotourbutton 0.6s infinite normal ease;
+}
+@keyframes growdemotourbutton {
+  100% {
+    transform: scale(1.1);
+  }
+}
+.demo-tour-button .tooltiptext {
+  visibility: hidden;
+  background-color: #fad300;
+  color: #272727;
+  font-family: 'Raleway', sans-serif;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 10px;
+  margin-top: 10px;
+  /* Position the tooltip */
+  position: absolute;
+  width: 120px;
+  top: 110%;
+  left: 50%;
+  margin-left: -60px;
+  z-index: 1;
+  transition: all 0.25s;
+}
+.demo-tour-button .tooltiptext .arrow-up {
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-bottom: 12px solid #fad300;
+  position: absolute;
+  top: -12px;
+  right: 50px;
+  z-index: 55555555;
+}
+
+.demo-tour-button:hover {
+  cursor: pointer;
+  animation: stopdemotourbutton 0.6s infinite normal ease;
+}
+
+@keyframes stopdemotourbutton {
+  100% {
+    transform: scale(1);
+  }
+}
+
+.demo-tour-button:hover .tooltiptext {
+  visibility: visible;
+}
 /* individual */
 .prof-pic.p1 {
   background: no-repeat center center/cover;
@@ -33,7 +100,7 @@ h3 {
 }
 
 .prof-pic.p4 {
-  background: rgb(0, 0, 0) no-repeat center center/cover;
+  background: no-repeat center center/cover;
 }
 .prof-pic.p5 {
   background-color: transparent;
@@ -42,7 +109,7 @@ h3 {
   background-color: transparent;
 }
 .prof-pic.p7 {
-  background: rgba(0, 0, 0, 0.8) no-repeat center center/cover;
+  background: no-repeat center center/cover;
 }
 .prof-pic.p8 {
   background-color: transparent;
@@ -222,6 +289,7 @@ h3 {
   height: 5rem;
   border-radius: 20px;
   background: url('../img/dummyimage.jpg') no-repeat center center/cover;
+  object-fit: cover;
 }
 
 .display-pic-g {
@@ -267,7 +335,7 @@ h3 {
   text-align: center;
   width: 100%;
   margin: auto;
-  margin: 2rem auto;
+  margin: 1rem auto;
   position: relative;
 }
 
@@ -285,6 +353,19 @@ h3 {
   margin: 0;
   opacity: 1;
   position: relative;
+}
+.left-container .btns .view-button {
+  font-size: 14px;
+  padding: 0.4rem 0.8rem;
+  margin: 0;
+  opacity: 1;
+  position: relative;
+  font-family: 'Raleway', sans-serif;
+  cursor: pointer;
+  display: inline-block;
+  background-color: #fad300;
+  color: #5d5d5d;
+  border-radius: 10px;
 }
 
 .btns .resize {

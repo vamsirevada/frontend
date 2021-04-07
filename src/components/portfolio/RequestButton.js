@@ -64,7 +64,7 @@ const RequestButton = ({
 
   return (
     <Fragment>
-      <div className='btns'>
+      <div>
         <a
           className={`btn-white ${btn.text}`}
           disabled={btn.disabled}

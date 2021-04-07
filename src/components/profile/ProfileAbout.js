@@ -11,42 +11,47 @@ const ProfileAbout = ({
         {bio && (
           <Fragment>
             <div>
-              <h3>About:</h3>
+              <h3 className='m-1'>About:</h3>
               <p>{bio}</p>
             </div>
           </Fragment>
         )}
+        <div className='profile-table'>
+          <table>
+            <thead></thead>
 
-        {!user.isGroup && (
-          <div className='profile-table'>
-            <table>
-              <thead></thead>
-
-              <tbody>
+            <tbody>
+              {dob && (
                 <tr>
-                  <td className='font-bold'>Date of Birth :</td>
+                  <td className='font-bold m-1'>Date of Birth :</td>
                   <td>
                     <span className='f-1'>
                       <Moment format='DD MMM YYYY'>{dob}</Moment>
                     </span>
                   </td>
                 </tr>
+              )}
+              {gender && (
                 <tr>
-                  <td className='font-bold'>Gender :</td>
+                  <td className='font-bold m-1'>Gender :</td>
                   <td>{gender}</td>
                 </tr>
+              )}
+              {hometown && (
                 <tr>
-                  <td className='font-bold'>Hometown :</td>
+                  <td className='font-bold m-1'>Hometown :</td>
                   <td>{hometown}</td>
                 </tr>
+              )}
+              {languageknown && (
                 <tr>
-                  <td className='font-bold'>Language proficiency : </td>
+                  <td className='font-bold m-1'>Language proficiency : </td>
                   <td>{languageknown}</td>
                 </tr>
-              </tbody>
-            </table>
-          </div>
-        )}
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

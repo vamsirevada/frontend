@@ -2,6 +2,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { getProfileById } from '../../actions/profile';
 import { getProjects } from '../../actions/project';
 import Loader from '../layout/Loader';
@@ -28,6 +29,7 @@ import GPortfolioLeftContact from './GPortfolioLeftContact';
 import RequestButton from './RequestButton';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+import profile from '../../reducers/profile';
 
 const Portfolio1 = ({
   getProfileById,
@@ -79,19 +81,28 @@ const Portfolio1 = ({
                   <div id='left-sidebar'>
                     <div className='left-container'>
                       <PortfolioLeftTop profile={profile1} />
-                      {user?._id !== profile1?.user?._id ? (
+                      {user?._id !== profile1?.user?._id && (
                         <Fragment>
-                          <RequestButton
-                            peerid={profile1?._id}
-                            reloadid={match.params.id}
-                            profile={profile1}
-                            isGroup={false}
-                            user={user}
-                          />
-                        </Fragment>
-                      ) : (
-                        <Fragment>
-                          <EditButton profile={profile1} />
+                          <div className='btns'>
+                            <div>
+                              <RequestButton
+                                peerid={profile1?._id}
+                                reloadid={match.params.id}
+                                profile={profile1}
+                                isGroup={false}
+                                user={user}
+                              />
+                            </div>
+
+                            <div className='profile-tour-button'>
+                              <Link
+                                to={`/profile/${profile1?.user?._id}`}
+                                className={`view-button `}
+                              >
+                                View profile
+                              </Link>
+                            </div>
+                          </div>
                         </Fragment>
                       )}
                       <PortfolioLeftAbout

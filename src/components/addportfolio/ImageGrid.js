@@ -9,11 +9,9 @@ import poster1 from '../../images/poster1.gif';
 import { projectFirestore, projectStorage } from '../../firebase/config';
 import { getRealtimeData } from '../../actions/portfolio';
 import './Gallery.css';
-// import Audio from '../../images/audio.svg';
 import Modal from './Modal';
 import { useDispatch } from 'react-redux';
 import VideoModal from './VideoModal';
-// import poster from '../../images/play.jpg';
 import AudioModal from './AudioModal';
 
 const ImageGrid = ({ id, profile }) => {
@@ -301,7 +299,7 @@ const ImageGrid = ({ id, profile }) => {
         {audios &&
           audios.map((doc, index) => (
             <motion.div
-              className='img-wrap'
+              className='img-wrap-audio'
               key={doc.id}
               layout
               style={{ opacity: 1 }}
@@ -339,7 +337,7 @@ const ImageGrid = ({ id, profile }) => {
                 controls
                 src={doc.url}
                 alt='uploaded pic'
-                initial={{ opacity: 0 }}
+                initial={{ opacity: 1 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
               />
@@ -350,7 +348,7 @@ const ImageGrid = ({ id, profile }) => {
       <h3>
         Blog <span style={{ color: '#5d67cc' }}>({blogs.length})</span>
       </h3>
-      <div className='img-grid'>
+      <div className='img-grid blog'>
         {blogs &&
           blogs.map((doc) => (
             <motion.div
