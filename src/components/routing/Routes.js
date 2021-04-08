@@ -22,7 +22,6 @@ import Friends1 from '../profiles/Friends1';
 import Projects from '../profiles/Projects';
 import AddPortfolio from '../addportfolio/AddPortfolio';
 import PrivateRoute from './PrivateRoute';
-// import NotFound from '../NotFound';
 import ChatPage from '../chat/ChatPage';
 import SingleProject from '../projects/SingleProject';
 import ProjectList from '../projects/ProjectList';
@@ -66,9 +65,8 @@ const Routes = ({ auth: { user } }) => {
         <PrivateRoute exact path='/friends/:id' component={Friends1} />
         <PrivateRoute exact path='/projects/:id' component={Projects} />
         <PrivateRoute exact path='/projectlist/:id' component={ProjectList} />
-        {/* <Route exact path='*' component={NotFound} /> */}
       </Switch>
-      {user?._id && <ChatSideBar />}
+      {/* {user?._id && <ChatSideBar />} */}
     </>
   );
 };

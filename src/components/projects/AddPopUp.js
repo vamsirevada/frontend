@@ -1,7 +1,6 @@
-import React, { Fragment, useEffect, useContext, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import nounPlus from '../../images/icons/noun_Plus_2310779.svg';
 import searchIcon from '../../images/searchIcon.svg';
-import { SearchContext } from '../../context/search.context';
 import { getProfiles } from '../../actions/profile';
 import api from '../../utils/api';
 import { connect } from 'react-redux';
@@ -14,32 +13,23 @@ const AddPopUp = ({
   show,
   hide,
 }) => {
-  const { search, Addsearch, clearSearch } = useContext(SearchContext);
   const [value, setValue] = useState('');
+  const [users, setUsers] = useState([]);
 
   const newprofiles = profiles.filter(
     (x) => x?.user?._id !== singleproject?.user?._id
   );
 
+  const fetchData = async () => {
+    return await api.get('/profile').then((data) => {
+      setUsers(data.data);
+    });
+  };
+
   useEffect(() => {
     getProfiles();
-    //eslint-disable-next-line
-  }, []);
-
-  const onChange = (e) => {
-    setValue(e.target.value);
-    _onsearch();
-  };
-
-  const _onsearch = async () => {
-    clearSearch();
-    const res = await api.get(`/search?title=${value}`);
-    if (res) {
-      Addsearch(res?.data);
-    } else {
-      Addsearch([]);
-    }
-  };
+    fetchData();
+  }, [getProfiles, fetchData]);
 
   return (
     <>
@@ -58,22 +48,46 @@ const AddPopUp = ({
                   type='text'
                   name='search'
                   value={value}
-                  onChange={(e) => onChange(e)}
+                  onChange={(e) => {
+                    setValue(e.target.value);
+                  }}
                   className='search-btn'
                   placeholder='search'
                 />
                 <br />
-                <img onClick={_onsearch} src={searchIcon} alt='search' />
+                <img src={searchIcon} alt='search' />
               </div>
               <div className='body add'>
-                {search.length > 0
-                  ? search.map((profile) => (
-                      <MemberInvite
-                        key={profile._id}
-                        profile={profile}
-                        project={singleproject}
-                      />
-                    ))
+                {users.length > 0
+                  ? users
+                      .filter((val) => {
+                        if (value === '') {
+                          return null;
+                        } else if (
+                          (val.user.fullName &&
+                            val.user.fullName
+                              .toLowerCase()
+                              .includes(value.toLowerCase())) ||
+                          val.user.userName
+                            .toLowerCase()
+                            .includes(value.toLowerCase()) ||
+                          (val.user.groupName &&
+                            val.user.groupName
+                              .toLowerCase()
+                              .includes(value.toLowerCase())) ||
+                          val.bio.toLowerCase().includes(value.toLowerCase()) ||
+                          val.status.toLowerCase().includes(value.toLowerCase())
+                        ) {
+                          return val;
+                        }
+                      })
+                      .map((val) => (
+                        <MemberInvite
+                          key={val._id}
+                          profile={val}
+                          project={singleproject}
+                        />
+                      ))
                   : newprofiles.length > 0 &&
                     newprofiles.map((profile) => (
                       <MemberInvite
