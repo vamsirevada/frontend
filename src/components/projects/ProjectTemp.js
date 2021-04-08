@@ -13,7 +13,6 @@ const ProjectTemp = ({
   const isCommonMember = members.filter((e) => e.user === user?._id);
   return (
     <div>
-      <div>{/* <h3>{projectname}</h3> */}</div>
       <div className='projectitem'>
         <div className='p-container'>
           <div className='project-head'>
@@ -36,13 +35,13 @@ const ProjectTemp = ({
                   {to === null ? 'Active' : 'Completed'}
                 </span>
               </p>  */}
-            {/* {isCommonMember.length !== 0 && (
+            {isCommonMember.length !== 0 && (
               <Link to={`/project/${_id}`}>
                 <button className='list list-1 b'>
                   <span className='list-4'> View Project</span>
                 </button>
               </Link>
-            )} */}
+            )}
           </div>
           <div className='project-body'>
             <div className='project-body-container'>

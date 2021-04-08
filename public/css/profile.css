@@ -896,6 +896,12 @@ input[type='date']::-webkit-calendar-picker-indicator {
   text-align: justify;
 }
 
+.flex-a {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 .profile-des .prof-container div:nth-child(1) p {
   font-family: 'Raleway', sans-serif;
   font-size: 16px;

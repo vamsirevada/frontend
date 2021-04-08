@@ -153,7 +153,7 @@ const ImageGrid = ({ id, profile }) => {
             .slice(0, viewAllVideo ? videos.length : 9)
             .map((doc, index) => (
               <motion.div
-                className='img-wrap'
+                className='img-wrap video'
                 key={doc.id}
                 layout
                 style={{ opacity: 1 }}
@@ -195,7 +195,7 @@ const ImageGrid = ({ id, profile }) => {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1 }}
                 />
-                <p className='title-hide'>{doc.title}</p>
+                <p className='video-desc'>{doc.title}</p>
               </motion.div>
             ))}
       </div>
@@ -282,7 +282,7 @@ const ImageGrid = ({ id, profile }) => {
             .slice(0, viewAllAudio ? audios.length : 9)
             .map((doc, index) => (
               <motion.div
-                className='img-wrap'
+                className='img-wrap video'
                 key={doc.id}
                 layout
                 style={{ opacity: 1 }}
@@ -324,7 +324,7 @@ const ImageGrid = ({ id, profile }) => {
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1 }}
                 />
-                <p className='title-hide'>{doc.title}</p>
+                <p className='video-desc'>{doc.title}</p>
               </motion.div>
             ))}
       </div>

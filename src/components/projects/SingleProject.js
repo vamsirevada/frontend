@@ -10,6 +10,7 @@ import ProjectPosts from '../projectposts/ProjectPosts';
 import MiniProjectInfo from './MiniProjectInfo';
 import BallotIcon from '@material-ui/icons/Ballot';
 import ExpenseTracker from './Expenses/ExpenseTracker';
+import AdminMoney from './AdminMoney';
 
 const SingleProject = ({
   profile: { profile },
@@ -64,6 +65,7 @@ const SingleProject = ({
                         <ProjectAdd singleproject={singleproject} />
                       </>
                     )}
+                  <AdminMoney />
                   <ProjectPostForm singleproject={singleproject} />
                   <ProjectPosts profile={profile} id={match.params.id} />
                 </div>
@@ -77,6 +79,11 @@ const SingleProject = ({
                 singleproject={singleproject}
                 id={match.params.id}
               />
+              <div className='expenses-button'>
+                <div className='expenses-button-container'>
+                  <a href='#!'>Expenses Tracker</a>
+                </div>
+              </div>
               <ExpenseTracker />
             </div>
           )}

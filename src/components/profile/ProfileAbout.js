@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import Moment from 'react-moment';
+import LabelImportantIcon from '@material-ui/icons/LabelImportant';
 
 const ProfileAbout = ({
   profile: { bio, dob, gender, hometown, languageknown, user },
@@ -11,7 +12,10 @@ const ProfileAbout = ({
         {bio && (
           <Fragment>
             <div>
-              <h3 className='m-1'>About:</h3>
+              <div className='flex-a'>
+                {/* <LabelImportantIcon /> */}
+                <h3 className='m-1'>About:</h3>
+              </div>
               <p>{bio}</p>
             </div>
           </Fragment>

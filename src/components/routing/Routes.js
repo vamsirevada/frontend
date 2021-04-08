@@ -33,6 +33,7 @@ import ChatSideBar from '../chat/ChatSideBar';
 import Loader from '../layout/Loader';
 import WelcomeScreen from '../layout/WelcomeScreen';
 import WelcomeRscreen from '../layout/WelcomeRscreen';
+import Finance from '../Finance.js/Finance';
 
 const Routes = ({ auth: { user } }) => {
   return (
@@ -58,7 +59,7 @@ const Routes = ({ auth: { user } }) => {
         <PrivateRoute exact path='/add-skills' component={AddSkills} />
         <PrivateRoute exact path='/posts' component={Posts} />
         <PrivateRoute exact path='/posts/:id' component={Post} />
-        {/* <PrivateRoute exact path='/project/:id' component={SingleProject} /> */}
+        <PrivateRoute exact path='/project/:id' component={SingleProject} />
         <PrivateRoute exact path='/notice/:id' component={SingleNotice} />
         <PrivateRoute exact path='/feed' component={Feed} />
         <PrivateRoute exact path='/friends' component={Friends} />
@@ -66,6 +67,7 @@ const Routes = ({ auth: { user } }) => {
         <PrivateRoute exact path='/friends/:id' component={Friends1} />
         <PrivateRoute exact path='/projects/:id' component={Projects} />
         <PrivateRoute exact path='/projectlist/:id' component={ProjectList} />
+        <PrivateRoute exact path='/projectfinance/:id' component={Finance} />
         {/* <Route exact path='*' component={NotFound} /> */}
       </Switch>
       {user?._id && <ChatSideBar />}
