@@ -227,6 +227,7 @@ a {
   z-index: 9;
   width: 350px;
   max-height: 550px;
+  z-index: 1000;
 }
 
 .chat-popup-1 h4 {

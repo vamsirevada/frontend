@@ -1065,8 +1065,8 @@ font-size: 0.7rem;
 }
 
 .expenses-mainbody-container .expenses-table,
-th,
-td {
+.expenses-mainbody-container .expenses-table th,
+.expenses-mainbody-container .expenses-table td {
   border: 1px solid black;
   border-collapse: collapse;
   font-size: 0.8rem;
@@ -1078,7 +1078,7 @@ td {
 }
 
 .expenses-mainbody-container .expenses-table th,
-td {
+.expenses-mainbody-container .expenses-table td {
   padding: 0.5rem 0.809rem;
   text-align: left;
 }
