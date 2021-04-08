@@ -2299,11 +2299,8 @@ input.search-btn:focus {
 
 .feed {
   display: grid;
-  /* grid-template-columns: 25% 50% 23%; */
-  /* grid-template-columns: 300px 650px 300px; */
-  grid-template-columns: 350px 1.75fr 1fr;
+  grid-template-columns: 350px 1.75fr 0.75fr;
   grid-gap: 1.2rem;
-  /* max-width: 1300px; */
   padding: 2rem;
   margin: auto;
   position: relative;
@@ -2332,7 +2329,7 @@ input.search-btn:focus {
 .posts .post {
   max-width: 90%;
   margin: auto;
-  margin-bottom: 14px;
+  margin-bottom: 1rem;
   background-color: #fcfcfc;
   border-radius: 20px;
 }

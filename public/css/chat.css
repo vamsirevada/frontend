@@ -227,6 +227,7 @@ a {
   z-index: 9;
   width: 350px;
   max-height: 550px;
+  z-index: 1000;
 }
 
 .chat-popup-1 h4 {
@@ -446,6 +447,7 @@ a {
 
 #fullchat-left {
   width: 100%;
+  height: 90vh;
   overflow: auto;
   background-color: #f9f6f2;
 }
@@ -460,6 +462,11 @@ a {
   position: fixed;
   border-bottom: 1px solid #c9c9c9;
   z-index: 10;
+}
+
+#fullchat-left .fullchat-lefttop.finance {
+  display: grid;
+  grid-template-columns: 100%;
 }
 
 .fullchat-lefttop .display-pic {
@@ -501,6 +508,7 @@ a {
   justify-content: space-between;
   align-content: center;
   margin-bottom: 0.8rem;
+  clear: both;
 }
 .chats-heading h3 {
   font-family: 'Lato', sans-serif;
@@ -619,6 +627,7 @@ a {
   width: 100%;
   height: 90vh;
   overflow: auto;
+  position: relative;
 }
 
 .fullchat-maintop {
@@ -692,7 +701,7 @@ a {
   position: relative;
   top: 74px;
   width: 100%;
-  height: 100%;
+  height: 89%;
   background-image: url(../img/Rectangle.png);
   overflow-x: hidden;
 }

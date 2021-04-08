@@ -65,9 +65,14 @@ const Profile2 = ({
                 />
                 <ProfileAbout profile={profile} />
                 <hr className='new' />
-                <GroupProfileFound profile={profile} />
-                <hr className='new' />
-                {profile.teammembers && (
+                {profile?.founder.length !== 0 && (
+                  <Fragment>
+                    <GroupProfileFound profile={profile} />
+                    <hr className='new' />
+                  </Fragment>
+                )}
+
+                {profile?.teammembers.length !== 0 && (
                   <Fragment>
                     <div id='prof-exp'>
                       <div className='prof-exp-container'>
@@ -75,13 +80,13 @@ const Profile2 = ({
                           <h3>
                             <span className='m-1'>Team Members </span>{' '}
                           </h3>
-                          {profile.teammembers.length === 0 && (
+                          {/* {profile.teammembers.length === 0 && (
                             <div className='prof-heading-flex'>
                               <Link to='/edit-profile'>
                                 <img src={c31} alt='c31' />
                               </Link>
                             </div>
-                          )}
+                          )} */}
                         </div>
 
                         <div className='prof-btn prof-btn-2'>
