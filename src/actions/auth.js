@@ -16,7 +16,6 @@ import {
   LOGOUT,
   REFERRAL_SUCESS,
   GROUP_REGISTER_SUCCESS,
-  GET_USERS,
 } from './types';
 
 //Load User
@@ -25,20 +24,6 @@ export const loadUser = () => async (dispatch) => {
     const res = await api.get('/auth');
     dispatch({
       type: USER_LOADED,
-      payload: res.data,
-    });
-  } catch (err) {
-    dispatch({
-      type: AUTH_ERROR,
-    });
-  }
-};
-
-export const getUsers = () => async (dispatch) => {
-  try {
-    const res = await api.get('/users');
-    dispatch({
-      type: GET_USERS,
       payload: res.data,
     });
   } catch (err) {

@@ -31,7 +31,7 @@ import ChatSideBar from '../chat/ChatSideBar';
 import Loader from '../layout/Loader';
 import WelcomeScreen from '../layout/WelcomeScreen';
 import WelcomeRscreen from '../layout/WelcomeRscreen';
-import Finance from '../Finance.js/Finance';
+import Finance from '../Finance/Finance';
 
 const Routes = ({ auth: { user } }) => {
   return (

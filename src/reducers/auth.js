@@ -12,7 +12,6 @@ import {
   LOGOUT,
   ACCOUNT_DELETED,
   GROUP_REGISTER_SUCCESS,
-  GET_USERS,
 } from '../actions/types';
 
 const initialState = {
@@ -21,7 +20,6 @@ const initialState = {
   isAuthenticated: null,
   loading: true,
   user: null,
-  users: [],
   isGroup: false,
 };
 // eslint-disable-next-line
@@ -35,12 +33,6 @@ export default function (state = initialState, action) {
         isAuthenticated: true,
         loading: false,
         user: payload,
-      };
-    case GET_USERS:
-      return {
-        ...state,
-        users: payload,
-        loading: false,
       };
     case WRITER_LOADED:
       return {
