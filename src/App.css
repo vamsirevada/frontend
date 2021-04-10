@@ -12,8 +12,19 @@
   --lato-font: 'Lato', sans-serif;
 }
 
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 html {
   scroll-behavior: smooth;
+}
+
+.calendar {
+  position: relative;
+  top: 72px;
 }
 
 .dp-popup-demo-tour {
@@ -27,12 +38,6 @@ html {
   height: 100vh;
   overflow: hidden;
   position: fixed;
-}
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
 }
 
 .MuiBadge-badge {
