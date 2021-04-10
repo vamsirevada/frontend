@@ -9,8 +9,8 @@ import ProjectPostForm from '../projectposts/ProjectPostForm';
 import ProjectPosts from '../projectposts/ProjectPosts';
 import MiniProjectInfo from './MiniProjectInfo';
 import BallotIcon from '@material-ui/icons/Ballot';
-import ExpenseTracker from './Expenses/ExpenseTracker';
 import AdminMoney from './AdminMoney';
+import { useHistory } from 'react-router';
 
 const SingleProject = ({
   profile: { profile },
@@ -22,6 +22,7 @@ const SingleProject = ({
     getProject(match.params.id);
     //eslint-disable-next-line
   }, []);
+  const history = useHistory();
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
 
@@ -63,9 +64,9 @@ const SingleProject = ({
                       .find((x) => x === true) && (
                       <>
                         <ProjectAdd singleproject={singleproject} />
+                        <AdminMoney />
                       </>
                     )}
-                  <AdminMoney />
                   <ProjectPostForm singleproject={singleproject} />
                   <ProjectPosts profile={profile} id={match.params.id} />
                 </div>
@@ -79,12 +80,21 @@ const SingleProject = ({
                 singleproject={singleproject}
                 id={match.params.id}
               />
-              <div className='expenses-button'>
-                <div className='expenses-button-container'>
-                  <a href='#!'>Expenses Tracker</a>
-                </div>
-              </div>
-              <ExpenseTracker />
+              {singleproject?.moderator &&
+                singleproject?.moderator
+                  .map((x) => x?.user === profile?.user?._id)
+                  .find((x) => x === true) && (
+                  <div
+                    onClick={() => {
+                      history.push(`/projectfinance/${singleproject?._id}`);
+                    }}
+                    className='expenses-button'
+                  >
+                    <div className='expenses-button-container'>
+                      <span>Expenses Tracker</span>
+                    </div>
+                  </div>
+                )}
             </div>
           )}
         </div>

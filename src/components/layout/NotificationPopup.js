@@ -133,15 +133,10 @@ const NotificationPopup = ({
       notifications.map((not, index) => {
         return (
           <div key={index}>
-            <div className='notif-element' key={not?.createdAt}>
+            <div className='notif-element'>
               {not.type === 'like' && (
                 <>
-                  <img
-                    height='10px'
-                    width='10px'
-                    src={not.avatar ? not.avatar : logo}
-                    alt=''
-                  />
+                  <img src={not.avatar ? not.avatar : logo} alt='' />
                   <p>
                     <span className='notif-bold'>{not.senderName}</span> liked
                     your post{' '}
@@ -150,12 +145,7 @@ const NotificationPopup = ({
               )}
               {not.type === 'comment' && (
                 <>
-                  <img
-                    height='10px'
-                    width='10px'
-                    src={not.avatar ? not.avatar : logo}
-                    alt=''
-                  />
+                  <img src={not.avatar ? not.avatar : logo} alt='' />
                   <p>
                     <span className='notif-bold'>{not.senderName}</span>{' '}
                     commented on your post{' '}
@@ -164,12 +154,7 @@ const NotificationPopup = ({
               )}
               {not.type === 'request' && (
                 <>
-                  <img
-                    height='10px'
-                    width='10px'
-                    src={not.avatar ? not.avatar : logo}
-                    alt=''
-                  />
+                  <img src={not.avatar ? not.avatar : logo} alt='' />
                   <div className='notify-width'>
                     <p>
                       <span className='notif-bold'>{not.senderName}</span> sent
@@ -200,12 +185,7 @@ const NotificationPopup = ({
               )}
               {not.type === 'accept' && (
                 <>
-                  <img
-                    height='10px'
-                    width='10px'
-                    src={not.avatar ? not.avatar : logo}
-                    alt=''
-                  />
+                  <img src={not.avatar ? not.avatar : logo} alt='' />
                   <p>
                     <span className='notif-bold'>{not.senderName}</span>{' '}
                     accepted your request{' '}
@@ -214,12 +194,7 @@ const NotificationPopup = ({
               )}
               {not.type === 'invite' && (
                 <>
-                  <img
-                    height='10px'
-                    width='10px'
-                    src={not.avatar ? not.avatar : logo}
-                    alt=''
-                  />
+                  <img src={not.avatar ? not.avatar : logo} alt='' />
                   <div className='project-notification'>
                     <p className='notify-width'>
                       <span className='notif-bold'>{not.senderName}</span> sent

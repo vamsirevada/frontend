@@ -159,9 +159,11 @@ const VideoModal = ({
                           <h2 className='modal-title w-100'>
                             {portfolio.title}
                           </h2>
-                          <div onClick={editTitleMode}>
-                            <EditIcon />
-                          </div>
+                          {auth?.user?._id === portfolio.userId && (
+                            <div onClick={editTitleMode}>
+                              <EditIcon />
+                            </div>
+                          )}
                         </div>
                       )}
                       <p>
@@ -301,9 +303,11 @@ const VideoModal = ({
                 ) : (
                   <div className='popup-description'>
                     <p>{portfolio.description}</p>
-                    <div onClick={changeEditMode}>
-                      <EditIcon />
-                    </div>
+                    {auth?.user?._id === portfolio.userId && (
+                      <div onClick={changeEditMode}>
+                        <EditIcon />
+                      </div>
+                    )}
                   </div>
                 )}
                 <hr className='Hori' />

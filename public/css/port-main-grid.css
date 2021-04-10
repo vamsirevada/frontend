@@ -994,7 +994,7 @@ font-size: 0.7rem;
 .expenses-type .expenses-tracker .expenses-tracker-flex {
   width: 100%;
   display: grid;
-  grid-template-columns: 10% 50% 40%;
+  grid-template-columns: 50% 50%;
   align-items: center;
   padding: 0.5rem 0.809rem;
 }
@@ -1101,9 +1101,10 @@ font-size: 0.7rem;
   align-items: center;
 }
 
-.expenses-button a {
+.expenses-button span {
   background-color: #7480ff;
   color: #fff;
   padding: 0.5rem 0.809rem;
   border-radius: 10px;
+  cursor: pointer;
 }

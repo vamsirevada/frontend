@@ -22,18 +22,20 @@ import Friends1 from '../profiles/Friends1';
 import Projects from '../profiles/Projects';
 import AddPortfolio from '../addportfolio/AddPortfolio';
 import PrivateRoute from './PrivateRoute';
-// import NotFound from '../NotFound';
 import ChatPage from '../chat/ChatPage';
 import SingleProject from '../projects/SingleProject';
 import ProjectList from '../projects/ProjectList';
 import SingleNotice from '../projects/SingleNotice';
 import NoticeBoard from '../projects/NoticeBoard';
+<<<<<<< HEAD
 import CalendarComp from '../CalendarComp';
+=======
+>>>>>>> 7e23a156d248bb40c8c8f63c0d077da0cd954c37
 import ChatSideBar from '../chat/ChatSideBar';
 import Loader from '../layout/Loader';
 import WelcomeScreen from '../layout/WelcomeScreen';
 import WelcomeRscreen from '../layout/WelcomeRscreen';
-import Finance from '../Finance.js/Finance';
+import Finance from '../Finance/Finance';
 
 const Routes = ({ auth: { user } }) => {
   return (
@@ -68,8 +70,11 @@ const Routes = ({ auth: { user } }) => {
         <PrivateRoute exact path='/projects/:id' component={Projects} />
         <PrivateRoute exact path='/projectlist/:id' component={ProjectList} />
         <PrivateRoute exact path='/projectfinance/:id' component={Finance} />
+<<<<<<< HEAD
         {/* <PrivateRoute exact path='/calendar' component={CalendarComp} /> */}
         {/* <Route exact path='*' component={NotFound} /> */}
+=======
+>>>>>>> 7e23a156d248bb40c8c8f63c0d077da0cd954c37
       </Switch>
       {/* {user?._id && <ChatSideBar />} */}
     </>

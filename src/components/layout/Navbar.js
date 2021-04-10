@@ -1,36 +1,26 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, Fragment, useEffect, useContext } from 'react';
-import api from '../../utils/api';
+import React, { useState, Fragment, useEffect } from 'react';
 import store from '../../store';
 import maskGroup from '../../images/maskGroup.svg';
-import searchIcon from '../../images/searchIcon.svg';
 import home from '../../images/Home.svg';
 import chat from '../../images/chat.svg';
 import NotificationPopup from './NotificationPopup';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
-import { Link, useHistory } from 'react-router-dom';
-import { SearchContext } from '../../context/search.context';
+import { Link } from 'react-router-dom';
 import ArtTrackIcon from '@material-ui/icons/ArtTrack';
 import { grey } from '@material-ui/core/colors';
 import logo from '../../images/dummyimage.jpg';
 import { getRealtimeNotifications } from '../../actions/notification';
+import SearchPage from './SearchPage';
 
 const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
-  const history = useHistory();
   const [displayMenu, toogleMenu] = useState(false);
   const [feedActive, toogleFeedActive] = useState(false);
   const [portActive, tooglePortActive] = useState(false);
   const [nbActive, toogleNbActive] = useState(false);
   const [chatActive, toogleChatActive] = useState(false);
-  const { Addsearch, clearSearch } = useContext(SearchContext);
-  const [value, setValue] = useState('');
-
-  const onChange = (e) => {
-    setValue(e.target.value);
-    _onsearch();
-  };
 
   useEffect(() => {
     if (user?._id) {
@@ -41,16 +31,6 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
       );
     }
   }, [user?._id]);
-
-  const _onsearch = async () => {
-    clearSearch();
-    const response = await api.get(`/search?title=${value}`);
-    if (response) {
-      Addsearch(response?.data);
-    } else {
-      Addsearch([]);
-    }
-  };
 
   const toggleF = async () => {
     toogleFeedActive(!feedActive);
@@ -104,23 +84,7 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
           ></div>
 
           <div className='nav-icons'>
-            <div className='search active'>
-              <input
-                type='text'
-                onChange={(e) => onChange(e)}
-                className='search-btn'
-                placeholder='search'
-              />
-              <br />
-              <img
-                onClick={() => {
-                  history.push('/profiles');
-                }}
-                src={searchIcon}
-                alt='search'
-              />
-            </div>
-
+            <SearchPage />
             <div
               className={feedActive ? 'tab active' : 'tab classnamefeed'}
               onClick={toggleF}
@@ -130,7 +94,6 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
                 <p>Home</p>
               </Link>
             </div>
-            {/* <div className='one'></div> */}
             <div
               className={
                 portActive
