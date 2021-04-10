@@ -13,6 +13,7 @@ import path from '../../images/path.svg';
 import videocall from '../../images/videocall.png';
 import background from '../../images/Rectangle.png';
 import ChatRight from './ChatRight';
+import ResponsiveChatPopup from './ResponsiveChatPopup';
 
 const ChatPage = ({
   auth,
@@ -34,24 +35,30 @@ const ChatPage = ({
     getProjects(auth?.user?._id);
   }, [getBuddiesById, getProjects, auth?.user?._id]);
 
+  const chatClose = () => {
+    setChatStarted(false);
+  };
+
   return (
     <div id='full-chat'>
-      <aside id='fullchat-left'>
+      <div id='fullchat-left'>
         <div className='fullchat-lefttop'>
-          <div
-            style={{
-              background: `url(${
-                auth?.user?.avatar ? auth?.user?.avatar : logo
-              }) no-repeat center center/cover`,
-            }}
-            className='display-pic'
-          ></div>
-          <div>
-            <input
-              type='search'
-              name='search'
-              placeholder='Search People & Groups'
-            />
+          <div className='fullchat-lefttop-container'>
+            <div
+              style={{
+                background: `url(${
+                  auth?.user?.avatar ? auth?.user?.avatar : logo
+                }) no-repeat center center/cover`,
+              }}
+              className='display-pic'
+            ></div>
+            <div>
+              <input
+                type='search'
+                name='search'
+                placeholder='Search People & Groups'
+              />
+            </div>
           </div>
         </div>
         <div className='fullchat-leftcontainer'>
@@ -143,15 +150,26 @@ const ChatPage = ({
             </div>
           </div>
         </div>
-      </aside>
+        {chatStarted && (
+          <ResponsiveChatPopup
+            chatClose={chatClose}
+            userUid={userUid}
+            chatUserImage={chatUserImage}
+            chatProfile={chatProfile}
+            conversations={conversations}
+          />
+        )}
+      </div>
       {chatStarted ? (
-        <ChatRight
-          conversations={conversations}
-          auth={auth}
-          chatProfile={chatProfile}
-          chatUserImage={chatUserImage}
-          userUid={userUid}
-        />
+        <Fragment>
+          <ChatRight
+            conversations={conversations}
+            auth={auth}
+            chatProfile={chatProfile}
+            chatUserImage={chatUserImage}
+            userUid={userUid}
+          />
+        </Fragment>
       ) : (
         <section
           id='fullchat-right'

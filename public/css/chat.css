@@ -219,17 +219,67 @@ a {
   border: none;
 }
 
-.chat-popup-1 {
-  display: none;
-  position: fixed;
-  bottom: 0px;
-  right: 320px;
-  z-index: 9;
-  width: 350px;
-  max-height: 550px;
+/* chatpopup */
+
+#main-open-chatpopup {
+  height: 100%;
+  width: 100%;
+  display: block;
+  position: absolute;
+  top: 0px;
   z-index: 1000;
+  overflow: hidden;
+  display: none;
 }
 
+/* responsive chat popup */
+.chat-popup-1 {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-popup-1 .chatbox-top {
+  background-color: #f9f6f2;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  height: 65px;
+}
+
+.chat-popup-1 .form-container-2 {
+  max-width: 450px;
+  padding: 0.5rem 0;
+  height: 86%;
+  background-image: url(../img/Rectangle.png);
+  border-radius: 0px;
+  overflow: scroll;
+}
+
+.chat-popup-1 .form-container-2 .form-container-2-container {
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+  padding: 0.5rem 1rem;
+  border-radius: 0px;
+}
+
+.chat-popup-1 .form-container-2 .flex-c .flex-c-r {
+  display: grid;
+  grid-template-columns: 80% 15%;
+  grid-gap: 0.5rem;
+  width: 100%;
+  /* max-width: 80%; */
+  margin: 0.5rem 0.5rem;
+  justify-content: flex-end;
+  align-items: self-start;
+}
+.chat-popup-1 .form-container-2 .flex-c .flex-2 .flex-2-c {
+  display: flex;
+  flex-direction: column;
+}
 .chat-popup-1 h4 {
   font-family: 'Lato', sans-serif;
   font-size: 16px;
@@ -303,6 +353,21 @@ a {
   background: #fff;
 }
 
+.chatpopup-type {
+  padding: 0.5rem 0;
+  background-color: #f2f2f2;
+  border-radius: 0px;
+}
+.chatpopup-type .form-grid {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  align-items: center;
+}
+.chatpopup-type .form-grid .form-flex-left {
+  width: 100%;
+  border-radius: 15px;
+}
+
 .dp-1 {
   display: inline-block;
   width: 36px;
@@ -344,13 +409,13 @@ a {
 }
 
 .chatbox-top {
-  background-color: #7480fc;
-  color: #fff;
+  /* background-color: #7480fc; */
+  background-color: #f9f6f2;
+  color: #333;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem 1.25rem;
-  border-radius: 15px 15px 0 0;
 }
 
 .chatbox-top .chatboxtop-left {
@@ -450,23 +515,32 @@ a {
   height: 90vh;
   overflow: auto;
   background-color: #f9f6f2;
+  position: relative;
 }
 
 #fullchat-left .fullchat-lefttop {
+  position: sticky;
+  top: 5px;
+  z-index: 10;
+}
+
+#fullchat-left .fullchat-lefttop .fullchat-lefttop-container {
   display: grid;
   grid-template-columns: 20% 80%;
-  width: 25%;
+  width: 100%;
   align-items: center;
   background-color: #f9f6f2;
   padding: 1.1rem 0.8rem;
-  position: fixed;
+  /* position: sticky; */
   border-bottom: 1px solid #c9c9c9;
-  z-index: 10;
 }
 
 #fullchat-left .fullchat-lefttop.finance {
   display: grid;
   grid-template-columns: 100%;
+  width: 90%;
+  margin: auto;
+  margin-top: 1rem;
 }
 
 .fullchat-lefttop .display-pic {
@@ -491,8 +565,7 @@ a {
   width: 90%;
   margin: auto;
   position: relative;
-  top: 74px;
-  height: 100%;
+  height: 80vh;
   background-color: #f9f6f2;
   overflow: scroll;
 }
@@ -630,8 +703,23 @@ a {
   position: relative;
 }
 
+.fullchat-right.responsive {
+  width: 100%;
+  height: 90vh;
+  overflow: auto;
+  position: relative;
+  top: 0px;
+  z-index: 1000;
+  display: none;
+}
+.fullchat-right.responsive .fullchat-right-responsive-container {
+  position: fixed;
+  top: 72px;
+  height: 90%;
+}
+
 .fullchat-maintop {
-  width: 75%;
+  width: 100%;
   display: flex;
   justify-content: space-between !important;
   align-items: center;
@@ -642,6 +730,27 @@ a {
   border-radius: 0px 8px 0px 0px;
   position: fixed;
   z-index: 10;
+}
+
+.fullchat-right.responsive .fullchat-maintop {
+  position: absolute;
+}
+
+.fullchat-right.responsive .fullchat-maintop .fullchat-maintop-left .cancel {
+  display: inline-block;
+  width: 2rem;
+  height: 2rem;
+  vertical-align: bottom;
+}
+
+.fullchat-right.responsive
+  .fullchat-maintop
+  .fullchat-maintop-left
+  .cancel
+  img {
+  display: inline-block;
+  width: inherit;
+  height: inherit;
 }
 
 .fullchat-maintop .fullchat-maintop-left {
@@ -819,7 +928,7 @@ a {
 /* Full chat type */
 
 .fullchat-type {
-  width: 75%;
+  width: 100%;
   height: 70px;
   position: fixed;
   right: 0px;

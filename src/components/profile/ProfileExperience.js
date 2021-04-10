@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import nounPlus from '../../images/icons/noun_Plus_2310779.svg';
 
 const ProfileExperience = ({
-  experience: { _id, title, company, location, from, to },
+  experience: { _id, title, company, project, description, location, from, to },
   deleteExperience,
   show,
 }) => (
@@ -20,7 +20,11 @@ const ProfileExperience = ({
         </a>
       )}
       <br />
-      {company} {location} <br />
+      {project}
+      <br />
+      {company} <br />
+      {location} <br />
+      {description} <br />
       <span className='font-light'>
         <Moment format='MMM YYYY'>{from}</Moment> -{' '}
         {to === null ? 'Now' : <Moment format='MMM YYYY'>{to}</Moment>}

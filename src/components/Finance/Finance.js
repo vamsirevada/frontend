@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Fragment } from 'react';
 import FinanceRight from './FinanceRight';
+import ResponsiveFinanceRight from './ResponsiveFinanceRight';
 import { useParams } from 'react-router-dom';
 import { getProject } from '../../actions/project';
 import { getTransactions } from '../../actions/expense';
@@ -16,10 +17,16 @@ const Finance = ({
   const [show, setshow] = useState(true);
   const [spender, setSpender] = useState(true);
 
+  const [respo, setRespo] = useState(false);
+
   useEffect(() => {
     getProject(params.id);
     getTransactions(params.id);
   }, [getProject, getTransactions, params.id]);
+
+  const respoClose = () => {
+    setRespo(false);
+  };
 
   return (
     <div id='full-chat'>
@@ -35,6 +42,10 @@ const Finance = ({
               <div className='budget-heading'>
                 <h3>Total Budget</h3>
                 <div>
+                  <a href='#!' className='blue'>
+                    Add Budget
+                  </a>
+                  <span className='divider-line'>{' | '}</span>
                   <a href='#!' className='blue' onClick={(e) => setshow(true)}>
                     See
                   </a>
@@ -56,6 +67,10 @@ const Finance = ({
               <div className='expenses-heading'>
                 <h3>Expenses </h3>
                 <div>
+                  <a href='#!' className='blue'>
+                    Add New Expenses{' '}
+                  </a>
+                  <span className='divider-line'>{' | '}</span>
                   <a
                     href='#!'
                     className='blue'
@@ -77,7 +92,12 @@ const Finance = ({
                 {spender &&
                   singleproject?.moderator.map((x) => (
                     <Fragment key={x._id}>
-                      <div className='expense-card'>
+                      <div
+                        className='expense-card'
+                        onClick={() => {
+                          setRespo(!respo);
+                        }}
+                      >
                         <p>
                           <span className='blue'>Date :</span> 07/04/2021
                         </p>
@@ -92,8 +112,21 @@ const Finance = ({
             </div>
           </div>
         </div>
+
+        {respo && (
+          <ResponsiveFinanceRight
+            transactions={transactions}
+            singleproject={singleproject}
+            respoClose={respoClose}
+          />
+        )}
       </aside>
-      <FinanceRight transactions={transactions} singleproject={singleproject} />
+      {respo && (
+        <FinanceRight
+          transactions={transactions}
+          singleproject={singleproject}
+        />
+      )}
     </div>
   );
 };

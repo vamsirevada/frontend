@@ -2565,7 +2565,7 @@ input.search-btn:focus {
   }
 
   #fullchat-left .fullchat-lefttop {
-    width: 28%;
+    width: 100%;
   }
 
   .portfolio.project {
@@ -2667,6 +2667,22 @@ input.search-btn:focus {
 }
 
 @media (max-width: 768px) {
+  .demo-tour-button {
+    display: none;
+  }
+  .fullchat-right.responsive {
+    display: block;
+  }
+  .main-grid-top .profile-project-box {
+    max-width: 96%;
+  }
+  /* Admin money tab */
+  .adminmoney {
+    max-width: 96%;
+  }
+  .admin-money-container h3 {
+    font-size: 14px;
+  }
   #navbar .container {
     display: grid;
     grid-template-columns: 10% 30% 60%;
@@ -2813,7 +2829,7 @@ input.search-btn:focus {
     grid-template-columns: 25% 75%;
   }
   #fullchat-left .fullchat-lefttop {
-    width: 37%;
+    width: 100%;
   }
   #fullchat-right {
     width: 100%;
@@ -3444,6 +3460,31 @@ input.search-btn:focus {
 }
 /* iphone6.7.8 potrait */
 @media (max-width: 420px) {
+  .fullchat-right.responsive .fullchat-right-responsive-container {
+    position: fixed;
+    top: 72px;
+    height: 100%;
+    width: 100%;
+  }
+  .expenses-type {
+    width: inherit;
+    height: 25vh;
+    position: absolute;
+    right: 0px;
+    bottom: 73px;
+    z-index: 1000;
+  }
+  .admin-money-container .budget {
+    background-color: #7480ff;
+    padding: 0.5rem 0.809rem;
+    border-radius: 1rem;
+    color: #fff;
+    width: 33%;
+    height: 85px;
+  }
+  #main-open-chatpopup {
+    display: block;
+  }
   .main-add .main-left .btn-gray {
     width: inherit;
   }
@@ -4004,6 +4045,44 @@ input.search-btn:focus {
   .main-add .main-right .main-right-container .box1 {
     display: none;
   }
+  /* Chat */
+  #full-chat {
+    grid-template-columns: 100%;
+  }
+  #fullchat-left .fullchat-leftcontainer {
+    width: 90%;
+    margin: auto;
+    position: relative;
+    background-color: #f9f6f2;
+    overflow: scroll;
+  }
+  .fullchat-chatgrid .dp {
+    display: inline-block;
+    width: 59%;
+    justify-self: center;
+    height: 48px;
+    border-radius: 10px;
+    margin-right: 1rem;
+  }
+  #fullchat-left .fullchat-lefttop .fullchat-lefttop-container {
+    width: 100%;
+    margin: auto;
+  }
+  .fullchat-lefttop .display-pic {
+    border-radius: 25%;
+    justify-self: center;
+  }
+  .chat-popup-1 .form-container-2 {
+    max-width: 450px;
+    padding: 0.5rem 0;
+    height: 85%;
+    border-radius: 0px;
+    overflow: scroll;
+  }
+
+  #fullchat-right {
+    display: none;
+  }
 }
 
 @media (max-width: 375px) {
@@ -4105,6 +4184,45 @@ input.search-btn:focus {
     top: 124px;
   }
   .main-add .main-right .main-right-container .box1 {
+    display: none;
+  }
+  /* Chat */
+  #full-chat {
+    grid-template-columns: 100%;
+  }
+  #fullchat-left .fullchat-leftcontainer {
+    width: 90%;
+    margin: auto;
+    position: relative;
+
+    background-color: #f9f6f2;
+    overflow: scroll;
+  }
+  .fullchat-chatgrid .dp {
+    display: inline-block;
+    width: 59%;
+    justify-self: center;
+    height: 48px;
+    border-radius: 10px;
+    margin-right: 1rem;
+  }
+  #fullchat-left .fullchat-lefttop .fullchat-lefttop-container {
+    width: 100%;
+    margin: auto;
+  }
+  .fullchat-lefttop .display-pic {
+    border-radius: 25%;
+    justify-self: center;
+  }
+  .chat-popup-1 .form-container-2 {
+    max-width: 450px;
+    padding: 0.5rem 0;
+    height: 85%;
+    border-radius: 0px;
+    overflow: scroll;
+  }
+
+  #fullchat-right {
     display: none;
   }
 }

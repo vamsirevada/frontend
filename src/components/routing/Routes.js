@@ -27,10 +27,6 @@ import SingleProject from '../projects/SingleProject';
 import ProjectList from '../projects/ProjectList';
 import SingleNotice from '../projects/SingleNotice';
 import NoticeBoard from '../projects/NoticeBoard';
-<<<<<<< HEAD
-import CalendarComp from '../CalendarComp';
-=======
->>>>>>> 7e23a156d248bb40c8c8f63c0d077da0cd954c37
 import ChatSideBar from '../chat/ChatSideBar';
 import Loader from '../layout/Loader';
 import WelcomeScreen from '../layout/WelcomeScreen';
@@ -70,11 +66,6 @@ const Routes = ({ auth: { user } }) => {
         <PrivateRoute exact path='/projects/:id' component={Projects} />
         <PrivateRoute exact path='/projectlist/:id' component={ProjectList} />
         <PrivateRoute exact path='/projectfinance/:id' component={Finance} />
-<<<<<<< HEAD
-        {/* <PrivateRoute exact path='/calendar' component={CalendarComp} /> */}
-        {/* <Route exact path='*' component={NotFound} /> */}
-=======
->>>>>>> 7e23a156d248bb40c8c8f63c0d077da0cd954c37
       </Switch>
       {/* {user?._id && <ChatSideBar />} */}
     </>

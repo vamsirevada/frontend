@@ -28,7 +28,7 @@ const ChatRight = ({
   };
 
   return (
-    <section id='fullchat-right'>
+    <section id='fullchat-right' data-aos='zoom-in'>
       <div className='fullchat-maintop'>
         <div className='fullchat-maintop-left'>
           <div
@@ -41,9 +41,7 @@ const ChatRight = ({
             <div className='chat-name'>
               <a href='#!'>{chatProfile?.user?.fullName}</a>
             </div>
-            <div className='chat-body'>
-              <p>Active Now</p>
-            </div>
+            <div className='chat-body'>{/* <p>Active Now</p> */}</div>
           </div>
         </div>
       </div>

@@ -98,7 +98,7 @@ const FinanceRight = ({ singleproject, addTransaction, transactions }) => {
           </div>
           <div className='form-flex-right'>
             <a onClick={onSubmit} href='#!'>
-              Save
+              Add
             </a>
             <a href='#!'>Submit</a>
           </div>

@@ -2,8 +2,13 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useParams } from 'react-router';
 import { getTransactions } from '../../actions/expense';
+import { Link } from 'react-router-dom';
 
-const AdminMoney = ({ getTransactions, expense: { transactions } }) => {
+const AdminMoney = ({
+  getTransactions,
+  expense: { transactions },
+  singleproject: { _id },
+}) => {
   const params = useParams();
 
   useEffect(() => {
@@ -17,22 +22,22 @@ const AdminMoney = ({ getTransactions, expense: { transactions } }) => {
   return (
     <div className='adminmoney'>
       <div className='admin-money-container'>
-        <div className='budget'>
+        <Link to={`/projectfinance/${_id}`} className='budget'>
           <h3>Budget</h3>
           <p>₹10,00,00,000</p>
-        </div>
-        <div className='expenses'>
+        </Link>
+        <Link to={`/projectfinance/${_id}`} className='expenses'>
           <h3>Total Expenses</h3>
           <p>₹{total}</p>
-        </div>
-        <div className='expenses-1'>
+        </Link>
+        <Link to={`/projectfinance/${_id}`} className='expenses-1'>
           <h3>Latest Expense</h3>
           <p>
             {amounts[amounts.length - 1]
               ? `₹${amounts[amounts.length - 1]}`
               : '₹0.00'}
           </p>
-        </div>
+        </Link>
       </div>
     </div>
   );

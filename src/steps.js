@@ -7,11 +7,6 @@ export default [
     attachTo: { element: '.classnamefeed', on: 'bottom' },
     classes: 'shepherd shepherd-welcome',
     buttons: [
-      // {
-      //   type: 'cancel',
-      //   classes: 'shepherd-button-secondary',
-      //   text: 'Exit',
-      // },
       {
         type: 'next',
         text: 'Next',
@@ -59,23 +54,6 @@ export default [
     title: 'ChatRoom',
     text: `Place where you can interact with friends and Projectmates`,
     attachTo: { element: '.classnamechat', on: 'bottom' },
-    buttons: [
-      {
-        type: 'back',
-        classes: 'shepherd-button-secondary',
-        text: 'Back',
-      },
-      {
-        type: 'next',
-        text: 'Next',
-      },
-    ],
-  },
-  {
-    id: 'centered-example',
-    title: 'Edit Profile',
-    text: `Place where you can edit profile, invite friends, create projects`,
-    attachTo: { element: '.dp-popup-demo-tour', on: 'bottom' },
     buttons: [
       {
         type: 'back',

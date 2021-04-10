@@ -64,7 +64,7 @@ const SingleProject = ({
                       .find((x) => x === true) && (
                       <>
                         <ProjectAdd singleproject={singleproject} />
-                        <AdminMoney />
+                        <AdminMoney singleproject={singleproject} />
                       </>
                     )}
                   <ProjectPostForm singleproject={singleproject} />
@@ -80,6 +80,16 @@ const SingleProject = ({
                 singleproject={singleproject}
                 id={match.params.id}
               />
+              <div
+                onClick={() => {
+                  history.push(`/projectfinance/${singleproject?._id}`);
+                }}
+                className='expenses-button'
+              >
+                <div className='expenses-button-container'>
+                  <span>Expenses Tracker</span>
+                </div>
+              </div>
               {singleproject?.moderator &&
                 singleproject?.moderator
                   .map((x) => x?.user === profile?.user?._id)

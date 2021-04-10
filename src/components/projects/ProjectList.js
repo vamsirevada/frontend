@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import ProjectTemp from './ProjectTemp';
+import ExpTemp from './ExpTemp';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { getProfileById } from '../../actions/profile';
@@ -100,6 +101,26 @@ const ProjectList = ({
                 </Fragment>
               ) : (
                 <p style={{ textAlign: 'center' }}>None </p>
+              )}
+              {profile1?.experience.length > 0 && (
+                <Fragment>
+                  {profile1?.experience.length > 0 && (
+                    <div>
+                      {profile1?.experience.length > 0 && (
+                        <Fragment>
+                          {profile1?.experience.map((experience) => (
+                            <ExpTemp
+                              key={experience._id}
+                              experience={experience}
+                              profile={profile1}
+                              user={user}
+                            />
+                          ))}
+                        </Fragment>
+                      )}
+                    </div>
+                  )}
+                </Fragment>
               )}
             </div>
           </div>
