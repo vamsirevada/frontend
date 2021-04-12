@@ -171,7 +171,7 @@ const PostItem = ({
             <p>{text}</p>
           </div>
         )}
-        {PostType(type) === 'photo' && (
+        {PostType(type) === 'Picture' && (
           <>
             <p style={{ marginBottom: 10 }} className='post-description'>
               {text}
@@ -185,7 +185,7 @@ const PostItem = ({
           </>
         )}
 
-        {PostType(type) === 'video' && (
+        {PostType(type) === 'Video' && (
           <>
             <p style={{ marginBottom: 10 }} className='post-description'>
               {text}
@@ -203,7 +203,7 @@ const PostItem = ({
             />
           </>
         )}
-        {PostType(type) === 'audio' && (
+        {PostType(type) === 'Audio' && (
           <>
             <p style={{ marginBottom: 10 }} className='post-description'>
               {text}

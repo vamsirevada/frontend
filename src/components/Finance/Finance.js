@@ -1,31 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { Fragment } from 'react';
 import FinanceRight from './FinanceRight';
 import ResponsiveFinanceRight from './ResponsiveFinanceRight';
 import { useParams } from 'react-router-dom';
-import { getProject } from '../../actions/project';
+import { getProject, getProjectBudget } from '../../actions/project';
 import { getTransactions } from '../../actions/expense';
+import { projectFirestore } from '../../firebase/config';
 
 const Finance = ({
+  profile: { profile },
   getProject,
   getTransactions,
-  project: { singleproject },
+  project: {
+    singleproject,
+    budget: { budget },
+  },
   expense: { transactions },
 }) => {
   const params = useParams();
+  const dispatch = useDispatch();
   const [show, setshow] = useState(true);
+  const [modal, setModal] = useState(false);
+  const [value, setValue] = useState('');
   const [spender, setSpender] = useState(true);
-
   const [respo, setRespo] = useState(false);
 
   useEffect(() => {
     getProject(params.id);
     getTransactions(params.id);
+    dispatch(getProjectBudget(params.id));
   }, [getProject, getTransactions, params.id]);
 
   const respoClose = () => {
     setRespo(false);
+  };
+
+  const addBudget = (e) => {
+    e.preventDefault();
+    projectFirestore.collection('projects').add({
+      project: singleproject?._id,
+      budget: value,
+    });
   };
 
   return (
@@ -42,9 +58,17 @@ const Finance = ({
               <div className='budget-heading'>
                 <h3>Total Budget</h3>
                 <div>
-                  <a href='#!' className='blue'>
-                    Add Budget
-                  </a>
+                  {budget < 0 && (
+                    <a
+                      href='#!'
+                      onClick={() => {
+                        setModal(true);
+                      }}
+                      className='blue'
+                    >
+                      Add Budget
+                    </a>
+                  )}
                   <span className='divider-line'>{' | '}</span>
                   <a href='#!' className='blue' onClick={(e) => setshow(true)}>
                     See
@@ -58,7 +82,7 @@ const Finance = ({
               <div className='budget-amount'>
                 {show && (
                   <div>
-                    <p>₹10,00,00,000</p>
+                    <p>₹{budget}</p>
                   </div>
                 )}
               </div>
@@ -120,11 +144,35 @@ const Finance = ({
             respoClose={respoClose}
           />
         )}
+
+        {modal && (
+          <div>
+            <form onSubmit={addBudget}>
+              <div>
+                <label htmlFor='remark'>Total Budget :</label>
+                <br />
+                <input
+                  type='text'
+                  name='remark'
+                  className='remark'
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                />
+              </div>
+              <div className='prof-flex-btn'>
+                <button className='btn-blue note' type='submit'>
+                  Add Budget
+                </button>
+              </div>
+            </form>
+          </div>
+        )}
       </aside>
       {respo && (
         <FinanceRight
           transactions={transactions}
           singleproject={singleproject}
+          profile={profile}
         />
       )}
     </div>
@@ -132,6 +180,7 @@ const Finance = ({
 };
 
 const mapStateToProps = (state) => ({
+  profile: state.profile,
   expense: state.expense,
   project: state.project,
 });

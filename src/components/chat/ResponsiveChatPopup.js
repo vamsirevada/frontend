@@ -38,14 +38,10 @@ const ResponsiveChatPopup = ({
         <div className='chatbox-top'>
           <div className='chatboxtop-left'>
             <div className='chatboxtop-right'>
-              {/* <a type='button' className='resize'>
-                <img src={Path} alt='' />
-              </a> */}
               <a
                 type='button'
                 className='cancel'
                 onClick={() => {
-                  // (document.getElementById('myForm1').style.display = 'none')
                   chatClose();
                 }}
               >
@@ -60,7 +56,7 @@ const ResponsiveChatPopup = ({
             ></span>
             <div className='chat-top-name'>
               <h4>{chatProfile?.user?.fullName}</h4>
-              {/* <small>Active Now</small> */}
+              {user?.activityStatus === 'online' && <small>Active Now</small>}
             </div>
           </div>
         </div>

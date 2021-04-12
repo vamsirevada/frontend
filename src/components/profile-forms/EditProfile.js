@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, createRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile } from '../../actions/profile';
@@ -37,7 +37,7 @@ const EditProfile = ({
   createProfile,
   history,
 }) => {
-  let fileInput = React.createRef();
+  const fileInput = createRef();
   const [progress, setProgress] = useState(0);
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState(initialState);
@@ -91,6 +91,7 @@ const EditProfile = ({
       history,
       true
     );
+    setShow(false);
   };
 
   const onSubmit = (e) => {
@@ -113,14 +114,14 @@ const EditProfile = ({
                 ref={fileInput}
               />
               <img className='display-pic' src={avatar} alt='' />
-
-              <button className='btn-yellow' onClick={onOpenFileDialog}>
-                Upload Picture
-              </button>
-              {show && (
+              {show ? (
                 <div style={{ width: 50, height: 50, margin: 'auto' }}>
                   <CircularProgressbar value={progress} text={`${progress}%`} />
                 </div>
+              ) : (
+                <button className='btn-yellow' onClick={onOpenFileDialog}>
+                  Upload Picture
+                </button>
               )}
             </div>
             <div className='c-form'>
@@ -212,16 +213,20 @@ const EditProfile = ({
                 hidden={true}
                 ref={fileInput}
               />
-              <img className='display-pic' src={avatar} alt='' />
-              {show && (
+              <img
+                className='display-pic'
+                src={avatar ? avatar : logo}
+                alt=''
+              />
+              {show ? (
                 <div style={{ width: 50, height: 50, margin: 'auto' }}>
                   <CircularProgressbar value={progress} text={`${progress}%`} />
                 </div>
+              ) : (
+                <button className='btn-yellow' onClick={onOpenFileDialog}>
+                  Upload Picture
+                </button>
               )}
-
-              <button className='btn-yellow' onClick={onOpenFileDialog}>
-                Upload Picture
-              </button>
             </div>
             <div className='c-form'>
               <form onSubmit={onSubmit}>

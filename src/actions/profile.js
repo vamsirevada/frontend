@@ -313,7 +313,6 @@ export const createProfile = (formData, history, edit = false) => async (
 ) => {
   try {
     const res = await api.post('/profile', formData);
-
     dispatch({
       type: GET_PROFILE,
       payload: res.data,

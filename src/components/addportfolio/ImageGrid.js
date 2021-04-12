@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import UseFirestore from './UseFireStore';
 import api from '../../utils/api';
 import { motion } from 'framer-motion';
@@ -375,16 +376,7 @@ const ImageGrid = ({ id, profile }) => {
                   </div>
                 )}
               </div>
-              <motion.a
-                href={doc.url}
-                target='_blank'
-                alt='uploaded pic'
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-              >
-                {doc.url}
-              </motion.a>
+              <a href={doc.url}>{doc.description}</a>
             </motion.div>
           ))}
       </div>

@@ -7,12 +7,14 @@ import {
   DELETE_PROJECT,
   PROJECT_ERROR,
   UPDATE_PROJECT,
+  GET_PROJECT_BUDGET,
 } from '../actions/types';
 
 const initialState = {
   projects: [],
   isCreated: null,
   singleproject: null,
+  budget: {},
   error: {},
   loading: true,
   prompt: null,
@@ -38,6 +40,13 @@ export default function (state = initialState, action) {
         singleproject: payload,
         loading: false,
       };
+    case GET_PROJECT_BUDGET: {
+      return {
+        ...state,
+        budget: payload,
+        loading: false,
+      };
+    }
     case CREATE_PROJECT:
       return {
         ...state,

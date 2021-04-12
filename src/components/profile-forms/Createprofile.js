@@ -1,24 +1,30 @@
-import React, { Fragment, useState } from 'react';
+import React, { createRef, Fragment, useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile } from '../../actions/profile';
 import { projectStorage } from '../../firebase/config';
 import logo from '../../images/dummyimage.jpg';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
+const initialState = {
+  location: '',
+  avatar: '',
+  status: '',
+  bio: '',
+  founder: '',
+  dob: '',
+  gender: '',
+  hometown: '',
+  languageknown: '',
+};
 
 const Createprofile = ({ createProfile, history }) => {
-  let fileInput = React.createRef();
-
-  const [formData, setFormData] = useState({
-    location: '',
-    avatar: '',
-    status: '',
-    bio: '',
-    dob: '',
-    gender: '',
-    hometown: '',
-    languageknown: '',
-  });
+  const fileInput = createRef();
+  const [progress, setProgress] = useState(0);
+  const [show, setShow] = useState(false);
+  const [formData, setFormData] = useState(initialState);
 
   const {
     location,
@@ -31,6 +37,9 @@ const Createprofile = ({ createProfile, history }) => {
     languageknown,
   } = formData;
 
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
   const onOpenFileDialog = () => {
     fileInput.current.click();
   };
@@ -39,25 +48,25 @@ const Createprofile = ({ createProfile, history }) => {
     const file = e.target.files[0];
     const storageRef = projectStorage.ref('profilepictures');
     const fileRef = storageRef.child(file.name);
-    await fileRef.put(file);
+    await fileRef.put(file).on('state_changed', (snap) => {
+      let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+      setProgress(Math.round(percentage));
+      setShow(true);
+    });
     setFormData({
       ...formData,
       avatar: await fileRef.getDownloadURL(),
     });
-
     createProfile(
       { ...formData, avatar: await fileRef.getDownloadURL() },
       history,
       true
     );
+    setShow(false);
   };
-
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
     createProfile(formData, history);
   };
 
@@ -74,16 +83,23 @@ const Createprofile = ({ createProfile, history }) => {
                 hidden={true}
                 ref={fileInput}
               />
-              <div className='display-pic'>
-                <img
-                  className='display-pic'
-                  src={avatar ? avatar : logo}
-                  alt=''
-                />
-              </div>
+              <img
+                className='display-pic'
+                src={avatar ? avatar : logo}
+                alt=''
+              />
               <button className='btn-yellow' onClick={onOpenFileDialog}>
                 Upload Picture
               </button>
+              {show ? (
+                <div style={{ width: 50, height: 50, margin: 'auto' }}>
+                  <CircularProgressbar value={progress} text={`${progress}%`} />
+                </div>
+              ) : (
+                <button className='btn-yellow' onClick={onOpenFileDialog}>
+                  Upload Picture
+                </button>
+              )}
             </div>
 
             <div className='c-form'>

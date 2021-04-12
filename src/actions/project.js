@@ -1,8 +1,10 @@
+import { projectFirestore } from '../firebase/config';
 import api from '../utils/api';
 import { setAlert } from './alert';
 import {
   GET_PROJECTS,
   GET_PROJECT,
+  GET_PROJECT_BUDGET,
   PROJECT_INVITE_SENT,
   PROJECT_INVITE_CANCEL,
   CREATE_PROJECT,
@@ -63,6 +65,31 @@ export const createProject = (formData) => async (dispatch) => {
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
+};
+
+export const addBudget = (budgetObj) => {
+  return async (dispatch) => {
+    projectFirestore.collection('projects').add({
+      ...budgetObj,
+      createdAt: new Date(),
+    });
+  };
+};
+
+export const getProjectBudget = (project_id) => {
+  return async (dispatch) => {
+    projectFirestore
+      .collection('projects')
+      .where('project', '==', project_id)
+      .onSnapshot((snap) => {
+        snap.forEach((doc) => {
+          dispatch({
+            type: GET_PROJECT_BUDGET,
+            payload: { id: doc.id, ...doc.data() },
+          });
+        });
+      });
+  };
 };
 //Send a Project Invite
 export const sendProjectInvite = (project_id, profile_id) => async (

@@ -5,8 +5,6 @@ import { getBuddiesById } from '../../actions/profile';
 import { getProjects } from '../../actions/project';
 import { getRealtimeConversations } from '../../actions/chat';
 import { connect, useDispatch } from 'react-redux';
-
-import attach from '../../images/attach.svg';
 import logo from '../../images/dummyimage.jpg';
 import emoji from '../../images/emoji.svg';
 import path from '../../images/path.svg';
@@ -126,7 +124,21 @@ const ChatPage = ({
               {projects &&
                 projects.map((project) => (
                   <Fragment key={project?._id}>
-                    <div className='fullchat-chatgrid'>
+                    <div
+                      onClick={() => {
+                        setChatProfile(project);
+                        setChatStarted(true);
+                        setUserUid(project?.user);
+                        setChatUserImage(project?.avatar);
+                        dispatch(
+                          getRealtimeConversations({
+                            uid_1: auth?.user?._id,
+                            uid_2: project?.user,
+                          })
+                        );
+                      }}
+                      className='fullchat-chatgrid'
+                    >
                       <div
                         style={{
                           background: `url(${

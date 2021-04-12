@@ -110,6 +110,7 @@ const MembersPopUp = ({
                       <li
                         onClick={() => {
                           makeAdmin(params.id, id);
+                          setIsOpen(false);
                         }}
                       >
                         Make Admin
@@ -117,6 +118,7 @@ const MembersPopUp = ({
                       <li
                         onClick={() => {
                           makeModerator(params.id, id);
+                          setIsOpen(false);
                         }}
                       >
                         Make Moderator
@@ -124,6 +126,7 @@ const MembersPopUp = ({
                       <li
                         onClick={() => {
                           removeAdmin(params.id, id);
+                          setIsOpen(false);
                         }}
                       >
                         Remove Admin
@@ -131,6 +134,7 @@ const MembersPopUp = ({
                       <li
                         onClick={() => {
                           removeModerator(params.id, id);
+                          setIsOpen(false);
                         }}
                       >
                         Remove Moderator

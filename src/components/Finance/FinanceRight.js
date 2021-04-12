@@ -4,7 +4,12 @@ import { connect } from 'react-redux';
 import { useParams } from 'react-router';
 import logo from '../../images/dummyimage.jpg';
 
-const FinanceRight = ({ singleproject, addTransaction, transactions }) => {
+const FinanceRight = ({
+  profile,
+  singleproject,
+  addTransaction,
+  transactions,
+}) => {
   const params = useParams();
   const [text, setText] = useState('');
   const [amount, setAmount] = useState(0);
@@ -67,43 +72,43 @@ const FinanceRight = ({ singleproject, addTransaction, transactions }) => {
         </div>
       </div>
 
-      <div className='expenses-type'>
-        <div className=' expenses-tracker'>
-          <div>
-            <h3>Add Expense</h3>
-          </div>
-          <div className='expenses-tracker-flex'>
-            {/* <div>
-              <label>S.No</label>
-              <input type='number' />
-            </div> */}
+      {singleproject?.moderator
+        .map((x) => x?.user === profile?.user?._id)
+        .find((x) => x === true) && (
+        <div className='expenses-type'>
+          <div className=' expenses-tracker'>
             <div>
-              <label>Particular</label>
-              <br />
-              <input
-                type='text'
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-              />
+              <h3>Add Expense</h3>
             </div>
-            <div>
-              <label>Amount</label>
-              <br />
-              <input
-                type='number'
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-              />
+            <div className='expenses-tracker-flex'>
+              <div>
+                <label>Particular</label>
+                <br />
+                <input
+                  type='text'
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                />
+              </div>
+              <div>
+                <label>Amount</label>
+                <br />
+                <input
+                  type='number'
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                />
+              </div>
             </div>
-          </div>
-          <div className='form-flex-right'>
-            <a onClick={onSubmit} href='#!'>
-              Add
-            </a>
-            <a href='#!'>Submit</a>
+            <div className='form-flex-right'>
+              <a onClick={onSubmit} href='#!'>
+                Add
+              </a>
+              <a href='#!'>Submit</a>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </section>
   );
 };

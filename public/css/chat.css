@@ -491,12 +491,12 @@ a {
 
 .form-grid .form-flex-right {
   justify-self: center;
-  align-items: flex-end;
+  align-items: center;
 }
 
 .form-grid .form-flex-right img {
   display: inline-block;
-  width: 90%;
+  width: 80%;
   vertical-align: bottom;
 }
 
@@ -938,8 +938,8 @@ a {
 
 .fullchat-type .form-grid {
   display: grid;
-  grid-template-columns: 90% 5%;
-  grid-gap: 1rem;
+  grid-template-columns: 90% 10%;
+  grid-gap: 0.25rem;
   align-items: center;
   background-color: #ffffff;
   border: 1px solid #dfe4ea;
@@ -966,19 +966,29 @@ a {
   background-color: #ececec;
   padding: 0.7rem;
   width: 100%;
-  margin-right: 1rem;
-  /* margin-bottom: 0.5rem; */
   border-radius: 10px;
   border: none;
   outline: none;
 }
 
 .fullchat-type .form-grid .form-flex-right {
-  justify-self: flex-end;
-  align-items: flex-end;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }
 
-.fullchat-type .form-grid .form-flex-right img {
+.fullchat-type .form-grid .form-flex-right .messageattach {
+  height: 50%;
+  width: 50%;
+}
+
+.fullchat-type .form-grid .form-flex-right .sendmessage {
+  outline: none;
+  border: none;
+  background: transparent;
+}
+
+.fullchat-type .form-grid .form-flex-right .sendmessage img {
   display: inline-block;
   width: 90%;
   vertical-align: bottom;

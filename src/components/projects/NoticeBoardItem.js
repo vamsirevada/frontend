@@ -74,8 +74,8 @@ const NoticeBoardItem = ({
                 </div>
                 <div className='noticeboard-member-applied'>
                   <div className='noticeboard-avatars'>
-                    {not?.applied.map((x) => (
-                      <span className='noticeboard-avatar'>
+                    {not?.applied.map((x, index) => (
+                      <span key={index} className='noticeboard-avatar'>
                         <img src={x?.avatar} alt='' />
                       </span>
                     ))}
@@ -87,11 +87,7 @@ const NoticeBoardItem = ({
           </div>
         ))}
       </>
-      {show && (
-        <div className='noticeboardpopupscreen'>
-          <NoticeBoardPopup notice={notice} hide={hide} />
-        </div>
-      )}
+      {show && <NoticeBoardPopup notice={notice} hide={hide} />}
     </Fragment>
   );
 };

@@ -5,6 +5,7 @@ import { getTransactions } from '../../actions/expense';
 import { Link } from 'react-router-dom';
 
 const AdminMoney = ({
+  budget,
   getTransactions,
   expense: { transactions },
   singleproject: { _id },
@@ -24,7 +25,7 @@ const AdminMoney = ({
       <div className='admin-money-container'>
         <Link to={`/projectfinance/${_id}`} className='budget'>
           <h3>Budget</h3>
-          <p>₹10,00,00,000</p>
+          <p>{budget ? `₹${budget}` : '₹0.00'}</p>
         </Link>
         <Link to={`/projectfinance/${_id}`} className='expenses'>
           <h3>Total Expenses</h3>

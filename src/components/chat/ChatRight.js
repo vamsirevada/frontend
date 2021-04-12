@@ -1,7 +1,24 @@
-import React, { useState } from 'react';
-import { updateMessage } from '../../actions/chat';
+import React, { createRef, useState } from 'react';
+import { getRealtimeConversations, updateMessage } from '../../actions/chat';
 import { useDispatch } from 'react-redux';
+import attach from '../../images/attach.svg';
 import sendbutton from '../../images/sendbutton.svg';
+import { projectStorage } from '../../firebase/config';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import logo from '../../images/dummyimage.jpg';
+
+const _gettype = (type) => {
+  if (type === 'image') {
+    return 'photo';
+  } else if (type === 'audio') {
+    return 'audio';
+  } else if (type === 'video') {
+    return 'video';
+  } else {
+    return 'default';
+  }
+};
 
 const ChatRight = ({
   auth,
@@ -12,6 +29,37 @@ const ChatRight = ({
 }) => {
   const [formValue, setFormValue] = useState('');
   const dispatch = useDispatch();
+  const [progress, setProgress] = useState(0);
+  const [show, setShow] = useState(false);
+  const fileInput = createRef();
+  const [url, setUrl] = useState(null);
+  const [filetype, setFileType] = useState(null);
+
+  const onOpenFileDialog = () => {
+    fileInput.current.click();
+  };
+
+  const handleChange = async (e) => {
+    const file = e.target.files[0];
+    const type = _gettype(file.type.split('/')[0]);
+    setFileType(type);
+    const storageRef = projectStorage.ref(file.name);
+    storageRef.put(file).on(
+      'state_changed',
+      (snap) => {
+        let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+        setProgress(Math.round(percentage));
+        setShow(true);
+      },
+      (err) => {
+        console.log(err);
+      },
+      async () => {
+        const url = await storageRef.getDownloadURL();
+        setUrl(`${url}`);
+      }
+    );
+  };
 
   const sendMessage = async (e) => {
     e.preventDefault();
@@ -19,10 +67,19 @@ const ChatRight = ({
       user_uid_1: auth?.user?._id,
       user_uid_2: userUid,
       formValue,
+      url,
+      filetype,
     };
     if (formValue !== '') {
       dispatch(updateMessage(msgObj)).then(() => {
+        dispatch(
+          getRealtimeConversations({
+            uid_1: auth?.user?._id,
+            uid_2: chatProfile?.user?._id,
+          })
+        );
         setFormValue('');
+        setShow(false);
       });
     }
   };
@@ -33,15 +90,25 @@ const ChatRight = ({
         <div className='fullchat-maintop-left'>
           <div
             style={{
-              background: `url(${chatUserImage}) no-repeat center center/cover`,
+              background: `url(${
+                chatUserImage ? chatUserImage : logo
+              }) no-repeat center center/cover`,
             }}
             className='dp-4'
           ></div>
           <div className='flex-column'>
             <div className='chat-name'>
-              <a href='#!'>{chatProfile?.user?.fullName}</a>
+              <a href='#!'>
+                {chatProfile?.projectname
+                  ? chatProfile?.projectname
+                  : chatProfile?.user?.fullName}
+              </a>
             </div>
-            <div className='chat-body'>{/* <p>Active Now</p> */}</div>
+            {auth?.user?.activityStatus === 'online' && (
+              <div className='chat-body'>
+                <p>Active Now</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -71,13 +138,59 @@ const ChatRight = ({
                       : 'flex-2-c'
                   }`}
                 >
-                  <p
-                    className={`${
-                      auth?.user?._id === con?.user_uid_1 ? 'b-1' : 'b-2'
-                    }`}
-                  >
-                    {con.formValue}
-                  </p>
+                  {con.filetype === 'photo' ? (
+                    <>
+                      {con.formValue !== '' && (
+                        <p
+                          className={`${
+                            auth?.user?._id === con?.user_uid_1 ? 'b-1' : 'b-2'
+                          }`}
+                        >
+                          {con.formValue}
+                        </p>
+                      )}
+                      <img
+                        className={`${
+                          auth?.user?._id === con?.user_uid_1 ? 'b-1' : 'b-2'
+                        }`}
+                        src={con.url}
+                        alt=''
+                      />
+                    </>
+                  ) : con.filetype === 'video' ? (
+                    <>
+                      {con.formValue !== '' && (
+                        <p
+                          className={`${
+                            auth?.user?._id === con?.user_uid_1 ? 'b-1' : 'b-2'
+                          }`}
+                        >
+                          {con.formValue}
+                        </p>
+                      )}
+                      <video
+                        controls
+                        className={`${
+                          auth?.user?._id === con?.user_uid_1 ? 'b-1' : 'b-2'
+                        }`}
+                        src={con.url}
+                        alt=''
+                      />
+                    </>
+                  ) : (
+                    <>
+                      {con.formValue !== '' && (
+                        <p
+                          className={`${
+                            auth?.user?._id === con?.user_uid_1 ? 'b-1' : 'b-2'
+                          }`}
+                        >
+                          {con.formValue}
+                        </p>
+                      )}
+                    </>
+                  )}
+
                   <small className='i-1'>
                     {new Date(con?.createdAt?.toDate()).toLocaleString()}
                   </small>
@@ -97,7 +210,7 @@ const ChatRight = ({
       </div>
 
       <div className='fullchat-type'>
-        <div className='form-grid'>
+        <form className='form-grid' onSubmit={sendMessage}>
           <div className='form-flex-left'>
             <textarea
               type='text'
@@ -109,11 +222,32 @@ const ChatRight = ({
             ></textarea>
           </div>
           <div className='form-flex-right'>
-            <a href='#!' type='submit'>
-              <img src={sendbutton} onClick={sendMessage} alt='' />
-            </a>
+            <input
+              onChange={handleChange}
+              type='file'
+              accept='*'
+              hidden={true}
+              ref={fileInput}
+            />
+            {!show && (
+              <img
+                className='messageattach'
+                src={attach}
+                onClick={onOpenFileDialog}
+                alt='attach'
+              />
+            )}
+            {show && (
+              <div style={{ width: 50, height: 50, margin: 'auto' }}>
+                <CircularProgressbar value={progress} text={`${progress}%`} />
+              </div>
+            )}
+
+            <button className='sendmessage' type='submit'>
+              <img src={sendbutton} alt='' />
+            </button>
           </div>
-        </div>
+        </form>
       </div>
     </section>
   );

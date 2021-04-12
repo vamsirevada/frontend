@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { getProject } from '../../actions/project';
+import { connect, useDispatch } from 'react-redux';
+import { getProject, getProjectBudget } from '../../actions/project';
 import ProjectLeft from './ProjectLeft';
 import notify from '../../images/noun_notification_887294.svg';
 import Notices from './Notices';
@@ -15,16 +15,23 @@ import { useHistory } from 'react-router';
 const SingleProject = ({
   profile: { profile },
   getProject,
-  project: { singleproject, loading },
+  project: {
+    singleproject,
+    budget: { budget },
+    loading,
+  },
   match,
 }) => {
-  useEffect(() => {
-    getProject(match.params.id);
-    //eslint-disable-next-line
-  }, []);
   const history = useHistory();
+  const dispatch = useDispatch();
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
+
+  useEffect(() => {
+    getProject(match.params.id);
+    dispatch(getProjectBudget(match.params.id));
+    //eslint-disable-next-line
+  }, []);
 
   const onClick1 = (e) => {
     toogleLeft(true);
@@ -64,7 +71,10 @@ const SingleProject = ({
                       .find((x) => x === true) && (
                       <>
                         <ProjectAdd singleproject={singleproject} />
-                        <AdminMoney singleproject={singleproject} />
+                        <AdminMoney
+                          budget={budget}
+                          singleproject={singleproject}
+                        />
                       </>
                     )}
                   <ProjectPostForm singleproject={singleproject} />
@@ -80,31 +90,33 @@ const SingleProject = ({
                 singleproject={singleproject}
                 id={match.params.id}
               />
-              <div
-                onClick={() => {
-                  history.push(`/projectfinance/${singleproject?._id}`);
-                }}
-                className='expenses-button'
-              >
-                <div className='expenses-button-container'>
-                  <span>Expenses Tracker</span>
-                </div>
-              </div>
-              {singleproject?.moderator &&
-                singleproject?.moderator
-                  .map((x) => x?.user === profile?.user?._id)
-                  .find((x) => x === true) && (
-                  <div
-                    onClick={() => {
-                      history.push(`/projectfinance/${singleproject?._id}`);
-                    }}
-                    className='expenses-button'
-                  >
-                    <div className='expenses-button-container'>
-                      <span>Expenses Tracker</span>
-                    </div>
+              {singleproject?.admin
+                .map((x) => x?.user === profile?.user?._id)
+                .find((x) => x === true) ? (
+                <div
+                  onClick={() => {
+                    history.push(`/projectfinance/${singleproject?._id}`);
+                  }}
+                  className='expenses-button'
+                >
+                  <div className='expenses-button-container'>
+                    <span>Expenses Tracker</span>
                   </div>
-                )}
+                </div>
+              ) : singleproject?.moderator
+                  .map((x) => x?.user === profile?.user?._id)
+                  .find((x) => x === true) ? (
+                <div
+                  onClick={() => {
+                    history.push(`/projectfinance/${singleproject?._id}`);
+                  }}
+                  className='expenses-button'
+                >
+                  <div className='expenses-button-container'>
+                    <span>Expenses Tracker</span>
+                  </div>
+                </div>
+              ) : null}
             </div>
           )}
         </div>
