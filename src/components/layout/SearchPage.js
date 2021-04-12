@@ -95,6 +95,17 @@ const SearchPage = () => {
               </div>
             );
           })}
+        {input !== '' && (
+          <div
+            onClick={() => {
+              setInput('');
+              history.push('/profiles');
+            }}
+            className='search-seeall'
+          >
+            <h4>See all</h4>
+          </div>
+        )}
       </div>
     </>
   );

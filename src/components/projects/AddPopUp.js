@@ -29,7 +29,8 @@ const AddPopUp = ({
   useEffect(() => {
     getProfiles();
     fetchData();
-  }, [getProfiles, fetchData]);
+    //eslint-disable-next-line
+  }, []);
 
   return (
     <>
@@ -58,7 +59,7 @@ const AddPopUp = ({
                 <img src={searchIcon} alt='search' />
               </div>
               <div className='body add'>
-                {users.length > 0
+                {users.length > 0 && value !== ''
                   ? users
                       .filter((val) => {
                         if (value === '') {
@@ -88,8 +89,7 @@ const AddPopUp = ({
                           project={singleproject}
                         />
                       ))
-                  : newprofiles.length > 0 &&
-                    newprofiles.map((profile) => (
+                  : newprofiles.map((profile) => (
                       <MemberInvite
                         key={profile._id}
                         profile={profile}

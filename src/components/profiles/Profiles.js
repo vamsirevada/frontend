@@ -37,7 +37,6 @@ const Profiles = ({ getProfiles, profile: { profile, profiles, loading } }) => {
                 </div>
               </div>
               <hr className='hori' />
-
               {newprofiles.length > 0 &&
                 newprofiles.map((item) => (
                   <ProfileItem

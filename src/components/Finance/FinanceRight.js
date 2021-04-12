@@ -46,7 +46,6 @@ const FinanceRight = ({
           </div>
         </div>
       </div>
-
       <div className='expenses-mainbody'>
         <div className='expenses-mainbody-container'>
           <div>
@@ -71,44 +70,43 @@ const FinanceRight = ({
           </div>
         </div>
       </div>
-
-      {singleproject?.moderator
+      {/* {singleproject?.moderator
         .map((x) => x?.user === profile?.user?._id)
-        .find((x) => x === true) && (
-        <div className='expenses-type'>
-          <div className=' expenses-tracker'>
+        .find((x) => x === true) && ( */}
+      <div className='expenses-type'>
+        <div className=' expenses-tracker'>
+          <div>
+            <h3>Add Expense</h3>
+          </div>
+          <div className='expenses-tracker-flex'>
             <div>
-              <h3>Add Expense</h3>
+              <label>Particular</label>
+              <br />
+              <input
+                type='text'
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+              />
             </div>
-            <div className='expenses-tracker-flex'>
-              <div>
-                <label>Particular</label>
-                <br />
-                <input
-                  type='text'
-                  value={text}
-                  onChange={(e) => setText(e.target.value)}
-                />
-              </div>
-              <div>
-                <label>Amount</label>
-                <br />
-                <input
-                  type='number'
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className='form-flex-right'>
-              <a onClick={onSubmit} href='#!'>
-                Add
-              </a>
-              <a href='#!'>Submit</a>
+            <div>
+              <label>Amount</label>
+              <br />
+              <input
+                type='number'
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+              />
             </div>
           </div>
+          <div className='form-flex-right'>
+            <a onClick={onSubmit} href='#!'>
+              Add
+            </a>
+            <a href='#!'>Submit</a>
+          </div>
         </div>
-      )}
+      </div>
+      {/* )} */}
     </section>
   );
 };

@@ -72,12 +72,21 @@ const ChatRight = ({
     };
     if (formValue !== '') {
       dispatch(updateMessage(msgObj)).then(() => {
-        dispatch(
-          getRealtimeConversations({
-            uid_1: auth?.user?._id,
-            uid_2: chatProfile?.user?._id,
-          })
-        );
+        if (chatProfile.projectname) {
+          dispatch(
+            getRealtimeConversations({
+              uid_1: auth?.user?._id,
+              uid_2: chatProfile?._id,
+            })
+          );
+        } else {
+          dispatch(
+            getRealtimeConversations({
+              uid_1: auth?.user?._id,
+              uid_2: chatProfile?.user?._id,
+            })
+          );
+        }
         setFormValue('');
         setShow(false);
       });

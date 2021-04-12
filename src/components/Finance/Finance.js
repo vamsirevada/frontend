@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { Fragment } from 'react';
 import FinanceRight from './FinanceRight';
 import ResponsiveFinanceRight from './ResponsiveFinanceRight';
@@ -7,10 +7,12 @@ import { useParams } from 'react-router-dom';
 import { getProject, getProjectBudget } from '../../actions/project';
 import { getTransactions } from '../../actions/expense';
 import { projectFirestore } from '../../firebase/config';
+import Moment from 'react-moment';
 
 const Finance = ({
   profile: { profile },
   getProject,
+  getProjectBudget,
   getTransactions,
   project: {
     singleproject,
@@ -19,7 +21,6 @@ const Finance = ({
   expense: { transactions },
 }) => {
   const params = useParams();
-  const dispatch = useDispatch();
   const [show, setshow] = useState(true);
   const [modal, setModal] = useState(false);
   const [value, setValue] = useState('');
@@ -28,9 +29,9 @@ const Finance = ({
 
   useEffect(() => {
     getProject(params.id);
+    getProjectBudget(params.id);
     getTransactions(params.id);
-    dispatch(getProjectBudget(params.id));
-  }, [getProject, getTransactions, params.id]);
+  }, [getProject, getTransactions, getProjectBudget, params.id]);
 
   const respoClose = () => {
     setRespo(false);
@@ -42,6 +43,8 @@ const Finance = ({
       project: singleproject?._id,
       budget: value,
     });
+    setValue('');
+    setModal(false);
   };
 
   return (
@@ -58,17 +61,15 @@ const Finance = ({
               <div className='budget-heading'>
                 <h3>Total Budget</h3>
                 <div>
-                  {budget < 0 && (
-                    <a
-                      href='#!'
-                      onClick={() => {
-                        setModal(true);
-                      }}
-                      className='blue'
-                    >
-                      Add Budget
-                    </a>
-                  )}
+                  <a
+                    href='#!'
+                    onClick={() => {
+                      setModal(true);
+                    }}
+                    className='blue'
+                  >
+                    Add Budget
+                  </a>
                   <span className='divider-line'>{' | '}</span>
                   <a href='#!' className='blue' onClick={(e) => setshow(true)}>
                     See
@@ -82,7 +83,7 @@ const Finance = ({
               <div className='budget-amount'>
                 {show && (
                   <div>
-                    <p>₹{budget}</p>
+                    <p>₹{budget ? budget : '0.00'}</p>
                   </div>
                 )}
               </div>
@@ -91,7 +92,13 @@ const Finance = ({
               <div className='expenses-heading'>
                 <h3>Expenses </h3>
                 <div>
-                  <a href='#!' className='blue'>
+                  <a
+                    onClick={() => {
+                      setRespo(!respo);
+                    }}
+                    href='#!'
+                    className='blue'
+                  >
                     Add New Expenses{' '}
                   </a>
                   <span className='divider-line'>{' | '}</span>
@@ -123,7 +130,10 @@ const Finance = ({
                         }}
                       >
                         <p>
-                          <span className='blue'>Date :</span> 07/04/2021
+                          <span className='blue'>Date :</span>{' '}
+                          <Moment format='DD MMM YY'>
+                            {transactions[transactions.length - 1]?.date}
+                          </Moment>
                         </p>
                         <p>
                           <span className='blue'>By:</span> {x?.fullName}
@@ -142,29 +152,51 @@ const Finance = ({
             transactions={transactions}
             singleproject={singleproject}
             respoClose={respoClose}
+            profile={profile}
           />
         )}
 
         {modal && (
-          <div>
-            <form onSubmit={addBudget}>
-              <div>
-                <label htmlFor='remark'>Total Budget :</label>
-                <br />
-                <input
-                  type='text'
-                  name='remark'
-                  className='remark'
-                  value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                />
+          <div
+            onClick={(e) => {
+              if (e.target.classList.contains('addbudgetpopupscreen')) {
+                setModal(false);
+              }
+            }}
+            className='addbudgetpopupscreen budget'
+          >
+            <div className='addbudgetpopup addbudget'>
+              <div className='addbudgetpopup-heading addbudget'>
+                <h3>Total Budget</h3>
+                <div
+                  className='addbudgetpopup-cross'
+                  onClick={() => {
+                    setModal(false);
+                  }}
+                >
+                  x
+                </div>
               </div>
-              <div className='prof-flex-btn'>
-                <button className='btn-blue note' type='submit'>
-                  Add Budget
-                </button>
+              <div className='addbudgetpopup-body addbudget budget'>
+                <div className='budgetform'>
+                  <form onSubmit={addBudget}>
+                    <div>
+                      <input
+                        type='text'
+                        name='remark'
+                        value={value}
+                        onChange={(e) => setValue(e.target.value)}
+                      />
+                    </div>
+                    <div className='prof-flex-btn'>
+                      <button className='btn-blue budget' type='submit'>
+                        Add Budget
+                      </button>
+                    </div>
+                  </form>
+                </div>
               </div>
-            </form>
+            </div>
           </div>
         )}
       </aside>
@@ -185,6 +217,8 @@ const mapStateToProps = (state) => ({
   project: state.project,
 });
 
-export default connect(mapStateToProps, { getProject, getTransactions })(
-  Finance
-);
+export default connect(mapStateToProps, {
+  getProject,
+  getProjectBudget,
+  getTransactions,
+})(Finance);

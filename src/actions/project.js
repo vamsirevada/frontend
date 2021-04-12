@@ -76,20 +76,24 @@ export const addBudget = (budgetObj) => {
   };
 };
 
-export const getProjectBudget = (project_id) => {
-  return async (dispatch) => {
+export const getProjectBudget = (project_id) => async (dispatch) => {
+  try {
     projectFirestore
       .collection('projects')
       .where('project', '==', project_id)
       .onSnapshot((snap) => {
         snap.forEach((doc) => {
-          dispatch({
-            type: GET_PROJECT_BUDGET,
-            payload: { id: doc.id, ...doc.data() },
-          });
+          if (doc.data().project === project_id) {
+            dispatch({
+              type: GET_PROJECT_BUDGET,
+              payload: { id: doc.id, ...doc.data() },
+            });
+          }
         });
       });
-  };
+  } catch (err) {
+    console.error(err);
+  }
 };
 //Send a Project Invite
 export const sendProjectInvite = (project_id, profile_id) => async (

@@ -40,13 +40,12 @@ export default function (state = initialState, action) {
         singleproject: payload,
         loading: false,
       };
-    case GET_PROJECT_BUDGET: {
+    case GET_PROJECT_BUDGET:
       return {
         ...state,
         budget: payload,
         loading: false,
       };
-    }
     case CREATE_PROJECT:
       return {
         ...state,

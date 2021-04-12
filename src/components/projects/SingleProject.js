@@ -15,11 +15,7 @@ import { useHistory } from 'react-router';
 const SingleProject = ({
   profile: { profile },
   getProject,
-  project: {
-    singleproject,
-    budget: { budget },
-    loading,
-  },
+  project: { singleproject, budget, loading },
   match,
 }) => {
   const history = useHistory();
@@ -30,8 +26,7 @@ const SingleProject = ({
   useEffect(() => {
     getProject(match.params.id);
     dispatch(getProjectBudget(match.params.id));
-    //eslint-disable-next-line
-  }, []);
+  }, [getProject, dispatch, match.params.id]);
 
   const onClick1 = (e) => {
     toogleLeft(true);

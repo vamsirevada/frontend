@@ -128,12 +128,12 @@ const ChatPage = ({
                       onClick={() => {
                         setChatProfile(project);
                         setChatStarted(true);
-                        setUserUid(project?.user);
+                        setUserUid(project?._id);
                         setChatUserImage(project?.avatar);
                         dispatch(
                           getRealtimeConversations({
                             uid_1: auth?.user?._id,
-                            uid_2: project?.user,
+                            uid_2: project?._id,
                           })
                         );
                       }}
