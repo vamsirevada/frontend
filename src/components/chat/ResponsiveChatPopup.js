@@ -246,12 +246,14 @@ const ResponsiveChatPopup = ({
                 ref={fileInput}
               />
               {!show && (
-                <img
-                  className='messageattach'
-                  src={attach}
-                  onClick={onOpenFileDialog}
-                  alt='attach'
-                />
+                <div>
+                  <img
+                    className='messageattach'
+                    src={attach}
+                    onClick={onOpenFileDialog}
+                    alt='attach'
+                  />
+                </div>
               )}
               {show && (
                 <div style={{ width: 50, height: 50, margin: 'auto' }}>

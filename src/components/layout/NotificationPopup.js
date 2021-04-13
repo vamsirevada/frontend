@@ -246,7 +246,9 @@ const NotificationPopup = ({
         );
       })
     ) : (
-      <p>You have no notifications yet</p>
+      <div classname='no-notification'>
+        <p>You have no notifications yet</p>
+      </div>
     );
 
   return (

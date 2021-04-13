@@ -14,9 +14,12 @@ import { grey } from '@material-ui/core/colors';
 import logo from '../../images/dummyimage.jpg';
 import { getRealtimeNotifications } from '../../actions/notification';
 import SearchPage from './SearchPage';
+import RespoSearchPage from './RespoSearchPage';
+import searchIcon from '../../images/searchIcon.svg';
 
 const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
   const [displayMenu, toogleMenu] = useState(false);
+  const [RSearch, setRSearch] = useState(false);
   const [feedActive, toogleFeedActive] = useState(false);
   const [portActive, tooglePortActive] = useState(false);
   const [nbActive, toogleNbActive] = useState(false);
@@ -31,6 +34,10 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
       );
     }
   }, [user?._id]);
+
+  const closeRespoBar = () => {
+    setRSearch(false);
+  };
 
   const toggleF = async () => {
     toogleFeedActive(!feedActive);
@@ -85,6 +92,22 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
 
           <div className='nav-icons'>
             <SearchPage />
+            <div className='responsive-search'>
+              <a href='#!'>
+                <img
+                  onClick={() => {
+                    setRSearch(!RSearch);
+                  }}
+                  src={searchIcon}
+                  alt='portfolio'
+                />
+              </a>
+            </div>
+            {RSearch && (
+              <Fragment>
+                <RespoSearchPage closeRespoBar={closeRespoBar} />
+              </Fragment>
+            )}
             <div
               className={feedActive ? 'tab active' : 'tab classnamefeed'}
               onClick={toggleF}
@@ -146,6 +169,7 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
                 <p>Chat</p>
               </Link>
             </div>
+
             <NotificationPopup />
             <div>
               <img

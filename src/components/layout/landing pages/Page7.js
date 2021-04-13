@@ -32,9 +32,9 @@ const Page7 = () => {
                 according to the needs of user so that you get purposeful
                 information on opportunities spanning across the country.
               </p>
-              <Link to='/register' className='btn' data-aos='fade-left'>
+              <a href='#page-1' className='btn' data-aos='fade-left'>
                 Get started
-              </Link>
+              </a>
             </div>
             <div
               className='column-1'

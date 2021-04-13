@@ -11,7 +11,7 @@ const Footer = () => {
       <div className='ft-para end'>
         <strong>Contact us:</strong>
         <br />
-        support@vanity.com
+        vanityindia99@gmail.com
       </div>
     </div>
   );

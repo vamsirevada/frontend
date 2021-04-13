@@ -105,7 +105,7 @@ const ChatPage = ({
                           </a>
                         </div>
                         <div className='chat-body'>
-                          <p>{profile.location}</p>
+                          <p>{profile.status}</p>
                         </div>
                       </div>
                     </div>

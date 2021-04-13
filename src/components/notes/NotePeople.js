@@ -35,6 +35,10 @@ const NotePeople = ({ setAlert, notepeople, unnotePeople }) => {
         <a onClick={unnote}>
           <img src={noteimg} alt='' />
         </a>
+        <span className='tooltiptext'>
+          <div className='arrow-up'></div>
+          unnote
+        </span>
       </div>
     </div>
   );

@@ -4,8 +4,9 @@ import { Link, useHistory } from 'react-router-dom';
 import searchIcon from '../../images/searchIcon.svg';
 import logo from '../../images/dummyimage.jpg';
 import connections from '../../images/noun_Friend_2987728.svg';
+import nounPlus from '../../images/noun_Plus_2310779.svg';
 
-const SearchPage = () => {
+const RespoSearchPage = ({ closeRespoBar }) => {
   const history = useHistory();
   const [input, setInput] = useState('');
   const [users, setUsers] = useState([]);
@@ -18,30 +19,31 @@ const SearchPage = () => {
 
   useEffect(() => {
     fetchData();
-    //eslint-disable-next-line
   }, [fetchData]);
 
   return (
     <>
-      <div className='search active'>
-        <input
-          type='text'
-          value={input}
-          className='search-btn'
-          placeholder='Search Profiles...'
-          onChange={(e) => {
-            setInput(e.target.value);
-          }}
-        />
-        <img src={searchIcon} alt='search' />
+      <div className='respo-search-bar'>
+        <div className='resposearch active '>
+          <input
+            type='text'
+            value={input}
+            className='search-btn'
+            placeholder='Search Profiles...'
+            onChange={(e) => {
+              setInput(e.target.value);
+            }}
+          />
+          <img src={searchIcon} onClick={closeRespoBar} alt='search' />
+        </div>
       </div>
+
       <div className='search-dis'>
         {input !== '' && (
           <div className='search-ribbon'>
             <h4>Search Results</h4>
           </div>
         )}
-
         {users
           .filter((val) => {
             if (input === '') {
@@ -97,7 +99,6 @@ const SearchPage = () => {
               </div>
             );
           })}
-
         {input !== '' && (
           <div
             onClick={() => {
@@ -114,4 +115,4 @@ const SearchPage = () => {
   );
 };
 
-export default SearchPage;
+export default RespoSearchPage;
