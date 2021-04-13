@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../utils/api';
 import { Link, useHistory } from 'react-router-dom';
+import { getProfiles } from '../../actions/profile';
+import { connect } from 'react-redux';
+import UseFirestore from '../addportfolio/UseFireStore';
 import searchIcon from '../../images/searchIcon.svg';
 import logo from '../../images/dummyimage.jpg';
 import connections from '../../images/noun_Friend_2987728.svg';
+import noteimg from '../../images/icons/summarize-24px.svg';
 
-const SearchPage = () => {
+const SearchPage = ({
+  profile: { profile, profiles, loading },
+  getProfiles,
+}) => {
   const history = useHistory();
   const [input, setInput] = useState('');
   const [users, setUsers] = useState([]);
@@ -21,6 +28,15 @@ const SearchPage = () => {
     //eslint-disable-next-line
   }, [fetchData]);
 
+  useEffect(() => {
+    getProfiles();
+  }, [getProfiles]);
+
+  const { docs } = UseFirestore('images');
+  const newprofiles = profiles.filter(
+    (x) => x?.user?._id !== profile?.user?._id
+  );
+
   return (
     <>
       <div className='search active'>
@@ -35,83 +51,124 @@ const SearchPage = () => {
         />
         <img src={searchIcon} alt='search' />
       </div>
-      <div className='search-dis'>
-        {input !== '' && (
-          <div className='search-ribbon'>
-            <h4>Search Results</h4>
-          </div>
-        )}
+      {input !== '' && (
+        <div className='search-dis' data-aos='fade-in'>
+          <div className='search-dis-container'>
+            <div className='search-header'>
+              <h2>
+                Search Result for <span className='blue'>'{input}'</span>
+              </h2>
+            </div>
+            <hr className='hori' />
 
-        {users
-          .filter((val) => {
-            if (input === '') {
-              return null;
-            } else if (
-              (val.user.fullName &&
-                val.user.fullName
-                  .toLowerCase()
-                  .includes(input.toLowerCase())) ||
-              val.user.userName.toLowerCase().includes(input.toLowerCase()) ||
-              (val.user.groupName &&
-                val.user.groupName
-                  .toLowerCase()
-                  .includes(input.toLowerCase())) ||
-              val.bio.toLowerCase().includes(input.toLowerCase()) ||
-              val.status.toLowerCase().includes(input.toLowerCase())
-            ) {
-              return val;
-            }
-          })
-          .map((val, key) => {
-            return (
-              <div
-                className='search-element'
-                key={key}
-                onClick={() => {
-                  setInput('');
-                  history.push(`/portfolio/${val?.user?._id}`);
-                }}
-              >
-                <div className='search-element-main'>
-                  <img
-                    className='search-result-avatar'
-                    src={val.avatar ? val.avatar : logo}
-                    alt=''
-                  />
-                  <div className='search-result-name'>
-                    <p>
-                      <span className='search-bold'>
-                        {val.user.fullName && val.user.fullName}
-                        {val.user.groupName && val.user.groupName}
-                      </span>
-                    </p>
-                    <p>
-                      <span>{val.status}</span>
-                    </p>
+            {users
+              .filter((val) => {
+                if (input === '') {
+                  return null;
+                } else if (
+                  (val.user.fullName &&
+                    val.user.fullName
+                      .toLowerCase()
+                      .includes(input.toLowerCase())) ||
+                  val.user.userName
+                    .toLowerCase()
+                    .includes(input.toLowerCase()) ||
+                  (val.user.groupName &&
+                    val.user.groupName
+                      .toLowerCase()
+                      .includes(input.toLowerCase())) ||
+                  val.bio.toLowerCase().includes(input.toLowerCase()) ||
+                  val.status.toLowerCase().includes(input.toLowerCase())
+                ) {
+                  return val;
+                }
+              })
+              .map((val, key) => {
+                return (
+                  <div className='connect-main'>
+                    <div className='connect-left'>
+                      <div className='connect-left-top'>
+                        <div
+                          style={{
+                            background: `url(${
+                              val.avatar ? val.avatar : logo
+                            }) no-repeat center center/cover`,
+                          }}
+                          className='display-pic'
+                        ></div>
+                        <div className='flex-c'>
+                          <p>
+                            <span className='bold'>
+                              {val.user.fullName && val.user.fullName}
+                              {val.user.groupName && val.user.groupName}
+                            </span>{' '}
+                            <br />
+                            <span className='second-bold'>
+                              {/* {user?.userName && user?.userName} */}
+                            </span>{' '}
+                            {/* <br /> */}
+                            <span className='second-bold'>
+                              {val.status}
+                            </span>{' '}
+                            <br />
+                            <span className='second-bold'>{val.location}</span>
+                            <br />
+                            <span className='third-bold'>
+                              Connections :{' '}
+                              <span className='f-1'>{val.buddies.length}</span>
+                            </span>
+                          </p>
+                        </div>
+                      </div>
+                      <div className='connect-left-bottom'>
+                        <div className='btn-b'>
+                          {' '}
+                          <a
+                            onClick={() => {
+                              setInput('');
+                              history.push(`/portfolio/${val?.user?._id}`);
+                            }}
+                            className='btn-blue'
+                          >
+                            Portfolio
+                          </a>
+                        </div>
+                        {/* <div className='btn-b'>
+                          {' '}
+                          <a className='btn-blue' onClick={() => onClick()}>
+                            <img src={add} alt='' />
+                          </a>
+                        </div>
+                        <div className='btn-g'>
+                          {' '}
+                          <a onClick={chatRequest} className='btn-blue g-1'>
+                            <img src={mail} alt='' />
+                          </a>
+                        </div> */}
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div className='search-result-connections'>
-                  <img src={connections} alt='' />
-                  <span>{val.buddies.length}</span>
-                </div>
-              </div>
-            );
-          })}
+                );
+              })}
 
-        {input !== '' && (
-          <div
-            onClick={() => {
-              setInput('');
-              history.push('/profiles');
-            }}
-            className='search-seeall'
-          >
-            <h4>See all</h4>
+            {/* <div
+              onClick={() => {
+                setInput('');
+                history.push('/profiles');
+              }}
+              className='search-seeall'
+            >
+              <h4>See all</h4>
+            </div> */}
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </>
   );
 };
 
-export default SearchPage;
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+});
+
+export default connect(mapStateToProps, { getProfiles })(SearchPage);

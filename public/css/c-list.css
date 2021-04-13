@@ -169,6 +169,11 @@
   padding: 0rem 1.5rem;
 }
 
+.search-dis .connect-main {
+  display: grid;
+  grid-template-columns: 30% 70%;
+}
+
 .connect-main.single {
   display: block;
   width: 500px;
