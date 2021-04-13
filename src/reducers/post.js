@@ -9,7 +9,6 @@ import {
   ADD_COMMENT,
   REMOVE_COMMENT,
   CLEAR_POST,
-  GET_WELCOME_POSTS,
   GET_BUDDY_POSTS,
 } from '../actions/types';
 
