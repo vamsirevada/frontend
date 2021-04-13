@@ -6,7 +6,7 @@ import logo from '../../images/dummyimage.jpg';
 import Close from '../../images/Group 6054.svg';
 
 const ResponsiveFinanceRight = ({
-  profile,
+  userId,
   singleproject,
   addTransaction,
   transactions,
@@ -15,6 +15,14 @@ const ResponsiveFinanceRight = ({
   const params = useParams();
   const [text, setText] = useState('');
   const [amount, setAmount] = useState(0);
+
+  const amounts = transactions
+    .filter((x) => x.creator === userId)
+    .map((transaction) => transaction.amount);
+
+  const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
+
+  const userTranscations = transactions.filter((x) => x.creator === userId);
 
   const onSubmit = () => {
     const newTransaction = {
@@ -60,7 +68,6 @@ const ResponsiveFinanceRight = ({
             </div>
           </div>
         </div>
-
         <div className='expenses-mainbody'>
           <div className='expenses-mainbody-container'>
             <div>
@@ -73,56 +80,56 @@ const ResponsiveFinanceRight = ({
                   </tr>
                 </thead>
                 <tbody>
-                  {transactions.map((transaction, index) => (
+                  {userTranscations.map((transaction, index) => (
                     <tr key={transaction._id}>
                       <td>{index + 1}</td>
                       <td>{transaction.text}</td>
                       <td>{transaction.amount}</td>
                     </tr>
                   ))}
+                  <tr>
+                    <td></td>
+                    <td>Total</td>
+                    <td>{total}</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
           </div>
         </div>
-
-        {singleproject?.moderator
-          .map((x) => x?.user === profile?.user?._id)
-          .find((x) => x === true) && (
-          <div className='expenses-type'>
-            <div className=' expenses-tracker'>
+        <div className='expenses-type'>
+          <div className=' expenses-tracker'>
+            <div>
+              <h3>Add Expense</h3>
+            </div>
+            <div className='expenses-tracker-flex'>
               <div>
-                <h3>Add Expense</h3>
+                <label>Particular</label>
+                <br />
+                <input
+                  type='text'
+                  value={text}
+                  onChange={(e) => setText(e.target.value)}
+                />
               </div>
-              <div className='expenses-tracker-flex'>
-                <div>
-                  <label>Particular</label>
-                  <br />
-                  <input
-                    type='text'
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                  />
-                </div>
-                <div>
-                  <label>Amount</label>
-                  <br />
-                  <input
-                    type='number'
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                  />
-                </div>
-              </div>
-              <div className='form-flex-right'>
-                <a onClick={onSubmit} href='#!'>
-                  Add
-                </a>
-                <a href='#!'>Submit</a>
+              <div>
+                <label>Amount</label>
+                <br />
+                <input
+                  type='number'
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                />
               </div>
             </div>
+            <div className='form-flex-right'>
+              <a onClick={onSubmit} href='#!'>
+                Add
+              </a>
+              <a href='#!'>Submit</a>
+            </div>
           </div>
-        )}
+        </div>
       </div>
     </section>
   );

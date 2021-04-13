@@ -171,7 +171,7 @@
 
 .search-dis .connect-main {
   display: grid;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: 25% 75%;
 }
 
 .connect-main.single {
@@ -284,9 +284,6 @@
   flex-direction: column;
   justify-content: flex-end;
   align-items: flex-start;
-}
-.connect-main .connect-left-bottom .btn-b {
-  /* grid-row: 1 / span 7; */
 }
 
 .connect-main .connect-left-bottom .mutual-frds .s-2 {

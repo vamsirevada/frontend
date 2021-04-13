@@ -64,6 +64,11 @@ const PostForm = ({ addPost }) => {
       setText('');
       setShow(false);
     }
+    if (text.startsWith('http')) {
+      addPost({ text: text, url: text, type: 'Blog' });
+      setText('');
+      setShow(false);
+    }
   };
 
   return (
@@ -85,14 +90,13 @@ const PostForm = ({ addPost }) => {
         />
       </div>
 
-      {!show && (
-        <div className='attach'>
-          <img onClick={onOpenFileDialog} src={attach} alt='attach' />
-        </div>
-      )}
-      {show && (
+      {show ? (
         <div style={{ width: 50, height: 50, margin: 'auto' }}>
           <CircularProgressbar value={progress} text={`${progress}%`} />
+        </div>
+      ) : (
+        <div className='attach'>
+          <img onClick={onOpenFileDialog} src={attach} alt='attach' />
         </div>
       )}
       <div>

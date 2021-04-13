@@ -11,7 +11,6 @@ import BudgetRight from './BudgetRight';
 import ResponsiveBudgetRight from './ResponsiveBudgetRight';
 
 const Finance = ({
-  profile: { profile },
   getProject,
   getProjectBudget,
   getTransactions,
@@ -23,6 +22,7 @@ const Finance = ({
   const [spender, setSpender] = useState(true);
   const [respo, setRespo] = useState(false);
   const [budgetRespo, setBudgetRespo] = useState(false);
+  const [userId, setUserId] = useState('');
 
   useEffect(() => {
     getProject(params.id);
@@ -115,6 +115,47 @@ const Finance = ({
                 </div>
               </div>
               <div>
+                <div>
+                  <h4>
+                    Admins{' '}
+                    <span className='blue'>
+                      ({singleproject?.admin.length})
+                    </span>{' '}
+                  </h4>
+                </div>
+                {spender &&
+                  singleproject?.admin.map((x) => (
+                    <Fragment key={x._id}>
+                      <div
+                        className='expense-card'
+                        onClick={() => {
+                          setRespo(!respo);
+                          setUserId(x?.user);
+                        }}
+                      >
+                        <p>
+                          <span className='blue'>Date :</span>{' '}
+                          <Moment format='DD MMM YY'>
+                            {transactions[transactions.length - 1]?.date}
+                          </Moment>
+                        </p>
+                        <p>
+                          <span className='blue'>By:</span> {x?.fullName}
+                        </p>
+                      </div>
+                      <hr className='Hori' />
+                    </Fragment>
+                  ))}
+              </div>
+              <div>
+                <div>
+                  <h4>
+                    Moderators{' '}
+                    <span className='blue'>
+                      ({singleproject?.moderator.length})
+                    </span>{' '}
+                  </h4>
+                </div>
                 {spender &&
                   singleproject?.moderator.map((x) => (
                     <Fragment key={x._id}>
@@ -147,7 +188,7 @@ const Finance = ({
             transactions={transactions}
             singleproject={singleproject}
             respoClose={respoClose}
-            profile={profile}
+            userId={userId}
           />
         )}
 
@@ -162,7 +203,7 @@ const Finance = ({
         <FinanceRight
           transactions={transactions}
           singleproject={singleproject}
-          profile={profile}
+          userId={userId}
         />
       )}
       {budgetRespo && <BudgetRight singleproject={singleproject} />}
@@ -171,7 +212,6 @@ const Finance = ({
 };
 
 const mapStateToProps = (state) => ({
-  profile: state.profile,
   expense: state.expense,
   project: state.project,
 });

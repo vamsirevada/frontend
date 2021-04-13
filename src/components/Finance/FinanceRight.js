@@ -5,7 +5,7 @@ import { useParams } from 'react-router';
 import logo from '../../images/dummyimage.jpg';
 
 const FinanceRight = ({
-  profile,
+  userId,
   singleproject,
   addTransaction,
   transactions,
@@ -13,6 +13,14 @@ const FinanceRight = ({
   const params = useParams();
   const [text, setText] = useState('');
   const [amount, setAmount] = useState(0);
+
+  const amounts = transactions
+    .filter((x) => x.creator === userId)
+    .map((transaction) => transaction.amount);
+
+  const total = amounts.reduce((acc, item) => (acc += item), 0).toFixed(2);
+
+  const userTranscations = transactions.filter((x) => x.creator === userId);
 
   const onSubmit = () => {
     const newTransaction = {
@@ -58,13 +66,18 @@ const FinanceRight = ({
                 </tr>
               </thead>
               <tbody>
-                {transactions.map((transaction, index) => (
+                {userTranscations.map((transaction, index) => (
                   <tr key={transaction._id}>
                     <td>{index + 1}</td>
                     <td>{transaction.text}</td>
                     <td>{transaction.amount}</td>
                   </tr>
                 ))}
+                <tr>
+                  <td></td>
+                  <td>Total</td>
+                  <td>{total}</td>
+                </tr>
               </tbody>
             </table>
           </div>

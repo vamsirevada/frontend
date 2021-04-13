@@ -9,11 +9,14 @@ import {
   ADD_COMMENT,
   REMOVE_COMMENT,
   CLEAR_POST,
+  GET_WELCOME_POSTS,
+  GET_BUDDY_POSTS,
 } from '../actions/types';
 
 const initialState = {
   posts: [],
   oposts: [],
+  bposts: [],
   post: null,
   loading: true,
   error: {},
@@ -34,6 +37,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         oposts: payload,
+        loading: false,
+      };
+    case GET_BUDDY_POSTS:
+      return {
+        ...state,
+        bposts: payload,
         loading: false,
       };
     case GET_POST:

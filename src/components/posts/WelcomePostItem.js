@@ -1,7 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-/* eslint-disable react/jsx-no-target-blank */
 import React, { Fragment, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addLike, removeLike, deletePost } from '../../actions/post';
@@ -20,12 +17,13 @@ import PostType from './PostType';
 import { projectFirestore } from '../../firebase/config';
 import NotePostPopUp from '../posts/NotePostPopUp';
 
-const PostItem = ({
+const WelcomePostItem = ({
   auth,
   profile: { profile },
   post: {
     _id,
     text,
+    title,
     fullName,
     userName,
     groupName,
@@ -166,61 +164,22 @@ const PostItem = ({
           )}
         </div>
 
-        {PostType(type) === 'default' && (
-          <div style={{ marginBottom: 10 }} className='post-description'>
-            <p>{text}</p>
-          </div>
-        )}
         {PostType(type) === 'Picture' && (
           <>
-            <p style={{ marginBottom: 10 }} className='post-description'>
+            <p className='post-description'>{title}</p>
+            <a
+              href={text}
+              style={{ marginBottom: 10, textDecoration: 'underline' }}
+              className='post-description'
+            >
               {text}
-            </p>
+            </a>
             <img
               style={{ objectFit: 'contain' }}
               className='post-pic'
               src={url}
               alt=''
             />
-          </>
-        )}
-
-        {PostType(type) === 'Video' && (
-          <>
-            <p style={{ marginBottom: 10 }} className='post-description'>
-              {text}
-            </p>
-            <video
-              style={{
-                objectFit: 'cover',
-                width: '100%',
-                height: '350px',
-                background: 'transparent',
-              }}
-              controls
-              src={url}
-              className='post-video'
-            />
-          </>
-        )}
-        {PostType(type) === 'Audio' && (
-          <>
-            <p style={{ marginBottom: 10 }} className='post-description'>
-              {text}
-            </p>
-            <video poster={poster} className='post-audio' controls src={url} />
-          </>
-        )}
-
-        {PostType(type) === 'Blog' && (
-          <>
-            <a
-              href={url}
-              style={{ marginBottom: 10 }}
-              className='post-description'
-            >
-              {text}
-            </a>
           </>
         )}
 
@@ -320,14 +279,6 @@ const PostItem = ({
   );
 };
 
-PostItem.propTypes = {
-  post: PropTypes.object.isRequired,
-  auth: PropTypes.object.isRequired,
-  addLike: PropTypes.func.isRequired,
-  removeLike: PropTypes.func.isRequired,
-  deletePost: PropTypes.func.isRequired,
-};
-
 const mapStateToProps = (state) => ({
   auth: state.auth,
   profile: state.profile,
@@ -339,4 +290,4 @@ export default connect(mapStateToProps, {
   notePost,
   unnotePost,
   deletePost,
-})(PostItem);
+})(WelcomePostItem);

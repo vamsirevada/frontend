@@ -8,6 +8,7 @@ import searchIcon from '../../images/searchIcon.svg';
 import logo from '../../images/dummyimage.jpg';
 import connections from '../../images/noun_Friend_2987728.svg';
 import noteimg from '../../images/icons/summarize-24px.svg';
+import { motion } from 'framer-motion';
 
 const SearchPage = ({
   profile: { profile, profiles, loading },
@@ -36,6 +37,15 @@ const SearchPage = ({
   const newprofiles = profiles.filter(
     (x) => x?.user?._id !== profile?.user?._id
   );
+
+  const documents =
+    docs &&
+    docs.filter(
+      (doc) =>
+        doc?.userId === profile?.user?._id &&
+        doc?.type !== 'Audio' &&
+        doc?.type !== 'Blog'
+    );
 
   return (
     <>
@@ -133,19 +143,43 @@ const SearchPage = ({
                             Portfolio
                           </a>
                         </div>
-                        {/* <div className='btn-b'>
-                          {' '}
-                          <a className='btn-blue' onClick={() => onClick()}>
-                            <img src={add} alt='' />
-                          </a>
-                        </div>
-                        <div className='btn-g'>
-                          {' '}
-                          <a onClick={chatRequest} className='btn-blue g-1'>
-                            <img src={mail} alt='' />
-                          </a>
-                        </div> */}
                       </div>
+                    </div>
+                    <div className='connect-right'>
+                      {docs &&
+                        docs
+                          .filter(
+                            (doc) =>
+                              doc?.userId === val?.user?._id &&
+                              doc?.type !== 'Audio' &&
+                              doc?.type !== 'Blog'
+                          )
+                          .slice(0, 4)
+                          .map((doc) => (
+                            <div className='pic-1' key={doc.id}>
+                              {doc.type === 'Video' ? (
+                                <motion.video
+                                  controls
+                                  src={doc.url}
+                                  alt='uploaded pic'
+                                  initial={{
+                                    opacity: 0,
+                                    height: '100%',
+                                    width: '100%',
+                                  }}
+                                  animate={{ opacity: 1 }}
+                                  transition={{ delay: 1 }}
+                                />
+                              ) : (
+                                <motion.img
+                                  src={doc.url}
+                                  height='100%'
+                                  width='100%'
+                                  alt=''
+                                />
+                              )}
+                            </div>
+                          ))}
                     </div>
                   </div>
                 );

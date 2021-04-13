@@ -1,10 +1,16 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getBuddyPosts, getOwnPosts } from '../../actions/post';
+import { getPosts, getBuddyPosts, getOwnPosts } from '../../actions/post';
 import PostItem from './PostItem';
+import WelcomePostItem from './WelcomePostItem';
 
-const Posts = ({ getBuddyPosts, getOwnPosts, post: { posts, oposts } }) => {
+const Posts = ({
+  getPosts,
+  getBuddyPosts,
+  getOwnPosts,
+  post: { posts, oposts, bposts },
+}) => {
   const [own, setOwn] = useState(false);
   const [all, setAll] = useState(true);
 
@@ -19,9 +25,13 @@ const Posts = ({ getBuddyPosts, getOwnPosts, post: { posts, oposts } }) => {
   };
 
   useEffect(() => {
+    getPosts();
     getBuddyPosts();
     getOwnPosts();
-  }, [getBuddyPosts, getOwnPosts]);
+  }, [getPosts, getBuddyPosts, getOwnPosts]);
+
+  const welcomeposts =
+    posts && posts.filter((x) => x.user._id === '602945db274595084c2c8e06');
 
   return (
     <>
@@ -61,7 +71,12 @@ const Posts = ({ getBuddyPosts, getOwnPosts, post: { posts, oposts } }) => {
       ) : (
         <div className='posts'>
           <Fragment>
-            {posts.map((post) => (
+            {welcomeposts.map((post) => (
+              <WelcomePostItem key={post._id} post={post} />
+            ))}
+          </Fragment>
+          <Fragment>
+            {bposts.map((post) => (
               <PostItem key={post._id} post={post} />
             ))}
           </Fragment>
@@ -81,4 +96,8 @@ const mapStateToProps = (state) => ({
   post: state.post,
 });
 
-export default connect(mapStateToProps, { getBuddyPosts, getOwnPosts })(Posts);
+export default connect(mapStateToProps, {
+  getPosts,
+  getBuddyPosts,
+  getOwnPosts,
+})(Posts);

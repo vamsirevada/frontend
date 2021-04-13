@@ -32,11 +32,6 @@ const RespoSearchPage = ({
     getProfiles();
   }, [getProfiles]);
 
-  const { docs } = UseFirestore('images');
-  const newprofiles = profiles.filter(
-    (x) => x?.user?._id !== profile?.user?._id
-  );
-
   return (
     <>
       <div className='respo-search-bar'>

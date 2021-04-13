@@ -10,6 +10,8 @@ import {
   ADD_POST,
   ADD_COMMENT,
   REMOVE_COMMENT,
+  GET_WELCOME_POSTS,
+  GET_BUDDY_POSTS,
 } from './types';
 
 // Get posts
@@ -51,7 +53,7 @@ export const getBuddyPosts = (id) => async (dispatch) => {
     const res = await api.get(`/posts/all/${id}`);
 
     dispatch({
-      type: GET_POSTS,
+      type: GET_BUDDY_POSTS,
       payload: res.data,
     });
   } catch (err) {
