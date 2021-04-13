@@ -8,13 +8,14 @@ import {
   PROJECT_ERROR,
   UPDATE_PROJECT,
   GET_PROJECT_BUDGET,
+  DELETE_PROJECT_BUDGET,
 } from '../actions/types';
 
 const initialState = {
   projects: [],
   isCreated: null,
   singleproject: null,
-  budget: {},
+  budget: [],
   error: {},
   loading: true,
   prompt: null,
@@ -45,6 +46,11 @@ export default function (state = initialState, action) {
         ...state,
         budget: payload,
         loading: false,
+      };
+    case DELETE_PROJECT_BUDGET:
+      return {
+        ...state,
+        prompt: action.payload,
       };
     case CREATE_PROJECT:
       return {

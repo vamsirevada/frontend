@@ -6,26 +6,23 @@ import ResponsiveFinanceRight from './ResponsiveFinanceRight';
 import { useParams } from 'react-router-dom';
 import { getProject, getProjectBudget } from '../../actions/project';
 import { getTransactions } from '../../actions/expense';
-import { projectFirestore } from '../../firebase/config';
 import Moment from 'react-moment';
+import BudgetRight from './BudgetRight';
+import ResponsiveBudgetRight from './ResponsiveBudgetRight';
 
 const Finance = ({
   profile: { profile },
   getProject,
   getProjectBudget,
   getTransactions,
-  project: {
-    singleproject,
-    budget: { budget },
-  },
+  project: { singleproject, budget },
   expense: { transactions },
 }) => {
   const params = useParams();
   const [show, setshow] = useState(true);
-  const [modal, setModal] = useState(false);
-  const [value, setValue] = useState('');
   const [spender, setSpender] = useState(true);
   const [respo, setRespo] = useState(false);
+  const [budgetRespo, setBudgetRespo] = useState(false);
 
   useEffect(() => {
     getProject(params.id);
@@ -33,18 +30,16 @@ const Finance = ({
     getTransactions(params.id);
   }, [getProject, getTransactions, getProjectBudget, params.id]);
 
+  const budgets = budget.map((x) => x.budget);
+
+  const total = budgets.reduce((acc, item) => (acc += item), 0).toFixed(2);
+
   const respoClose = () => {
     setRespo(false);
   };
 
-  const addBudget = (e) => {
-    e.preventDefault();
-    projectFirestore.collection('projects').add({
-      project: singleproject?._id,
-      budget: value,
-    });
-    setValue('');
-    setModal(false);
+  const respoClose1 = () => {
+    setBudgetRespo(false);
   };
 
   return (
@@ -64,7 +59,7 @@ const Finance = ({
                   <a
                     href='#!'
                     onClick={() => {
-                      setModal(true);
+                      setBudgetRespo(!budgetRespo);
                     }}
                     className='blue'
                   >
@@ -83,7 +78,7 @@ const Finance = ({
               <div className='budget-amount'>
                 {show && (
                   <div>
-                    <p>₹{budget ? budget : '0.00'}</p>
+                    <p>₹{total ? total : '0.00'}</p>
                   </div>
                 )}
               </div>
@@ -156,48 +151,11 @@ const Finance = ({
           />
         )}
 
-        {modal && (
-          <div
-            onClick={(e) => {
-              if (e.target.classList.contains('addbudgetpopupscreen')) {
-                setModal(false);
-              }
-            }}
-            className='addbudgetpopupscreen budget'
-          >
-            <div className='addbudgetpopup addbudget'>
-              <div className='addbudgetpopup-heading addbudget'>
-                <h3>Total Budget</h3>
-                <div
-                  className='addbudgetpopup-cross'
-                  onClick={() => {
-                    setModal(false);
-                  }}
-                >
-                  x
-                </div>
-              </div>
-              <div className='addbudgetpopup-body addbudget budget'>
-                <div className='budgetform'>
-                  <form onSubmit={addBudget}>
-                    <div>
-                      <input
-                        type='text'
-                        name='remark'
-                        value={value}
-                        onChange={(e) => setValue(e.target.value)}
-                      />
-                    </div>
-                    <div className='prof-flex-btn'>
-                      <button className='btn-blue budget' type='submit'>
-                        Add Budget
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
+        {budgetRespo && (
+          <ResponsiveBudgetRight
+            singleproject={singleproject}
+            respoClose={respoClose1}
+          />
         )}
       </aside>
       {respo && (
@@ -207,6 +165,7 @@ const Finance = ({
           profile={profile}
         />
       )}
+      {budgetRespo && <BudgetRight singleproject={singleproject} />}
     </div>
   );
 };

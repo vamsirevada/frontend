@@ -11,6 +11,7 @@ import {
   UPDATE_PROJECT,
   PROJECT_ERROR,
   DELETE_PROJECT,
+  DELETE_PROJECT_BUDGET,
 } from './types';
 
 // Get all projects of user using user id
@@ -67,34 +68,58 @@ export const createProject = (formData) => async (dispatch) => {
   }
 };
 
-export const addBudget = (budgetObj) => {
-  return async (dispatch) => {
-    projectFirestore.collection('projects').add({
-      ...budgetObj,
-      createdAt: new Date(),
-    });
-  };
-};
+export const addBudget = (id, budgetObj) => async (dispatch) => {
+  console.log(budgetObj);
 
-export const getProjectBudget = (project_id) => async (dispatch) => {
   try {
-    projectFirestore
-      .collection('projects')
-      .where('project', '==', project_id)
-      .onSnapshot((snap) => {
-        snap.forEach((doc) => {
-          if (doc.data().project === project_id) {
-            dispatch({
-              type: GET_PROJECT_BUDGET,
-              payload: { id: doc.id, ...doc.data() },
-            });
-          }
-        });
-      });
+    const res = await api.post(`/project/${id}/budget`, budgetObj);
+
+    dispatch({
+      type: UPDATE_PROJECT,
+      payload: res.data,
+    });
   } catch (err) {
-    console.error(err);
+    dispatch({
+      type: PROJECT_ERROR,
+      payload: err.response.data.msg,
+    });
+    dispatch(setAlert(err.response.data.msg, 'danger'));
   }
 };
+
+export const getProjectBudget = (id) => async (dispatch) => {
+  try {
+    const res = await api.get(`/project/${id}/budget`);
+    dispatch({
+      type: GET_PROJECT_BUDGET,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROJECT_ERROR,
+      payload: err.response.data.msg,
+    });
+    dispatch(setAlert(err.response.data.msg, 'danger'));
+  }
+};
+
+export const deleteBudget = (id, budget_id) => async (dispatch) => {
+  try {
+    const res = await api.delete(`/project/${id}/budget/${budget_id}`);
+    dispatch({
+      type: DELETE_PROJECT_BUDGET,
+      payload: res.data.msg,
+    });
+  } catch (err) {
+    dispatch({
+      type: PROJECT_ERROR,
+      payload: err.response.data.msg,
+    });
+
+    dispatch(setAlert(err.response.data.msg, 'danger'));
+  }
+};
+
 //Send a Project Invite
 export const sendProjectInvite = (project_id, profile_id) => async (
   dispatch

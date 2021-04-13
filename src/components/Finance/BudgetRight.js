@@ -1,27 +1,26 @@
 import React, { useState } from 'react';
-import { addTransaction } from '../../actions/expense';
-import { connect } from 'react-redux';
 import { useParams } from 'react-router';
+import { connect } from 'react-redux';
+import { addBudget } from '../../actions/project';
 import logo from '../../images/dummyimage.jpg';
 
-const FinanceRight = ({
-  profile,
-  singleproject,
-  addTransaction,
-  transactions,
-}) => {
+const BudgetRight = ({ singleproject, addBudget }) => {
   const params = useParams();
   const [text, setText] = useState('');
-  const [amount, setAmount] = useState(0);
+  const [budget, setBudget] = useState(0);
+
+  const budgets = singleproject.projectbudget.map((x) => x.budget);
+
+  const total = budgets.reduce((acc, item) => (acc += item), 0).toFixed(2);
 
   const onSubmit = () => {
-    const newTransaction = {
+    const newBudget = {
       text,
-      amount: +amount,
+      budget: +budget,
     };
-    addTransaction(newTransaction, params.id);
+    addBudget(params.id, newBudget);
     setText('');
-    setAmount(0);
+    setBudget(0);
   };
 
   return (
@@ -41,7 +40,7 @@ const FinanceRight = ({
               <a href='#!'>{singleproject?.projectname}</a>
             </div>
             <div className='chat-body'>
-              <p>Expenses Tracker</p>
+              <p>Project Budget</p>
             </div>
           </div>
         </div>
@@ -58,13 +57,18 @@ const FinanceRight = ({
                 </tr>
               </thead>
               <tbody>
-                {transactions.map((transaction, index) => (
-                  <tr key={transaction._id}>
+                {singleproject.projectbudget.map((budget, index) => (
+                  <tr key={budget._id}>
                     <td>{index + 1}</td>
-                    <td>{transaction.text}</td>
-                    <td>{transaction.amount}</td>
+                    <td>{budget.text}</td>
+                    <td>{budget.budget}</td>
                   </tr>
                 ))}
+                <tr>
+                  <td></td>
+                  <td>Total</td>
+                  <td>{total}</td>
+                </tr>
               </tbody>
             </table>
           </div>
@@ -73,7 +77,7 @@ const FinanceRight = ({
       <div className='expenses-type'>
         <div className=' expenses-tracker'>
           <div>
-            <h3>Add Expense</h3>
+            <h3>Add Budget</h3>
           </div>
           <div className='expenses-tracker-flex'>
             <div>
@@ -90,8 +94,8 @@ const FinanceRight = ({
               <br />
               <input
                 type='number'
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
+                value={budget}
+                onChange={(e) => setBudget(e.target.value)}
               />
             </div>
           </div>
@@ -107,4 +111,4 @@ const FinanceRight = ({
   );
 };
 
-export default connect(null, { addTransaction })(FinanceRight);
+export default connect(null, { addBudget })(BudgetRight);

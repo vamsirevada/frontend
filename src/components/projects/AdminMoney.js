@@ -5,7 +5,7 @@ import { getTransactions } from '../../actions/expense';
 import { Link } from 'react-router-dom';
 
 const AdminMoney = ({
-  budget: { budget },
+  budget,
   getTransactions,
   expense: { transactions },
   singleproject: { _id },

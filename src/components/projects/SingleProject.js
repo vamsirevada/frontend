@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { getProject, getProjectBudget } from '../../actions/project';
 import ProjectLeft from './ProjectLeft';
 import notify from '../../images/noun_notification_887294.svg';
@@ -15,18 +15,22 @@ import { useHistory } from 'react-router';
 const SingleProject = ({
   profile: { profile },
   getProject,
+  getProjectBudget,
   project: { singleproject, budget, loading },
   match,
 }) => {
   const history = useHistory();
-  const dispatch = useDispatch();
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
 
   useEffect(() => {
     getProject(match.params.id);
-    dispatch(getProjectBudget(match.params.id));
-  }, [getProject, dispatch, match.params.id]);
+    getProjectBudget(match.params.id);
+  }, [getProject, getProjectBudget, match.params.id]);
+
+  const budgets = budget.map((x) => x.budget);
+
+  const total = budgets.reduce((acc, item) => (acc += item), 0).toFixed(2);
 
   const onClick1 = (e) => {
     toogleLeft(true);
@@ -67,7 +71,7 @@ const SingleProject = ({
                       <>
                         <ProjectAdd singleproject={singleproject} />
                         <AdminMoney
-                          budget={budget}
+                          budget={total}
                           singleproject={singleproject}
                         />
                       </>
@@ -125,4 +129,6 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getProject })(SingleProject);
+export default connect(mapStateToProps, { getProject, getProjectBudget })(
+  SingleProject
+);
