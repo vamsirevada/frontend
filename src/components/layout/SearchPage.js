@@ -1,20 +1,28 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
 import api from '../../utils/api';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { getProfiles } from '../../actions/profile';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { getRealtimeConversations } from '../../actions/chat';
 import UseFirestore from '../addportfolio/UseFireStore';
 import searchIcon from '../../images/searchIcon.svg';
 import logo from '../../images/dummyimage.jpg';
-import connections from '../../images/noun_Friend_2987728.svg';
-import noteimg from '../../images/icons/summarize-24px.svg';
+// import connections from '../../images/noun_Friend_2987728.svg';
+// import noteimg from '../../images/icons/summarize-24px.svg';
+import mail from '../../images/chat.svg';
 import { motion } from 'framer-motion';
+import ChatPopup from '../chat/ChatPopup';
 
 const SearchPage = ({
+  auth,
   profile: { profile, profiles, loading },
   getProfiles,
+  chat: { conversations },
 }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
+  const [start, setStart] = useState(false);
   const [input, setInput] = useState('');
   const [users, setUsers] = useState([]);
 
@@ -26,7 +34,6 @@ const SearchPage = ({
 
   useEffect(() => {
     fetchData();
-    //eslint-disable-next-line
   }, [fetchData]);
 
   useEffect(() => {
@@ -34,18 +41,6 @@ const SearchPage = ({
   }, [getProfiles]);
 
   const { docs } = UseFirestore('images');
-  const newprofiles = profiles.filter(
-    (x) => x?.user?._id !== profile?.user?._id
-  );
-
-  const documents =
-    docs &&
-    docs.filter(
-      (doc) =>
-        doc?.userId === profile?.user?._id &&
-        doc?.type !== 'Audio' &&
-        doc?.type !== 'Blog'
-    );
 
   return (
     <>
@@ -113,13 +108,8 @@ const SearchPage = ({
                               {val.user.groupName && val.user.groupName}
                             </span>{' '}
                             <br />
-                            <span className='second-bold'>
-                              {/* {user?.userName && user?.userName} */}
-                            </span>{' '}
-                            {/* <br /> */}
-                            <span className='second-bold'>
-                              {val.status}
-                            </span>{' '}
+                            <span className='second-bold'></span>{' '}
+                            <span className='second-bold'>{val.status}</span>{' '}
                             <br />
                             <span className='second-bold'>{val.location}</span>
                             <br />
@@ -141,6 +131,23 @@ const SearchPage = ({
                             className='btn-blue'
                           >
                             Portfolio
+                          </a>
+                        </div>
+                        <div className='btn-g'>
+                          {' '}
+                          <a
+                            onClick={() => {
+                              setStart(true);
+                              dispatch(
+                                getRealtimeConversations({
+                                  uid_1: auth?.user?._id,
+                                  uid_2: val?.user?._id,
+                                })
+                              );
+                            }}
+                            className='btn-blue g-1'
+                          >
+                            <img src={mail} alt='' />
                           </a>
                         </div>
                       </div>
@@ -181,6 +188,14 @@ const SearchPage = ({
                             </div>
                           ))}
                     </div>
+                    {start ? (
+                      <ChatPopup
+                        userUid={val?.user?._id}
+                        chatProfile={val?.user?.fullName}
+                        conversations={conversations}
+                        chatUserImage={val?.avatar}
+                      />
+                    ) : null}
                   </div>
                 );
               })}
@@ -202,7 +217,9 @@ const SearchPage = ({
 };
 
 const mapStateToProps = (state) => ({
+  auth: state.auth,
   profile: state.profile,
+  chat: state.chat,
 });
 
 export default connect(mapStateToProps, { getProfiles })(SearchPage);

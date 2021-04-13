@@ -21,7 +21,6 @@ const ProfileItem = ({
   item: { _id, user, avatar, status, location, buddies },
   chat: { conversations },
   sendBuddyRequest,
-  setAlert,
   displayAdd,
   docs,
 }) => {
