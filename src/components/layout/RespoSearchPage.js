@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../utils/api';
-import { Link, useHistory } from 'react-router-dom';
-import searchIcon from '../../images/searchIcon.svg';
-import logo from '../../images/dummyimage.jpg';
-import connections from '../../images/noun_Friend_2987728.svg';
-import nounPlus from '../../images/noun_Plus_2310779.svg';
+import { useHistory } from 'react-router-dom';
 import { getProfiles } from '../../actions/profile';
 import { connect } from 'react-redux';
-import UseFirestore from '../addportfolio/UseFireStore';
+import logo from '../../images/dummyimage.jpg';
+import nounPlus from '../../images/noun_Plus_2310779.svg';
+import mail from '../../images/chat.svg';
+import PersonalMessage from '../chat/PersonalMessage';
 
-const RespoSearchPage = ({
-  closeRespoBar,
-  profile: { profile, profiles, loading },
-  getProfiles,
-}) => {
+const RespoSearchPage = ({ closeRespoBar, getProfiles }) => {
   const history = useHistory();
   const [input, setInput] = useState('');
   const [users, setUsers] = useState([]);
+  const [start, setStart] = useState(false);
+  const [chatUserName, setChatUserName] = useState('');
+  const [chatUserImage, setChatUserImage] = useState(logo);
+  const [userUid, setUserUid] = useState(null);
 
   const fetchData = async () => {
     return await api.get('/profile').then((data) => {
@@ -31,6 +30,10 @@ const RespoSearchPage = ({
   useEffect(() => {
     getProfiles();
   }, [getProfiles]);
+
+  const chatClose = () => {
+    setStart(false);
+  };
 
   return (
     <>
@@ -56,6 +59,15 @@ const RespoSearchPage = ({
               <h2>
                 Search Result for <span className='blue'>'{input}'</span>
               </h2>
+              <div
+                onClick={() => {
+                  setInput('');
+                  history.push('/profiles');
+                }}
+                className='search-seeall'
+              >
+                see all
+              </div>
             </div>
             <hr className='hori' />
 
@@ -131,36 +143,36 @@ const RespoSearchPage = ({
                             Portfolio
                           </a>
                         </div>
-                        {/* <div className='btn-b'>
-                          {' '}
-                          <a className='btn-blue' onClick={() => onClick()}>
-                            <img src={add} alt='' />
-                          </a>
-                        </div>
                         <div className='btn-g'>
                           {' '}
-                          <a onClick={chatRequest} className='btn-blue g-1'>
+                          <a
+                            onClick={() => {
+                              setStart(true);
+                              setUserUid(val?.user?._id);
+                              setChatUserName(val?.user?.fullName);
+                              setChatUserImage(val?.avatar);
+                            }}
+                            className='btn-blue g-1'
+                          >
                             <img src={mail} alt='' />
                           </a>
-                        </div> */}
+                        </div>
                       </div>
                     </div>
                   </div>
                 );
               })}
-
-            {/* <div
-              onClick={() => {
-                setInput('');
-                history.push('/profiles');
-              }}
-              className='search-seeall'
-            >
-              <h4>See all</h4>
-            </div> */}
           </div>
         </div>
       )}
+      {start ? (
+        <PersonalMessage
+          userUid={userUid}
+          chatUserName={chatUserName}
+          chatUserImage={chatUserImage}
+          chatClose={chatClose}
+        />
+      ) : null}
     </>
   );
 };
