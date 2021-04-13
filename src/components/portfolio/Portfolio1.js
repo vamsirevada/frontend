@@ -75,7 +75,7 @@ const Portfolio1 = ({
       <Fragment>
         {profile1 !== null ? (
           <Fragment>
-            <div id='portfolio'>
+            <div id='portfolio' data-aos='fade-in'>
               {displayLeft && (
                 <div className='portfolio-left'>
                   <div id='left-sidebar'>

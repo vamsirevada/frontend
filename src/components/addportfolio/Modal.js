@@ -200,7 +200,7 @@ const Modal = ({
                     setTitleEdit(false);
                     setEdit(false);
                   }}
-                  className='prev'
+                  className='prev prev-1'
                 >
                   <img src={backward} alt='' />
                 </div>
@@ -218,7 +218,7 @@ const Modal = ({
                     setTitleEdit(false);
                     setEdit(false);
                   }}
-                  className='prev'
+                  className='prev prev-2'
                 >
                   {' '}
                   <img src={forward} alt='' />

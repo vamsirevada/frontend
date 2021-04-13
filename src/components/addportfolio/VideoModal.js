@@ -199,7 +199,7 @@ const VideoModal = ({
                     setTitleEdit(false);
                     setEdit(false);
                   }}
-                  className='prev'
+                  className='prev prev-1'
                 >
                   <img src={backward} alt='' />
                 </div>
@@ -222,7 +222,7 @@ const VideoModal = ({
                     setEdit(false);
                     setTitleEdit(false);
                   }}
-                  className='prev'
+                  className='prev prev-2'
                 >
                   {' '}
                   <img src={forward} alt='' />
