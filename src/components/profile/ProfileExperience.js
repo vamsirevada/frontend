@@ -12,24 +12,64 @@ const ProfileExperience = ({
   show,
 }) => (
   <div className='btn-gray'>
-    <div>
-      {title}
+    <div className='profile-table'>
+      {show && (
+        <a className='cross-1' onClick={() => deleteExperience(_id)}>
+          <img src={nounPlus} alt='' />
+        </a>
+      )}
+      <table>
+        <thead></thead>
+
+        <tbody>
+          <tr>
+            <td className='font-bold'>Designation :</td>
+            <td className='font-light'>{title}</td>
+          </tr>
+          <tr>
+            <td className='font-bold'>Project Name: </td>
+            <td className='font-light'>{project}</td>
+          </tr>
+          <tr>
+            <td className='font-bold'>Company: </td>
+            <td className='font-light'>{company}</td>
+          </tr>
+          <tr>
+            <td className='font-bold'>Location: </td>
+            <td className='font-light'>{location}</td>
+          </tr>
+          <tr>
+            <td className='font-bold white-space-desc'>Description: </td>
+            <td className='font-light'>{description}</td>
+          </tr>
+          <tr>
+            <td className='font-bold'>Timeline: </td>
+            <td className='font-light'>
+              <Moment format='MMM YYYY'>{from}</Moment> -{' '}
+              {to === null ? 'Now' : <Moment format='MMM YYYY'>{to}</Moment>}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    {/* <div>
+      Designation: {title}
       {show && (
         <a className='cross-1' onClick={() => deleteExperience(_id)}>
           <img src={nounPlus} alt='' />
         </a>
       )}
       <br />
-      {project}
+      Project Name:{project}
       <br />
-      {company} <br />
-      {location} <br />
-      {description} <br />
+      Company: {company} <br />
+      Location: {location} <br />
+      <p className='white-space-desc'>Description: {description}</p> <br />
       <span className='font-light'>
         <Moment format='MMM YYYY'>{from}</Moment> -{' '}
         {to === null ? 'Now' : <Moment format='MMM YYYY'>{to}</Moment>}
       </span>
-    </div>
+    </div> */}
   </div>
 );
 

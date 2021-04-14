@@ -59,6 +59,14 @@
   margin: 2rem;
   background-color: #e8e8e8;
 }
+.main-add .main-left .btn-gray.blue {
+  display: block;
+  margin: 2rem;
+  background-color: #e6e6e6;
+  border-right: 10px solid #7480ff;
+  opacity: 1;
+  font-size: 1rem;
+}
 
 .main-add .main-left .current {
   background-color: #e6e6e6;

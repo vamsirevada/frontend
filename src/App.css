@@ -32,6 +32,10 @@ html {
   background-color: #fad300;
 }
 
+.ft-para1 {
+  text-align: justify;
+}
+
 /* Landing page pagination */
 .dotstyle ul {
   position: relative;
@@ -391,6 +395,7 @@ a {
   height: 100%;
   margin: auto;
   padding: 0 40px;
+  position: relative;
 }
 
 .page .container .nav {
@@ -448,9 +453,6 @@ a {
   flex-direction: column;
   align-items: flex-start;
   padding-left: 1rem;
-  margin-top: 3rem;
-  position: relative;
-  top: 10%;
 }
 #page-1 .flex-content .container1 .btn:hover {
   opacity: 0.8;
@@ -485,7 +487,7 @@ a {
 #page-1 .box-1 {
   position: relative;
   top: -22%;
-  left: 40%;
+  left: 47%;
   width: 20px;
   height: 20px;
   opacity: 0.8;
@@ -643,6 +645,7 @@ a {
   line-height: 1.5rem;
   width: 100%;
   padding-right: 10px;
+  text-align: justify;
 }
 
 /* side box */
@@ -716,6 +719,7 @@ a {
 .page3-columns .column-2 p {
   line-height: 1.5rem;
   width: 100%;
+  text-align: justify;
 }
 
 /* page 3 sidebox */
@@ -795,6 +799,7 @@ a {
 .page4-columns .column-2 p {
   line-height: 1.5rem;
   width: 100%;
+  text-align: justify;
 }
 
 /* page 4 sidebox */
@@ -871,6 +876,7 @@ a {
 .page5-columns .column-2 p {
   line-height: 1.5rem;
   width: 100%;
+  text-align: justify;
 }
 
 /* page 5 sidebox */
@@ -944,6 +950,7 @@ a {
 .page6-columns .column-2 p {
   line-height: 1.5rem;
   width: 100%;
+  text-align: justify;
 }
 
 /* page 4 sidebox */
@@ -1044,6 +1051,7 @@ a {
 .page7-columns .column-2 p {
   line-height: 1.5rem;
   width: 100%;
+  text-align: justify;
 }
 
 /* page 7 sidebox */
@@ -3357,8 +3365,16 @@ input.search-btn:focus {
 }
 /* iphone6.7.8 potrait */
 @media (max-width: 420px) {
+  .navbar .nav-icons .arrow-up.notif {
+    top: 60px;
+    right: 50px;
+  }
+  .navbar .nav-icons .notif-dis {
+    top: 72px;
+    right: 50px;
+  }
   .navbar .nav-icons .no-dis {
-    top: 0px;
+    top: 72px;
     right: 15px;
   }
   .navbar .nav-icons .arrow-up {

@@ -388,7 +388,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 }
 
 .prof-btn .prof-btn-grid .btn-gray {
-  padding: 0.5rem 2rem;
+  padding: 1rem 1.618rem;
   margin: 0.5rem;
   font-size: 0.8rem;
   font-family: 'Raleway', sans-serif;
@@ -396,6 +396,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
   color: #5d5d5d;
   position: relative;
   opacity: 1;
+  white-space: pre-line;
 }
 
 .prof-btn-1 .prof-btn-grid-1 .btn-gray {
@@ -510,12 +511,13 @@ input[type='date']::-webkit-calendar-picker-indicator {
   font-family: 'Raleway', sans-serif;
   font-size: 0.9rem;
   font-weight: 500;
+  padding-left: 1rem;
 }
 
 .cross-1 {
   position: absolute;
-  top: 10%;
-  left: 85%;
+  top: 6%;
+  left: 90%;
 }
 .cross-g1 {
   position: absolute;
@@ -598,6 +600,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 .prof-box .prof-left textarea {
   font-family: 'Raleway', sans-serif;
   font-size: 0.8rem;
+  white-space: pre-line;
 }
 
 .prof-box .prof-left .prof-flex-btn {
@@ -675,6 +678,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
   border-radius: 10px;
   border: none;
   outline: none;
+  white-space: pre;
 }
 
 .prof-box .prof-flex-a textarea,

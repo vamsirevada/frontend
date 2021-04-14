@@ -46,7 +46,7 @@ a {
   padding: 1rem;
   border-radius: 20px;
   line-height: 1.3rem;
-  width: 250px;
+  /* width: 250px; */
 }
 
 .feed-main-container .main-grid-top.project {

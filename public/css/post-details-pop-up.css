@@ -145,6 +145,7 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  white-space: pre-line;
 }
 
 .popup-description textarea {

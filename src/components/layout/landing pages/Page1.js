@@ -59,10 +59,10 @@ const Page1 = () => {
                 <Link
                   to='/register'
                   className='btn yellow'
-                  data-aos='fade-left'
-                  data-aos-delay='100'
-                  data-aos-duration='600'
-                  data-aos-easing='ease'
+                  // data-aos='fade-left'
+                  // data-aos-delay='100'
+                  // data-aos-duration='600'
+                  // data-aos-easing='ease'
                 >
                   Get started
                 </Link>

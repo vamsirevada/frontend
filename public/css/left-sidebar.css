@@ -353,6 +353,13 @@ h3 {
   margin: 0;
   opacity: 1;
   position: relative;
+  background-color: #7480ff;
+  border: none;
+  color: #fff;
+}
+.left-container .btns .btn-white img {
+  filter: invert(100%) sepia(99%) saturate(3%) hue-rotate(254deg)
+    brightness(107%) contrast(100%);
 }
 .left-container .btns .view-button {
   font-size: 14px;
@@ -421,6 +428,7 @@ h3 {
   font-size: 14px;
   color: #5d5d5d;
   white-space: pre-line;
+  text-align: justify;
 }
 
 .prof-btn .profile-table-1 {
