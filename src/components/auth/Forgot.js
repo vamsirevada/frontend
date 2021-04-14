@@ -63,7 +63,7 @@ export default class ForgotPassword extends Component {
                 </p>
               </div>
               {/* <br /> */}
-              {message && <h3 style={{ fontFamily: 'cursive' }}>{message}</h3>}
+              {message && <h3>{message}</h3>}
               <form
                 style={{ display: this.state.message.length ? 'none' : '' }}
                 className='flex-form-l1'

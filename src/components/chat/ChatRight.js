@@ -160,7 +160,7 @@ const ChatRight = ({
                       )}
                       <img
                         className={`${
-                          auth?.user?._id === con?.user_uid_1 ? 'b-1' : 'b-2'
+                          auth?.user?._id === con?.user_uid_1 ? 'img-1' : 'b-2'
                         }`}
                         src={con.url}
                         alt=''
