@@ -22,7 +22,7 @@ import CreateGroupProfile from './components/profile-forms/CreateGroupProfile';
 import SingleArticle from './components/article/SingleArticle';
 import CreateProfile from './components/profile-forms/Createprofile';
 import Help from './components/about/Help';
-import NotFound from './components/NotFound';
+// import NotFound from './components/NotFound';
 import ReferralPage from './components/auth/ReferralPage';
 import './App.css';
 import { LOGOUT } from './actions/types';

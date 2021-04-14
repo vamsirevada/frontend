@@ -163,6 +163,11 @@ const WelcomePostItem = ({
             </Fragment>
           )}
         </div>
+        {PostType(type) === 'default' && (
+          <div style={{ marginBottom: 10 }} className='post-description'>
+            <p>{text}</p>
+          </div>
+        )}
 
         {PostType(type) === 'Picture' && (
           <>
@@ -180,6 +185,45 @@ const WelcomePostItem = ({
               src={url}
               alt=''
             />
+          </>
+        )}
+        {PostType(type) === 'Video' && (
+          <>
+            <p style={{ marginBottom: 10 }} className='post-description'>
+              {text}
+            </p>
+            <video
+              style={{
+                objectFit: 'cover',
+                width: '100%',
+                height: '350px',
+                background: 'transparent',
+              }}
+              controls
+              controlsList='nodownload'
+              src={url}
+              className='post-video'
+            />
+          </>
+        )}
+        {PostType(type) === 'Audio' && (
+          <>
+            <p style={{ marginBottom: 10 }} className='post-description'>
+              {text}
+            </p>
+            <video poster={poster} className='post-audio' controls src={url} />
+          </>
+        )}
+
+        {PostType(type) === 'Blog' && (
+          <>
+            <a
+              href={url}
+              style={{ marginBottom: 10 }}
+              className='post-description'
+            >
+              {text}
+            </a>
           </>
         )}
 
