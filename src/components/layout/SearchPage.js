@@ -97,7 +97,7 @@ const SearchPage = ({ getProfiles }) => {
               })
               .map((val, key) => {
                 return (
-                  <div className='connect-main'>
+                  <div key={key} className='connect-main'>
                     <div className='connect-left'>
                       <div className='connect-left-top'>
                         <div

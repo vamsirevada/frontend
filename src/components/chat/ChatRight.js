@@ -3,7 +3,7 @@ import { getRealtimeConversations, updateMessage } from '../../actions/chat';
 import { useDispatch } from 'react-redux';
 import attach from '../../images/attach.svg';
 import sendbutton from '../../images/sendbutton.svg';
-import { projectStorage } from '../../firebase/config';
+import { projectFirestore, projectStorage } from '../../firebase/config';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import logo from '../../images/dummyimage.jpg';
@@ -87,6 +87,15 @@ const ChatRight = ({
             })
           );
         }
+        projectFirestore.collection('notifications').add({
+          sender: auth?.user?._id,
+          senderName: auth?.user?.userName,
+          avatar: auth?.user?.avatar,
+          receiver: userUid,
+          type: 'chat',
+          read: false,
+          createdAt: new Date(),
+        });
         setFormValue('');
         setShow(false);
       });

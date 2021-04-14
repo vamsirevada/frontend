@@ -91,7 +91,6 @@ const EditProfile = ({
       history,
       true
     );
-    setShow(false);
   };
 
   const onSubmit = (e) => {
@@ -114,15 +113,15 @@ const EditProfile = ({
                 ref={fileInput}
               />
               <img className='display-pic' src={avatar} alt='' />
-              {show ? (
+              {/* {show ? (
                 <div style={{ width: 50, height: 50, margin: 'auto' }}>
                   <CircularProgressbar value={progress} text={`${progress}%`} />
                 </div>
-              ) : (
-                <button className='btn-yellow' onClick={onOpenFileDialog}>
-                  Upload Picture
-                </button>
-              )}
+              ) : ( */}
+              <button className='btn-yellow' onClick={onOpenFileDialog}>
+                Upload Picture
+              </button>
+              {/* // )} */}
             </div>
             <div className='c-form'>
               <form onSubmit={onSubmit}>
@@ -218,15 +217,15 @@ const EditProfile = ({
                 src={avatar ? avatar : logo}
                 alt=''
               />
-              {show ? (
+              {/* {show ? (
                 <div style={{ width: 50, height: 50, margin: 'auto' }}>
                   <CircularProgressbar value={progress} text={`${progress}%`} />
                 </div>
-              ) : (
-                <button className='btn-yellow' onClick={onOpenFileDialog}>
-                  Upload Picture
-                </button>
-              )}
+              ) : ( */}
+              <button className='btn-yellow' onClick={onOpenFileDialog}>
+                Upload Picture
+              </button>
+              {/* )} */}
             </div>
             <div className='c-form'>
               <form onSubmit={onSubmit}>
