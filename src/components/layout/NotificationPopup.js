@@ -261,7 +261,7 @@ const NotificationPopup = ({
         );
       })
     ) : (
-      <div classname='no-notification'>
+      <div className='no-notification'>
         <p>You have no notifications yet</p>
       </div>
     );
@@ -273,15 +273,22 @@ const NotificationPopup = ({
         aria-haspopup='true'
         onClick={() => {
           setOpen(true);
-          setTimeout(() => {
-            setOpen(false);
-          }, 5000);
+          // setTimeout(() => {
+          //   setOpen(false);
+          // }, 5000);
         }}
       >
         {notificationsIcon}
       </IconButton>
       {open && (
-        <div>
+        <div
+          className='notificationpopup-full'
+          onClick={(e) => {
+            if (e.target.classList.contains('notificationpopup-full')) {
+              setOpen(false);
+            }
+          }}
+        >
           <div className='arrow-up notif'></div>
           <div onClick={onMenuOpened} className='notif-dis'>
             <div className='notify-ribbon'>
