@@ -190,6 +190,8 @@ const ImageGrid = ({ id, profile }) => {
                     displayVideo(index);
                     dispatch(getRealtimeData(doc.id));
                   }}
+                  controls
+                  controlsList='nodownload'
                   src={doc.url}
                   alt='uploaded pic'
                   initial={{ opacity: 0 }}
