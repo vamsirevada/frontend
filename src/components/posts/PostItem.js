@@ -272,7 +272,7 @@ const PostItem = ({
           <div className='des-right'>
             <a className='d-1'>
               <span className='f-1'>{likes.length > 0 && likes.length}</span>{' '}
-              Likes
+              Appreciations
             </a>
             <a className='d-1'>
               <span className='f-1'>

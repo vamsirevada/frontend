@@ -2033,7 +2033,7 @@ input.search-btn:focus {
   height: 91vh;
   background-color: #fff;
   opacity: 1;
-  z-index: 1000;
+  z-index: 2000;
   overflow: auto;
 }
 .navbar .nav-icons .search-dis .search-dis-container {
@@ -3345,6 +3345,13 @@ input.search-btn:focus {
 }
 /* iphone6.7.8 potrait */
 @media (max-width: 420px) {
+  .navbar .nav-icons .no-dis {
+    top: 0px;
+    right: 15px;
+  }
+  .navbar .nav-icons .arrow-up {
+    right: 16px;
+  }
   .post-pop-up-container .main-post-container .main-post-top .prev.prev-1 {
     position: absolute;
     top: 48%;
