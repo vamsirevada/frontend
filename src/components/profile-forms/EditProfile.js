@@ -91,6 +91,7 @@ const EditProfile = ({
       history,
       true
     );
+    setShow(false);
   };
 
   const onSubmit = (e) => {

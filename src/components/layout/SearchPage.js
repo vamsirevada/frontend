@@ -3,28 +3,22 @@ import React, { useEffect, useState } from 'react';
 import api from '../../utils/api';
 import { useHistory } from 'react-router-dom';
 import { getProfiles } from '../../actions/profile';
-import { connect, useDispatch } from 'react-redux';
-import { getRealtimeConversations } from '../../actions/chat';
+import { connect } from 'react-redux';
 import UseFirestore from '../addportfolio/UseFireStore';
 import searchIcon from '../../images/searchIcon.svg';
 import logo from '../../images/dummyimage.jpg';
-// import connections from '../../images/noun_Friend_2987728.svg';
-// import noteimg from '../../images/icons/summarize-24px.svg';
 import mail from '../../images/chat.svg';
 import { motion } from 'framer-motion';
-import ChatPopup from '../chat/ChatPopup';
+import PersonalMessage from '../chat/PersonalMessage';
 
-const SearchPage = ({
-  auth,
-  profile: { profile, profiles, loading },
-  getProfiles,
-  chat: { conversations },
-}) => {
+const SearchPage = ({ getProfiles }) => {
   const history = useHistory();
-  const dispatch = useDispatch();
   const [start, setStart] = useState(false);
   const [input, setInput] = useState('');
   const [users, setUsers] = useState([]);
+  const [chatUserName, setChatUserName] = useState('');
+  const [chatUserImage, setChatUserImage] = useState(logo);
+  const [userUid, setUserUid] = useState(null);
 
   const fetchData = async () => {
     return await api.get('/profile').then((data) => {
@@ -39,6 +33,10 @@ const SearchPage = ({
   useEffect(() => {
     getProfiles();
   }, [getProfiles]);
+
+  const chatClose = () => {
+    setStart(false);
+  };
 
   const { docs } = UseFirestore('images');
 
@@ -63,6 +61,15 @@ const SearchPage = ({
               <h2>
                 Search Result for <span className='blue'>'{input}'</span>
               </h2>
+              <div
+                onClick={() => {
+                  setInput('');
+                  history.push('/profiles');
+                }}
+                className='search-seeall'
+              >
+                see all
+              </div>
             </div>
             <hr className='hori' />
 
@@ -138,12 +145,9 @@ const SearchPage = ({
                           <a
                             onClick={() => {
                               setStart(true);
-                              dispatch(
-                                getRealtimeConversations({
-                                  uid_1: auth?.user?._id,
-                                  uid_2: val?.user?._id,
-                                })
-                              );
+                              setUserUid(val?.user?._id);
+                              setChatUserName(val?.user?.fullName);
+                              setChatUserImage(val?.avatar);
                             }}
                             className='btn-blue g-1'
                           >
@@ -188,38 +192,22 @@ const SearchPage = ({
                             </div>
                           ))}
                     </div>
-                    {start ? (
-                      <ChatPopup
-                        userUid={val?.user?._id}
-                        chatProfile={val?.user?.fullName}
-                        conversations={conversations}
-                        chatUserImage={val?.avatar}
-                      />
-                    ) : null}
                   </div>
                 );
               })}
-
-            {/* <div
-              onClick={() => {
-                setInput('');
-                history.push('/profiles');
-              }}
-              className='search-seeall'
-            >
-              <h4>See all</h4>
-            </div> */}
           </div>
         </div>
       )}
+      {start ? (
+        <PersonalMessage
+          userUid={userUid}
+          chatUserName={chatUserName}
+          chatUserImage={chatUserImage}
+          chatClose={chatClose}
+        />
+      ) : null}
     </>
   );
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-  profile: state.profile,
-  chat: state.chat,
-});
-
-export default connect(mapStateToProps, { getProfiles })(SearchPage);
+export default connect(null, { getProfiles })(SearchPage);

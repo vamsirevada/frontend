@@ -5,6 +5,7 @@ import { useParams } from 'react-router';
 import logo from '../../images/dummyimage.jpg';
 
 const FinanceRight = ({
+  start,
   userId,
   singleproject,
   addTransaction,
@@ -65,20 +66,22 @@ const FinanceRight = ({
                   <th>Amount (in ₹)</th>
                 </tr>
               </thead>
-              <tbody>
-                {userTranscations.map((transaction, index) => (
-                  <tr key={transaction._id}>
-                    <td>{index + 1}</td>
-                    <td>{transaction.text}</td>
-                    <td>{transaction.amount}</td>
+              {start && (
+                <tbody>
+                  {userTranscations.map((transaction, index) => (
+                    <tr key={transaction._id}>
+                      <td>{index + 1}</td>
+                      <td>{transaction.text}</td>
+                      <td>{transaction.amount}</td>
+                    </tr>
+                  ))}
+                  <tr>
+                    <td></td>
+                    <td>Total</td>
+                    <td>{total}</td>
                   </tr>
-                ))}
-                <tr>
-                  <td></td>
-                  <td>Total</td>
-                  <td>{total}</td>
-                </tr>
-              </tbody>
+                </tbody>
+              )}
             </table>
           </div>
         </div>

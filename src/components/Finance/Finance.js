@@ -11,6 +11,7 @@ import BudgetRight from './BudgetRight';
 import ResponsiveBudgetRight from './ResponsiveBudgetRight';
 
 const Finance = ({
+  auth: { user },
   getProject,
   getProjectBudget,
   getTransactions,
@@ -23,6 +24,8 @@ const Finance = ({
   const [respo, setRespo] = useState(false);
   const [budgetRespo, setBudgetRespo] = useState(false);
   const [userId, setUserId] = useState('');
+  const [start, setStart] = useState(false);
+  const [creators, setCreators] = useState([]);
 
   useEffect(() => {
     getProject(params.id);
@@ -114,71 +117,28 @@ const Finance = ({
                   </a>
                 </div>
               </div>
-              <div>
-                <div>
-                  <h4>
-                    Admins{' '}
-                    <span className='blue'>
-                      ({singleproject?.admin.length})
-                    </span>{' '}
-                  </h4>
-                </div>
-                {spender &&
-                  singleproject?.admin.map((x) => (
-                    <Fragment key={x._id}>
-                      <div
-                        className='expense-card'
-                        onClick={() => {
-                          setRespo(!respo);
-                          setUserId(x?.user);
-                        }}
-                      >
-                        <p>
-                          <span className='blue'>Date :</span>{' '}
-                          <Moment format='DD MMM YY'>
-                            {transactions[transactions.length - 1]?.date}
-                          </Moment>
-                        </p>
-                        <p>
-                          <span className='blue'>By:</span> {x?.fullName}
-                        </p>
-                      </div>
-                      <hr className='Hori' />
-                    </Fragment>
-                  ))}
-              </div>
-              <div>
-                <div>
-                  <h4>
-                    Moderators{' '}
-                    <span className='blue'>
-                      ({singleproject?.moderator.length})
-                    </span>{' '}
-                  </h4>
-                </div>
-                {spender &&
-                  singleproject?.moderator.map((x) => (
-                    <Fragment key={x._id}>
-                      <div
-                        className='expense-card'
-                        onClick={() => {
-                          setRespo(!respo);
-                        }}
-                      >
-                        <p>
-                          <span className='blue'>Date :</span>{' '}
-                          <Moment format='DD MMM YY'>
-                            {transactions[transactions.length - 1]?.date}
-                          </Moment>
-                        </p>
-                        <p>
-                          <span className='blue'>By:</span> {x?.fullName}
-                        </p>
-                      </div>
-                      <hr className='Hori' />
-                    </Fragment>
-                  ))}
-              </div>
+              {spender &&
+                transactions.map((transaction) => (
+                  <div key={transaction._id}>
+                    <div
+                      className='expense-card'
+                      onClick={() => {
+                        setStart(!start);
+                      }}
+                    >
+                      <p>
+                        <span className='blue'>Date :</span>{' '}
+                        <Moment format='DD MMM YY'>
+                          {transactions[transactions.length - 1]?.date}
+                        </Moment>
+                      </p>
+                      <p>
+                        <span className='blue'>By:</span> Dhoni
+                      </p>
+                    </div>
+                    <hr className='Hori' />
+                  </div>
+                ))}
             </div>
           </div>
         </div>
@@ -201,6 +161,7 @@ const Finance = ({
       </aside>
       {respo && (
         <FinanceRight
+          start={start}
           transactions={transactions}
           singleproject={singleproject}
           userId={userId}
@@ -212,6 +173,7 @@ const Finance = ({
 };
 
 const mapStateToProps = (state) => ({
+  auth: state.auth,
   expense: state.expense,
   project: state.project,
 });

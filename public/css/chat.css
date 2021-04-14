@@ -997,3 +997,48 @@ a {
   width: 90%;
   vertical-align: bottom;
 }
+
+.personalmessagepopupscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(6, 6, 6, 0.8);
+  z-index: 10000001;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+.personalmessagepopupscreen .personalmessagepopup {
+  z-index: 101;
+  background: #fff;
+  width: 400px;
+  height: 35%;
+  left: 40%;
+  top: 15%;
+  border-radius: 10px;
+  position: absolute;
+  padding: 10px;
+}
+
+.personalmessagepopup .personalmessagepopup-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.personalmessagepopup-header .personalmessagepopup-heading {
+  display: flex;
+  align-items: center;
+}
+
+.personalmessagepopup-header .personalmessagepopup-cross {
+  cursor: pointer;
+}
+
+.personalmessagepopup .form-container-2 {
+  max-width: 450px;
+  margin-top: 2.5rem;
+  padding: 0.5rem 0;
+  background-color: #f2f2f2;
+  border-radius: 0px;
+}

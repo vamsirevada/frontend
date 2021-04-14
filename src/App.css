@@ -2042,8 +2042,11 @@ input.search-btn:focus {
 }
 
 .search-dis-container .search-header {
+  display: flex;
+  justify-content: space-between;
   padding: 1rem 1.619rem;
 }
+
 .search-dis-container .search-header h2 {
   font-size: 18px;
 }
@@ -2053,6 +2056,13 @@ input.search-btn:focus {
 }
 .search-dis-container .hori {
   max-width: 100%;
+}
+
+.search-dis-container .search-header .search-seeall {
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  color: #4d53e0;
+  align-self: flex-end;
 }
 
 .navbar .nav-icons .search-dis .search-element {
