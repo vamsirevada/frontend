@@ -31,7 +31,7 @@ const Posts = ({
   }, [getPosts, getBuddyPosts, getOwnPosts]);
 
   const welcomeposts =
-    posts && posts.filter((x) => x.user._id === '6076bfee8caddc177e448d94');
+    posts && posts.filter((x) => x?.user?._id === '6076bfee8caddc177e448d94');
 
   return (
     <>
