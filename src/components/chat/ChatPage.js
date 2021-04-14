@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { getBuddiesById } from '../../actions/profile';
+import { getProfiles, getBuddiesById } from '../../actions/profile';
 import { getProjects } from '../../actions/project';
 import { getRealtimeConversations } from '../../actions/chat';
 import { connect, useDispatch } from 'react-redux';
@@ -15,14 +15,15 @@ import ResponsiveChatPopup from './ResponsiveChatPopup';
 
 const ChatPage = ({
   auth,
+  getProfiles,
   getBuddiesById,
   getProjects,
-  profile: { buddies },
+  profile: { profiles, buddies },
   project: { projects },
   chat: { conversations },
 }) => {
   const dispatch = useDispatch();
-
+  const [viewAll, setViewAll] = useState(false);
   const [chatProfile, setChatProfile] = useState('');
   const [chatStarted, setChatStarted] = useState(false);
   const [chatUserImage, setChatUserImage] = useState(logo);
@@ -32,6 +33,8 @@ const ChatPage = ({
     getBuddiesById(auth?.user?._id);
     getProjects(auth?.user?._id);
   }, [getBuddiesById, getProjects, auth?.user?._id]);
+
+  const newprofiles = profiles.filter((x) => x?.user?._id !== auth?.user?._id);
 
   const chatClose = () => {
     setChatStarted(false);
@@ -64,54 +67,64 @@ const ChatPage = ({
             <div className='chats'>
               <div className='chats-heading'>
                 <h3>
-                  Contacts <span className='blue'>({buddies.length})</span>
+                  Contacts <span className='blue'>({newprofiles.length})</span>
                 </h3>
-                <a className='blue'>See More</a>
+                <a
+                  onClick={() => {
+                    setViewAll(!viewAll);
+                  }}
+                  className='blue'
+                >
+                  See More
+                </a>
               </div>
-              {buddies &&
-                buddies.map((profile, index) => (
-                  <Fragment key={index}>
-                    <div
-                      onClick={() => {
-                        setChatProfile(profile);
-                        setChatStarted(true);
-                        setUserUid(profile?.user?._id);
-                        setChatUserImage(profile?.avatar);
-                        dispatch(
-                          getRealtimeConversations({
-                            uid_1: auth?.user?._id,
-                            uid_2: profile?.user?._id,
-                          })
-                        );
-                      }}
-                      className='fullchat-chatgrid'
-                    >
+              {newprofiles &&
+                newprofiles
+                  .slice(0, viewAll ? newprofiles.length : 4)
+                  .map((profile, index) => (
+                    <Fragment key={index}>
                       <div
-                        style={{
-                          background: `url(${
-                            profile?.avatar ? profile?.avatar : logo
-                          }) no-repeat center center/cover`,
+                        onClick={() => {
+                          setChatProfile(profile);
+                          setChatStarted(true);
+                          setUserUid(profile?.user?._id);
+                          setChatUserImage(profile?.avatar);
+                          dispatch(
+                            getRealtimeConversations({
+                              uid_1: auth?.user?._id,
+                              uid_2: profile?.user?._id,
+                            })
+                          );
                         }}
-                        className='dp'
-                      ></div>
-                      <div className='flex-column-1'>
-                        <div className='chat-name'>
-                          <a>
-                            {profile?.user?.fullName && profile?.user?.fullName}
-                          </a>
-                          <a>
-                            {profile?.user?.groupName &&
-                              profile?.user?.groupName}
-                          </a>
-                        </div>
-                        <div className='chat-body'>
-                          <p>{profile.status}</p>
+                        className='fullchat-chatgrid'
+                      >
+                        <div
+                          style={{
+                            background: `url(${
+                              profile?.avatar ? profile?.avatar : logo
+                            }) no-repeat center center/cover`,
+                          }}
+                          className='dp'
+                        ></div>
+                        <div className='flex-column-1'>
+                          <div className='chat-name'>
+                            <a>
+                              {profile?.user?.fullName &&
+                                profile?.user?.fullName}
+                            </a>
+                            <a>
+                              {profile?.user?.groupName &&
+                                profile?.user?.groupName}
+                            </a>
+                          </div>
+                          <div className='chat-body'>
+                            <p>{profile.status}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <hr className='hori-2' />
-                  </Fragment>
-                ))}
+                      <hr className='hori-2' />
+                    </Fragment>
+                  ))}
             </div>
             <div className='chats'>
               <div className='chats-heading'>
@@ -209,6 +222,7 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
+  getProfiles,
   getBuddiesById,
   getProjects,
 })(ChatPage);

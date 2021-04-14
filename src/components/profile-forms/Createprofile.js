@@ -88,9 +88,6 @@ const Createprofile = ({ createProfile, history }) => {
                 src={avatar ? avatar : logo}
                 alt=''
               />
-              <button className='btn-yellow' onClick={onOpenFileDialog}>
-                Upload Picture
-              </button>
               {show ? (
                 <div style={{ width: 50, height: 50, margin: 'auto' }}>
                   <CircularProgressbar value={progress} text={`${progress}%`} />

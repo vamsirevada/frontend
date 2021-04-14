@@ -198,6 +198,7 @@ const PostItem = ({
                 background: 'transparent',
               }}
               controls
+              controlsList='nodownload'
               src={url}
               className='post-video'
             />
