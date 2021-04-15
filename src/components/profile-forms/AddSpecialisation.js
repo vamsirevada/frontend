@@ -77,7 +77,6 @@ const AddSpecialisation = ({ profile: { profile }, addSpecialisation }) => {
 
 AddSpecialisation.propTypes = {
   addSpecialisation: PropTypes.func.isRequired,
-  getCurrentGroupProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
 };
 

@@ -1,16 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { Fragment, useState } from 'react';
+import React, { createRef, Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import { addExperience } from '../../actions/profile';
 import nounBriefcase from '../../images/icons/nounBriefcase.svg';
 import PropTypes from 'prop-types';
 import c31 from '../../images/Component 31.svg';
+import { projectStorage } from '../../firebase/config';
+import logo from '../../images/dummyimage.jpg';
 
 const AddExperience = ({ addExperience }) => {
   const [formData, setFormData] = useState({
     title: '',
     company: '',
     project: '',
+    projectavatar: '',
     description: '',
     location: '',
     from: '',
@@ -20,6 +23,12 @@ const AddExperience = ({ addExperience }) => {
 
   const [displayAdd, toogleAdd] = useState(false);
   const [toDateDisabled, toggleDisabled] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [show, setShow] = useState(false);
+  const fileInput = createRef();
+
+  console.log(show);
+  console.log(progress);
 
   const {
     title,
@@ -28,12 +37,36 @@ const AddExperience = ({ addExperience }) => {
     to,
     current,
     project,
+    projectavatar,
     description,
     location,
   } = formData;
 
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onOpenFileDialog = () => {
+    fileInput.current.click();
+  };
+
+  const onFileChange = async (e) => {
+    const file = e.target.files[0];
+    const storageRef = projectStorage.ref('experiencepictures');
+    const fileRef = storageRef.child(file.name);
+    await fileRef.put(file).on('state_changed', (snap) => {
+      let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+      setProgress(Math.round(percentage));
+      setShow(true);
+    });
+    setFormData({
+      ...formData,
+      projectavatar: await fileRef.getDownloadURL(),
+    });
+    // addExperience({
+    //   ...formData,
+    //   projectavatar: await fileRef.getDownloadURL(),
+    // });
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -42,6 +75,7 @@ const AddExperience = ({ addExperience }) => {
       title: '',
       company: '',
       project: '',
+      projectavatar: '',
       description: '',
       location: '',
       from: '',
@@ -73,28 +107,48 @@ const AddExperience = ({ addExperience }) => {
                 <form onSubmit={(e) => onSubmit(e)} className='prof-left'>
                   <div className='prof-flex'>
                     <div>
+                      <div>
+                        <input
+                          type='file'
+                          onChange={onFileChange}
+                          ref={fileInput}
+                          hidden={true}
+                        />
+                        <img
+                          className='display-pic'
+                          src={projectavatar ? projectavatar : logo}
+                          alt=''
+                        />
+                        <div className='btn-yellow' onClick={onOpenFileDialog}>
+                          Upload Pic
+                        </div>
+                      </div>
+                    </div>
+                    <div></div>
+                    <div>
                       <label htmlFor='Designation'>Designation :</label>
                       <input
+                        className='experience-input'
                         type='text'
                         name='title'
                         value={title}
                         onChange={(e) => onChange(e)}
-                        required
                       />
                     </div>
                     <div>
                       <label htmlFor='organisation'>Company Name :</label>
                       <input
+                        className='experience-input'
                         type='text'
                         name='company'
                         value={company}
                         onChange={(e) => onChange(e)}
-                        required
                       />
                     </div>
                     <div>
                       <label htmlFor='project'>Project Name :</label>
                       <input
+                        className='experience-input'
                         type='text'
                         name='project'
                         value={project}
@@ -104,6 +158,7 @@ const AddExperience = ({ addExperience }) => {
                     <div>
                       <label htmlFor='location'>Location :</label>
                       <input
+                        className='experience-input'
                         type='text'
                         name='location'
                         value={location}
@@ -115,18 +170,17 @@ const AddExperience = ({ addExperience }) => {
                       <label htmlFor='duration'>Duration :</label>
                       <div className='grid'>
                         <input
-                          className='b-1'
+                          className='experience-input b-1'
                           type='date'
                           name='from'
                           value={from}
                           onChange={(e) => onChange(e)}
                           placeholder='from date'
-                          required
                         />
 
                         <span className='c-align'>to</span>
                         <input
-                          className='b-1'
+                          className='experience-input b-1'
                           type='date'
                           name='to'
                           value={to}
@@ -136,6 +190,7 @@ const AddExperience = ({ addExperience }) => {
                         />
                         <div className='c-flex'>
                           <input
+                            className='experience-input'
                             type='checkbox'
                             name='current'
                             checked={current}
@@ -153,6 +208,7 @@ const AddExperience = ({ addExperience }) => {
                       <label htmlFor='Description'>Description</label>
                       <br />
                       <textarea
+                        className='experience-input'
                         name='description'
                         id='award-des'
                         cols='30'

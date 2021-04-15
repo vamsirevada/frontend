@@ -97,7 +97,7 @@ const SearchPage = ({ getProfiles }) => {
               })
               .map((val, key) => {
                 return (
-                  <div key={key} className='connect-main'>
+                  <div key={key} className='buddy-grid'>
                     <div className='connect-left'>
                       <div className='connect-left-top'>
                         <div
@@ -156,7 +156,7 @@ const SearchPage = ({ getProfiles }) => {
                         </div>
                       </div>
                     </div>
-                    <div className='connect-right'>
+                    {/* <div className='connect-right'>
                       {docs &&
                         docs
                           .filter(
@@ -191,7 +191,7 @@ const SearchPage = ({ getProfiles }) => {
                               )}
                             </div>
                           ))}
-                    </div>
+                    </div> */}
                   </div>
                 );
               })}

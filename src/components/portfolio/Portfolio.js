@@ -578,7 +578,7 @@ const Portfolio = ({
                             <PortfolioRightBody profile={profile} />
                           )}
                           {displayBuddies && (
-                            <div className='buddy-grid'>
+                            <div className='connect-main'>
                               {buddies.empty === null ? (
                                 <Loader />
                               ) : (

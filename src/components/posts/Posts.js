@@ -71,9 +71,9 @@ const Posts = ({
       ) : (
         <div className='posts'>
           <Fragment>
-            {/* {welcomeposts.map((post) => (
+            {welcomeposts.map((post) => (
               <WelcomePostItem key={post._id} post={post} />
-            ))} */}
+            ))}
           </Fragment>
           <Fragment>
             {bposts.map((post) => (
