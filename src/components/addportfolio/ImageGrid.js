@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import UseFirestore from './UseFireStore';
 import api from '../../utils/api';
 import { motion } from 'framer-motion';
@@ -190,6 +189,8 @@ const ImageGrid = ({ id, profile }) => {
                     displayVideo(index);
                     dispatch(getRealtimeData(doc.id));
                   }}
+                  controls
+                  controlsList='nodownload'
                   src={doc.url}
                   alt='uploaded pic'
                   initial={{ opacity: 0 }}

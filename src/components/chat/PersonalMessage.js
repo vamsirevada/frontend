@@ -4,6 +4,7 @@ import { connect, useDispatch } from 'react-redux';
 import Close from '../../images/noun_Plus_2310779.svg';
 import sendbutton from '../../images/sendbutton.svg';
 import { updateMessage } from '../../actions/chat';
+import { projectFirestore } from '../../firebase/config';
 
 const PersonalMessage = ({
   auth: { user },
@@ -25,6 +26,15 @@ const PersonalMessage = ({
     if (formValue !== '') {
       dispatch(updateMessage(msgObj)).then(() => {
         setFormValue('');
+        projectFirestore.collection('notifications').add({
+          sender: user?._id,
+          senderName: user?.userName,
+          avatar: user?.avatar,
+          receiver: userUid,
+          type: 'chat',
+          read: false,
+          createdAt: new Date(),
+        });
       });
     }
   };
