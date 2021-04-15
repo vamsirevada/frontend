@@ -16,9 +16,8 @@ import ResponsiveChatPopup from './ResponsiveChatPopup';
 const ChatPage = ({
   auth,
   getProfiles,
-  getBuddiesById,
   getProjects,
-  profile: { profiles, buddies },
+  profile: { profiles },
   project: { projects },
   chat: { conversations },
 }) => {
@@ -30,9 +29,15 @@ const ChatPage = ({
   const [userUid, setUserUid] = useState(null);
 
   useEffect(() => {
-    getBuddiesById(auth?.user?._id);
+    getProfiles();
     getProjects(auth?.user?._id);
-  }, [getBuddiesById, getProjects, auth?.user?._id]);
+    dispatch(
+      getRealtimeConversations({
+        uid_1: auth?.user?._id,
+        uid_2: chatProfile?.user?._id,
+      })
+    );
+  }, [getProfiles, getProjects, auth?.user?._id]);
 
   const newprofiles = profiles.filter((x) => x?.user?._id !== auth?.user?._id);
 
@@ -89,12 +94,12 @@ const ChatPage = ({
                           setChatStarted(true);
                           setUserUid(profile?.user?._id);
                           setChatUserImage(profile?.avatar);
-                          dispatch(
-                            getRealtimeConversations({
-                              uid_1: auth?.user?._id,
-                              uid_2: profile?.user?._id,
-                            })
-                          );
+                          // dispatch(
+                          //   getRealtimeConversations({
+                          //     uid_1: auth?.user?._id,
+                          //     uid_2: profile?.user?._id,
+                          //   })
+                          // );
                         }}
                         className='fullchat-chatgrid'
                       >
@@ -223,6 +228,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getProfiles,
-  getBuddiesById,
   getProjects,
 })(ChatPage);
