@@ -1980,7 +1980,7 @@ input.search-btn:focus {
   left: 0px;
   background: rgba(6, 6, 6, 0.4);
   /* opacity: 0.8; */
-  z-index: 1001;
+  z-index: 2001;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -2071,7 +2071,7 @@ input.search-btn:focus {
 
 .search-dis-container .search-header .search-seeall {
   font-family: 'Raleway', sans-serif;
-  font-size: 12px;
+  font-size: 16px;
   color: #4d53e0;
   align-self: flex-end;
 }
@@ -2808,6 +2808,14 @@ input.search-btn:focus {
 }
 
 @media (max-width: 768px) {
+  .main-grid-container .main-grid-top {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    width: 100%;
+    padding: 2rem 0;
+  }
   #page-1 .box-1 {
     position: relative;
     top: -24%;
@@ -3077,7 +3085,7 @@ input.search-btn:focus {
   }
   .connect-main {
     display: grid;
-    grid-template-columns: 35% 65%;
+    grid-template-columns: 100%;
     grid-gap: 0rem;
   }
   .connect-main .connect-left-bottom {
@@ -3365,6 +3373,23 @@ input.search-btn:focus {
 }
 /* iphone6.7.8 potrait */
 @media (max-width: 420px) {
+  .project-container
+    .projectitem
+    .project-body
+    .project-body-container
+    .project-pic {
+    width: 80%;
+    margin: auto;
+    border-radius: 10px;
+    display: none;
+  }
+  .project-container .projectitem .project-body .project-body-container {
+    width: 95%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 100%;
+    align-items: flex-start;
+  }
   .navbar .nav-icons .arrow-up.notif {
     top: 60px;
     right: 50px;

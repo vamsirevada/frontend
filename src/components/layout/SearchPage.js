@@ -73,90 +73,95 @@ const SearchPage = ({ getProfiles }) => {
             </div>
             <hr className='hori' />
 
-            {users
-              .filter((val) => {
-                if (input === '') {
-                  return null;
-                } else if (
-                  (val.user.fullName &&
-                    val.user.fullName
+            <div className='search-buddy-grid'>
+              {users
+                .filter((val) => {
+                  if (input === '') {
+                    return null;
+                  } else if (
+                    (val.user.fullName &&
+                      val.user.fullName
+                        .toLowerCase()
+                        .includes(input.toLowerCase())) ||
+                    val.user.userName
                       .toLowerCase()
-                      .includes(input.toLowerCase())) ||
-                  val.user.userName
-                    .toLowerCase()
-                    .includes(input.toLowerCase()) ||
-                  (val.user.groupName &&
-                    val.user.groupName
-                      .toLowerCase()
-                      .includes(input.toLowerCase())) ||
-                  val.bio.toLowerCase().includes(input.toLowerCase()) ||
-                  val.status.toLowerCase().includes(input.toLowerCase())
-                ) {
-                  return val;
-                }
-              })
-              .map((val, key) => {
-                return (
-                  <div key={key} className='buddy-grid'>
-                    <div className='connect-left'>
-                      <div className='connect-left-top'>
-                        <div
-                          style={{
-                            background: `url(${
-                              val.avatar ? val.avatar : logo
-                            }) no-repeat center center/cover`,
-                          }}
-                          className='display-pic'
-                        ></div>
-                        <div className='flex-c'>
-                          <p>
-                            <span className='bold'>
-                              {val.user.fullName && val.user.fullName}
-                              {val.user.groupName && val.user.groupName}
-                            </span>{' '}
-                            <br />
-                            <span className='second-bold'></span>{' '}
-                            <span className='second-bold'>{val.status}</span>{' '}
-                            <br />
-                            <span className='second-bold'>{val.location}</span>
-                            <br />
-                            <span className='third-bold'>
-                              Connections :{' '}
-                              <span className='f-1'>{val.buddies.length}</span>
-                            </span>
-                          </p>
+                      .includes(input.toLowerCase()) ||
+                    (val.user.groupName &&
+                      val.user.groupName
+                        .toLowerCase()
+                        .includes(input.toLowerCase())) ||
+                    val.bio.toLowerCase().includes(input.toLowerCase()) ||
+                    val.status.toLowerCase().includes(input.toLowerCase())
+                  ) {
+                    return val;
+                  }
+                })
+                .map((val, key) => {
+                  return (
+                    <div key={key} className='buddy-grid'>
+                      <div className='connect-left'>
+                        <div className='connect-left-top'>
+                          <div
+                            style={{
+                              background: `url(${
+                                val.avatar ? val.avatar : logo
+                              }) no-repeat center center/cover`,
+                            }}
+                            className='display-pic'
+                          ></div>
+                          <div className='flex-c'>
+                            <p>
+                              <span className='bold'>
+                                {val.user.fullName && val.user.fullName}
+                                {val.user.groupName && val.user.groupName}
+                              </span>{' '}
+                              <br />
+                              <span className='second-bold'></span>{' '}
+                              <span className='second-bold'>{val.status}</span>{' '}
+                              <br />
+                              <span className='second-bold'>
+                                {val.location}
+                              </span>
+                              <br />
+                              <span className='third-bold'>
+                                Connections :{' '}
+                                <span className='f-1'>
+                                  {val.buddies.length}
+                                </span>
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                        <div className='connect-left-bottom'>
+                          <div className='btn-b'>
+                            {' '}
+                            <a
+                              onClick={() => {
+                                setInput('');
+                                history.push(`/portfolio/${val?.user?._id}`);
+                              }}
+                              className='btn-blue'
+                            >
+                              Portfolio
+                            </a>
+                          </div>
+                          <div className='btn-g'>
+                            {' '}
+                            <a
+                              onClick={() => {
+                                setStart(true);
+                                setUserUid(val?.user?._id);
+                                setChatUserName(val?.user?.fullName);
+                                setChatUserImage(val?.avatar);
+                              }}
+                              className='btn-blue g-1'
+                            >
+                              <img src={mail} alt='' />
+                            </a>
+                          </div>
                         </div>
                       </div>
-                      <div className='connect-left-bottom'>
-                        <div className='btn-b'>
-                          {' '}
-                          <a
-                            onClick={() => {
-                              setInput('');
-                              history.push(`/portfolio/${val?.user?._id}`);
-                            }}
-                            className='btn-blue'
-                          >
-                            Portfolio
-                          </a>
-                        </div>
-                        <div className='btn-g'>
-                          {' '}
-                          <a
-                            onClick={() => {
-                              setStart(true);
-                              setUserUid(val?.user?._id);
-                              setChatUserName(val?.user?.fullName);
-                              setChatUserImage(val?.avatar);
-                            }}
-                            className='btn-blue g-1'
-                          >
-                            <img src={mail} alt='' />
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    {/* <div className='connect-right'>
+                      {/* <div className='connect-right'>
                       {docs &&
                         docs
                           .filter(
@@ -192,9 +197,10 @@ const SearchPage = ({ getProfiles }) => {
                             </div>
                           ))}
                     </div> */}
-                  </div>
-                );
-              })}
+                    </div>
+                  );
+                })}
+            </div>
           </div>
         </div>
       )}

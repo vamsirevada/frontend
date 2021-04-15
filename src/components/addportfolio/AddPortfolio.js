@@ -72,7 +72,7 @@ const AddPortfolio = ({ auth: { user } }) => {
                     <li className={displayVideo ? 'btn-gray blue' : 'btn-gray'}>
                       Videos
                       <br />
-                      <span className='card'>Mp4, Mov</span>
+                      <span className='card'>Mp4, Mkv, Mov,(Any)</span>
                     </li>
                   </a>
                   <a onClick={(e) => onClick3(e)}>

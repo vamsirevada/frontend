@@ -53,7 +53,7 @@ const AddVideos = ({ setAlert }) => {
     <div className='main-right'>
       <div className='main-right-container'>
         <div>
-          <h2 className='des mb'>Upload Files (Mp4)</h2>
+          <h2 className='des mb'>Upload Files (Max-Length: 3mins)</h2>
           <video
             width='250px'
             height='150px'

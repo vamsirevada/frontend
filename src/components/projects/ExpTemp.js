@@ -116,133 +116,140 @@ const ExpTemp = ({
           <div className='project-body'>
             {edit ? (
               <div className='project-body-container'>
-                <div className='project-body-main'>
-                  <div>
-                    <input
-                      type='file'
-                      onChange={onFileChange}
-                      ref={fileInput}
-                      hidden={true}
-                    />
-                    <img
-                      className='display-pic'
-                      src={projectavatar ? projectavatar : logo}
-                      alt=''
-                    />
-                    <div className='btn-yellow' onClick={onOpenFileDialog}>
-                      Upload Pic
+                <div className='project-body-desc-container'>
+                  <div className='project-body-main'>
+                    <div className='project-body-1'>
+                      <p className='list'>
+                        Company :
+                        <input
+                          type='text'
+                          name='company'
+                          defaultValue={company}
+                          onChange={(e) => onChange(e)}
+                        />
+                      </p>
+
+                      <p className='list'>
+                        Designation :{' '}
+                        <input
+                          type='text'
+                          name='title'
+                          defaultValue={title}
+                          onChange={(e) => onChange(e)}
+                        />
+                      </p>
+
+                      <p className='list'>
+                        Location:
+                        <input
+                          type='text'
+                          name='location'
+                          defaultValue={location}
+                          onChange={(e) => onChange(e)}
+                        />
+                      </p>
+                      <p className='list'>
+                        Timeline:{' '}
+                        <input
+                          type='date'
+                          name='from'
+                          defaultValue={from && from.slice(0, 10)}
+                          onChange={(e) => onChange(e)}
+                        />
+                        {' - '}
+                        <input
+                          type='date'
+                          name='to'
+                          defaultValue={to && to.slice(0, 10)}
+                          onChange={(e) => onChange(e)}
+                        />
+                      </p>
+                    </div>
+                    <div>
+                      <p className='list-5'>
+                        Description: <br />
+                        <textarea
+                          name='description'
+                          id='award-des'
+                          cols='30'
+                          rows='5'
+                          type='text'
+                          defaultValue={description}
+                          onChange={(e) => onChange(e)}
+                        ></textarea>
+                      </p>
                     </div>
                   </div>
-                  <div className='project-body-1'>
-                    <p className='list'>
-                      Company :
-                      <input
-                        type='text'
-                        name='company'
-                        defaultValue={company}
-                        onChange={(e) => onChange(e)}
-                      />
-                    </p>
-
-                    <p className='list'>
-                      Designation :{' '}
-                      <input
-                        type='text'
-                        name='title'
-                        defaultValue={title}
-                        onChange={(e) => onChange(e)}
-                      />
-                    </p>
-
-                    <p className='list'>
-                      Location:
-                      <input
-                        type='text'
-                        name='location'
-                        defaultValue={location}
-                        onChange={(e) => onChange(e)}
-                      />
-                    </p>
-                    <p className='list'>
-                      Started on:{' '}
-                      <input
-                        className='experience-input b-1'
-                        type='date'
-                        name='from'
-                        defaultValue={from && from.slice(0, 10)}
-                        onChange={(e) => onChange(e)}
-                      />
-                      {' - '}
-                      <input
-                        className='experience-input b-1'
-                        type='date'
-                        name='to'
-                        defaultValue={to && to.slice(0, 10)}
-                        onChange={(e) => onChange(e)}
-                      />
-                    </p>
-                  </div>
                 </div>
-
-                <div>
-                  <p className='list-5'>
-                    Description: <br />
-                    <textarea
-                      className='experience-input'
-                      name='description'
-                      id='award-des'
-                      cols='30'
-                      rows='5'
-                      type='text'
-                      defaultValue={description}
-                      onChange={(e) => onChange(e)}
-                    ></textarea>
-                  </p>
+                <div className='project-pic'>
+                  <input
+                    type='file'
+                    onChange={onFileChange}
+                    ref={fileInput}
+                    hidden={true}
+                  />
+                  <img
+                    className='display-pic'
+                    src={projectavatar ? projectavatar : logo}
+                    alt=''
+                  />
+                  <div>
+                    <a
+                      href='#!'
+                      className='upload-button'
+                      onClick={onOpenFileDialog}
+                    >
+                      Edit
+                    </a>
+                  </div>
                 </div>
               </div>
             ) : (
               <div className='project-body-container'>
-                <div className='project-body-main'>
-                  <div>
-                    <img
-                      className='project-body-avatar'
-                      src={projectavatar}
-                      alt=''
-                    />
+                <div className='project-body-desc-container'>
+                  <div className='project-body-main'>
+                    <div className='project-body-1'>
+                      <p className='list'>
+                        Company : <span className='list-4'>{company}</span>
+                      </p>
+
+                      <p className='list'>
+                        Designation : <span className='list-4'> {title}</span>
+                      </p>
+
+                      <p className='list'>
+                        Location: <span className='list-4'>{location}</span>
+                      </p>
+                      <p className='list'>
+                        Timeline:{' '}
+                        <span className='list-4'>
+                          {' '}
+                          <Moment format='DD MMM YYYY'>{from}</Moment>
+                          {' - '}
+                          {to === null ? (
+                            'Now'
+                          ) : (
+                            <Moment format='MMM YYYY'>{to}</Moment>
+                          )}
+                        </span>
+                      </p>
+                    </div>
                   </div>
-                  <div className='project-body-1'>
-                    <p className='list'>
-                      Company : <span className='list-4'>{company}</span>
-                    </p>
 
-                    <p className='list'>
-                      Designation : <span className='list-4'> {title}</span>
-                    </p>
-
-                    <p className='list'>
-                      Location: <span className='list-4'>{location}</span>
-                    </p>
-                    <p className='list'>
-                      Started on:{' '}
-                      <span className='list-4'>
-                        {' '}
-                        <Moment format='DD MMM YYYY'>{from}</Moment>
-                        {' - '}
-                        {to === null ? (
-                          'Now'
-                        ) : (
-                          <Moment format='MMM YYYY'>{to}</Moment>
-                        )}
-                      </span>
+                  <div>
+                    <p className='list-5'>
+                      Description: <br />
+                      <span className='list-4'>{description}</span>
                     </p>
                   </div>
                 </div>
 
-                <div>
-                  <p className='list-5'>
-                    Description: <br />
-                    <span className='list-4'>{description}</span>
-                  </p>
+                <div className='project-pic'>
+                  <img
+                    className='project-body-avatar'
+                    src={projectavatar}
+                    alt=''
+                  />
                 </div>
               </div>
             )}

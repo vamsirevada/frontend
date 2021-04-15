@@ -63,7 +63,8 @@
     grid-template-columns: 40% 55%;
   }
   .main-grid-top .profile-info-box {
-    width: 220px;
+    /* width: 220px; */
+    margin-bottom: 1.5rem;
   }
   #main-grid {
     margin: 0rem;
