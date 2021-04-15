@@ -79,7 +79,9 @@ const Friends1 = ({
                 <p>
                   <span className='f-1'>
                     {/* {profile?.experience && profile?.experience.length} */}
-                    {projects && projects.length}
+                    {projects.length > 0 || profile1?.experience.length > 0
+                      ? projects.length + profile1?.experience.length
+                      : '0'}
                   </span>
                   <br /> Projects{' '}
                 </p>

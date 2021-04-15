@@ -61,7 +61,11 @@ const MiniPortfolio = ({
             <div>
               <Link to={`/projectlist/${profile?.user?._id}`}>
                 <p>
-                  <span className='f-1'>{projects && projects.length}</span>
+                  <span className='f-1'>
+                    {projects.length > 0 || profile?.experience.length > 0
+                      ? projects.length + profile?.experience.length
+                      : '0'}
+                  </span>
                   <br />
                   <span className='hover-bottom'>Projects</span>
                 </p>

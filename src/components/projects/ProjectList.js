@@ -63,7 +63,9 @@ const ProjectList = ({
                 <p>
                   <span className='f-1'>
                     {/* {profile?.experience && profile?.experience.length} */}
-                    {projects && projects.length}
+                    {projects.length > 0 || profile1?.experience.length > 0
+                      ? projects.length + profile1?.experience.length
+                      : '0'}
                   </span>
                   <br /> Projects{' '}
                 </p>
@@ -78,48 +80,29 @@ const ProjectList = ({
           <hr className='hori' />
           <div className='project'>
             <div className='project-container'>
-              {projects.length > 0 ? (
+              {projects.length > 0 && (
                 <Fragment>
-                  {projects.length > 0 && (
-                    <div>
-                      {projects.length > 0 ? (
-                        <Fragment>
-                          {projects.map((project) => (
-                            <ProjectTemp
-                              key={project._id}
-                              project={project}
-                              profile={profile1}
-                              user={user}
-                            />
-                          ))}
-                        </Fragment>
-                      ) : (
-                        <h4> No Projects</h4>
-                      )}
-                    </div>
-                  )}
+                  {projects.map((project) => (
+                    <ProjectTemp
+                      key={project._id}
+                      project={project}
+                      profile={profile1}
+                      user={user}
+                    />
+                  ))}
                 </Fragment>
-              ) : (
-                <p style={{ textAlign: 'center' }}>None </p>
               )}
+
               {profile1?.experience.length > 0 && (
                 <Fragment>
-                  {profile1?.experience.length > 0 && (
-                    <div>
-                      {profile1?.experience.length > 0 && (
-                        <Fragment>
-                          {profile1?.experience.map((experience) => (
-                            <ExpTemp
-                              key={experience._id}
-                              experience={experience}
-                              profile={profile1}
-                              user={user}
-                            />
-                          ))}
-                        </Fragment>
-                      )}
-                    </div>
-                  )}
+                  {profile1?.experience.map((experience) => (
+                    <ExpTemp
+                      key={experience._id}
+                      experience={experience}
+                      profile={profile1}
+                      user={user}
+                    />
+                  ))}
                 </Fragment>
               )}
             </div>
