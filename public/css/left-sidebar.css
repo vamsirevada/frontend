@@ -428,7 +428,7 @@ h3 {
   font-size: 14px;
   color: #5d5d5d;
   white-space: pre-line;
-  text-align: justify;
+  /* text-align: justify; */
 }
 
 .prof-btn .profile-table-1 {
