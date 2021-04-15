@@ -370,7 +370,7 @@ export const addExperience = (formData) => async (dispatch) => {
 
 export const deleteExperience = (id) => async (dispatch) => {
   try {
-    const res = await api.delete(`api/profile/experience/${id}`);
+    const res = await api.delete(`/profile/experience/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -420,7 +420,7 @@ export const addEducation = (formData) => async (dispatch) => {
 
 export const deleteEducation = (id) => async (dispatch) => {
   try {
-    const res = await api.delete(`api/profile/education/${id}`);
+    const res = await api.delete(`/profile/education/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -470,7 +470,7 @@ export const addAward = (formData) => async (dispatch) => {
 
 export const deleteAward = (id) => async (dispatch) => {
   try {
-    const res = await api.delete(`api/profile/awards/${id}`);
+    const res = await api.delete(`/profile/awards/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -520,7 +520,7 @@ export const addEvent = (formData) => async (dispatch) => {
 
 export const deleteEvent = (id) => async (dispatch) => {
   try {
-    const res = await api.delete(`api/profile/events/${id}`);
+    const res = await api.delete(`/profile/events/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -570,7 +570,7 @@ export const addSkills = (formData) => async (dispatch) => {
 
 export const deleteSkills = (id) => async (dispatch) => {
   try {
-    const res = await api.delete(`api/profile/skills/${id}`);
+    const res = await api.delete(`/profile/skills/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -620,7 +620,7 @@ export const addMembers = (formData) => async (dispatch) => {
 
 export const deleteMember = (id) => async (dispatch) => {
   try {
-    const res = await api.delete(`api/profile/addteam/${id}`);
+    const res = await api.delete(`/profile/addteam/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -670,7 +670,7 @@ export const addSpecialisation = (formData) => async (dispatch) => {
 
 export const deleteSpecialisation = (id) => async (dispatch) => {
   try {
-    const res = await api.delete(`api/profile/specialisation/${id}`);
+    const res = await api.delete(`/profile/specialisation/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -720,7 +720,7 @@ export const addPartner = (formData) => async (dispatch) => {
 
 export const deletePartner = (id) => async (dispatch) => {
   try {
-    const res = await api.delete(`api/profile/partners/${id}`);
+    const res = await api.delete(`/profile/partners/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,
@@ -770,7 +770,7 @@ export const addClient = (formData) => async (dispatch) => {
 
 export const deleteClient = (id) => async (dispatch) => {
   try {
-    const res = await api.delete(`api/profile/clients/${id}`);
+    const res = await api.delete(`/profile/clients/${id}`);
 
     dispatch({
       type: UPDATE_PROFILE,

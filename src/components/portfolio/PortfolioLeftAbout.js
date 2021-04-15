@@ -17,14 +17,14 @@ const PortfolioLeftAbout = ({
             <thead></thead>
 
             <tbody>
-              <tr>
+              {/* <tr>
                 <td className='font-bold'>Date of Birth :</td>
                 <td className='font-light'>
                   <span className='f-1'>
                     <Moment format='DD MMM YYYY'>{dob}</Moment>
                   </span>
                 </td>
-              </tr>
+              </tr> */}
               <tr>
                 <td className='font-bold'>Gender : </td>
                 <td className='font-light'>{gender}</td>

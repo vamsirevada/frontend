@@ -3,6 +3,7 @@ import React, { Fragment, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getProjects } from '../../actions/project';
+import { getBuddies } from '../../actions/profile';
 import Loader from '../layout/Loader';
 import briefcase from '../../images/icons/nounBriefcase.svg';
 import nounEducation from '../../images/icons/noun_education_2177318.svg';
@@ -24,24 +25,35 @@ import GPortfolioLeftTeam from './GPortfolioLeftTeam';
 import GPortfolioLeftPartner from './GPortfolioLeftPartner';
 import GPortfolioLeftClient from './GPortfolioLeftClient';
 import GPortfolioLeftContact from './GPortfolioLeftContact';
+import PortfolioRightBuddies from './PortfolioRIghtBuddies';
+import ProjectTemp from '../projects/ProjectTemp';
+import ExpTemp from '../projects/ExpTemp';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import { Link } from 'react-router-dom';
 import { ShepherdTourContext } from 'react-shepherd';
 const Portfolio = ({
   getProjects,
+  getBuddies,
   auth: { user },
-  profile: { profile },
+  profile: { profile, buddies },
   project: { projects },
 }) => {
   useEffect(() => {
     getProjects(user?._id);
   }, [getProjects, user?._id]);
 
+  useEffect(() => {
+    getBuddies();
+  }, [getBuddies]);
+
   const tour = useContext(ShepherdTourContext);
 
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
+  const [displayPortfolio, tooglePortfolio] = useState(true);
+  const [displayBuddies, toogleBuddies] = useState(false);
+  const [displayProjects, toogleProjects] = useState(false);
   const [viewAll1, setViewAll1] = useState(false);
   const [viewAll2, setViewAll2] = useState(false);
   const [viewAll3, setViewAll3] = useState(false);
@@ -55,6 +67,22 @@ const Portfolio = ({
   const onClick2 = (e) => {
     toogleLeft(false);
     toogleRight(true);
+  };
+
+  const PortOn = (e) => {
+    tooglePortfolio(true);
+    toogleBuddies(false);
+    toogleProjects(false);
+  };
+  const BudOn = (e) => {
+    tooglePortfolio(false);
+    toogleBuddies(true);
+    toogleProjects(false);
+  };
+  const ProjectOn = (e) => {
+    tooglePortfolio(false);
+    toogleBuddies(false);
+    toogleProjects(true);
   };
 
   return (
@@ -473,7 +501,8 @@ const Portfolio = ({
                           </div>
                         )}
                         {profile.experience.length === 0 &&
-                          profile.founder.length === 0 && (
+                          profile.founder.length === 0 &&
+                          profile.education.length === 0 && (
                             <div className='add-profile'>
                               <hr />
                               <p>
@@ -494,16 +523,117 @@ const Portfolio = ({
                   <div className='portfolio-right'>
                     <div id='main-grid' className='port-grid'>
                       <div className='main-grid-container'>
-                        {profile !== null && (
+                        {/* {profile !== null && (
                           <PortfolioRightTop
                             profile={profile}
                             projects={projects}
                           />
-                        )}
+                        )} */}
+                        <div className='main-grid-top'>
+                          <div className='profile-info-box p-black'>
+                            <a href='#!' onClick={() => PortOn()}>
+                              <p className='border-1'>
+                                <span className='f-1'></span>
+                                View
+                                <br /> Portfolio
+                              </p>
+                            </a>
+                            <a href='#!' onClick={() => BudOn()}>
+                              <p className='border-1'>
+                                <span className='f-1'>
+                                  {buddies && buddies.length}
+                                </span>
+                                <br /> Connections
+                              </p>
+                            </a>
+                            <a href='#!' onClick={() => ProjectOn()}>
+                              <p>
+                                <span className='f-1'>
+                                  {projects.length > 0 ||
+                                  profile?.experience.length > 0
+                                    ? projects.length +
+                                      profile?.experience.length
+                                    : '0'}
+                                </span>
+                                <br /> Projects{' '}
+                              </p>
+                            </a>
+                          </div>
+
+                          <div className='mutual-frds'>
+                            <div className='prof-heading-flex'>
+                              <Link to={'/addfiles'}>
+                                <h4>
+                                  <span className='bg-1 addtoportfolio'>
+                                    Add to Portfolio
+                                  </span>
+                                </h4>
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
 
                         <div className='main-grid-body'>
-                          {profile !== null && (
+                          {displayPortfolio && profile !== null && (
                             <PortfolioRightBody profile={profile} />
+                          )}
+                          {displayBuddies && (
+                            <div className='buddy-grid'>
+                              {buddies.empty === null ? (
+                                <Loader />
+                              ) : (
+                                <Fragment>
+                                  {buddies.empty ? (
+                                    <Fragment>
+                                      <h2> You have no buddies </h2>
+                                    </Fragment>
+                                  ) : (
+                                    <Fragment>
+                                      {buddies.map((item) => (
+                                        <PortfolioRightBuddies
+                                          key={item?._id}
+                                          item={item}
+                                        />
+                                      ))}
+                                    </Fragment>
+                                  )}
+                                </Fragment>
+                              )}
+                            </div>
+                          )}
+                          {displayProjects && (
+                            <div className='project'>
+                              <div className='project-container'>
+                                {projects.length > 0 && (
+                                  <Fragment>
+                                    <div>
+                                      {projects.map((project) => (
+                                        <ProjectTemp
+                                          key={project._id}
+                                          project={project}
+                                          profile={profile}
+                                          user={user}
+                                        />
+                                      ))}
+                                    </div>
+                                  </Fragment>
+                                )}
+                                {profile?.experience.length > 0 && (
+                                  <Fragment>
+                                    <div>
+                                      {profile?.experience.map((experience) => (
+                                        <ExpTemp
+                                          key={experience._id}
+                                          experience={experience}
+                                          profile={profile}
+                                          user={user}
+                                        />
+                                      ))}
+                                    </div>
+                                  </Fragment>
+                                )}
+                              </div>
+                            </div>
                           )}
                         </div>
                       </div>
@@ -540,4 +670,4 @@ const mapStateToProps = (state) => ({
   project: state.project,
 });
 
-export default connect(mapStateToProps, { getProjects })(Portfolio);
+export default connect(mapStateToProps, { getProjects, getBuddies })(Portfolio);

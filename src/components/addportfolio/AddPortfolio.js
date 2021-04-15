@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from "react";
-import AddPhoto from "./AddPhoto";
-import AddVideo from "./AddVideos";
-import AddSound from "./AddSoundTracks";
-import AddBlog from "./AddBlog";
-import { connect } from "react-redux";
+import React, { useState } from 'react';
+import AddPhoto from './AddPhoto';
+import AddVideo from './AddVideos';
+import AddSound from './AddSoundTracks';
+import AddBlog from './AddBlog';
+import { connect } from 'react-redux';
 
 const AddPortfolio = ({ auth: { user } }) => {
   const [displayPhoto, tooglePhoto] = useState(true);
@@ -39,53 +39,54 @@ const AddPortfolio = ({ auth: { user } }) => {
   };
 
   return (
-    <div className="add-portfolio">
-      <div className="container">
-        <div className="add-heading">
-          <div className="container">
-            <div className="heading-container">
-              <div className="middle-heading">
+    <div className='add-portfolio'>
+      <div className='container'>
+        <div className='add-heading'>
+          <div className='container'>
+            <div className='heading-container'>
+              <div className='middle-heading'>
                 <h1>Starting adding Files</h1>
                 <p>
-                  <span className="blue-text"> {user && user.fullName}</span>
+                  <span className='blue-text'> {user && user.fullName}</span>
+                  <span className='blue-text'> {user && user.groupName}</span>
                 </p>
               </div>
             </div>
-            <hr className="new1" />
+            <hr className='new1' />
           </div>
         </div>
 
-        <div id="add">
-          <div className="container">
-            <div className="main-add">
-              <div className="main-left">
+        <div id='add'>
+          <div className='container'>
+            <div className='main-add'>
+              <div className='main-left'>
                 <ul>
                   <a onClick={(e) => onClick1(e)}>
-                    <li className="btn-gray">
+                    <li className={displayPhoto ? 'btn-gray blue' : 'btn-gray'}>
                       Images
                       <br />
-                      <span className="card">JPG,GIFs,PNG</span>
+                      <span className='card'>JPG,GIFs,PNG</span>
                     </li>
                   </a>
                   <a onClick={(e) => onClick2(e)}>
-                    <li className="btn-gray">
+                    <li className={displayVideo ? 'btn-gray blue' : 'btn-gray'}>
                       Videos
                       <br />
-                      <span className="card">Mp4</span>
+                      <span className='card'>Mp4, Mov</span>
                     </li>
                   </a>
                   <a onClick={(e) => onClick3(e)}>
-                    <li className="btn-gray">
+                    <li className={displaySound ? 'btn-gray blue' : 'btn-gray'}>
                       SoundTracks
                       <br />
-                      <span className="card">Mp3</span>
+                      <span className='card'>Mp3</span>
                     </li>
                   </a>
                   <a onClick={(e) => onClick4(e)}>
-                    <li className="btn-gray ">
+                    <li className={displayBlog ? 'btn-gray blue' : 'btn-gray'}>
                       Blog
                       <br />
-                      <span className="card">Urls</span>
+                      <span className='card'>Urls</span>
                     </li>
                   </a>
                 </ul>

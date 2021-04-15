@@ -208,7 +208,9 @@ const ImageGrid = ({ id, profile }) => {
             setViewAllVideo(!viewAllVideo);
           }}
         >
-          <div className='loadmore'>View All</div>
+          <div className='loadmore'>
+            {viewAllVideo ? 'View Less' : 'View All'}
+          </div>
         </div>
       )}
       <div className='img-grid-heading'>
@@ -270,7 +272,9 @@ const ImageGrid = ({ id, profile }) => {
             setViewAllImg(!viewAllImg);
           }}
         >
-          <div className='loadmore'>View All</div>
+          <div className='loadmore'>
+            {viewAllImg ? 'View Less' : 'View All'}
+          </div>
         </div>
       )}
       <div className='img-grid-heading'>
@@ -337,7 +341,9 @@ const ImageGrid = ({ id, profile }) => {
             setViewAllAudio(!viewAllAudio);
           }}
         >
-          <div className='loadmore'>View All</div>
+          <div className='loadmore'>
+            {viewAllAudio ? 'View Less' : 'View All'}
+          </div>
         </div>
       )}
       <div className='img-grid-heading'>
@@ -388,7 +394,9 @@ const ImageGrid = ({ id, profile }) => {
             setViewAllBlog(!viewAllBlog);
           }}
         >
-          <div className='loadmore'>View All</div>
+          <div className='loadmore'>
+            {viewAllBlog ? 'View Less' : 'View All'}
+          </div>
         </div>
       )}
     </span>
