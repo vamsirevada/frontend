@@ -12,6 +12,7 @@ import Modal from './Modal';
 import { useDispatch } from 'react-redux';
 import VideoModal from './VideoModal';
 import AudioModal from './AudioModal';
+import ReactPlayer from 'react-player';
 
 const ImageGrid = ({ id, profile }) => {
   const dispatch = useDispatch();
@@ -153,7 +154,7 @@ const ImageGrid = ({ id, profile }) => {
             .slice(0, viewAllVideo ? videos.length : 9)
             .map((doc, index) => (
               <motion.div
-                className='img-wrap video'
+                className='img-wrap'
                 key={doc.id}
                 layout
                 style={{ opacity: 1 }}
@@ -184,19 +185,19 @@ const ImageGrid = ({ id, profile }) => {
                     </ul>
                   )}
                 </div>
-                <motion.video
+                <div
+                  className='img-wrap-video'
                   onClick={() => {
                     displayVideo(index);
                     dispatch(getRealtimeData(doc.id));
                   }}
-                  controls
-                  controlsList='nodownload'
-                  src={doc.url}
-                  alt='uploaded pic'
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1 }}
-                />
+                >
+                  <ReactPlayer
+                    height='fit-content'
+                    width='fit-content'
+                    url={doc.url}
+                  />
+                </div>
                 <p className='video-desc'>{doc.title}</p>
               </motion.div>
             ))}

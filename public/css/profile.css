@@ -670,8 +670,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
   grid-column: 1 / span 4;
 } */
 
-.prof-box .prof-flex input,
-.prof-box .prof-flex textarea {
+.prof-box .prof-flex .experience-input {
   display: inline-block;
   width: 95%;
   padding: 0.5rem;
@@ -680,6 +679,17 @@ input[type='date']::-webkit-calendar-picker-indicator {
   outline: none;
   white-space: pre;
 }
+
+/* .prof-box .prof-flex input,
+.prof-box .prof-flex textarea {
+  display: inline-block;
+  width: 95%;
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  white-space: pre;
+} */
 
 .prof-box .prof-flex-a textarea,
 .prof-box .prof-flex-a input,

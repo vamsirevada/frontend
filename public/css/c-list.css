@@ -492,6 +492,26 @@
   margin: auto;
 }
 
+.project-container
+  .projectitem
+  .project-body
+  .project-body-container
+  .project-body-main {
+  display: flex;
+}
+.project-container
+  .projectitem
+  .project-body
+  .project-body-container
+  .project-body-main
+  .project-body-avatar {
+  width: 78px;
+  height: 78px;
+  border-radius: 15px;
+  margin-right: 1rem;
+  margin-top: 0.75rem;
+}
+
 .project-container .projectitem .project-body .project-body-container p {
   padding: 0.5rem 0.75rem;
 }

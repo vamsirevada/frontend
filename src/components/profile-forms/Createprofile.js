@@ -50,8 +50,8 @@ const Createprofile = ({ createProfile, history }) => {
     const fileRef = storageRef.child(file.name);
     await fileRef.put(file).on('state_changed', (snap) => {
       let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
-      setProgress(Math.round(percentage));
-      setShow(true);
+      // setProgress(Math.round(percentage));
+      // setShow(true);
     });
     setFormData({
       ...formData,
@@ -62,7 +62,7 @@ const Createprofile = ({ createProfile, history }) => {
       history,
       true
     );
-    setShow(false);
+    // setShow(false);
   };
 
   const onSubmit = (e) => {
@@ -88,15 +88,15 @@ const Createprofile = ({ createProfile, history }) => {
                 src={avatar ? avatar : logo}
                 alt=''
               />
-              {show ? (
+              {/* {show ? (
                 <div style={{ width: 50, height: 50, margin: 'auto' }}>
                   <CircularProgressbar value={progress} text={`${progress}%`} />
                 </div>
-              ) : (
-                <button className='btn-yellow' onClick={onOpenFileDialog}>
-                  Upload Picture
-                </button>
-              )}
+              ) : ( */}
+              <button className='btn-yellow' onClick={onOpenFileDialog}>
+                Upload Picture
+              </button>
+              {/* )} */}
             </div>
 
             <div className='c-form'>

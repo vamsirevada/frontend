@@ -30,13 +30,8 @@ const Posts = ({
     getOwnPosts();
   }, [getPosts, getBuddyPosts, getOwnPosts]);
 
-<<<<<<< HEAD
-  // const welcomeposts =
-  //   posts && posts.filter((x) => x.user._id === '602945db274595084c2c8e06');
-=======
   const welcomeposts =
     posts && posts.filter((x) => x?.user?._id === '6076bfee8caddc177e448d94');
->>>>>>> 7c784291dc05dfdf72e86c5322902cdca2fea02d
 
   return (
     <>
@@ -76,9 +71,9 @@ const Posts = ({
       ) : (
         <div className='posts'>
           <Fragment>
-            {/* {welcomeposts.map((post) => (
+            {welcomeposts.map((post) => (
               <WelcomePostItem key={post._id} post={post} />
-            ))} */}
+            ))}
           </Fragment>
           <Fragment>
             {bposts.map((post) => (

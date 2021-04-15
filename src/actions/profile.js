@@ -366,6 +366,28 @@ export const addExperience = (formData) => async (dispatch) => {
   }
 };
 
+//  Update Experience
+export const updateExperience = (id, formData) => async (dispatch) => {
+  try {
+    const res = await api.put(`/profile/experience/${id}`, formData);
+
+    dispatch({
+      type: UPDATE_PROFILE,
+      payload: res.data,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+    dispatch({
+      type: PROFILE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 //Delete Experience
 
 export const deleteExperience = (id) => async (dispatch) => {

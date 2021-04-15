@@ -1,74 +1,251 @@
-import React from 'react';
+import React, { createRef, useState } from 'react';
 import Moment from 'react-moment';
-import { Link } from 'react-router-dom';
+import logo from '../../images/dummyimage.jpg';
+import EditIcon from '@material-ui/icons/Edit';
+import CheckIcon from '@material-ui/icons/Check';
+import CloseIcon from '@material-ui/icons/Close';
+import { updateExperience } from '../../actions/profile';
+import { connect } from 'react-redux';
+import { projectStorage } from '../../firebase/config';
 
 const ExpTemp = ({
-  // experience: { project, description, title, company, location, from, to },
   profile,
   user,
-  experience: { _id, project, title, company, location, description, from, to },
+  experience: {
+    _id,
+    project,
+    projectavatar,
+    title,
+    company,
+    location,
+    description,
+    from,
+    to,
+  },
+  updateExperience,
 }) => {
+  const [formData, setFormData] = useState({
+    title: title,
+    company: company,
+    project: project,
+    projectavatar: projectavatar,
+    description: description,
+    location: location,
+    from: from,
+    to: to,
+  });
+
+  const [edit, setEdit] = useState(false);
+  const [show, setShow] = useState(false);
+  const fileInput = createRef();
+
+  const onChange = (e) =>
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+
+  const onOpenFileDialog = () => {
+    fileInput.current.click();
+  };
+
+  const onFileChange = async (e) => {
+    const file = e.target.files[0];
+    const storageRef = projectStorage.ref('experiencepictures');
+    const fileRef = storageRef.child(file.name);
+    await fileRef.put(file).on('state_changed', (snap) => {
+      let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+    });
+    setFormData({
+      ...formData,
+      projectavatar: await fileRef.getDownloadURL(),
+    });
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    updateExperience(_id, formData);
+    setEdit(false);
+    setShow(false);
+  };
+
   return (
     <div>
       <div className='projectitem'>
         <div className='p-container'>
           <div className='project-head'>
-            <p className='list list-1'>
-              Project Name: <span className='list-4'> {' ' + project}</span>
-            </p>
+            {edit ? (
+              <p className='list list-1'>
+                Project Name:{' '}
+                <input
+                  className='experience-input'
+                  type='text'
+                  name='project'
+                  defaultValue={project}
+                  onChange={(e) => onChange(e)}
+                />
+              </p>
+            ) : (
+              <p className='list list-1'>
+                Project Name: <span className='list-4'> {' ' + project}</span>
+              </p>
+            )}
 
-            {/* <p className='list list-2'>
-              Timeline:{' '}
-              <span className='list-4'>
-                {' '}
-                <Moment format='DD MMM YYYY'>{date}</Moment>-{' '}
-                {to === null ? 'Now' : <Moment format='MMM YYYY'>{to}</Moment>}
-              </span>
-            </p> */}
-            {/* <p className='list list-1'>
-                Project Status:{' '}
-                <span className='list-4'>
-                  {' '}
-                  {to === null ? 'Active' : 'Completed'}
-                </span>
-              </p>  */}
+            {show ? (
+              <div style={{ display: 'flex' }}>
+                <div onClick={onSubmit}>
+                  <CheckIcon />
+                </div>
+                <div
+                  onClick={() => {
+                    setEdit(false);
+                    setShow(false);
+                  }}
+                >
+                  <CloseIcon />
+                </div>
+              </div>
+            ) : (
+              <div
+                onClick={() => {
+                  setEdit(true);
+                  setShow(true);
+                }}
+              >
+                <EditIcon />
+              </div>
+            )}
           </div>
           <div className='project-body'>
-            <div className='project-body-container'>
-              <div className='project-body-1'>
-                <p className='list'>
-                  Company : <span className='list-4'>{company}</span>
-                </p>
+            {edit ? (
+              <div className='project-body-container'>
+                <div className='project-body-main'>
+                  <div>
+                    <input
+                      type='file'
+                      onChange={onFileChange}
+                      ref={fileInput}
+                      hidden={true}
+                    />
+                    <img
+                      className='display-pic'
+                      src={projectavatar ? projectavatar : logo}
+                      alt=''
+                    />
+                    <div className='btn-yellow' onClick={onOpenFileDialog}>
+                      Upload Pic
+                    </div>
+                  </div>
+                  <div className='project-body-1'>
+                    <p className='list'>
+                      Company :
+                      <input
+                        type='text'
+                        name='company'
+                        defaultValue={company}
+                        onChange={(e) => onChange(e)}
+                      />
+                    </p>
 
-                <p className='list'>
-                  Designation : <span className='list-4'> {title}</span>
-                </p>
+                    <p className='list'>
+                      Designation :{' '}
+                      <input
+                        type='text'
+                        name='title'
+                        defaultValue={title}
+                        onChange={(e) => onChange(e)}
+                      />
+                    </p>
 
-                <p className='list'>
-                  Location: <span className='list-4'>{location}</span>
-                </p>
-                <p className='list'>
-                  Started on:{' '}
-                  <span className='list-4'>
-                    {' '}
-                    <Moment format='DD MMM YYYY'>{from}</Moment>
-                    {' - '}
-                    {to === null ? (
-                      'Now'
-                    ) : (
-                      <Moment format='MMM YYYY'>{to}</Moment>
-                    )}
-                  </span>
-                </p>
+                    <p className='list'>
+                      Location:
+                      <input
+                        type='text'
+                        name='location'
+                        defaultValue={location}
+                        onChange={(e) => onChange(e)}
+                      />
+                    </p>
+                    <p className='list'>
+                      Started on:{' '}
+                      <input
+                        className='experience-input b-1'
+                        type='date'
+                        name='from'
+                        defaultValue={from && from.slice(0, 10)}
+                        onChange={(e) => onChange(e)}
+                      />
+                      {' - '}
+                      <input
+                        className='experience-input b-1'
+                        type='date'
+                        name='to'
+                        defaultValue={to && to.slice(0, 10)}
+                        onChange={(e) => onChange(e)}
+                      />
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <p className='list-5'>
+                    Description: <br />
+                    <textarea
+                      className='experience-input'
+                      name='description'
+                      id='award-des'
+                      cols='30'
+                      rows='5'
+                      type='text'
+                      defaultValue={description}
+                      onChange={(e) => onChange(e)}
+                    ></textarea>
+                  </p>
+                </div>
               </div>
+            ) : (
+              <div className='project-body-container'>
+                <div className='project-body-main'>
+                  <div>
+                    <img
+                      className='project-body-avatar'
+                      src={projectavatar}
+                      alt=''
+                    />
+                  </div>
+                  <div className='project-body-1'>
+                    <p className='list'>
+                      Company : <span className='list-4'>{company}</span>
+                    </p>
 
-              <div>
-                <p className='list-5'>
-                  Description: <br />
-                  <span className='list-4'>{description}</span>
-                </p>
+                    <p className='list'>
+                      Designation : <span className='list-4'> {title}</span>
+                    </p>
+
+                    <p className='list'>
+                      Location: <span className='list-4'>{location}</span>
+                    </p>
+                    <p className='list'>
+                      Started on:{' '}
+                      <span className='list-4'>
+                        {' '}
+                        <Moment format='DD MMM YYYY'>{from}</Moment>
+                        {' - '}
+                        {to === null ? (
+                          'Now'
+                        ) : (
+                          <Moment format='MMM YYYY'>{to}</Moment>
+                        )}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <p className='list-5'>
+                    Description: <br />
+                    <span className='list-4'>{description}</span>
+                  </p>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
@@ -76,4 +253,4 @@ const ExpTemp = ({
   );
 };
 
-export default ExpTemp;
+export default connect(null, { updateExperience })(ExpTemp);
