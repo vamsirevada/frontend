@@ -27,9 +27,6 @@ const AddExperience = ({ addExperience }) => {
   const [show, setShow] = useState(false);
   const fileInput = createRef();
 
-  console.log(show);
-  console.log(progress);
-
   const {
     title,
     company,
@@ -52,20 +49,29 @@ const AddExperience = ({ addExperience }) => {
   const onFileChange = async (e) => {
     const file = e.target.files[0];
     const storageRef = projectStorage.ref('experiencepictures');
-    const fileRef = storageRef.child(file.name);
-    await fileRef.put(file).on('state_changed', (snap) => {
-      let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
-      setProgress(Math.round(percentage));
-      setShow(true);
-    });
-    setFormData({
-      ...formData,
-      projectavatar: await fileRef.getDownloadURL(),
-    });
-    // addExperience({
-    //   ...formData,
-    //   projectavatar: await fileRef.getDownloadURL(),
-    // });
+    const fileRef = await storageRef.child(file.name).put(file);
+    fileRef.on(
+      'state_changed',
+      (snap) => {
+        let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+        setProgress(Math.round(percentage));
+        setShow(true);
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        fileRef.snapshot.ref.getDownloadURL().then((url) => {
+          setFormData({
+            ...formData,
+            projectavatar: url,
+          });
+          addExperience({ ...formData, projectavatar: url });
+          setProgress(0);
+          setShow(false);
+        });
+      }
+    );
   };
 
   const onSubmit = (e) => {

@@ -7,6 +7,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import { updateExperience } from '../../actions/profile';
 import { connect } from 'react-redux';
 import { projectStorage } from '../../firebase/config';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 const ExpTemp = ({
   profile,
@@ -37,6 +39,8 @@ const ExpTemp = ({
 
   const [edit, setEdit] = useState(false);
   const [show, setShow] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [open, setOpen] = useState(false);
   const fileInput = createRef();
 
   const onChange = (e) =>
@@ -49,14 +53,30 @@ const ExpTemp = ({
   const onFileChange = async (e) => {
     const file = e.target.files[0];
     const storageRef = projectStorage.ref('experiencepictures');
-    const fileRef = storageRef.child(file.name);
-    await fileRef.put(file).on('state_changed', (snap) => {
-      let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
-    });
-    setFormData({
-      ...formData,
-      projectavatar: await fileRef.getDownloadURL(),
-    });
+    const fileRef = storageRef.child(file.name).put(file);
+
+    fileRef.on(
+      'state_changed',
+      (snap) => {
+        let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+        setProgress(Math.round(percentage));
+        setOpen(true);
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        fileRef.snapshot.ref.getDownloadURL().then((url) => {
+          setFormData({
+            ...formData,
+            projectavatar: url,
+          });
+          updateExperience(_id, { ...formData, projectavatar: url });
+          setProgress(0);
+          setOpen(false);
+        });
+      }
+    );
   };
 
   const onSubmit = (e) => {
@@ -194,13 +214,22 @@ const ExpTemp = ({
                     alt=''
                   />
                   <div>
-                    <a
-                      href='#!'
-                      className='upload-button'
-                      onClick={onOpenFileDialog}
-                    >
-                      Edit
-                    </a>
+                    {open ? (
+                      <div style={{ width: 50, height: 50, margin: 'auto' }}>
+                        <CircularProgressbar
+                          value={progress}
+                          text={`${progress}%`}
+                        />
+                      </div>
+                    ) : (
+                      <a
+                        href='#!'
+                        className='upload-button'
+                        onClick={onOpenFileDialog}
+                      >
+                        Edit
+                      </a>
+                    )}
                   </div>
                 </div>
               </div>

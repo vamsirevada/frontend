@@ -4,10 +4,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createProfile } from '../../actions/profile';
 import { projectStorage } from '../../firebase/config';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 import logo from '../../images/dummyimage.jpg';
 
 const CreateGroupProfile = ({ createProfile, history }) => {
   let fileInput = React.createRef();
+  const [progress, setProgress] = useState(0);
+  const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
     location: '',
     avatar: '',
@@ -25,16 +29,29 @@ const CreateGroupProfile = ({ createProfile, history }) => {
   const onFileChange = async (e) => {
     const file = e.target.files[0];
     const storageRef = projectStorage.ref('profilepictures');
-    const fileRef = storageRef.child(file.name);
-    await fileRef.put(file);
-    setFormData({
-      ...formData,
-      avatar: await fileRef.getDownloadURL(),
-    });
+    const fileRef = storageRef.child(file.name).put(file);
 
-    createProfile(
-      { ...formData, avatar: await fileRef.getDownloadURL() },
-      history
+    fileRef.on(
+      'state_changed',
+      (snap) => {
+        let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+        setProgress(Math.round(percentage));
+        setShow(true);
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        fileRef.snapshot.ref.getDownloadURL().then((url) => {
+          setFormData({
+            ...formData,
+            avatar: url,
+          });
+          createProfile({ ...formData, avatar: url }, history, true);
+          setProgress(0);
+          setShow(false);
+        });
+      }
     );
   };
 
@@ -65,9 +82,21 @@ const CreateGroupProfile = ({ createProfile, history }) => {
                 src={avatar ? avatar : logo}
                 alt=''
               />
-              <button className='btn-yellow' onClick={onOpenFileDialog}>
-                Upload Picture
-              </button>
+              {show ? (
+                <div
+                  style={{
+                    width: 50,
+                    height: 50,
+                    margin: 'auto',
+                  }}
+                >
+                  <CircularProgressbar value={progress} text={`${progress}%`} />
+                </div>
+              ) : (
+                <button className='btn-yellow' onClick={onOpenFileDialog}>
+                  Upload Picture
+                </button>
+              )}
             </div>
 
             <div className='c-form'>
