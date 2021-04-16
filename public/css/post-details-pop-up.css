@@ -206,6 +206,15 @@ a:hover {
   outline: none;
 }
 
+.post-pop-up-container
+  .main-post-container
+  .main-post-top
+  .post-pic-1
+  .post-pic-1-video {
+  height: 100% !important;
+  width: 100% !important;
+}
+
 /* .post-pic-1 video {
   object-fit: cover;
   border-radius: 20px;

@@ -211,7 +211,11 @@ const VideoModal = ({
                     src={dispVideo.videoUrl}
                     alt=''
                   /> */}
-                  <ReactPlayer controls url={dispVideo.videoUrl} />
+                  <ReactPlayer
+                    className='post-pic-1-video'
+                    controls
+                    url={dispVideo.videoUrl}
+                  />
                 </div>
                 <div
                   onClick={() => {
