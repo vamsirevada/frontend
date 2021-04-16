@@ -7,6 +7,8 @@ import PropTypes from 'prop-types';
 import c31 from '../../images/Component 31.svg';
 import { projectStorage } from '../../firebase/config';
 import logo from '../../images/dummyimage.jpg';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 const AddExperience = ({ addExperience }) => {
   const [formData, setFormData] = useState({
@@ -125,9 +127,23 @@ const AddExperience = ({ addExperience }) => {
                           src={projectavatar ? projectavatar : logo}
                           alt=''
                         />
-                        <div className='btn-yellow' onClick={onOpenFileDialog}>
-                          Upload Pic
-                        </div>
+                        {show ? (
+                          <div
+                            style={{ width: 50, height: 50, margin: 'auto' }}
+                          >
+                            <CircularProgressbar
+                              value={progress}
+                              text={`${progress}%`}
+                            />
+                          </div>
+                        ) : (
+                          <div
+                            className='btn-yellow'
+                            onClick={onOpenFileDialog}
+                          >
+                            Upload Pic
+                          </div>
+                        )}
                       </div>
                     </div>
                     <div></div>
