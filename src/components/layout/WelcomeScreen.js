@@ -31,15 +31,15 @@ const WelcomeScreen = () => {
     <>
       <div
         className='welcome-screen'
-        data-aos='fade-in'
-        data-aos-delay='10'
-        data-aos-duration='250'
-        data-aos-easing='ease-in'
+        // data-aos='fade-in'
+        // data-aos-delay='10'
+        // data-aos-duration='250'
+        // data-aos-easing='ease-in'
       >
         <section
           className={welcome ? 'welcome' : 'welcome-hide'}
           // className='welcome'
-          data-aos='fade-out'
+          data-aos='fade'
           data-aos-delay='300'
           data-aos-duration='500'
           data-aos-easing='ease-in'

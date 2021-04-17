@@ -173,6 +173,7 @@ export const notePost = (id, formData) => async (dispatch) => {
     });
     dispatch(setAlert('Post Noted succesfully', 'success'));
     dispatch(getNotedPost());
+    dispatch(getCurrentProfile());
   } catch (err) {
     dispatch({
       type: GET_NOTED_POST_ERROR,
@@ -189,6 +190,8 @@ export const unnotePost = (id) => async (dispatch) => {
       payload: res.data,
     });
     dispatch(setAlert('post Unnoted', 'danger'));
+    dispatch(getNotedPost());
+    dispatch(getCurrentProfile());
   } catch (err) {
     dispatch({
       type: GET_NOTED_POST_ERROR,
