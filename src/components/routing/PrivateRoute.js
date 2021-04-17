@@ -6,13 +6,15 @@ import Loader from '../layout/Loader';
 
 const PrivateRoute = ({
   component: Component,
-  auth: { isAuthenticated, loading },
+  auth: { isAuthenticated, token, loading },
   ...rest
 }) => (
   <Route
     {...rest}
     render={(props) =>
-      loading ? (
+      token === null ? (
+        <Redirect to='/' />
+      ) : loading ? (
         <Loader />
       ) : isAuthenticated ? (
         <Component {...props} />

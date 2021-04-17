@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../../images/Vanity_logo-01.png';
 import fulllogo from '../../../images/Logo files/png/Vanity_logo-06.png';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 

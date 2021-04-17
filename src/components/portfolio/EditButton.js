@@ -5,6 +5,7 @@ import share from '../../images/icons/noun_Share_3136056 copy.svg';
 
 const EditButton = ({ profile }) => {
   const [displayAdd, toogleAdd] = useState(false);
+
   return (
     <Fragment>
       <div className='btns'>
@@ -26,16 +27,13 @@ const EditButton = ({ profile }) => {
                 {' '}
                 <a
                   id='share-port-1'
-                  href={`mailto:?subject=Vanity Portfilo&body=Dear Sir/Madam,%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
-                  ${'       '} I'm ${profile?.user.fullName}, ${
-                    profile?.status
-                  } I noticed on [name of the website] that you’re looking [ for so and so role] and am suitable for what you're looking for. You can also view my portfolio to see my work. %20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
-                   Check out this portfolio ${' '} http://www.vanity.ac/portfolio/${
-                    profile._id
-                  } 
-                  ${'     '}%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
-                  %20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
-                  Kind Regards
+                  href={`mailto:?subject=Vanity Portfilo&body=Dear Sir/Madam,
+                  %0D%0A
+                  %0D%0AI'm ${profile?.user?.fullName}, ${profile?.status}. I came to know through [name of website/poster] that you’re looking for new talent for [so and so role] and I'm suitable for what you're looking for. You can also view my portfolio to see my work.
+                  %0D%0A
+                  %0D%0ACheck out this portfolio link http://www.vanity.ac/portfolio/${profile?.user?._id}
+                  %0D%0A
+                  %0D%0ARegards
                   `}
                 >
                   <img src={share} alt='zx' /> Via Email
@@ -44,18 +42,15 @@ const EditButton = ({ profile }) => {
               <hr />
               <li>
                 <a
-                  href={`sms:?body=Dear Sir/Madam,%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
-                  ${'       '} I'm  ${profile?.user.fullName} and I'm a ${
-                    profile?.status
-                  } I noticed on [name of the website] that you’re looking [ for so and so role] and am suitable for what you're looking for. You can also view my portfolio to see my work.%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
-                   Check out this portfolio ${' '} http://www.vanity.ac/portfolio/${
-                    profile._id
-                  } 
-                  ${'     '}%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
-                  %20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
-                  Kind Regards`}
-                  // className='share-port1'
                   id='share-port-1'
+                  href={`sms:?body=Dear Sir/Madam,
+                  %0D%0A
+                  %0D%0AI'm ${profile?.user?.fullName}, ${profile?.status}. I came to know through [name of website/poster] that you’re looking for new talent for [so and so role] and I'm suitable for what you're looking for. You can also view my portfolio to see my work.
+                  %0D%0A
+                  %0D%0ACheck out this portfolio link http://www.vanity.ac/portfolio/${profile?.user?._id} 
+                  %0D%0A
+                  %0D%0ARegards
+                  `}
                 >
                   <img src={share} alt='zx' /> Via Mobile
                 </a>

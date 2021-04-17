@@ -25,12 +25,12 @@ import Help from './components/about/Help';
 // import NotFound from './components/NotFound';
 import ReferralPage from './components/auth/ReferralPage';
 import './App.css';
-import { LOGOUT } from './actions/types';
+import { LOGOUT, USER_LOADED } from './actions/types';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-// import 'shepherd.js/dist/css/shepherd.css';
 import steps from './steps';
 import './steps.css';
+import { loadUser } from './actions/auth';
 
 const tourOptions = {
   defaultStepOptions: {
@@ -50,11 +50,7 @@ const App = () => {
 
     // log user out from all  tabs if they log out in one tab
     window.addEventListener('storage', () => {
-      if (!localStorage.token) {
-        store.dispatch({
-          type: LOGOUT,
-        });
-      }
+      if (!localStorage.token) store.dispatch({ type: LOGOUT });
     });
 
     AOS.init();
