@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react/jsx-no-target-blank */
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -217,12 +219,15 @@ const WelcomePostItem = ({
 
         {PostType(type) === 'Blog' && (
           <>
+            <p className='post-description' style={{ marginBottom: 10 }}>
+              {text}
+            </p>
             <a
+              className='post-description'
               href={url}
               style={{ marginBottom: 10 }}
-              className='post-description'
             >
-              {text}
+              {url}
             </a>
           </>
         )}

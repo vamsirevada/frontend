@@ -44,6 +44,7 @@ const PostForm = ({ addPost }) => {
   };
 
   const handleChange = async (e) => {
+    e.preventDefault();
     const file = e.target.files[0];
     const type = _gettype(file.type.split('/')[0]);
     setFileType(type);
@@ -59,8 +60,9 @@ const PostForm = ({ addPost }) => {
         console.log(err);
       },
       async () => {
-        const url = await storageRef.getDownloadURL();
-        setUrl(`${url}`);
+        await storageRef.getDownloadURL().then((x) => {
+          setUrl(`${x}`);
+        });
       }
     );
   };
@@ -71,13 +73,16 @@ const PostForm = ({ addPost }) => {
       addPost({ text: text, url, type: filetype });
       setText('');
       setShow(false);
-    } else {
-      addPost({ text });
+      setFileType(null);
+    } else if (text.includes('http')) {
+      const index = text.indexOf('http');
+      const newText = text.slice(0, index);
+      const newUrl = text.slice(index, text.length);
+      addPost({ text: newText, url: newUrl, type: 'Blog' });
       setText('');
       setShow(false);
-    }
-    if (text.startsWith('http')) {
-      addPost({ text: text, url: text, type: 'Blog' });
+    } else {
+      addPost({ text: text, type: 'default' });
       setText('');
       setShow(false);
     }
@@ -92,14 +97,13 @@ const PostForm = ({ addPost }) => {
         hidden={true}
         ref={fileInput}
       />
-      {/* <div className='display-pic'></div> */}
       <div className='postForm'>
-        <input
+        <textarea
           type='text'
           placeholder='Write Something New...'
           value={text}
           onChange={(e) => setText(e.target.value)}
-        />
+        ></textarea>
       </div>
 
       {show ? (

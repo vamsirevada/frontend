@@ -215,12 +215,15 @@ const PostItem = ({
 
         {PostType(type) === 'Blog' && (
           <>
+            <p className='post-description' style={{ marginBottom: 10 }}>
+              {text}
+            </p>
             <a
+              className='post-description'
               href={url}
               style={{ marginBottom: 10 }}
-              className='post-description'
             >
-              {text}
+              {url}
             </a>
           </>
         )}

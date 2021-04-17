@@ -63,6 +63,19 @@
   vertical-align: middle;
 }
 
+.post-some-grid .postForm textarea {
+  width: 100%;
+  color: #5d5d5d;
+  font-size: 14px;
+  font-family: 'Raleway', sans-serif;
+  padding: 1.5rem 0rem;
+  background-color: #f8f8f8;
+  border: none;
+  outline: none;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
 .post-some-grid > *:nth-child(3) {
   justify-self: flex-end;
   align-items: center;

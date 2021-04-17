@@ -25,7 +25,7 @@ const AddBlog = ({ setAlert }) => {
     description: '',
   });
 
-  const [file, setFile] = useState('');
+  const [link, setLink] = useState('');
 
   const { description } = formData;
   const onChange = (e) =>
@@ -34,7 +34,7 @@ const AddBlog = ({ setAlert }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const collectionRef = projectFirestore.collection('images');
-    if (file === '') {
+    if (link === '') {
       setAlert('Blog Link is required', 'danger');
     } else if (description === '') {
       setAlert('Description is required', 'danger');
@@ -46,7 +46,7 @@ const AddBlog = ({ setAlert }) => {
       const Id = uuidv4();
       const body = {
         text: description,
-        url: file,
+        url: link,
         type: 'Blog',
         user: userId,
       };
@@ -55,7 +55,7 @@ const AddBlog = ({ setAlert }) => {
         .then(async (res) => {
           await collectionRef.add({
             type: 'Blog',
-            url: file,
+            url: link,
             description: description,
             createdAt,
             userId,
@@ -78,10 +78,10 @@ const AddBlog = ({ setAlert }) => {
           <h2 className='des mb'>Link to Blog</h2>
           <input
             type='url'
-            name='Blog-links'
+            name='link'
             className='search-btn'
-            value={file}
-            onChange={(e) => setFile(e.target.value)}
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
             placeholder='Add Link'
           />
         </div>
