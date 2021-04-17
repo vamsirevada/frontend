@@ -19,6 +19,7 @@ import poster from '../../images/play.jpg';
 import PostType from './PostType';
 import { projectFirestore } from '../../firebase/config';
 import NotePostPopUp from '../posts/NotePostPopUp';
+import ReactPlayer from 'react-player';
 
 const PostItem = ({
   auth,
@@ -35,6 +36,7 @@ const PostItem = ({
     user,
     type,
     url,
+    link,
   },
   addLike,
   removeLike,
@@ -176,6 +178,16 @@ const PostItem = ({
             <p style={{ marginBottom: 10 }} className='post-description'>
               {text}
             </p>
+            {link && (
+              <a
+                className='blog-url'
+                target='_blank'
+                href={link}
+                style={{ marginBottom: 10 }}
+              >
+                {link}
+              </a>
+            )}
             <img
               style={{ objectFit: 'contain' }}
               className='post-pic'
@@ -190,18 +202,24 @@ const PostItem = ({
             <p style={{ marginBottom: 10 }} className='post-description'>
               {text}
             </p>
-            <video
-              style={{
-                objectFit: 'cover',
-                width: '100%',
-                height: '350px',
-                background: 'transparent',
-              }}
-              controls
-              controlsList='nodownload'
-              src={url}
-              className='post-video'
-            />
+            {link && (
+              <a
+                className='blog-url'
+                target='_blank'
+                href={link}
+                style={{ marginBottom: 10 }}
+              >
+                {link}
+              </a>
+            )}
+            <div className='post-video'>
+              <ReactPlayer
+                className='post-video'
+                controls
+                controlsList='nodownload'
+                url={url}
+              />
+            </div>
           </>
         )}
         {PostType(type) === 'Audio' && (
@@ -209,6 +227,16 @@ const PostItem = ({
             <p style={{ marginBottom: 10 }} className='post-description'>
               {text}
             </p>
+            {link && (
+              <a
+                className='blog-url'
+                target='_blank'
+                href={link}
+                style={{ marginBottom: 10 }}
+              >
+                {link}
+              </a>
+            )}
             <video poster={poster} className='post-audio' controls src={url} />
           </>
         )}
@@ -221,10 +249,10 @@ const PostItem = ({
             <a
               className='blog-url'
               target='_blank'
-              href={url}
+              href={link}
               style={{ marginBottom: 10 }}
             >
-              {url}
+              {link}
             </a>
           </>
         )}

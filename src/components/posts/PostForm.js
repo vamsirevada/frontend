@@ -7,18 +7,6 @@ import { projectStorage } from '../../firebase/config';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
-// const _gettype = (type) => {
-//   if (type === 'image') {
-//     return 'photo';
-//   } else if (type === 'audio') {
-//     return 'audio';
-//   } else if (type === 'video') {
-//     return 'video';
-//   } else {
-//     return 'default';
-//   }
-// };
-
 const _gettype = (type) => {
   if (type === 'image') {
     return 'Picture';
@@ -70,15 +58,18 @@ const PostForm = ({ addPost }) => {
   const _onupload = (e) => {
     e.preventDefault();
     if (url !== null) {
-      addPost({ text: text, url, type: filetype });
+      const index = text.indexOf('http');
+      const newText = text.slice(0, index);
+      const newLink = text.slice(index, text.length);
+      addPost({ text: newText, url, link: newLink, type: filetype });
       setText('');
       setShow(false);
       setFileType(null);
     } else if (text.includes('http')) {
       const index = text.indexOf('http');
       const newText = text.slice(0, index);
-      const newUrl = text.slice(index, text.length);
-      addPost({ text: newText, url: newUrl, type: 'Blog' });
+      const newLink = text.slice(index, text.length);
+      addPost({ text: newText, link: newLink, type: 'Blog' });
       setText('');
       setShow(false);
     } else {

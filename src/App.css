@@ -2456,6 +2456,12 @@ input.search-btn:focus {
 }
 
 .posts .post .post-video {
+  width: 100% !important;
+  height: 350px !important;
+  background: transparent;
+}
+
+.posts .post .post-video video {
   border-radius: 15px 15px 0px 0px;
 }
 

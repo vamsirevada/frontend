@@ -205,12 +205,6 @@ const VideoModal = ({
                   <img src={backward} alt='' />
                 </div>
                 <div className='post-pic-1'>
-                  {/* <video
-                    controls
-                    controlsList='nodownload'
-                    src={dispVideo.videoUrl}
-                    alt=''
-                  /> */}
                   <ReactPlayer
                     className='post-pic-1-video'
                     controls
