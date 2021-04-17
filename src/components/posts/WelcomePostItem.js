@@ -177,7 +177,7 @@ const WelcomePostItem = ({
             <a
               href={text}
               style={{ marginBottom: 10, textDecoration: 'underline' }}
-              className='post-description'
+              className='blog-url'
             >
               {text}
             </a>

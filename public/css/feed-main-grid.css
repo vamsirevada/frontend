@@ -184,11 +184,14 @@
   font-family: 1rem;
   color: #5d5d5d;
   /* text-align: justify; */
+  white-space: pre-line;
 }
 
 .post .blog-url {
   text-decoration: underline;
   cursor: pointer;
+  font-size: 14px;
+  padding: 0 1.5rem;
 }
 .post .blog-url:hover {
   color: #fad300;
