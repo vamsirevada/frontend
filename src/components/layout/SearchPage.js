@@ -8,7 +8,6 @@ import UseFirestore from '../addportfolio/UseFireStore';
 import searchIcon from '../../images/searchIcon.svg';
 import logo from '../../images/dummyimage.jpg';
 import mail from '../../images/chat.svg';
-import { motion } from 'framer-motion';
 import PersonalMessage from '../chat/PersonalMessage';
 
 const SearchPage = ({ getProfiles }) => {
@@ -28,9 +27,6 @@ const SearchPage = ({ getProfiles }) => {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
-
-  useEffect(() => {
     getProfiles();
   }, [getProfiles]);
 
@@ -38,7 +34,7 @@ const SearchPage = ({ getProfiles }) => {
     setStart(false);
   };
 
-  const { docs } = UseFirestore('images');
+  // const { docs } = UseFirestore('images');
 
   return (
     <>
@@ -94,6 +90,8 @@ const SearchPage = ({ getProfiles }) => {
                     val.status.toLowerCase().includes(input.toLowerCase())
                   ) {
                     return val;
+                  } else {
+                    return null;
                   }
                 })
                 .map((val, key) => {

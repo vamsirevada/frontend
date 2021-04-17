@@ -30,7 +30,7 @@ const EditButton = ({ profile }) => {
                   ${'       '} Myself ${profile?.user.fullName} and I'm a ${
                     profile?.status
                   } I noticed on [name of the website] that you’re looking [ for so and so role] I’d be happy to help you out with the process. You can also view my portfolio to see my work. %20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
-                   Check out this portfolio ${' '} http://13.235.133.2/portfolio/${
+                   Check out this portfolio ${' '} http://www.vanity.ac/portfolio/${
                     profile._id
                   } 
                   ${'     '}%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
@@ -48,7 +48,7 @@ const EditButton = ({ profile }) => {
                   ${'       '} Myself ${profile?.user.fullName} and I'm a ${
                     profile?.status
                   } I noticed on [name of the website] that you’re looking [ for so and so role] I’d be happy to help you out with the process. You can also view my portfolio to see my work. %20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20
-                   Check out this portfolio ${' '} http://13.235.133.2/portfolio/${
+                   Check out this portfolio ${' '} http://www.vanity.ac/portfolio/${
                     profile._id
                   } 
                   ${'     '}%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20

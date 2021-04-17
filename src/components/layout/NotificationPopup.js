@@ -33,7 +33,7 @@ const NotificationPopup = ({
     remove(id);
     projectFirestore.collection('notifications').add({
       sender: user?._id,
-      senderName: user?.userName,
+      senderName: user?.fullName,
       avatar: user?.avatar,
       receiver: id,
       type: 'accept',
@@ -58,7 +58,7 @@ const NotificationPopup = ({
   const remove = (id) => {
     projectFirestore
       .collection('notifications')
-      .where('sender', '==', id)
+      .where('senderUserId', '==', id)
       .where('type', '==', 'request')
       .get()
       .then((i) => {
@@ -179,7 +179,7 @@ const NotificationPopup = ({
                       <button
                         onClick={() => {
                           accept(not.sender);
-                          add(not.sender);
+                          add(not.senderUserId);
                         }}
                         className='nb-blue'
                       >
@@ -188,7 +188,7 @@ const NotificationPopup = ({
                       <button
                         onClick={() => {
                           decline(not.sender);
-                          remove(not.sender);
+                          remove(not.senderUserId);
                         }}
                         className='nb-white'
                       >

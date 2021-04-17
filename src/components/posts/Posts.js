@@ -6,6 +6,7 @@ import PostItem from './PostItem';
 import WelcomePostItem from './WelcomePostItem';
 
 const Posts = ({
+  auth: { user },
   getPosts,
   getBuddyPosts,
   getOwnPosts,
@@ -32,6 +33,10 @@ const Posts = ({
 
   const welcomeposts =
     posts && posts.filter((x) => x?.user?._id === '6076bfee8caddc177e448d94');
+
+  const abc = welcomeposts.map((x) => x.user?._id === user?._id);
+
+  const xyz = abc.find((num) => num === true);
 
   return (
     <>
@@ -70,11 +75,14 @@ const Posts = ({
         </div>
       ) : (
         <div className='posts'>
-          <Fragment>
-            {welcomeposts.map((post) => (
-              <WelcomePostItem key={post._id} post={post} />
-            ))}
-          </Fragment>
+          {!xyz && (
+            <Fragment>
+              {welcomeposts.map((post) => (
+                <WelcomePostItem key={post._id} post={post} />
+              ))}
+            </Fragment>
+          )}
+
           <Fragment>
             {bposts.map((post) => (
               <PostItem key={post._id} post={post} />
@@ -93,6 +101,7 @@ Posts.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
+  auth: state.auth,
   post: state.post,
 });
 

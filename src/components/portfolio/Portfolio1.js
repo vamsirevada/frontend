@@ -13,7 +13,6 @@ import nounSkill from '../../images/icons/noun_skill_1863702.svg';
 import nounevent from '../../images/icons/noun_event_1828492.svg';
 import nounAwards from '../../images/icons/noun_Trophy_2135552.svg';
 import f124 from '../../images/Image124.png';
-import EditButton from './EditButton';
 import PortfolioLeftTop from './PortfolioLeftTop';
 import PortfolioLeftAbout from './PortfolioLeftAbout';
 import PortfolioLeftExperience from './PortfolioLeftExperience';
@@ -21,7 +20,6 @@ import PortfolioLeftEducation from './PortfolioLeftEducation';
 import PortfolioLeftAwards from './PortfolioLeftAwards';
 import PortfolioLeftSkill from './PortfolioLeftSkill';
 import PortfolioLeftEvent from './PortfolioLeftEvent';
-import PortfolioRightTop from './PortfolioRightTop';
 import PortfolioRightBody from './PortfolioRightBody';
 import GPortfolioLeftTeam from './GPortfolioLeftTeam';
 import GPortfolioLeftPartner from './GPortfolioLeftPartner';
@@ -33,14 +31,13 @@ import ProjectTemp from '../projects/ProjectTemp';
 import ExpTemp from '../projects/ExpTemp';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
-import profile from '../../reducers/profile';
 
 const Portfolio1 = ({
   getProfileById,
   getBuddiesById,
   getProjects,
   auth: { user },
-  profile: { profile1, buddies, loading },
+  profile: { profile, profile1, buddies, loading },
   project: { projects },
   match,
 }) => {
@@ -120,11 +117,9 @@ const Portfolio1 = ({
                               <div className='btns'>
                                 <div>
                                   <RequestButton
-                                    peerid={profile1?._id}
-                                    reloadid={match.params.id}
-                                    profile={profile1}
+                                    paramsId={match.params.id}
+                                    profile={profile}
                                     isGroup={false}
-                                    user={user}
                                   />
                                 </div>
 
@@ -539,14 +534,6 @@ const Portfolio1 = ({
                     <div className='portfolio-right'>
                       <div id='main-grid' className='port-grid'>
                         <div className='main-grid-container'>
-                          {/* {profile1 !== null && (
-                        <PortfolioRightTop
-                          type='edit'
-                          profile={profile1}
-                          projects={projects}
-                          id={match.params.id}
-                        />
-                      )} */}
                           <div className='main-grid-top'>
                             <div className='profile-info-box p-black'>
                               <a href='#!' onClick={() => PortOn()}>
@@ -578,11 +565,6 @@ const Portfolio1 = ({
                               </a>
                             </div>
                           </div>
-                          {/* <div className='main-grid-body'>
-                        {profile1 !== null && (
-                          <PortfolioRightBody type='edit' profile={profile1} />
-                        )}
-                      </div> */}
                           <div className='main-grid-body'>
                             {displayPortfolio && profile1 !== null && (
                               <PortfolioRightBody profile={profile1} />
