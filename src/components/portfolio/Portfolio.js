@@ -122,7 +122,7 @@ const Portfolio = ({
 
                             <div className='prof-btn'>
                               <div className='prof-btn-flex'>
-                                <div className='prof-top prof-top-edu'>
+                                <div className='prof-top prof-top-edu founder'>
                                   <div className='prof-pic'>
                                     <img src={f124} alt='' />
                                   </div>

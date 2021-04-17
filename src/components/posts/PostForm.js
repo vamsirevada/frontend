@@ -7,13 +7,25 @@ import { projectStorage } from '../../firebase/config';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
+// const _gettype = (type) => {
+//   if (type === 'image') {
+//     return 'photo';
+//   } else if (type === 'audio') {
+//     return 'audio';
+//   } else if (type === 'video') {
+//     return 'video';
+//   } else {
+//     return 'default';
+//   }
+// };
+
 const _gettype = (type) => {
   if (type === 'image') {
-    return 'photo';
+    return 'Picture';
   } else if (type === 'audio') {
-    return 'audio';
+    return 'Audio';
   } else if (type === 'video') {
-    return 'video';
+    return 'Video';
   } else {
     return 'default';
   }

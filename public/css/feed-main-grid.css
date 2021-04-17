@@ -170,7 +170,7 @@
   font-family: 'Raleway', sans-serif;
   font-family: 1rem;
   color: #5d5d5d;
-  text-align: justify;
+  /* text-align: justify; */
 }
 
 .d-2 {
@@ -283,6 +283,8 @@
   vertical-align: middle;
   cursor: pointer;
   padding-right: 0.25rem;
+}
+.pic-des-1 .r-1.note {
   filter: invert(50%) sepia(0%) saturate(0%) hue-rotate(214deg) brightness(90%)
     contrast(85%);
 }

@@ -252,7 +252,7 @@ const PostItem = ({
               {displayNbtn ? (
                 <Fragment>
                   <div onClick={unnote}>
-                    <img className='r-1' src={noteimg} alt='' />
+                    <img className='noteImg' src={noteimg} alt='' />
                     <span className='d-1'>Unnote Post</span>
                   </div>
                 </Fragment>
@@ -263,7 +263,7 @@ const PostItem = ({
                       setShow(true);
                     }}
                   >
-                    <img className='r-1' src={noteimg} alt='' />
+                    <img className='r-1 note' src={noteimg} alt='' />
                     <span className='d-1'>Note Post</span>
                   </div>
                 </Fragment>

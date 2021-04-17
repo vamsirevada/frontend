@@ -109,6 +109,7 @@ export const deletePost = (id) => async (dispatch) => {
     });
 
     dispatch(setAlert('Post Removed', 'success'));
+    dispatch(getOwnPosts());
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -133,6 +134,8 @@ export const addPost = (formData) => async (dispatch) => {
     });
 
     dispatch(setAlert('Post Created', 'success'));
+    dispatch(getPosts());
+    dispatch(getOwnPosts());
   } catch (err) {
     dispatch({
       type: POST_ERROR,

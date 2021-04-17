@@ -319,6 +319,7 @@ h3 {
   font-family: var(--Raleway);
   font-weight: 500;
   font-size: 15px;
+  text-align: center;
 }
 
 .left-heading .resize {
@@ -501,6 +502,18 @@ h3 {
   align-items: center;
   grid-gap: 0.3rem;
   width: 100%;
+}
+
+.prof-exp .prof-btn .prof-btn-flex .prof-top.prof-top-edu.founder {
+  display: grid;
+  grid-template-columns: 100%;
+  align-items: center;
+  grid-gap: 0.3rem;
+  width: 100%;
+}
+
+.prof-exp .prof-btn .prof-btn-flex .prof-top.prof-top-edu.founder .prof-pic {
+  display: none;
 }
 
 .prof-exp .prof-btn .prof-btn-flex .prof-top.skill {
