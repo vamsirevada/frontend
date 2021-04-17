@@ -177,7 +177,7 @@ const WelcomePostItem = ({
             <a
               href={text}
               style={{ marginBottom: 10, textDecoration: 'underline' }}
-              className='post-description'
+              className='blog-url'
             >
               {text}
             </a>
@@ -222,11 +222,7 @@ const WelcomePostItem = ({
             <p className='post-description' style={{ marginBottom: 10 }}>
               {text}
             </p>
-            <a
-              className='post-description'
-              href={url}
-              style={{ marginBottom: 10 }}
-            >
+            <a className='blog-url' href={url} style={{ marginBottom: 10 }}>
               {url}
             </a>
           </>
@@ -259,7 +255,7 @@ const WelcomePostItem = ({
               {displayNbtn ? (
                 <Fragment>
                   <div onClick={unnote}>
-                    <img className='r-1' src={noteimg} alt='' />
+                    <img className='r-1 unnote' src={noteimg} alt='' />
                     <span className='d-1'>Unnote Post</span>
                   </div>
                 </Fragment>
@@ -270,7 +266,7 @@ const WelcomePostItem = ({
                       setShow(true);
                     }}
                   >
-                    <img className='r-1' src={noteimg} alt='' />
+                    <img className='r-1 note' src={noteimg} alt='' />
                     <span className='d-1'>Note Post</span>
                   </div>
                 </Fragment>

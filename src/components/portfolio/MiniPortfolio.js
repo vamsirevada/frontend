@@ -33,7 +33,7 @@ const MiniPortfolio = ({
               {profile?.user?.groupName && profile?.user?.groupName}
             </h2>
             <p> {profile?.user?.userName}</p>
-            <p> {profile?.status}</p>
+            <p className='status'> {profile?.status}</p>
             <p>
               <img className='resize' src={loc} alt='' />{' '}
               <span className='gray'> {profile?.location} </span>

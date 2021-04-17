@@ -232,7 +232,7 @@ html {
   position: relative;
   top: 0px;
   left: 0px;
-  z-index: 2000;
+  z-index: 2001;
 }
 
 .welcome {
@@ -443,6 +443,7 @@ a {
 
 #page-1 .flex-content {
   width: 100%;
+  margin-top: 6%;
 }
 
 #page-1 .flex-content .container1 .content {
@@ -2635,6 +2636,30 @@ input.search-btn:focus {
   padding: 8px 10px;
   margin-right: 5px;
   font-size: 1rem;
+}
+
+@media (max-width: 1280px) {
+  #page-1 .flex-content {
+    width: 100%;
+    margin-top: 3%;
+  }
+  #page-1 .flex-content .container1 .content {
+    width: 50%;
+    height: 100%;
+    line-height: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 1rem;
+  }
+  .ft-heading {
+    font-family: 'Lato', sans-serif;
+    font-size: 2.3rem;
+    font-weight: 1000;
+    line-height: 3.25rem;
+    margin-bottom: 20px;
+    color: #272727;
+  }
 }
 
 @media (max-width: 1024px) {

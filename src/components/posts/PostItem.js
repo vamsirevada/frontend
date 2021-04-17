@@ -219,7 +219,8 @@ const PostItem = ({
               {text}
             </p>
             <a
-              className='post-description'
+              className='blog-url'
+              target='_blank'
               href={url}
               style={{ marginBottom: 10 }}
             >
@@ -255,7 +256,7 @@ const PostItem = ({
               {displayNbtn ? (
                 <Fragment>
                   <div onClick={unnote}>
-                    <img className='noteImg' src={noteimg} alt='' />
+                    <img className='r-1 unnote' src={noteimg} alt='' />
                     <span className='d-1'>Unnote Post</span>
                   </div>
                 </Fragment>

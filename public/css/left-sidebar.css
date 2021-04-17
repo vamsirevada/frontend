@@ -276,6 +276,11 @@ h3 {
   line-height: 1.8rem;
 }
 
+.left-container .left-heading .status {
+  line-height: 1.25rem;
+  margin: 0.5rem 0rem;
+}
+
 .left-heding .display-pic {
   width: 5rem;
   height: 5rem;

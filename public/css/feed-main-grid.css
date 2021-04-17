@@ -11,7 +11,7 @@
 
 .feed-main-container .post-some-grid {
   display: grid;
-  grid-template-columns: 70% 10% 15%;
+  grid-template-columns: 70% 12.5% 15%;
   justify-content: center;
   align-items: center;
   padding: 0.5rem 1rem;
@@ -55,7 +55,7 @@
   color: #5d5d5d;
   font-size: 14px;
   font-family: 'Raleway', sans-serif;
-  padding: 1.5rem 0rem;
+  padding: 1.5rem 1.5rem;
   background-color: #f8f8f8;
   border: none;
   outline: none;
@@ -184,6 +184,17 @@
   font-family: 1rem;
   color: #5d5d5d;
   /* text-align: justify; */
+  white-space: pre-line;
+}
+
+.post .blog-url {
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 1.5rem;
+}
+.post .blog-url:hover {
+  color: #fad300;
 }
 
 .d-2 {
@@ -300,6 +311,11 @@
 .pic-des-1 .r-1.note {
   filter: invert(50%) sepia(0%) saturate(0%) hue-rotate(214deg) brightness(90%)
     contrast(85%);
+}
+
+.pic-des-1 .r-1.unnote {
+  filter: invert(72%) sepia(55%) saturate(725%) hue-rotate(5deg)
+    brightness(101%) contrast(105%);
 }
 
 .post-pic .pic-des-1 .d-1 {

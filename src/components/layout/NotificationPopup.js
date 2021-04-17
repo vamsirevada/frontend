@@ -140,8 +140,8 @@ const NotificationPopup = ({
                 <>
                   <img src={not.avatar ? not.avatar : logo} alt='' />
                   <p>
-                    <span className='notif-bold'>{not.senderName}</span> liked
-                    your post{' '}
+                    <span className='notif-bold'>{not.senderName}</span>{' '}
+                    appreciated your post{' '}
                   </p>
                 </>
               )}

@@ -14,7 +14,7 @@ const NotePost = ({ setAlert, unnotePost, notepost }) => {
 
   const unnote = (e) => {
     unnotePost(post);
-    setAlert('Unnote', 'success');
+    // setAlert('Unnote', 'success');
   };
 
   return (
