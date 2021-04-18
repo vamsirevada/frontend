@@ -35,6 +35,7 @@ const WelcomePostItem = ({
     user,
     type,
     url,
+    link,
   },
   addLike,
   removeLike,
@@ -174,13 +175,16 @@ const WelcomePostItem = ({
         {PostType(type) === 'Picture' && (
           <>
             <p className='post-description'>{title}</p>
-            <a
-              href={text}
-              style={{ marginBottom: 10, textDecoration: 'underline' }}
-              className='blog-url'
-            >
-              {text}
-            </a>
+            {link && (
+              <a
+                className='blog-url'
+                target='_blank'
+                href={link}
+                style={{ marginBottom: 10 }}
+              >
+                {link}
+              </a>
+            )}
             <img
               style={{ objectFit: 'contain' }}
               className='post-pic'
@@ -194,6 +198,16 @@ const WelcomePostItem = ({
             <p style={{ marginBottom: 10 }} className='post-description'>
               {text}
             </p>
+            {link && (
+              <a
+                className='blog-url'
+                target='_blank'
+                href={link}
+                style={{ marginBottom: 10 }}
+              >
+                {link}
+              </a>
+            )}
             <video
               style={{
                 objectFit: 'cover',
@@ -213,6 +227,16 @@ const WelcomePostItem = ({
             <p style={{ marginBottom: 10 }} className='post-description'>
               {text}
             </p>
+            {link && (
+              <a
+                className='blog-url'
+                target='_blank'
+                href={link}
+                style={{ marginBottom: 10 }}
+              >
+                {link}
+              </a>
+            )}
             <video poster={poster} className='post-audio' controls src={url} />
           </>
         )}
@@ -222,8 +246,13 @@ const WelcomePostItem = ({
             <p className='post-description' style={{ marginBottom: 10 }}>
               {text}
             </p>
-            <a className='blog-url' href={url} style={{ marginBottom: 10 }}>
-              {url}
+            <a
+              className='blog-url'
+              target='_blank'
+              href={link}
+              style={{ marginBottom: 10 }}
+            >
+              {link}
             </a>
           </>
         )}
