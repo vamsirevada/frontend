@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { Fragment } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import gps from '../../images/icons/noun_Location_3139654.svg';
 import { Link } from 'react-router-dom';

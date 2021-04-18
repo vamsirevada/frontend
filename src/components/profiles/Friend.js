@@ -11,7 +11,6 @@ import { motion } from 'framer-motion';
 import { projectFirestore } from '../../firebase/config';
 import ChatPopup from '../chat/ChatPopup';
 import { getRealtimeConversations } from '../../actions/chat';
-import noteimg from '../../images/icons/summarize-24px.svg';
 
 const Friend = ({
   auth,

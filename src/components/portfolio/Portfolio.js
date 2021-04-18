@@ -19,7 +19,6 @@ import PortfolioLeftEducation from './PortfolioLeftEducation';
 import PortfolioLeftAwards from './PortfolioLeftAwards';
 import PortfolioLeftSkill from './PortfolioLeftSkill';
 import PortfolioLeftEvent from './PortfolioLeftEvent';
-import PortfolioRightTop from './PortfolioRightTop';
 import PortfolioRightBody from './PortfolioRightBody';
 import GPortfolioLeftTeam from './GPortfolioLeftTeam';
 import GPortfolioLeftPartner from './GPortfolioLeftPartner';

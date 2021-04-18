@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Fragment } from 'react';
 import FinanceRight from './FinanceRight';
 import ResponsiveFinanceRight from './ResponsiveFinanceRight';
 import { useParams } from 'react-router-dom';
@@ -23,9 +22,7 @@ const Finance = ({
   const [spender, setSpender] = useState(true);
   const [respo, setRespo] = useState(false);
   const [budgetRespo, setBudgetRespo] = useState(false);
-  const [userId, setUserId] = useState('');
   const [start, setStart] = useState(false);
-  const [creators, setCreators] = useState([]);
 
   useEffect(() => {
     getProject(params.id);
@@ -148,7 +145,6 @@ const Finance = ({
             transactions={transactions}
             singleproject={singleproject}
             respoClose={respoClose}
-            userId={userId}
           />
         )}
 
@@ -164,7 +160,6 @@ const Finance = ({
           start={start}
           transactions={transactions}
           singleproject={singleproject}
-          userId={userId}
         />
       )}
       {budgetRespo && <BudgetRight singleproject={singleproject} />}

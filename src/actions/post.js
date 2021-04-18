@@ -10,7 +10,6 @@ import {
   ADD_POST,
   ADD_COMMENT,
   REMOVE_COMMENT,
-  GET_WELCOME_POSTS,
   GET_BUDDY_POSTS,
 } from './types';
 

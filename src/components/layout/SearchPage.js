@@ -4,7 +4,6 @@ import api from '../../utils/api';
 import { useHistory } from 'react-router-dom';
 import { getProfiles } from '../../actions/profile';
 import { connect } from 'react-redux';
-import UseFirestore from '../addportfolio/UseFireStore';
 import searchIcon from '../../images/searchIcon.svg';
 import logo from '../../images/dummyimage.jpg';
 import mail from '../../images/chat.svg';

@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import Close from '../../images/noun_Plus_2310779.svg';
 import sendbutton from '../../images/sendbutton.svg';
 import { updateMessage } from '../../actions/chat';
 import { projectFirestore } from '../../firebase/config';

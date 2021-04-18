@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
 import api from '../../utils/api';
 import { useHistory } from 'react-router-dom';
@@ -25,9 +26,6 @@ const RespoSearchPage = ({ closeRespoBar, getProfiles }) => {
 
   useEffect(() => {
     fetchData();
-  }, [fetchData]);
-
-  useEffect(() => {
     getProfiles();
   }, [getProfiles]);
 
@@ -91,6 +89,8 @@ const RespoSearchPage = ({ closeRespoBar, getProfiles }) => {
                   val.status.toLowerCase().includes(input.toLowerCase())
                 ) {
                   return val;
+                } else {
+                  return null;
                 }
               })
               .map((val, key) => {

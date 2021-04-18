@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { Link } from 'react-router-dom';
 import macbook from '../../../images/macbook_white@2x.png';
 
 const Page7 = () => {

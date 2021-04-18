@@ -80,6 +80,8 @@ const AddPopUp = ({
                           val.status.toLowerCase().includes(value.toLowerCase())
                         ) {
                           return val;
+                        } else {
+                          return null;
                         }
                       })
                       .map((val) => (

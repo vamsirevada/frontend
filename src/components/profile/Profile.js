@@ -23,7 +23,6 @@ import GroupPartner from './GroupPartner';
 import GroupClient from './GroupClient';
 import GroupContact from './GroupContact';
 import Moment from 'react-moment';
-import nounPlus from '../../images/icons/noun_Plus_2310779.svg';
 import Loader from '../layout/Loader';
 
 const Profile = ({

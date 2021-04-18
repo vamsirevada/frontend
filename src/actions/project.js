@@ -1,4 +1,3 @@
-import { projectFirestore } from '../firebase/config';
 import api from '../utils/api';
 import { setAlert } from './alert';
 import {

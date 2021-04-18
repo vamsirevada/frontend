@@ -37,7 +37,13 @@ const ChatPage = ({
         uid_2: chatProfile?.user?._id,
       })
     );
-  }, [getProfiles, getProjects, auth?.user?._id]);
+  }, [
+    getProfiles,
+    getProjects,
+    dispatch,
+    chatProfile?.user?._id,
+    auth?.user?._id,
+  ]);
 
   const newprofiles = profiles.filter((x) => x?.user?._id !== auth?.user?._id);
 

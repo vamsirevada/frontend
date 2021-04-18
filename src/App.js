@@ -25,12 +25,11 @@ import Help from './components/about/Help';
 // import NotFound from './components/NotFound';
 import ReferralPage from './components/auth/ReferralPage';
 import './App.css';
-import { LOGOUT, USER_LOADED } from './actions/types';
+import { LOGOUT } from './actions/types';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import steps from './steps';
 import './steps.css';
-import { loadUser } from './actions/auth';
 
 const tourOptions = {
   defaultStepOptions: {
