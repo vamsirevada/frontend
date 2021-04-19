@@ -20,6 +20,7 @@ const Feed = () => {
   const onClick2 = (e) => {
     toogleLeft(false);
     toogleRight(true);
+    toggleIpadright(true);
   };
   const onClick3 = (e) => {
     toggleIpadright(!ipadRight);
@@ -53,7 +54,7 @@ const Feed = () => {
             </div>
           )}
           {displayRight && (
-            <div className='right'>
+            <div className={ipadRight ? 'right' : 'right-hide'}>
               <div className='note-slide'>
                 <NotePeoples />
                 <NotePosts />

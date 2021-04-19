@@ -2841,6 +2841,12 @@ input.search-btn:focus {
 }
 
 @media (max-width: 768px) {
+  .feed .right-hide {
+    display: none;
+  }
+  .feed .right {
+    display: block;
+  }
   .main-grid-container .main-grid-top {
     display: flex;
     flex-direction: column;
@@ -3406,6 +3412,21 @@ input.search-btn:focus {
 }
 /* iphone6.7.8 potrait */
 @media (max-width: 420px) {
+  .memberpopupscreen .memberpopup {
+    left: 5% !important;
+  }
+  .memberpopupscreen .memberpopup {
+    z-index: 101;
+    background: #fff;
+    display: block;
+    width: 90%;
+    height: 540px;
+    border-radius: 10px;
+    position: absolute;
+    left: 40%;
+    top: 15%;
+    overflow: auto;
+  }
   .project-container
     .projectitem
     .project-body
@@ -4305,6 +4326,18 @@ input.search-btn:focus {
 }
 
 @media (max-width: 320px) {
+  .memberpopupscreen .memberpopup {
+    z-index: 101;
+    background: #fff;
+    display: block;
+    width: 90%;
+    height: 80%;
+    border-radius: 10px;
+    position: absolute;
+    left: 40%;
+    top: 15%;
+    overflow: auto;
+  }
   .main-add .main-left .btn-gray {
     width: inherit;
   }

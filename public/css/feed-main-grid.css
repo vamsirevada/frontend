@@ -192,6 +192,7 @@
   cursor: pointer;
   font-size: 14px;
   padding: 0 1.5rem;
+  word-wrap: break-word;
 }
 .post .blog-url:hover {
   color: #fad300;
