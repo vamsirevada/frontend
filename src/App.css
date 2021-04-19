@@ -2459,6 +2459,7 @@ input.search-btn:focus {
   width: 100% !important;
   height: 350px !important;
   background: transparent;
+  margin-top: 1rem;
 }
 
 .posts .post .post-video video {

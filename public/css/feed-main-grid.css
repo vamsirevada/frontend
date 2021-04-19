@@ -518,9 +518,11 @@
 }
 
 .post-audio {
-  margin-left: 75px;
   object-fit: cover;
   width: 75%;
+  margin: auto;
+  margin-top: 1rem;
+  display: block;
 }
 .Hori {
   max-width: 90%;

@@ -388,6 +388,11 @@
   border: 10px solid #e2edef;
   border-radius: 15px;
 }
+
+.connect-right .pic-1 img,
+.connect-right .pic-1 video {
+  object-fit: cover;
+}
 .connect-right .pic-2 {
   width: 200px;
   height: 160px;
