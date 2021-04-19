@@ -174,7 +174,7 @@ const WelcomePostItem = ({
 
         {PostType(type) === 'Picture' && (
           <>
-            <p className='post-description'>{title}</p>
+            <p className='post-description'>{text}</p>
             {link && (
               <a
                 className='blog-url'

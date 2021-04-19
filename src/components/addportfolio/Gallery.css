@@ -76,6 +76,10 @@
   opacity: 0;
 }
 
+.img-wrap .img-wrap-audio {
+  object-fit: cover;
+}
+
 .img-wrap:hover .video-desc {
   cursor: pointer;
   opacity: 1;

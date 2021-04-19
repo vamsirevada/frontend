@@ -9,12 +9,12 @@ import { projectFirestore, projectStorage } from '../../firebase/config';
 import { getRealtimeData } from '../../actions/portfolio';
 import './Gallery.css';
 import Modal from './Modal';
-import { useDispatch } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import VideoModal from './VideoModal';
 import AudioModal from './AudioModal';
 import ReactPlayer from 'react-player';
 
-const ImageGrid = ({ id, profile }) => {
+const ImageGrid = ({ auth: { user }, id, profile }) => {
   const dispatch = useDispatch();
   const [edit, setEdit] = useState('');
   const { docs } = UseFirestore('images');
@@ -154,39 +154,41 @@ const ImageGrid = ({ id, profile }) => {
             .slice(0, viewAllVideo ? videos.length : 9)
             .map((doc, index) => (
               <motion.div
-                className='img-wrap'
+                className='img-wrap video'
                 key={doc.id}
                 layout
                 style={{ opacity: 1 }}
                 whileHover={{ opacity: 1 }}
               >
                 <div className='edit-container'>
-                  <div
-                    onClick={() => {
-                      setEdit(edit === doc.url ? '' : doc.url);
-                    }}
-                    className='edit'
-                  >
-                    <img src={path} className='resize' alt='' />
-                  </div>
-
-                  {edit === doc.url && (
-                    <ul className='edit-text-box'>
-                      <li>
-                        <a
-                          className='edit-text'
-                          onClick={() => {
-                            _remove(doc);
-                          }}
-                        >
-                          Remove
-                        </a>
-                      </li>
-                    </ul>
+                  {profile?.user?._id === user?._id && (
+                    <>
+                      <div
+                        onClick={() => {
+                          setEdit(edit === doc.url ? '' : doc.url);
+                        }}
+                        className='edit'
+                      >
+                        <img src={path} className='resize' alt='' />
+                      </div>
+                      {edit === doc.url && (
+                        <ul className='edit-text-box'>
+                          <li>
+                            <a
+                              className='edit-text'
+                              onClick={() => {
+                                _remove(doc);
+                              }}
+                            >
+                              Remove
+                            </a>
+                          </li>
+                        </ul>
+                      )}
+                    </>
                   )}
                 </div>
                 <div
-                  className='img-wrap-video'
                   onClick={() => {
                     displayVideo(index);
                     dispatch(getRealtimeData(doc.id));
@@ -230,25 +232,29 @@ const ImageGrid = ({ id, profile }) => {
               whileHover={{ opacity: 1 }}
             >
               <div className='edit-container'>
-                <div
-                  onClick={() => {
-                    setEdit(edit === doc.url ? '' : doc.url);
-                  }}
-                  className='edit'
-                >
-                  <img src={path} className='resize' alt='' />
-                </div>
-                {edit === doc.url && (
-                  <div className='edit-text-box'>
+                {profile?.user?._id === user?._id && (
+                  <>
                     <div
-                      className='edit-text'
                       onClick={() => {
-                        _remove(doc);
+                        setEdit(edit === doc.url ? '' : doc.url);
                       }}
+                      className='edit'
                     >
-                      Remove Project
+                      <img src={path} className='resize' alt='' />
                     </div>
-                  </div>
+                    {edit === doc.url && (
+                      <div className='edit-text-box'>
+                        <div
+                          className='edit-text'
+                          onClick={() => {
+                            _remove(doc);
+                          }}
+                        >
+                          Remove
+                        </div>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
               <motion.img
@@ -296,29 +302,34 @@ const ImageGrid = ({ id, profile }) => {
                 whileHover={{ opacity: 1 }}
               >
                 <div className='edit-container'>
-                  <div
-                    onClick={() => {
-                      setEdit(edit === doc.url ? '' : doc.url);
-                    }}
-                    className='edit'
-                  >
-                    <img src={path} className='resize' alt='' />
-                  </div>
-
-                  {edit === doc.url && (
-                    <div className='edit-text-box'>
+                  {profile?.user?._id === user?._id && (
+                    <>
                       <div
-                        className='edit-text'
                         onClick={() => {
-                          _remove(doc);
+                          setEdit(edit === doc.url ? '' : doc.url);
                         }}
+                        className='edit'
                       >
-                        Remove Project
+                        <img src={path} className='resize' alt='' />
                       </div>
-                    </div>
+
+                      {edit === doc.url && (
+                        <div className='edit-text-box'>
+                          <div
+                            className='edit-text'
+                            onClick={() => {
+                              _remove(doc);
+                            }}
+                          >
+                            Remove
+                          </div>
+                        </div>
+                      )}
+                    </>
                   )}
                 </div>
                 <motion.video
+                  className='img-wrap-audio'
                   onClick={() => {
                     displayAudio(index);
                     dispatch(getRealtimeData(doc.id));
@@ -330,7 +341,7 @@ const ImageGrid = ({ id, profile }) => {
                   initial={{ opacity: 1 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1 }}
-                />
+                ></motion.video>
                 <p className='video-desc'>{doc.title}</p>
               </motion.div>
             ))}
@@ -363,25 +374,29 @@ const ImageGrid = ({ id, profile }) => {
               whileHover={{ opacity: 1 }}
             >
               <div className='edit-container'>
-                <div
-                  onClick={() => {
-                    setEdit(edit === doc.url ? '' : doc.url);
-                  }}
-                  className='edit'
-                >
-                  <img src={path} className='resize' alt='' />
-                </div>
-                {edit === doc.url && (
-                  <div className='edit-text-box'>
+                {profile?.user?._id === user?._id && (
+                  <>
                     <div
-                      className='edit-text'
                       onClick={() => {
-                        _remove(doc, 'blog');
+                        setEdit(edit === doc.url ? '' : doc.url);
                       }}
+                      className='edit'
                     >
-                      Remove Project
+                      <img src={path} className='resize' alt='' />
                     </div>
-                  </div>
+                    {edit === doc.url && (
+                      <div className='edit-text-box'>
+                        <div
+                          className='edit-text'
+                          onClick={() => {
+                            _remove(doc, 'blog');
+                          }}
+                        >
+                          Remove
+                        </div>
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
               <a href={doc.url}>{doc.description}</a>
@@ -404,4 +419,8 @@ const ImageGrid = ({ id, profile }) => {
   );
 };
 
-export default ImageGrid;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(ImageGrid);

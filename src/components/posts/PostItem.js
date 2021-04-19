@@ -15,11 +15,11 @@ import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
 import logo from '../../images/dummyimage.jpg';
 import noteimg from '../../images/icons/summarize-24px.svg';
-import poster from '../../images/play.jpg';
 import PostType from './PostType';
 import { projectFirestore } from '../../firebase/config';
 import NotePostPopUp from '../posts/NotePostPopUp';
 import ReactPlayer from 'react-player';
+import poster from '../../images/poster.png';
 
 const PostItem = ({
   auth,
@@ -159,7 +159,7 @@ const PostItem = ({
                 <div className='no-post-dis' id='post-dis'>
                   <ul>
                     <li>
-                      <a onClick={(e) => deletePost(_id)}>Delete post</a>
+                      <a onClick={() => deletePost(_id)}>Delete post</a>
                     </li>
                   </ul>
                 </div>
@@ -237,7 +237,12 @@ const PostItem = ({
                 {link}
               </a>
             )}
-            <video poster={poster} className='post-audio' controls src={url} />
+            <audio
+              className='post-audio'
+              controls
+              controlsList='nodownload'
+              src={url}
+            ></audio>
           </>
         )}
 
@@ -316,36 +321,23 @@ const PostItem = ({
           </div>
         </div>
         {comments.length > 0 && (
-          <div>
-            <Fragment>
-              <div className='comments'>
-                {comments.slice(0, 3).map((comment) => (
-                  <CommentItem
-                    key={comment._id}
-                    comment={comment}
-                    postId={_id}
-                  />
-                ))}
-                {comments.length > 3 && (
-                  <div className='load'>
-                    <Link to={`/posts/${_id}`} className='loadmore'>
-                      Load more
-                    </Link>
-                  </div>
-                )}
+          <div className='comments'>
+            {comments.slice(0, 3).map((comment) => (
+              <CommentItem key={comment._id} comment={comment} postId={_id} />
+            ))}
+            {comments.length > 3 && (
+              <div className='load'>
+                <Link to={`/posts/${_id}`} className='loadmore'>
+                  Load more
+                </Link>
               </div>
-            </Fragment>
+            )}
           </div>
         )}
 
         {displayAddCmt && (
           <div>
-            <CommentForm
-              auth={auth}
-              user={user}
-              postId={_id}
-              comments={comments}
-            />
+            <CommentForm auth={auth} user={user} postId={_id} />
           </div>
         )}
       </div>

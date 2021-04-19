@@ -15,6 +15,7 @@ import Profile2 from '../profile/Profile2';
 import Profile from '../profile/Profile';
 import Posts from '../posts/Posts';
 import Post from '../post/Post';
+import ProjectPost from '../projectposts/ProjectPost';
 import Feed from '../feed/Feed';
 import Navbar from '../layout/Navbar';
 import Friends from '../profiles/Friends';
@@ -57,6 +58,11 @@ const Routes = ({ auth: { user } }) => {
         <PrivateRoute exact path='/add-skills' component={AddSkills} />
         <PrivateRoute exact path='/posts' component={Posts} />
         <PrivateRoute exact path='/posts/:id' component={Post} />
+        <PrivateRoute
+          exact
+          path='/project/:id/posts/:post_id'
+          component={ProjectPost}
+        />
         <PrivateRoute exact path='/project/:id' component={SingleProject} />
         <PrivateRoute exact path='/notice/:id' component={SingleNotice} />
         <PrivateRoute exact path='/feed' component={Feed} />

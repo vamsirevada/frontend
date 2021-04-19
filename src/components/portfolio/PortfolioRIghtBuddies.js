@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import logo from '../../images/dummyimage.jpg';
 import UseFireStore from '../addportfolio/UseFireStore';
 import { motion } from 'framer-motion';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 const PortfolioRightBuddies = ({
   item: { _id, avatar, user, status, location, buddies },
@@ -57,26 +58,32 @@ const PortfolioRightBuddies = ({
         </div>
       </div>
       <div className='connect-right'>
-        {documents.slice(0, 4).map((x) => (
-          <div key={x.id} className='pic-1'>
-            {x.type === 'Video' ? (
-              <motion.video
-                controls
-                src={x.url}
-                alt='uploaded pic'
-                initial={{
-                  opacity: 0,
-                  height: '100%',
-                  width: '100%',
-                }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1 }}
-              />
-            ) : (
-              <motion.img src={x.url} height='100%' width='100%' alt='' />
-            )}
-          </div>
-        ))}
+        {documents &&
+          documents.slice(0, 2).map((x) => (
+            <div key={x.id} className='pic-1'>
+              {x.type === 'Video' ? (
+                <motion.video
+                  controls
+                  src={x.url}
+                  alt='uploaded pic'
+                  initial={{
+                    opacity: 0,
+                    height: '100%',
+                    width: '100%',
+                  }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1 }}
+                />
+              ) : (
+                <motion.img src={x.url} height='100%' width='100%' alt='' />
+              )}
+            </div>
+          ))}
+        {documents.length > 0 && (
+          <Link to={`/portfolio/${user?._id}`}>
+            <ArrowForwardIosIcon />
+          </Link>
+        )}
       </div>
     </>
   );

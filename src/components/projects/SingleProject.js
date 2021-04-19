@@ -77,7 +77,11 @@ const SingleProject = ({
                       </>
                     )}
                   <ProjectPostForm singleproject={singleproject} />
-                  <ProjectPosts profile={profile} id={match.params.id} />
+                  <ProjectPosts
+                    singleproject={singleproject}
+                    profile={profile}
+                    id={match.params.id}
+                  />
                 </div>
               </div>
             </div>

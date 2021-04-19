@@ -13,6 +13,7 @@ import { projectFirestore } from '../../firebase/config';
 import PersonalMessage from '../chat/PersonalMessage';
 import NotePeoplePopUp from '../posts/NotePeoplePopUp';
 import noteimg from '../../images/icons/summarize-24px.svg';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 const ProfileItem = ({
   auth,
@@ -143,7 +144,7 @@ const ProfileItem = ({
         {displayAdd && (
           <div className='connect-right'>
             {documents &&
-              documents.slice(0, 4).map((doc) => (
+              documents.slice(0, 3).map((doc) => (
                 <div className='pic-1' key={doc.id}>
                   {doc.type === 'Video' ? (
                     <motion.video
@@ -168,6 +169,11 @@ const ProfileItem = ({
                   )}
                 </div>
               ))}
+            {documents.length > 0 && (
+              <Link to={`/portfolio/${user?._id}`}>
+                <ArrowForwardIosIcon />
+              </Link>
+            )}
           </div>
         )}
       </div>

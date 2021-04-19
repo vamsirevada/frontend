@@ -5,7 +5,7 @@ import { addComment } from '../../actions/post';
 import plane from '../../images/noun_paper plane_367806 copy.svg';
 import { projectFirestore } from '../../firebase/config';
 
-const CommentForm = ({ auth, user, postId, addComment, comments }) => {
+const CommentForm = ({ auth, user, postId, addComment }) => {
   const [text, setText] = useState('');
 
   const onSubmit = (e) => {

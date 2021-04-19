@@ -33,7 +33,12 @@ const ProjectPosts = ({
         <Fragment>
           <div className='posts'>
             {oprojectposts.map((post) => (
-              <ProjectPostItem profile={profile} key={post._id} post={post} />
+              <ProjectPostItem
+                singleproject={singleproject}
+                profile={profile}
+                key={post._id}
+                post={post}
+              />
             ))}
           </div>
         </Fragment>
@@ -41,7 +46,12 @@ const ProjectPosts = ({
         <Fragment>
           <div className='posts'>
             {projectposts.map((post) => (
-              <ProjectPostItem profile={profile} key={post._id} post={post} />
+              <ProjectPostItem
+                singleproject={singleproject}
+                profile={profile}
+                key={post._id}
+                post={post}
+              />
             ))}
           </div>
         </Fragment>
@@ -49,11 +59,6 @@ const ProjectPosts = ({
     </>
   );
 };
-
-// ProjectPosts.propTypes = {
-//   post: PropTypes.object.isRequired,
-//   profile: PropTypes.object.isRequired,
-// };
 
 const mapStateToProps = (state) => ({
   projectpost: state.projectpost,

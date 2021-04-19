@@ -11,11 +11,11 @@ import 'react-circular-progressbar/dist/styles.css';
 const _gettype = (type) => {
   // selected.type.split('/')[0]
   if (type === 'image') {
-    return 'photo';
+    return 'Picture';
   } else if (type === 'audio') {
-    return 'audio';
+    return 'Audio';
   } else if (type === 'video') {
-    return 'video';
+    return 'Video';
   } else {
     return 'default';
   }
@@ -49,16 +49,33 @@ const ProjectPostForm = ({ addProjectPost, setAlert, singleproject }) => {
         console.log(err);
       },
       async () => {
-        const url = await storageRef.getDownloadURL();
-        setUrl(`${url}`);
+        await storageRef.getDownloadURL().then((x) => {
+          setUrl(`${x}`);
+        });
       }
     );
   };
 
   const _onupload = (e) => {
     e.preventDefault();
+    const index = text.indexOf('http');
+    const newText = text.slice(0, index);
+    const newLink = text.slice(index, text.length);
     if (url !== null) {
-      addProjectPost(singleproject._id, { text: text, url, type: filetype });
+      addProjectPost(singleproject._id, {
+        text: index >= 0 ? newText : text,
+        url,
+        link: index >= 0 ? newLink : null,
+        type: filetype,
+      });
+      setText('');
+      setShow(false);
+    } else if (index >= 0) {
+      addProjectPost(singleproject._id, {
+        text: newText,
+        link: newLink,
+        type: 'Blog',
+      });
       setText('');
       setShow(false);
     } else {
@@ -87,16 +104,16 @@ const ProjectPostForm = ({ addProjectPost, setAlert, singleproject }) => {
         />
       </div>
 
-      {!show && (
+      {show ? (
+        <div style={{ width: 50, height: 50, margin: 'auto' }}>
+          <CircularProgressbar value={progress} text={`${progress}%`} />
+        </div>
+      ) : (
         <div className='attach'>
           <img onClick={onOpenFileDialog} src={attach} alt='attach' />
         </div>
       )}
-      {show && (
-        <div style={{ width: 50, height: 50, margin: 'auto' }}>
-          <CircularProgressbar value={progress} text={`${progress}%`} />
-        </div>
-      )}
+
       <div>
         <button type='submit' className='btn-blue' value='Post'>
           Post{' '}
@@ -109,9 +126,5 @@ const ProjectPostForm = ({ addProjectPost, setAlert, singleproject }) => {
 ProjectPostForm.propTypes = {
   addProjectPost: PropTypes.func.isRequired,
 };
-
-// const mapStateToProps = (state) => ({
-//   project: state.project,
-// });
 
 export default connect(null, { addProjectPost, setAlert })(ProjectPostForm);

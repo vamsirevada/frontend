@@ -161,7 +161,7 @@
   width: 100%;
   display: grid;
   grid-template-columns: 30% 70%;
-  grid-gap: 1rem;
+  grid-gap: 5rem;
   align-items: center;
   background-color: #f9f6f2;
   border-radius: 10px;
@@ -374,10 +374,9 @@
 
 .connect-main .connect-right {
   display: grid;
-  /* width: 100%; */
   grid-template-columns: repeat(4, 200px);
   align-items: center;
-  grid-gap: 0.5rem;
+  grid-gap: 1rem;
   position: relative;
 }
 

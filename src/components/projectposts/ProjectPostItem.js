@@ -19,10 +19,12 @@ import CommentItem from '../posts/CommentItem';
 import logo from '../../images/dummyimage.jpg';
 import PostType from '../posts/PostType';
 import { projectFirestore } from '../../firebase/config';
+import ReactPlayer from 'react-player';
 
 const ProjectPostItem = ({
   profile: { profile },
   auth,
+  singleproject,
   post: {
     _id,
     text,
@@ -33,8 +35,10 @@ const ProjectPostItem = ({
     comments,
     date,
     user,
+    project,
     type,
     url,
+    link,
   },
   addProjectLike,
   removeProjectLike,
@@ -47,7 +51,6 @@ const ProjectPostItem = ({
   const [displayDot, toogleDot] = useState(false);
   const [displayLbtn, toogleLbtn] = useState(xyz);
   const [displayAddCmt, toogleAddCmt] = useState(false);
-  const [displayComment, toogleComment] = useState(false);
 
   const onLike = (e) => {
     e.preventDefault();
@@ -131,156 +134,150 @@ const ProjectPostItem = ({
           </Fragment>
         )}
       </div>
-
-      {PostType(type) !== 'default' && (
-        <div style={{ marginBottom: 10 }} className='post-description'>
-          {PostType(type) === 'blog' ? (
-            <div style={{ marginBottom: 10 }} className='post-blog'>
-              <a> {text}</a>
-              <br />
-              <a href={url} target='_blank'>
-                {url}
-              </a>
-            </div>
-          ) : (
-            <div className='post-description'>
-              <p>{text}</p>
-            </div>
-          )}
-        </div>
-      )}
       {PostType(type) === 'default' && (
         <div style={{ marginBottom: 10 }} className='post-description'>
           <p>{text}</p>
         </div>
       )}
-      {PostType(type) === 'photo' && (
-        <img
-          style={{ objectFit: 'contain' }}
-          className='post-pic'
-          src={url}
-          alt=''
-        />
-      )}
-
-      {PostType(type) === 'video' && (
-        <video
-          style={{
-            objectFit: 'cover',
-            borderRadius: 20,
-            width: '100%',
-            height: '350px',
-            background: 'transparent',
-          }}
-          controls
-          src={url}
-        />
-      )}
-      {PostType(type) === 'audio' && (
-        <audio className='post-audio' controls src={url} />
-      )}
-
-      {PostType(type) !== 'default' ? (
-        <div className='flex-des'>
-          <div className='pic-des-1'>
-            <div onClick={(e) => onLike(e)}>
-              {displayLbtn ? (
-                <Fragment>
-                  <div onClick={unlike}>
-                    <img className='r-1' src={yheart} alt='' />
-                    <span className='d-1'>Apperciated</span>
-                  </div>
-                </Fragment>
-              ) : (
-                <Fragment>
-                  <div onClick={like}>
-                    <img className='r-1' src={heart} alt='' />
-                    <span className='d-1'>Apperciate</span>
-                  </div>
-                </Fragment>
-              )}
-            </div>
-            <div onClick={() => toogleAddCmt(!displayAddCmt)}>
-              <img className='r-1' src={com} alt='' />
-              <span className='d-1'>Comment</span>
-            </div>
-          </div>
-          <div className='des-right'>
-            <a className='d-1'>
-              <span className='f-1'>{likes.length > 0 && likes.length}</span>{' '}
-              Likes
-            </a>
-            <Link
-              to={`/posts/${_id}`}
-              onClick={() => {
-                toogleComment(!displayComment);
-                toogleAddCmt(!displayAddCmt);
-              }}
-              className='d-1'
+      {PostType(type) === 'Picture' && (
+        <>
+          <p style={{ marginBottom: 10 }} className='post-description'>
+            {text}
+          </p>
+          {link && (
+            <a
+              className='blog-url'
+              target='_blank'
+              href={link}
+              style={{ marginBottom: 10 }}
             >
-              <span className='f-1'>
-                {comments.length > 0 && comments.length}
-              </span>{' '}
-              Comment
-            </Link>
-          </div>
-        </div>
-      ) : (
-        <div className='flex-des'>
-          <div className='pic-des-1'>
-            <div onClick={(e) => onLike(e)}>
-              {displayLbtn ? (
-                <Fragment>
-                  <div onClick={unlike}>
-                    <img className='r-1' src={yheart} alt='' />
-                    <span className='d-1'>Apperciated</span>
-                  </div>
-                </Fragment>
-              ) : (
-                <Fragment>
-                  <div onClick={like}>
-                    <img className='r-1' src={heart} alt='' />
-                    <span className='d-1'>Apperciate</span>
-                  </div>
-                </Fragment>
-              )}
-            </div>
-            <div onClick={() => toogleAddCmt(!displayAddCmt)}>
-              <img className='r-1' src={com} alt='' />
-              <span className='d-1'>Comment</span>
-            </div>
-          </div>
-          <div className='des-right'>
-            <a className='d-1'>
-              <span className='f-1'>{likes.length > 0 && likes.length}</span>{' '}
-              Appreciations
+              {link}
             </a>
-            <Link
-              to={`/posts/${_id}`}
-              onClick={() => {
-                toogleComment(!displayComment);
-                toogleAddCmt(!displayAddCmt);
-              }}
-              className='d-1'
-            >
-              <span className='f-1'>
-                {comments.length > 0 && comments.length}
-              </span>{' '}
-              Comment
-            </Link>
-          </div>
-        </div>
+          )}
+          <img
+            style={{ objectFit: 'contain' }}
+            className='post-pic'
+            src={url}
+            alt=''
+          />
+        </>
       )}
-      {displayComment && (
-        <div className='comments'>
-          {comments.map((comment) => (
-            <CommentItem
-              profile={profile}
-              key={comment._id}
-              comment={comment}
-              postId={_id}
+      {PostType(type) === 'Video' && (
+        <>
+          <p style={{ marginBottom: 10 }} className='post-description'>
+            {text}
+          </p>
+          {link && (
+            <a
+              className='blog-url'
+              target='_blank'
+              href={link}
+              style={{ marginBottom: 10 }}
+            >
+              {link}
+            </a>
+          )}
+          <div className='post-video'>
+            <ReactPlayer
+              className='post-video'
+              controls
+              controlsList='nodownload'
+              url={url}
             />
+          </div>
+        </>
+      )}
+      {PostType(type) === 'Audio' && (
+        <>
+          <p style={{ marginBottom: 10 }} className='post-description'>
+            {text}
+          </p>
+          {link && (
+            <a
+              className='blog-url'
+              target='_blank'
+              href={link}
+              style={{ marginBottom: 10 }}
+            >
+              {link}
+            </a>
+          )}
+          <audio
+            controls
+            controlsList='nodownload'
+            className='post-audio'
+            src={url}
+          ></audio>
+        </>
+      )}
+      {PostType(type) === 'Blog' && (
+        <>
+          <p className='post-description' style={{ marginBottom: 10 }}>
+            {text}
+          </p>
+          <a
+            className='blog-url'
+            target='_blank'
+            href={link}
+            style={{ marginBottom: 10 }}
+          >
+            {link}
+          </a>
+        </>
+      )}
+
+      <div className='flex-des'>
+        <div className='pic-des-1'>
+          <div onClick={(e) => onLike(e)}>
+            {displayLbtn ? (
+              <Fragment>
+                <div onClick={unlike}>
+                  <img className='r-1' src={yheart} alt='' />
+                  <span className='d-1'>Apperciated</span>
+                </div>
+              </Fragment>
+            ) : (
+              <Fragment>
+                <div onClick={like}>
+                  <img className='r-1' src={heart} alt='' />
+                  <span className='d-1'>Apperciate</span>
+                </div>
+              </Fragment>
+            )}
+          </div>
+          <div onClick={() => toogleAddCmt(!displayAddCmt)}>
+            <img className='r-1' src={com} alt='' />
+            <span className='d-1'>Comment</span>
+          </div>
+        </div>
+        <div className='des-right'>
+          <a className='d-1'>
+            <span className='f-1'>{likes.length > 0 && likes.length}</span>{' '}
+            Appreciations
+          </a>
+          <a className='d-1'>
+            <span className='f-1'>
+              {comments.length > 0 && comments.length}
+            </span>{' '}
+            Comment
+          </a>
+        </div>
+      </div>
+      {comments.length > 0 && (
+        <div className='comments'>
+          {comments.slice(0, 3).map((comment) => (
+            <CommentItem key={comment._id} comment={comment} postId={_id} />
           ))}
+          {comments.length > 3 && (
+            <div className='load'>
+              <Link
+                to={`/project/${singleproject?._id}/posts/${_id}`}
+                className='loadmore'
+              >
+                Load more
+              </Link>
+            </div>
+          )}
         </div>
       )}
 

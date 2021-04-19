@@ -32,7 +32,6 @@ const PostForm = ({ addPost }) => {
   };
 
   const handleChange = async (e) => {
-    e.preventDefault();
     const file = e.target.files[0];
     const type = _gettype(file.type.split('/')[0]);
     setFileType(type);
@@ -57,18 +56,20 @@ const PostForm = ({ addPost }) => {
 
   const _onupload = (e) => {
     e.preventDefault();
+    const index = text.indexOf('http');
+    const newText = text.slice(0, index);
+    const newLink = text.slice(index, text.length);
     if (url !== null) {
-      const index = text.indexOf('http');
-      const newText = text.slice(0, index);
-      const newLink = text.slice(index, text.length);
-      addPost({ text: newText, url, link: newLink, type: filetype });
+      addPost({
+        text: index >= 0 ? newText : text,
+        url,
+        link: index >= 0 ? newLink : null,
+        type: filetype,
+      });
       setText('');
       setShow(false);
       setFileType(null);
-    } else if (text.includes('http')) {
-      const index = text.indexOf('http');
-      const newText = text.slice(0, index);
-      const newLink = text.slice(index, text.length);
+    } else if (index >= 0) {
       addPost({ text: newText, link: newLink, type: 'Blog' });
       setText('');
       setShow(false);
