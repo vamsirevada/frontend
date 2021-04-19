@@ -17,7 +17,8 @@ import noteimg from '../../images/icons/summarize-24px.svg';
 import poster from '../../images/play.jpg';
 import PostType from './PostType';
 import { projectFirestore } from '../../firebase/config';
-import NotePostPopUp from '../posts/NotePostPopUp';
+import NotePostPopUp from './NotePostPopUp';
+import LikesPopup from './LikesPopup';
 
 const WelcomePostItem = ({
   auth,
@@ -51,10 +52,13 @@ const WelcomePostItem = ({
   const rei = postnoted.find((num) => num === true);
 
   const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
   const [displayDot, toogleDot] = useState(false);
   const [displayLbtn, toogleLbtn] = useState(xyz);
   const [displayNbtn, toogleNbtn] = useState(rei);
   const [displayAddCmt, toogleAddCmt] = useState(false);
+
+  console.log(likes);
 
   const onLike = (e) => {
     e.preventDefault();
@@ -62,7 +66,6 @@ const WelcomePostItem = ({
   };
 
   const note = () => {
-    // notePost(_id, formData);
     toogleNbtn(!displayNbtn);
   };
   const unnote = () => {
@@ -102,6 +105,10 @@ const WelcomePostItem = ({
     setShow(false);
   };
 
+  const hide = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       <NotePostPopUp
@@ -118,6 +125,7 @@ const WelcomePostItem = ({
         url={url}
         note={note}
       />
+      {open && <LikesPopup hide={hide} likes={likes} />}
       <div className='post'>
         <div className='post-heading'>
           <div className='flex'>
@@ -303,16 +311,21 @@ const WelcomePostItem = ({
             </div>
           </div>
           <div className='des-right'>
-            <a className='d-1'>
-              <span className='f-1'>{likes.length > 0 && likes.length}</span>{' '}
-              Appreciations
-            </a>
-            <a className='d-1'>
-              <span className='f-1'>
-                {comments.length > 0 && comments.length}
-              </span>{' '}
-              Comment
-            </a>
+            {likes.length > 0 && (
+              <a
+                onClick={() => {
+                  setOpen(true);
+                }}
+                className='d-1'
+              >
+                <span className='f-1'>{likes.length}</span> Appreciations
+              </a>
+            )}
+            {comments.length > 0 && (
+              <a className='d-1'>
+                <span className='f-1'>{comments.length}</span> Comment
+              </a>
+            )}
           </div>
         </div>
         {comments.length > 0 && (

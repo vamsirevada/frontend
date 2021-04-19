@@ -17,9 +17,9 @@ import logo from '../../images/dummyimage.jpg';
 import noteimg from '../../images/icons/summarize-24px.svg';
 import PostType from './PostType';
 import { projectFirestore } from '../../firebase/config';
-import NotePostPopUp from '../posts/NotePostPopUp';
+import NotePostPopUp from './NotePostPopUp';
 import ReactPlayer from 'react-player';
-import poster from '../../images/poster.png';
+import LikesPopup from './LikesPopup';
 
 const PostItem = ({
   auth,
@@ -52,6 +52,7 @@ const PostItem = ({
   const rei = postnoted.find((num) => num === true);
 
   const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
   const [displayDot, toogleDot] = useState(false);
   const [displayLbtn, toogleLbtn] = useState(xyz);
   const [displayNbtn, toogleNbtn] = useState(rei);
@@ -63,7 +64,6 @@ const PostItem = ({
   };
 
   const note = () => {
-    // notePost(_id, formData);
     toogleNbtn(!displayNbtn);
   };
   const unnote = () => {
@@ -103,6 +103,10 @@ const PostItem = ({
     setShow(false);
   };
 
+  const hide = () => {
+    setOpen(false);
+  };
+
   return (
     <>
       <NotePostPopUp
@@ -119,6 +123,7 @@ const PostItem = ({
         url={url}
         note={note}
       />
+      {open && <LikesPopup hide={hide} likes={likes} />}
       <div className='post'>
         <div className='post-heading'>
           <div className='flex'>
@@ -308,16 +313,21 @@ const PostItem = ({
             </div>
           </div>
           <div className='des-right'>
-            <a className='d-1'>
-              <span className='f-1'>{likes.length > 0 && likes.length}</span>{' '}
-              Appreciations
-            </a>
-            <a className='d-1'>
-              <span className='f-1'>
-                {comments.length > 0 && comments.length}
-              </span>{' '}
-              Comment
-            </a>
+            {likes.length > 0 && (
+              <a
+                onClick={() => {
+                  setOpen(true);
+                }}
+                className='d-1'
+              >
+                <span className='f-1'>{likes.length}</span> Appreciations
+              </a>
+            )}
+            {comments.length > 0 && (
+              <a className='d-1'>
+                <span className='f-1'>{comments.length}</span> Comment
+              </a>
+            )}
           </div>
         </div>
         {comments.length > 0 && (
