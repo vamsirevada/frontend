@@ -8,7 +8,7 @@ import { getProjects } from '../../actions/project';
 import { getBuddiesById } from '../../actions/profile';
 import Loader from '../layout/Loader';
 import briefcase from '../../images/icons/nounBriefcase.svg';
-import mail from '../../images/chat.svg';
+import mail from '../../images/mail.svg';
 import nounEducation from '../../images/icons/noun_education_2177318.svg';
 import nounSkill from '../../images/icons/noun_skill_1863702.svg';
 import nounevent from '../../images/icons/noun_event_1828492.svg';
@@ -589,7 +589,7 @@ const Portfolio1 = ({
                               <Fragment>
                                 {buddies.length === 0 ? (
                                   <Fragment>
-                                    <h2> None</h2>
+                                    <h2 className='none'> None</h2>
                                   </Fragment>
                                 ) : (
                                   <Fragment>

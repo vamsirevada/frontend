@@ -38,7 +38,7 @@ const Friends = ({ getBuddies, profile: { buddies } }) => {
           <Fragment>
             {buddies.empty ? (
               <Fragment>
-                <h2> None </h2>
+                <h2 className='none'> None </h2>
               </Fragment>
             ) : (
               <Fragment>

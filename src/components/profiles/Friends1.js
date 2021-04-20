@@ -93,7 +93,7 @@ const Friends1 = ({
           </div>
           <hr className='hori' />
           {buddies.length === 0 ? (
-            <h2> None </h2>
+            <h2 className='none'> None </h2>
           ) : (
             <Fragment>
               {buddies.map((item) => (

@@ -194,10 +194,10 @@ h3 {
 }
 
 #left-sidebar .left-container {
-  width: 75%;
+  width: 80%;
   margin: auto;
   position: relative;
-  top: -100%;
+  /* top: -100%; */
   padding-bottom: 5rem;
 }
 

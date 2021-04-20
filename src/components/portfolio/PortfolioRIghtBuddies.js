@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../images/dummyimage.jpg';
-import mail from '../../images/chat.svg';
+import mail from '../../images/mail.svg';
 import UseFireStore from '../addportfolio/UseFireStore';
 import { motion } from 'framer-motion';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
