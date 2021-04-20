@@ -5,17 +5,16 @@ import UseFireStore from '../addportfolio/UseFireStore';
 import { motion } from 'framer-motion';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Tooltip from '@material-ui/core/Tooltip';
+import CRequest from '../profiles/CRequest';
 
-const PortfolioRightBuddies = ({
-  item: { _id, avatar, user, status, location, buddies },
-}) => {
+const PortfolioRightBuddies = ({ item }) => {
   const { docs } = UseFireStore('images');
 
   const documents =
     docs &&
     docs.filter(
       (doc) =>
-        doc?.userId === user?._id &&
+        doc?.userId === item?.user?._id &&
         doc?.type !== 'Audio' &&
         doc?.type !== 'Blog'
     );
@@ -28,7 +27,7 @@ const PortfolioRightBuddies = ({
             <div
               style={{
                 background: `url(${
-                  avatar ? avatar : logo
+                  item?.avatar ? item?.avatar : logo
                 }) no-repeat center center/cover`,
               }}
               className='display-pic'
@@ -36,15 +35,16 @@ const PortfolioRightBuddies = ({
             <div className='flex-c'>
               <p>
                 <span className='bold'>
-                  {user?.fullName && user?.fullName}
-                  {user?.groupName && user?.groupName}
+                  {item?.user?.fullName && item?.user?.fullName}
+                  {item?.user?.groupName && item?.user?.groupName}
                 </span>{' '}
                 <br />
-                <span className='second-bold'>{status}</span> <br />
-                <span className='second-bold'>{location}</span>
+                <span className='second-bold'>{item?.status}</span> <br />
+                <span className='second-bold'>{item?.location}</span>
                 <br />
                 <span className='third-bold'>
-                  Connections : <span className='f-1'>{buddies.length}</span>
+                  Connections :{' '}
+                  <span className='f-1'>{item?.buddies.length}</span>
                 </span>
               </p>
             </div>
@@ -53,10 +53,11 @@ const PortfolioRightBuddies = ({
           <div className='connect-left-bottom'>
             <div className='btn-b'>
               {' '}
-              <Link to={`/portfolio/${user?._id}`} className='btn-blue'>
+              <Link to={`/portfolio/${item?.user?._id}`} className='btn-blue'>
                 View Portfolio
               </Link>
             </div>
+            <CRequest item={item} />
           </div>
         </div>
         <div className='connect-right'>
@@ -85,7 +86,7 @@ const PortfolioRightBuddies = ({
       </div>
       <div>
         {documents.length > 0 && (
-          <Link to={`/portfolio/${user?._id}`}>
+          <Link to={`/portfolio/${item?.user?._id}`}>
             <Tooltip title='View Portfolio' placement='top'>
               <ArrowForwardIosIcon />
             </Tooltip>

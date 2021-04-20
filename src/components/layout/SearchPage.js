@@ -8,6 +8,8 @@ import searchIcon from '../../images/searchIcon.svg';
 import logo from '../../images/dummyimage.jpg';
 import mail from '../../images/chat.svg';
 import PersonalMessage from '../chat/PersonalMessage';
+import CRequest from '../profiles/CRequest';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const SearchPage = ({ getProfiles }) => {
   const history = useHistory();
@@ -142,19 +144,21 @@ const SearchPage = ({ getProfiles }) => {
                               Portfolio
                             </a>
                           </div>
+                          <CRequest item={val} />
                           <div className='btn-g'>
-                            {' '}
-                            <a
-                              onClick={() => {
-                                setStart(true);
-                                setUserUid(val?.user?._id);
-                                setChatUserName(val?.user?.fullName);
-                                setChatUserImage(val?.avatar);
-                              }}
-                              className='btn-blue g-1'
-                            >
-                              <img src={mail} alt='' />
-                            </a>
+                            <Tooltip title='Chat' placement='top'>
+                              <a
+                                onClick={() => {
+                                  setStart(true);
+                                  setUserUid(val?.user?._id);
+                                  setChatUserName(val?.user?.fullName);
+                                  setChatUserImage(val?.avatar);
+                                }}
+                                className='btn-blue g-1'
+                              >
+                                <img src={mail} alt='' />
+                              </a>
+                            </Tooltip>
                           </div>
                         </div>
                       </div>

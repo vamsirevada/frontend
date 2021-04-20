@@ -1,10 +1,10 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import addConnect from '../../images/noun_Add Friend_2987727 (2) 2.svg';
 import { connect } from 'react-redux';
 import { sendBuddyRequest } from '../../actions/profile';
 import { projectFirestore } from '../../firebase/config';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const CRequest = ({
   profile: { profile },
@@ -73,13 +73,13 @@ const CRequest = ({
   };
 
   return (
-    <Fragment>
+    <Tooltip title={btn.text} placement='top'>
       <div className={`btn-white ${btn.text}`}>
         <a disabled={btn.disabled} onClick={() => onClick()}>
           <img className='resize' src={`add${btn.text}`} alt='' />
         </a>
       </div>
-    </Fragment>
+    </Tooltip>
   );
 };
 

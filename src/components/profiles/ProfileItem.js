@@ -1,15 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import add from '../../images/noun_Add Friend_2987727 (2).svg';
 import mail from '../../images/chat.svg';
 import logo from '../../images/dummyimage.jpg';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
-import { sendBuddyRequest } from '../../actions/profile';
 import { motion } from 'framer-motion';
-import { projectFirestore } from '../../firebase/config';
 import PersonalMessage from '../chat/PersonalMessage';
 import NotePeoplePopUp from '../posts/NotePeoplePopUp';
 import noteimg from '../../images/icons/summarize-24px.svg';
@@ -17,14 +13,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Tooltip from '@material-ui/core/Tooltip';
 import CRequest from './CRequest';
 
-const ProfileItem = ({
-  auth,
-  profile: { profile },
-  item,
-  sendBuddyRequest,
-  displayAdd,
-  docs,
-}) => {
+const ProfileItem = ({ item, displayAdd, docs }) => {
   const [start, setStart] = useState(false);
   const [show, setShow] = useState(false);
   const [chatUserName, setChatUserName] = useState('');
@@ -38,23 +27,6 @@ const ProfileItem = ({
   const chatClose = () => {
     setStart(false);
   };
-
-  // const sendRequest = async () => {
-  //   await sendBuddyRequest(_id);
-  //   projectFirestore.collection('notifications').add({
-  //     sender: profile?._id,
-  //     senderName: auth?.user?.userName,
-  //     avatar: auth?.user?.avatar,
-  //     receiver: user?._id,
-  //     type: 'request',
-  //     read: false,
-  //     createdAt: new Date(),
-  //   });
-  // };
-
-  // const onClick = () => {
-  //   sendRequest();
-  // };
 
   const documents =
     docs &&
@@ -125,27 +97,20 @@ const ProfileItem = ({
                 </Link>
               </div>
               <CRequest item={item} />
-
-              {/* <div className='request-state-btn'>
-                <a className='btn-white' onClick={() => onClick()}>
-                  <img className='resize' src={add} alt='' />
-                  hello
-                </a>
-              </div> */}
-
               <div className='btn-g'>
-                {' '}
-                <a
-                  onClick={() => {
-                    setStart(true);
-                    setUserUid(item?.user?._id);
-                    setChatUserName(item?.user?.fullName);
-                    setChatUserImage(item?.avatar);
-                  }}
-                  className='btn-blue g-1'
-                >
-                  <img src={mail} alt='' />
-                </a>
+                <Tooltip title='Chat' placement='top'>
+                  <a
+                    onClick={() => {
+                      setStart(true);
+                      setUserUid(item?.user?._id);
+                      setChatUserName(item?.user?.fullName);
+                      setChatUserImage(item?.avatar);
+                    }}
+                    className='btn-blue g-1'
+                  >
+                    <img src={mail} alt='' />
+                  </a>
+                </Tooltip>
               </div>
             </div>
           </div>
@@ -204,16 +169,6 @@ const ProfileItem = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-  profile: state.profile,
-});
-
-ProfileItem.propTypes = {
-  sendBuddyRequest: PropTypes.func.isRequired,
-};
-
-export default connect(mapStateToProps, {
+export default connect(null, {
   setAlert,
-  sendBuddyRequest,
 })(ProfileItem);

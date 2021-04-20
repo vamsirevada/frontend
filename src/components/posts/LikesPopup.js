@@ -1,7 +1,7 @@
 import React from 'react';
 import nounPlus from '../../images/icons/noun_Plus_2310779.svg';
 import logo from '../../images/dummyimage.jpg';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const LikesPopup = ({ hide, likes }) => {
   return (
