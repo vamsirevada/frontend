@@ -580,7 +580,7 @@ const Portfolio = ({
                             <Fragment>
                               {buddies.length === 0 ? (
                                 <Fragment>
-                                  <h2> You have no buddies </h2>
+                                  <h2> None </h2>
                                 </Fragment>
                               ) : (
                                 <Fragment>

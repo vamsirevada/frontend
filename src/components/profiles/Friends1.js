@@ -100,7 +100,7 @@ const Friends1 = ({
             <Fragment>
               {buddies.empty ? (
                 <Fragment>
-                  <h2> You have no buddies </h2>
+                  <h2> None </h2>
                 </Fragment>
               ) : (
                 <Fragment>

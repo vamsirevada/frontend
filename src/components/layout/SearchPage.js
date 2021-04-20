@@ -6,7 +6,7 @@ import { getProfiles } from '../../actions/profile';
 import { connect } from 'react-redux';
 import searchIcon from '../../images/searchIcon.svg';
 import logo from '../../images/dummyimage.jpg';
-import mail from '../../images/chat.svg';
+import mail from '../../images/mail.svg';
 import PersonalMessage from '../chat/PersonalMessage';
 import CRequest from '../profiles/CRequest';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -156,7 +156,7 @@ const SearchPage = ({ getProfiles }) => {
                                 }}
                                 className='btn-blue g-1'
                               >
-                                <img src={mail} alt='' />
+                                <img className='g-1' src={mail} alt='' />
                               </a>
                             </Tooltip>
                           </div>

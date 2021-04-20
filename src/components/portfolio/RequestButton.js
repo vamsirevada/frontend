@@ -74,12 +74,8 @@ const RequestButton = ({
 
   return (
     <Fragment>
-      <div>
-        <a
-          className={`btn-white ${btn.text}`}
-          disabled={btn.disabled}
-          onClick={() => onClick()}
-        >
+      <div className={`btn-req-white ${btn.text}`}>
+        <a disabled={btn.disabled} onClick={() => onClick()}>
           <img className='resize' src={add} alt='' />
           {btn.text}
         </a>

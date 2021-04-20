@@ -92,6 +92,95 @@ h4 {
   padding: 0.5rem 1.5rem;
   border-radius: 10px;
 }
+/* =--------------------------------------Request button------------------------------------------------------------ */
+
+.btn-req-white.Friend {
+  font-family: 'Raleway', sans-serif;
+  cursor: pointer;
+  display: inline-block;
+  background-color: #fad300;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 10px;
+  width: inherit;
+  height: 35px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.btn-req-white.Friend a,
+.btn-req-white.Connect a,
+.btn-req-white.Requested a {
+  font-size: 14px;
+}
+
+.btn-req-white.Friend .resize,
+.btn-req-white.Requested .resize,
+.btn-req-white.Connect .resize {
+  display: inline-block;
+  width: 22%;
+  margin-right: 0.4rem;
+  vertical-align: text-top;
+}
+
+.btn-req-white.Requested {
+  font-family: 'Raleway', sans-serif;
+  cursor: pointer;
+  display: inline-block;
+  background-color: #ff9391;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 10px;
+  width: inherit;
+  height: 35px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.btn-req-white.Connect {
+  font-family: 'Raleway', sans-serif;
+  cursor: pointer;
+  display: inline-block;
+  background-color: #939393;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 10px;
+  width: inherit;
+  height: 35px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.btn-req-white.Connect a,
+.btn-req-white.Requested a {
+  color: #fff;
+}
+
+.btn-req-white.Connect .resize {
+  filter: invert(86%) sepia(99%) saturate(5%) hue-rotate(44deg) brightness(107%)
+    contrast(100%);
+  display: inline-block;
+  width: 20%;
+  margin-right: 0.4rem;
+  vertical-align: text-top;
+}
+
+.btn-req-white.Requested .resize {
+  filter: invert(86%) sepia(99%) saturate(5%) hue-rotate(44deg) brightness(107%)
+    contrast(100%);
+  display: inline-block;
+  width: 16%;
+  margin-right: 0.4rem;
+  vertical-align: text-top;
+}
+
+/* ------------------------------------Mini Request buttons--------------------------------- */
 
 .btn-white.Requested {
   font-family: 'Raleway', sans-serif;
