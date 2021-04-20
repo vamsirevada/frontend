@@ -2646,6 +2646,34 @@ input.search-btn:focus {
   font-size: 1rem;
 }
 
+#single-post {
+  position: relative;
+  top: 72px;
+}
+
+#single-post .singlepost-container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-top: 2rem;
+}
+
+#single-post .singlepost-container .left {
+  position: absolute;
+  left: 10%;
+}
+
+#single-post .center {
+  margin: auto;
+}
+
+#single-post .center .post {
+  min-width: 50vw;
+}
+
+/* ----------------------------------------------------------------------------------------------------------------- */
+/* Responsive Css Starts Here */
+
 @media (max-width: 1280px) {
   #page-1 .flex-content {
     width: 100%;
@@ -2841,6 +2869,10 @@ input.search-btn:focus {
 }
 
 @media (max-width: 768px) {
+  #single-post .singlepost-container .left {
+    position: absolute;
+    left: 3%;
+  }
   .feed .right-hide {
     display: none;
   }
@@ -3412,6 +3444,14 @@ input.search-btn:focus {
 }
 /* iphone6.7.8 potrait */
 @media (max-width: 420px) {
+  #single-post .center .post {
+    min-width: 90vw;
+  }
+  #single-post .center {
+    position: relative;
+    top: 73px;
+    margin: auto;
+  }
   .memberpopupscreen .memberpopup {
     left: 5% !important;
   }

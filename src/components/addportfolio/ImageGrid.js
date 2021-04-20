@@ -385,7 +385,7 @@ const ImageGrid = ({ auth: { user }, id, profile }) => {
                       <img src={path} className='resize' alt='' />
                     </div>
                     {edit === doc.url && (
-                      <div className='edit-text-box'>
+                      <div className='edit-text-box blog'>
                         <div
                           className='edit-text'
                           onClick={() => {

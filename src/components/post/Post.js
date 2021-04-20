@@ -14,18 +14,20 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
     <Loader />
   ) : (
     <Fragment>
-      <div id='feed'>
-        <div className='left'>
-          <div>
-            <Link to='/feed' className='btn-yellow'>
-              Back
-            </Link>
+      <div id='single-post'>
+        <div className='singlepost-container'>
+          <div className='left'>
+            <div>
+              <Link to='/feed' className='btn-yellow'>
+                Back
+              </Link>
+            </div>
           </div>
-        </div>
-        <div className='center'>
-          <div id='feed-main'>
-            <div className='feed-main-container'>
-              <PostItem params={true} key={post._id} post={post} />
+          <div className='center'>
+            <div id='feed-main'>
+              <div className='feed-main-container'>
+                <PostItem params={true} key={post._id} post={post} />
+              </div>
             </div>
           </div>
         </div>

@@ -15,7 +15,7 @@ import NotePeoplePopUp from '../posts/NotePeoplePopUp';
 import noteimg from '../../images/icons/summarize-24px.svg';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import Tooltip from '@material-ui/core/Tooltip';
-import RequestButton from '../portfolio/RequestButton';
+import CRequest from './CRequest';
 
 const ProfileItem = ({
   auth,
@@ -124,7 +124,7 @@ const ProfileItem = ({
                   Portfolio
                 </Link>
               </div>
-              <RequestButton item={item} />
+              <CRequest item={item} />
 
               {/* <div className='request-state-btn'>
                 <a className='btn-white' onClick={() => onClick()}>
