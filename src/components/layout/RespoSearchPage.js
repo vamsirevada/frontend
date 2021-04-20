@@ -8,6 +8,8 @@ import logo from '../../images/dummyimage.jpg';
 import nounPlus from '../../images/noun_Plus_2310779.svg';
 import mail from '../../images/chat.svg';
 import PersonalMessage from '../chat/PersonalMessage';
+import CRequest from '../profiles/CRequest';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const RespoSearchPage = ({ closeRespoBar, getProfiles }) => {
   const history = useHistory();
@@ -95,7 +97,7 @@ const RespoSearchPage = ({ closeRespoBar, getProfiles }) => {
               })
               .map((val, key) => {
                 return (
-                  <div className='connect-main'>
+                  <div key={key} className='connect-main'>
                     <div className='connect-left'>
                       <div className='connect-left-top'>
                         <div
@@ -113,10 +115,7 @@ const RespoSearchPage = ({ closeRespoBar, getProfiles }) => {
                               {val.user.groupName && val.user.groupName}
                             </span>{' '}
                             <br />
-                            <span className='second-bold'>
-                              {/* {user?.userName && user?.userName} */}
-                            </span>{' '}
-                            {/* <br /> */}
+                            <span className='second-bold'></span>
                             <span className='second-bold'>
                               {val.status}
                             </span>{' '}
@@ -143,19 +142,21 @@ const RespoSearchPage = ({ closeRespoBar, getProfiles }) => {
                             Portfolio
                           </a>
                         </div>
+                        <CRequest item={val} />
                         <div className='btn-g'>
-                          {' '}
-                          <a
-                            onClick={() => {
-                              setStart(true);
-                              setUserUid(val?.user?._id);
-                              setChatUserName(val?.user?.fullName);
-                              setChatUserImage(val?.avatar);
-                            }}
-                            className='btn-blue g-1'
-                          >
-                            <img src={mail} alt='' />
-                          </a>
+                          <Tooltip title='Chat' placement='top'>
+                            <a
+                              onClick={() => {
+                                setStart(true);
+                                setUserUid(val?.user?._id);
+                                setChatUserName(val?.user?.fullName);
+                                setChatUserImage(val?.avatar);
+                              }}
+                              className='btn-blue g-1'
+                            >
+                              <img src={mail} alt='' />
+                            </a>
+                          </Tooltip>
                         </div>
                       </div>
                     </div>

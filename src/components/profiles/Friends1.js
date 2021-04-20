@@ -60,7 +60,6 @@ const Friends1 = ({
             </div>
             <div>
               <p>
-                {/* <img className='resize' src={loc} alt='' />{' '} */}
                 <span className='gray'>
                   {' '}
                   {profile1?.location && profile1?.location}
@@ -78,7 +77,6 @@ const Friends1 = ({
               <Link to={`/projectlist/${profile1?.user?._id}`}>
                 <p>
                   <span className='f-1'>
-                    {/* {profile?.experience && profile?.experience.length} */}
                     {projects.length > 0 || profile1?.experience.length > 0
                       ? projects.length + profile1?.experience.length
                       : '0'}
@@ -94,27 +92,19 @@ const Friends1 = ({
             </div>
           </div>
           <hr className='hori' />
-          {buddies.empty === null ? (
-            <Loader />
+          {buddies.length === 0 ? (
+            <h2> None </h2>
           ) : (
             <Fragment>
-              {buddies.empty ? (
-                <Fragment>
-                  <h2> None </h2>
-                </Fragment>
-              ) : (
-                <Fragment>
-                  {buddies.map((item) => (
-                    <Friend
-                      key={item?._id}
-                      item={item}
-                      remove={remove}
-                      displayAdd={true}
-                      docs={docs}
-                    />
-                  ))}
-                </Fragment>
-              )}
+              {buddies.map((item) => (
+                <Friend
+                  key={item?._id}
+                  item={item}
+                  remove={remove}
+                  displayAdd={true}
+                  docs={docs}
+                />
+              ))}
             </Fragment>
           )}
         </div>

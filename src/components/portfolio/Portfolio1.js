@@ -8,6 +8,7 @@ import { getProjects } from '../../actions/project';
 import { getBuddiesById } from '../../actions/profile';
 import Loader from '../layout/Loader';
 import briefcase from '../../images/icons/nounBriefcase.svg';
+import mail from '../../images/chat.svg';
 import nounEducation from '../../images/icons/noun_education_2177318.svg';
 import nounSkill from '../../images/icons/noun_skill_1863702.svg';
 import nounevent from '../../images/icons/noun_event_1828492.svg';
@@ -31,13 +32,15 @@ import ProjectTemp from '../projects/ProjectTemp';
 import ExpTemp from '../projects/ExpTemp';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
+import Tooltip from '@material-ui/core/Tooltip';
+import PersonalMessage from '../chat/PersonalMessage';
 
 const Portfolio1 = ({
   getProfileById,
   getBuddiesById,
   getProjects,
   auth: { user },
-  profile: { profile, profile1, buddies, loading },
+  profile: { profile1, buddies, loading },
   project: { projects },
   match,
 }) => {
@@ -47,6 +50,7 @@ const Portfolio1 = ({
     getBuddiesById(match.params.id);
   }, [getProfileById, getProjects, getBuddiesById, match.params.id]);
 
+  const [start, setStart] = useState(false);
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
   const [displayPortfolio, tooglePortfolio] = useState(true);
@@ -80,6 +84,10 @@ const Portfolio1 = ({
     tooglePortfolio(false);
     toogleBuddies(false);
     toogleProjects(true);
+  };
+
+  const chatClose = () => {
+    setStart(false);
   };
 
   return (
@@ -125,6 +133,19 @@ const Portfolio1 = ({
                                   >
                                     View profile
                                   </Link>
+                                </div>
+
+                                <div className='btn-g'>
+                                  <Tooltip title='Chat' placement='top'>
+                                    <a
+                                      onClick={() => {
+                                        setStart(true);
+                                      }}
+                                      className='btn-blue g-1'
+                                    >
+                                      <img src={mail} alt='' />
+                                    </a>
+                                  </Tooltip>
                                 </div>
                               </div>
                             </Fragment>
@@ -630,6 +651,14 @@ const Portfolio1 = ({
           </Fragment>
         </Fragment>
       )}
+      {start ? (
+        <PersonalMessage
+          userUid={profile1?.user?._id}
+          chatUserName={profile1?.user?.fullName}
+          chatUserImage={profile1?.avatar}
+          chatClose={chatClose}
+        />
+      ) : null}
     </>
   );
 };

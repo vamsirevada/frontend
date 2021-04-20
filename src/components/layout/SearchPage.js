@@ -35,8 +35,6 @@ const SearchPage = ({ getProfiles }) => {
     setStart(false);
   };
 
-  // const { docs } = UseFirestore('images');
-
   return (
     <>
       <div className='search active'>
@@ -162,42 +160,6 @@ const SearchPage = ({ getProfiles }) => {
                           </div>
                         </div>
                       </div>
-                      {/* <div className='connect-right'>
-                      {docs &&
-                        docs
-                          .filter(
-                            (doc) =>
-                              doc?.userId === val?.user?._id &&
-                              doc?.type !== 'Audio' &&
-                              doc?.type !== 'Blog'
-                          )
-                          .slice(0, 4)
-                          .map((doc) => (
-                            <div className='pic-1' key={doc.id}>
-                              {doc.type === 'Video' ? (
-                                <motion.video
-                                  controls
-                                  src={doc.url}
-                                  alt='uploaded pic'
-                                  initial={{
-                                    opacity: 0,
-                                    height: '100%',
-                                    width: '100%',
-                                  }}
-                                  animate={{ opacity: 1 }}
-                                  transition={{ delay: 1 }}
-                                />
-                              ) : (
-                                <motion.img
-                                  src={doc.url}
-                                  height='100%'
-                                  width='100%'
-                                  alt=''
-                                />
-                              )}
-                            </div>
-                          ))}
-                    </div> */}
                     </div>
                   );
                 })}

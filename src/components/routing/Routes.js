@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
 import Portfolio from '../portfolio/Portfolio';
 import Portfolio1 from '../portfolio/Portfolio1';
 import CreateProject from '../project-forms/CreateProject';
@@ -28,13 +27,12 @@ import SingleProject from '../projects/SingleProject';
 import ProjectList from '../projects/ProjectList';
 import SingleNotice from '../projects/SingleNotice';
 import NoticeBoard from '../projects/NoticeBoard';
-// import ChatSideBar from '../chat/ChatSideBar';
 import Loader from '../layout/Loader';
 import WelcomeScreen from '../layout/WelcomeScreen';
 import WelcomeRscreen from '../layout/WelcomeRscreen';
 import Finance from '../Finance/Finance';
 
-const Routes = ({ auth: { user } }) => {
+const Routes = () => {
   return (
     <>
       <Navbar />
@@ -73,13 +71,8 @@ const Routes = ({ auth: { user } }) => {
         <PrivateRoute exact path='/projectlist/:id' component={ProjectList} />
         <PrivateRoute exact path='/projectfinance/:id' component={Finance} />
       </Switch>
-      {/* {user?._id && <ChatSideBar />} */}
     </>
   );
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-});
-
-export default connect(mapStateToProps)(Routes);
+export default Routes;

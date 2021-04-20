@@ -3,8 +3,6 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import mail from '../../images/chat.svg';
 import logo from '../../images/dummyimage.jpg';
-import { connect } from 'react-redux';
-import { setAlert } from '../../actions/alert';
 import { motion } from 'framer-motion';
 import PersonalMessage from '../chat/PersonalMessage';
 import NotePeoplePopUp from '../posts/NotePeoplePopUp';
@@ -16,9 +14,6 @@ import CRequest from './CRequest';
 const ProfileItem = ({ item, displayAdd, docs }) => {
   const [start, setStart] = useState(false);
   const [show, setShow] = useState(false);
-  const [chatUserName, setChatUserName] = useState('');
-  const [chatUserImage, setChatUserImage] = useState(logo);
-  const [userUid, setUserUid] = useState(null);
 
   const close = () => {
     setShow(false);
@@ -66,10 +61,7 @@ const ProfileItem = ({ item, displayAdd, docs }) => {
                     {item?.user?.groupName && item?.user?.groupName}
                   </span>{' '}
                   <br />
-                  <span className='second-bold'>
-                    {/* {user?.userName && user?.userName} */}
-                  </span>{' '}
-                  {/* <br /> */}
+                  <span className='second-bold'></span>{' '}
                   <span className='second-bold'>{item?.status}</span> <br />
                   <span className='second-bold'>{item?.location}</span>
                   <br />
@@ -102,9 +94,6 @@ const ProfileItem = ({ item, displayAdd, docs }) => {
                   <a
                     onClick={() => {
                       setStart(true);
-                      setUserUid(item?.user?._id);
-                      setChatUserName(item?.user?.fullName);
-                      setChatUserImage(item?.avatar);
                     }}
                     className='btn-blue g-1'
                   >
@@ -159,9 +148,9 @@ const ProfileItem = ({ item, displayAdd, docs }) => {
 
       {start ? (
         <PersonalMessage
-          userUid={userUid}
-          chatUserName={chatUserName}
-          chatUserImage={chatUserImage}
+          userUid={item?.user?._id}
+          chatUserName={item?.user?.fullName}
+          chatUserImage={item?.avatar}
           chatClose={chatClose}
         />
       ) : null}
@@ -169,6 +158,4 @@ const ProfileItem = ({ item, displayAdd, docs }) => {
   );
 };
 
-export default connect(null, {
-  setAlert,
-})(ProfileItem);
+export default ProfileItem;
