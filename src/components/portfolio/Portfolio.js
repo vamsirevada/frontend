@@ -580,7 +580,7 @@ const Portfolio = ({
                             <Fragment>
                               {buddies.length === 0 ? (
                                 <Fragment>
-                                  <h2> None </h2>
+                                  <h2 className='none'> None </h2>
                                 </Fragment>
                               ) : (
                                 <Fragment>

@@ -134,22 +134,22 @@ const Portfolio1 = ({
                                     View profile
                                   </Link>
                                 </div>
+                                <div className='btn-g'>
+                                  <Tooltip title='Chat' placement='top'>
+                                    <a
+                                      onClick={() => {
+                                        setStart(true);
+                                      }}
+                                      className='btn-blue g-1'
+                                    >
+                                      <img src={mail} alt='' />
+                                    </a>
+                                  </Tooltip>
+                                </div>
                               </div>
                             </Fragment>
                           )}
-                          <div className='btn-g'>
-                            <Tooltip title='Chat' placement='top'>
-                              <a
-                                onClick={() => {
-                                  setStart(true);
-                                }}
-                                className='btn-blue g-1'
-                              >
-                                <img src={mail} alt='' />
-                                Message
-                              </a>
-                            </Tooltip>
-                          </div>
+
                           <PortfolioLeftAbout
                             key={profile1._id}
                             profile={profile1}

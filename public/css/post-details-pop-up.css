@@ -449,11 +449,13 @@ a:hover {
   background-color: #a7d572;
   border-radius: 10px;
   margin-top: 0px;
+  height: 35px;
 }
 
 .btn-blue.g-1 img {
   display: inline-block;
   width: 114%;
+  margin-right: 0.1rem;
 }
 
 /* flex-form */

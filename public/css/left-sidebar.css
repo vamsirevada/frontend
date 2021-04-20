@@ -369,6 +369,7 @@ h3 {
 }
 .left-container .btns .view-button {
   font-size: 14px;
+  height: 35px;
   padding: 0.4rem 0.8rem;
   margin: 0;
   opacity: 1;
