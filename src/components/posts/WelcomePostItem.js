@@ -43,6 +43,7 @@ const WelcomePostItem = ({
   deletePost,
   notePost,
   unnotePost,
+  params,
 }) => {
   const abc = likes.map((like) => like.user === auth?.user?._id);
   const xyz = abc.find((num) => num === true);
@@ -57,8 +58,6 @@ const WelcomePostItem = ({
   const [displayLbtn, toogleLbtn] = useState(xyz);
   const [displayNbtn, toogleNbtn] = useState(rei);
   const [displayAddCmt, toogleAddCmt] = useState(false);
-
-  console.log(likes);
 
   const onLike = (e) => {
     e.preventDefault();
@@ -329,9 +328,19 @@ const WelcomePostItem = ({
           </div>
         </div>
         {comments.length > 0 && (
-          <div>
-            <Fragment>
-              <div className='comments'>
+          <div className='comments'>
+            {params ? (
+              <>
+                {comments.map((comment) => (
+                  <CommentItem
+                    key={comment._id}
+                    comment={comment}
+                    postId={_id}
+                  />
+                ))}
+              </>
+            ) : (
+              <>
                 {comments.slice(0, 3).map((comment) => (
                   <CommentItem
                     key={comment._id}
@@ -346,19 +355,14 @@ const WelcomePostItem = ({
                     </Link>
                   </div>
                 )}
-              </div>
-            </Fragment>
+              </>
+            )}
           </div>
         )}
 
         {displayAddCmt && (
           <div>
-            <CommentForm
-              auth={auth}
-              user={user}
-              postId={_id}
-              comments={comments}
-            />
+            <CommentForm auth={auth} user={user} postId={_id} />
           </div>
         )}
       </div>

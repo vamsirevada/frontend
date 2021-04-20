@@ -24,8 +24,9 @@ const PostForm = ({ addPost }) => {
   const [progress, setProgress] = useState(0);
   const [show, setShow] = useState(false);
   const fileInput = React.createRef();
-  const [url, setUrl] = useState(null);
-  const [filetype, setFileType] = useState(null);
+  console.log(fileInput.value);
+  const [url, setUrl] = useState('');
+  const [filetype, setFileType] = useState('');
 
   const onOpenFileDialog = () => {
     fileInput.current.click();
@@ -68,7 +69,6 @@ const PostForm = ({ addPost }) => {
       });
       setText('');
       setShow(false);
-      setFileType(null);
     } else if (index >= 0) {
       addPost({ text: newText, link: newLink, type: 'Blog' });
       setText('');
@@ -85,6 +85,7 @@ const PostForm = ({ addPost }) => {
       <input
         accept='audio/*,video/*,image/*'
         onChange={handleChange}
+        onClick={(e) => (e.target.value = null)}
         type='file'
         hidden={true}
         ref={fileInput}

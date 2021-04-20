@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import add from '../../images/noun_Add Friend_2987727 (2).svg';
@@ -14,11 +14,13 @@ import PersonalMessage from '../chat/PersonalMessage';
 import NotePeoplePopUp from '../posts/NotePeoplePopUp';
 import noteimg from '../../images/icons/summarize-24px.svg';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import Tooltip from '@material-ui/core/Tooltip';
+import RequestButton from '../portfolio/RequestButton';
 
 const ProfileItem = ({
   auth,
   profile: { profile },
-  item: { _id, user, avatar, status, location, buddies },
+  item,
   sendBuddyRequest,
   displayAdd,
   docs,
@@ -37,28 +39,28 @@ const ProfileItem = ({
     setStart(false);
   };
 
-  const sendRequest = async () => {
-    await sendBuddyRequest(_id);
-    projectFirestore.collection('notifications').add({
-      sender: profile?._id,
-      senderName: auth?.user?.userName,
-      avatar: auth?.user?.avatar,
-      receiver: user?._id,
-      type: 'request',
-      read: false,
-      createdAt: new Date(),
-    });
-  };
+  // const sendRequest = async () => {
+  //   await sendBuddyRequest(_id);
+  //   projectFirestore.collection('notifications').add({
+  //     sender: profile?._id,
+  //     senderName: auth?.user?.userName,
+  //     avatar: auth?.user?.avatar,
+  //     receiver: user?._id,
+  //     type: 'request',
+  //     read: false,
+  //     createdAt: new Date(),
+  //   });
+  // };
 
-  const onClick = () => {
-    sendRequest();
-  };
+  // const onClick = () => {
+  //   sendRequest();
+  // };
 
   const documents =
     docs &&
     docs.filter(
       (doc) =>
-        doc?.userId === user?._id &&
+        doc?.userId === item?.user?._id &&
         doc?.type !== 'Audio' &&
         doc?.type !== 'Blog'
     );
@@ -68,115 +70,128 @@ const ProfileItem = ({
       <NotePeoplePopUp
         show={show}
         close={close}
-        id={_id}
-        avatar={avatar}
-        status={status}
-        user={user}
+        id={item?._id}
+        avatar={item?.avatar}
+        status={item?.status}
+        user={item?.user}
       />
-      <div className='connect-main'>
-        <div className='connect-left'>
-          <div className='connect-left-top'>
-            <div
-              style={{
-                background: `url(${
-                  avatar ? avatar : logo
-                }) no-repeat center center/cover`,
-              }}
-              className='display-pic'
-            ></div>
-            <div className='flex-c'>
-              <p>
-                <span className='bold'>
-                  {user?.fullName && user?.fullName}
-                  {user?.groupName && user?.groupName}
-                </span>{' '}
-                <br />
-                <span className='second-bold'>
-                  {/* {user?.userName && user?.userName} */}
-                </span>{' '}
-                {/* <br /> */}
-                <span className='second-bold'>{status}</span> <br />
-                <span className='second-bold'>{location}</span>
-                <br />
-                <span className='third-bold'>
-                  Connections : <span className='f-1'>{buddies.length}</span>
-                </span>
-              </p>
-            </div>
-            <div className='note'>
-              {' '}
-              <a href='#!' onClick={() => setShow(true)}>
-                <img src={noteimg} alt='' />
-              </a>
-            </div>
-          </div>
-
-          <div className='connect-left-bottom'>
-            <div className='btn-b'>
-              {' '}
-              <Link to={`/portfolio/${user?._id}`} className='btn-blue'>
-                Portfolio
-              </Link>
-            </div>
-            <div className='btn-b'>
-              {' '}
-              <a className='btn-blue' onClick={() => onClick()}>
-                <img src={add} alt='' />
-              </a>
-            </div>
-            <div className='btn-g'>
-              {' '}
-              <a
-                onClick={() => {
-                  setStart(true);
-                  setUserUid(user?._id);
-                  setChatUserName(user?.fullName);
-                  setChatUserImage(avatar);
+      <div className='connect-container'>
+        <div className='connect-main'>
+          <div className='connect-left'>
+            <div className='connect-left-top'>
+              <div
+                style={{
+                  background: `url(${
+                    item?.avatar ? item?.avatar : logo
+                  }) no-repeat center center/cover`,
                 }}
-                className='btn-blue g-1'
-              >
-                <img src={mail} alt='' />
-              </a>
+                className='display-pic'
+              ></div>
+              <div className='flex-c'>
+                <p>
+                  <span className='bold'>
+                    {item?.user?.fullName && item?.user?.fullName}
+                    {item?.user?.groupName && item?.user?.groupName}
+                  </span>{' '}
+                  <br />
+                  <span className='second-bold'>
+                    {/* {user?.userName && user?.userName} */}
+                  </span>{' '}
+                  {/* <br /> */}
+                  <span className='second-bold'>{item?.status}</span> <br />
+                  <span className='second-bold'>{item?.location}</span>
+                  <br />
+                  <span className='third-bold'>
+                    Connections :{' '}
+                    <span className='f-1'>{item?.buddies.length}</span>
+                  </span>
+                </p>
+              </div>
+              <div className='note'>
+                {' '}
+                <a href='#!' onClick={() => setShow(true)}>
+                  <Tooltip title='Note Profile' placement='top'>
+                    <img src={noteimg} alt='' />
+                  </Tooltip>
+                </a>
+              </div>
+            </div>
+
+            <div className='connect-left-bottom'>
+              <div className='btn-b'>
+                {' '}
+                <Link to={`/portfolio/${item?.user?._id}`} className='btn-blue'>
+                  Portfolio
+                </Link>
+              </div>
+              <RequestButton item={item} />
+
+              {/* <div className='request-state-btn'>
+                <a className='btn-white' onClick={() => onClick()}>
+                  <img className='resize' src={add} alt='' />
+                  hello
+                </a>
+              </div> */}
+
+              <div className='btn-g'>
+                {' '}
+                <a
+                  onClick={() => {
+                    setStart(true);
+                    setUserUid(item?.user?._id);
+                    setChatUserName(item?.user?.fullName);
+                    setChatUserImage(item?.avatar);
+                  }}
+                  className='btn-blue g-1'
+                >
+                  <img src={mail} alt='' />
+                </a>
+              </div>
             </div>
           </div>
-        </div>
 
-        {displayAdd && (
-          <div className='connect-right'>
-            {documents &&
-              documents.slice(0, 3).map((doc) => (
-                <div className='pic-1' key={doc.id}>
-                  {doc.type === 'Video' ? (
-                    <motion.video
-                      controls
-                      src={doc.url}
-                      alt='uploaded pic'
-                      initial={{
-                        opacity: 0,
-                        height: '100%',
-                        width: '100%',
-                      }}
-                      animate={{ opacity: 1 }}
-                      transition={{ delay: 1 }}
-                    />
-                  ) : (
-                    <motion.img
-                      src={doc.url}
-                      height='100%'
-                      width='100%'
-                      alt=''
-                    />
-                  )}
-                </div>
-              ))}
-            {documents.length > 0 && (
-              <Link to={`/portfolio/${user?._id}`}>
+          {displayAdd && (
+            <div className='connect-right'>
+              {documents &&
+                documents.slice(0, 4).map((doc) => (
+                  <div className='pic-1' key={doc.id}>
+                    {doc.type === 'Video' ? (
+                      <motion.video
+                        controls
+                        src={doc.url}
+                        alt='uploaded pic'
+                        initial={{
+                          opacity: 0,
+                          height: '100%',
+                          width: '100%',
+                        }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 1 }}
+                      />
+                    ) : (
+                      <motion.img
+                        src={doc.url}
+                        height='100%'
+                        width='100%'
+                        alt=''
+                      />
+                    )}
+                  </div>
+                ))}
+            </div>
+          )}
+        </div>
+        <div>
+          {documents.length > 0 && (
+            <Link to={`/portfolio/${item?.user?._id}`}>
+              <Tooltip title='View Portfolio' placement='top'>
                 <ArrowForwardIosIcon />
-              </Link>
-            )}
-          </div>
-        )}
+              </Tooltip>
+            </Link>
+          )}
+        </div>
       </div>
+
       {start ? (
         <PersonalMessage
           userUid={userUid}

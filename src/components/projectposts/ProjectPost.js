@@ -29,7 +29,11 @@ const ProjectPost = ({
         <div className='center'>
           <div id='feed-main'>
             <div className='feed-main-container'>
-              <ProjectPostItem key={projectpost._id} post={projectpost} />
+              <ProjectPostItem
+                params={true}
+                key={projectpost._id}
+                post={projectpost}
+              />
             </div>
           </div>
         </div>

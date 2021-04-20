@@ -51,7 +51,7 @@ const AddExperience = ({ addExperience }) => {
   const onFileChange = async (e) => {
     const file = e.target.files[0];
     const storageRef = projectStorage.ref('experiencepictures');
-    const fileRef = await storageRef.child(file.name).put(file);
+    const fileRef = storageRef.child(file.name).put(file);
     fileRef.on(
       'state_changed',
       (snap) => {
@@ -68,7 +68,6 @@ const AddExperience = ({ addExperience }) => {
             ...formData,
             projectavatar: url,
           });
-          addExperience({ ...formData, projectavatar: url });
           setProgress(0);
           setShow(false);
         });

@@ -33,6 +33,10 @@ const AddSoundTracks = ({ setAlert }) => {
     } else {
       setUpload(true);
       setDisplay('');
+      setFormData({
+        title: '',
+        description: '',
+      });
     }
   };
 

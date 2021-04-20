@@ -35,6 +35,10 @@ const AddPhoto = ({ setAlert }) => {
     } else {
       setUpload(true);
       setDisplay(preview);
+      setFormData({
+        title: '',
+        description: '',
+      });
     }
   };
 

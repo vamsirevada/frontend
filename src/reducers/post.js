@@ -72,7 +72,14 @@ export default function (state = initialState, action) {
     case UPDATE_LIKES:
       return {
         ...state,
+        post: { ...state.post, likes: payload.likes },
         posts: state.posts.map((post) =>
+          post._id === payload.id ? { ...post, likes: payload.likes } : post
+        ),
+        oposts: state.oposts.map((post) =>
+          post._id === payload.id ? { ...post, likes: payload.likes } : post
+        ),
+        bposts: state.bposts.map((post) =>
           post._id === payload.id ? { ...post, likes: payload.likes } : post
         ),
         loading: false,
@@ -80,7 +87,31 @@ export default function (state = initialState, action) {
     case ADD_COMMENT:
       return {
         ...state,
-        post: { ...state.post, comments: payload },
+        post: { ...state.post, comments: payload.comments },
+        posts: state.posts.map((post) =>
+          post._id === payload.postId
+            ? {
+                ...post,
+                comments: payload.comments,
+              }
+            : post
+        ),
+        oposts: state.oposts.map((post) =>
+          post._id === payload.postId
+            ? {
+                ...post,
+                comments: payload.comments,
+              }
+            : post
+        ),
+        bposts: state.bposts.map((post) =>
+          post._id === payload.postId
+            ? {
+                ...post,
+                comments: payload.comments,
+              }
+            : post
+        ),
         loading: false,
       };
     case REMOVE_COMMENT:

@@ -157,11 +157,16 @@
   border: none;
 }
 
+.connect-container {
+  display: flex;
+  align-items: center;
+}
+
 .connect-main {
   width: 100%;
   display: grid;
   grid-template-columns: 30% 70%;
-  grid-gap: 5rem;
+  grid-gap: 1rem;
   align-items: center;
   background-color: #f9f6f2;
   border-radius: 10px;
@@ -378,6 +383,7 @@
   align-items: center;
   grid-gap: 1rem;
   position: relative;
+  overflow-y: hidden;
 }
 
 .connect-right .pic-1 {

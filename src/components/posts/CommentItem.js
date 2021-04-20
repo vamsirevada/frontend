@@ -32,14 +32,14 @@ const CommentItem = ({
     <>
       <div className='comment-box'>
         <div>
-          <Link to={`portfolio/${user?._id}`}>
+          <Link to={`portfolio/${user}`}>
             <img className='comment-pic' src={avatar ? avatar : logo} alt='' />
           </Link>
         </div>
         <div className='cmt-1 list'>
           <div>
             <div>
-              <Link to={`portfolio/${user?._id}`}>
+              <Link to={`portfolio/${user}`}>
                 <span className='d-1'>
                   {fullName && fullName}
                   {groupName && groupName}

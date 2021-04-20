@@ -25,7 +25,7 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
         <div className='center'>
           <div id='feed-main'>
             <div className='feed-main-container'>
-              <PostItem key={post._id} post={post} />
+              <PostItem params={true} key={post._id} post={post} />
             </div>
           </div>
         </div>

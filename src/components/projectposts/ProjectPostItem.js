@@ -43,6 +43,7 @@ const ProjectPostItem = ({
   addProjectLike,
   removeProjectLike,
   deleteProjectPost,
+  params,
 }) => {
   const abc = likes.map((like) => like.user === auth?.user?._id);
 
@@ -265,18 +266,28 @@ const ProjectPostItem = ({
       </div>
       {comments.length > 0 && (
         <div className='comments'>
-          {comments.slice(0, 3).map((comment) => (
-            <CommentItem key={comment._id} comment={comment} postId={_id} />
-          ))}
-          {comments.length > 3 && (
-            <div className='load'>
-              <Link
-                to={`/project/${singleproject?._id}/posts/${_id}`}
-                className='loadmore'
-              >
-                Load more
-              </Link>
-            </div>
+          {params ? (
+            <>
+              {comments.map((comment) => (
+                <CommentItem key={comment._id} comment={comment} postId={_id} />
+              ))}
+            </>
+          ) : (
+            <>
+              {comments.slice(0, 3).map((comment) => (
+                <CommentItem key={comment._id} comment={comment} postId={_id} />
+              ))}
+              {comments.length > 3 && (
+                <div className='load'>
+                  <Link
+                    to={`/project/${singleproject?._id}/posts/${_id}`}
+                    className='loadmore'
+                  >
+                    Load more
+                  </Link>
+                </div>
+              )}
+            </>
           )}
         </div>
       )}

@@ -40,7 +40,6 @@ const CommentForm = ({ auth, user, postId, addComment }) => {
               value={text}
               onChange={(e) => setText(e.target.value)}
             />
-
             <button type='submit' className='btn-blue'>
               <img src={plane} alt='' />
             </button>

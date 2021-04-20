@@ -4,7 +4,8 @@ import logo from '../../images/dummyimage.jpg';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
-import { updateExperience } from '../../actions/profile';
+import DeleteIcon from '@material-ui/icons/Delete';
+import { updateExperience, deleteExperience } from '../../actions/profile';
 import { connect } from 'react-redux';
 import { projectStorage } from '../../firebase/config';
 import { CircularProgressbar } from 'react-circular-progressbar';
@@ -25,6 +26,8 @@ const ExpTemp = ({
     to,
   },
   updateExperience,
+  deleteExperience,
+  showActions,
 }) => {
   const [formData, setFormData] = useState({
     title: title,
@@ -123,14 +126,23 @@ const ExpTemp = ({
                 </div>
               </div>
             ) : (
-              <div
-                onClick={() => {
-                  setEdit(true);
-                  setShow(true);
-                }}
-              >
-                <EditIcon />
-              </div>
+              <>
+                {showActions && (
+                  <div style={{ display: 'flex' }}>
+                    <div
+                      onClick={() => {
+                        setEdit(true);
+                        setShow(true);
+                      }}
+                    >
+                      <EditIcon />
+                    </div>
+                    <div onClick={() => deleteExperience(_id)}>
+                      <DeleteIcon />
+                    </div>
+                  </div>
+                )}
+              </>
             )}
           </div>
           <div className='project-body'>
@@ -289,4 +301,4 @@ const ExpTemp = ({
   );
 };
 
-export default connect(null, { updateExperience })(ExpTemp);
+export default connect(null, { updateExperience, deleteExperience })(ExpTemp);

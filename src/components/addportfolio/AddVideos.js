@@ -34,6 +34,10 @@ const AddVideos = ({ setAlert }) => {
     } else {
       setUpload(true);
       setDisplay('');
+      setFormData({
+        title: '',
+        description: '',
+      });
     }
   };
 

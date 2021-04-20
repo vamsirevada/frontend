@@ -31,7 +31,7 @@ const ImageGrid = ({ auth: { user }, id, profile }) => {
   const [dispAudio, setDispAudio] = useState({ audioUrl: '' });
 
   const _remove = async (name, type) => {
-    if (type === 'blog') {
+    if (type === 'Blog') {
       const collectionRef = projectFirestore.collection('images');
       collectionRef
         .where('Id', '==', name?.Id)
@@ -389,7 +389,7 @@ const ImageGrid = ({ auth: { user }, id, profile }) => {
                         <div
                           className='edit-text'
                           onClick={() => {
-                            _remove(doc, 'blog');
+                            _remove(doc, 'Blog');
                           }}
                         >
                           Remove

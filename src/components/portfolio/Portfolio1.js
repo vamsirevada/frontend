@@ -113,8 +113,7 @@ const Portfolio1 = ({
                               <div className='btns'>
                                 <div>
                                   <RequestButton
-                                    paramsId={match.params.id}
-                                    profile={profile}
+                                    item={profile1}
                                     isGroup={false}
                                   />
                                 </div>
@@ -566,28 +565,22 @@ const Portfolio1 = ({
                               <PortfolioRightBody profile={profile1} />
                             )}
                             {displayBuddies && (
-                              <div className='connect-main'>
-                                {buddies.empty === null ? (
-                                  <Loader />
+                              <Fragment>
+                                {buddies.length === 0 ? (
+                                  <Fragment>
+                                    <h2> You have no buddies </h2>
+                                  </Fragment>
                                 ) : (
                                   <Fragment>
-                                    {buddies.empty ? (
-                                      <Fragment>
-                                        <h2> You have no buddies </h2>
-                                      </Fragment>
-                                    ) : (
-                                      <Fragment>
-                                        {buddies.map((item) => (
-                                          <PortfolioRightBuddies
-                                            key={item?._id}
-                                            item={item}
-                                          />
-                                        ))}
-                                      </Fragment>
-                                    )}
+                                    {buddies.map((item) => (
+                                      <PortfolioRightBuddies
+                                        key={item?._id}
+                                        item={item}
+                                      />
+                                    ))}
                                   </Fragment>
                                 )}
-                              </div>
+                              </Fragment>
                             )}
                             {displayProjects && (
                               <div className='project'>
