@@ -12,7 +12,6 @@ import Modal from './Modal';
 import { connect, useDispatch } from 'react-redux';
 import VideoModal from './VideoModal';
 import AudioModal from './AudioModal';
-import ReactPlayer from 'react-player';
 
 const ImageGrid = ({ auth: { user }, id, profile }) => {
   const dispatch = useDispatch();
@@ -30,34 +29,20 @@ const ImageGrid = ({ auth: { user }, id, profile }) => {
   const [dispVideo, setDispVideo] = useState({ videoUrl: '' });
   const [dispAudio, setDispAudio] = useState({ audioUrl: '' });
 
-  const _remove = async (name, type) => {
-    if (type === 'Blog') {
+  const _remove = async (doc) => {
+    if (doc?.type === 'Blog') {
       const collectionRef = projectFirestore.collection('images');
-      collectionRef
-        .where('Id', '==', name?.Id)
-        .get()
-        .then((i) => {
-          i.forEach((d) => {
-            d.ref.delete();
-          });
-        });
+      collectionRef.doc(doc.id).delete();
       await api.post(`/posts/delete`, {
-        url: name?.url,
+        url: doc?.url,
       });
     } else {
-      const storageRef = projectStorage.refFromURL(name?.url);
+      const storageRef = projectStorage.refFromURL(doc?.url);
       storageRef.delete();
       const collectionRef = projectFirestore.collection('images');
-      collectionRef
-        .where('Id', '==', name?.Id)
-        .get()
-        .then((i) => {
-          i.forEach((d) => {
-            d.ref.delete();
-          });
-        });
+      collectionRef.doc(doc.id).delete();
       await api.post(`/posts/delete`, {
-        url: name?.url,
+        url: doc?.url,
       });
     }
   };
@@ -188,18 +173,20 @@ const ImageGrid = ({ auth: { user }, id, profile }) => {
                     </>
                   )}
                 </div>
-                <div
+                <motion.video
                   onClick={() => {
                     displayVideo(index);
                     dispatch(getRealtimeData(doc.id));
                   }}
-                >
-                  <ReactPlayer
-                    height='fit-content'
-                    width='fit-content'
-                    url={doc.url}
-                  />
-                </div>
+                  className='img-wrap-audio'
+                  muted
+                  autoPlay
+                  src={doc.url}
+                  alt='uploaded pic'
+                  initial={{ opacity: 1 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1 }}
+                ></motion.video>
                 <p className='video-desc'>{doc.title}</p>
               </motion.div>
             ))}

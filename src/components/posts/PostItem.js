@@ -18,7 +18,6 @@ import noteimg from '../../images/icons/summarize-24px.svg';
 import PostType from './PostType';
 import { projectFirestore } from '../../firebase/config';
 import NotePostPopUp from './NotePostPopUp';
-import ReactPlayer from 'react-player';
 import LikesPopup from './LikesPopup';
 
 const PostItem = ({
@@ -41,7 +40,6 @@ const PostItem = ({
   addLike,
   removeLike,
   deletePost,
-  notePost,
   unnotePost,
   params,
 }) => {
@@ -219,11 +217,12 @@ const PostItem = ({
               </a>
             )}
             <div className='post-video'>
-              <ReactPlayer
+              <video
+                id='video'
                 className='post-video'
                 controls
                 controlsList='nodownload'
-                url={url}
+                src={url}
               />
             </div>
           </>

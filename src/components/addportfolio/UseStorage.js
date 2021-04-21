@@ -21,7 +21,15 @@ const parseJwt = (token) => {
 
   return JSON.parse(jsonPayload);
 };
-const UseStorage = (file, type, title, description, setAlert, setUpload) => {
+const UseStorage = (
+  file,
+  type,
+  title,
+  description,
+  setAlert,
+  setUpload,
+  setFormData
+) => {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
@@ -70,6 +78,10 @@ const UseStorage = (file, type, title, description, setAlert, setUpload) => {
               Id,
             });
             await setUpload(false);
+            await setFormData({
+              title: '',
+              description: '',
+            });
             await setAlert('Portfolio updated Successfully', 'success');
           })
 
@@ -80,7 +92,7 @@ const UseStorage = (file, type, title, description, setAlert, setUpload) => {
         setUrl(url);
       }
     );
-  }, [description, file, setAlert, setUpload, title, type]);
+  }, [description, file, setAlert, setUpload, title, type, setFormData]);
 
   return { progress, url, error };
 };

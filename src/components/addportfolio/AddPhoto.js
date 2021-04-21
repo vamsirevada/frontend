@@ -35,10 +35,6 @@ const AddPhoto = ({ setAlert }) => {
     } else {
       setUpload(true);
       setDisplay(preview);
-      setFormData({
-        title: '',
-        description: '',
-      });
     }
   };
 
@@ -73,6 +69,7 @@ const AddPhoto = ({ setAlert }) => {
                 description={formData.description}
                 setAlert={setAlert}
                 setUpload={setUpload}
+                setFormData={setFormData}
               />
             )}
           </div>

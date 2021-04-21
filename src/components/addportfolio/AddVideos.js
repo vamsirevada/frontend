@@ -34,10 +34,6 @@ const AddVideos = ({ setAlert }) => {
     } else {
       setUpload(true);
       setDisplay('');
-      setFormData({
-        title: '',
-        description: '',
-      });
     }
   };
 
@@ -76,6 +72,7 @@ const AddVideos = ({ setAlert }) => {
               description={formData.description}
               setAlert={setAlert}
               setUpload={setUpload}
+              setFormData={setFormData}
             />
           )}
         </div>

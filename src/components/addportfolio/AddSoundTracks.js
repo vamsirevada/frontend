@@ -33,10 +33,6 @@ const AddSoundTracks = ({ setAlert }) => {
     } else {
       setUpload(true);
       setDisplay('');
-      setFormData({
-        title: '',
-        description: '',
-      });
     }
   };
 
@@ -76,6 +72,7 @@ const AddSoundTracks = ({ setAlert }) => {
               description={formData.description}
               setAlert={setAlert}
               setUpload={setUpload}
+              setFormData={setFormData}
             />
           )}
         </div>

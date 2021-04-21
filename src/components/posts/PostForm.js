@@ -24,7 +24,6 @@ const PostForm = ({ addPost }) => {
   const [progress, setProgress] = useState(0);
   const [show, setShow] = useState(false);
   const fileInput = React.createRef();
-  console.log(fileInput.value);
   const [url, setUrl] = useState('');
   const [filetype, setFileType] = useState('');
 

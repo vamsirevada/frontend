@@ -19,10 +19,8 @@ import CommentItem from '../posts/CommentItem';
 import logo from '../../images/dummyimage.jpg';
 import PostType from '../posts/PostType';
 import { projectFirestore } from '../../firebase/config';
-import ReactPlayer from 'react-player';
 
 const ProjectPostItem = ({
-  profile: { profile },
   auth,
   singleproject,
   post: {
@@ -179,11 +177,11 @@ const ProjectPostItem = ({
             </a>
           )}
           <div className='post-video'>
-            <ReactPlayer
+            <video
               className='post-video'
               controls
               controlsList='nodownload'
-              url={url}
+              src={url}
             />
           </div>
         </>

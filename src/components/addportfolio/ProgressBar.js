@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
-import UseStorage from "./UseStorage";
-import { motion } from "framer-motion";
+import React, { useEffect } from 'react';
+import UseStorage from './UseStorage';
+import { motion } from 'framer-motion';
 
 const ProgressBar = ({
   file,
@@ -10,6 +10,7 @@ const ProgressBar = ({
   description,
   setAlert,
   setUpload,
+  setFormData,
 }) => {
   const { progress, url } = UseStorage(
     file,
@@ -17,7 +18,8 @@ const ProgressBar = ({
     title,
     description,
     setAlert,
-    setUpload
+    setUpload,
+    setFormData
   );
   useEffect(() => {
     if (url) {
@@ -28,11 +30,11 @@ const ProgressBar = ({
 
   return (
     <motion.div
-      className="progress-bar"
+      className='progress-bar'
       initial={{ width: 0 }}
-      animate={{ width: progress + "%" }}
+      animate={{ width: progress + '%' }}
     >
-      {Math.round(progress) + "%"}
+      {Math.round(progress) + '%'}
     </motion.div>
   );
 };

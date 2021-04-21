@@ -65,7 +65,6 @@ const AddBlog = ({ setAlert }) => {
           setFormData({
             description: '',
           });
-
           await setAlert('Portfolio updated Successfully', 'success');
         })
 

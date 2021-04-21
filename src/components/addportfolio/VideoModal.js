@@ -26,7 +26,6 @@ import { projectFirestore } from '../../firebase/config';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
-import ReactPlayer from 'react-player';
 
 const VideoModal = ({
   auth,
@@ -205,10 +204,11 @@ const VideoModal = ({
                   <img src={backward} alt='' />
                 </div>
                 <div className='post-pic-1'>
-                  <ReactPlayer
+                  <video
                     className='post-pic-1-video'
                     controls
-                    url={dispVideo.videoUrl}
+                    controlsList='nodownload'
+                    src={dispVideo.videoUrl}
                   />
                 </div>
                 <div
