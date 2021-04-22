@@ -39,6 +39,10 @@ h3 {
   outline: none;
   animation: growdemotourbutton 0.6s infinite normal ease;
 }
+.demo-tour-button.notice {
+  animation: none;
+  z-index: 100;
+}
 @keyframes growdemotourbutton {
   100% {
     transform: scale(1.1);

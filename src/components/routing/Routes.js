@@ -27,6 +27,7 @@ import SingleProject from '../projects/SingleProject';
 import ProjectList from '../projects/ProjectList';
 import SingleNotice from '../projects/SingleNotice';
 import NoticeBoard from '../projects/NoticeBoard';
+import NoticeBoardGuidelines from '../projects/NoticeBoardGuidelines';
 import Loader from '../layout/Loader';
 import WelcomeScreen from '../layout/WelcomeScreen';
 import WelcomeRscreen from '../layout/WelcomeRscreen';
@@ -70,6 +71,12 @@ const Routes = () => {
         <PrivateRoute exact path='/projects/:id' component={Projects} />
         <PrivateRoute exact path='/projectlist/:id' component={ProjectList} />
         <PrivateRoute exact path='/projectfinance/:id' component={Finance} />
+
+        <PrivateRoute
+          exact
+          path='/noticeboardguidelines'
+          component={NoticeBoardGuidelines}
+        />
       </Switch>
     </>
   );

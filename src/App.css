@@ -2547,6 +2547,7 @@ input.search-btn:focus {
   width: 100%;
   height: 50%;
   border-radius: 15px 15px 0px 0px;
+  object-fit: cover;
 }
 .notice-item .notice-item-body {
   padding: 0.5rem 1rem;
@@ -2677,6 +2678,60 @@ input.search-btn:focus {
 
 #single-post .center .post {
   min-width: 50vw;
+}
+
+/* Noticeboard Guidelines */
+
+.noticeboard-guideline {
+  position: relative;
+  top: 72px;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(6, 6, 6, 0.1);
+  z-index: 101;
+}
+
+.noticeboard-guideline .noticeboard-popup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #fff;
+  width: 60%;
+  position: absolute;
+  top: 15%;
+  left: 20%;
+  border-radius: 15px;
+}
+
+.noticeboard-popup .noticeboard-heading {
+  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #fad300;
+  padding: 0.5rem 0.809rem;
+  border-radius: 15px 15px 0px 0px;
+}
+
+.noticeboard-popup .noticeboard-body {
+  padding: 0.5rem 0.8rem;
+  font-size: 14px;
+  text-align: justify;
+}
+.noticeboard-popup .noticeboard-body li {
+  margin-bottom: 0.25rem;
+}
+.noticeboard-popup .noticeboard-heading div:nth-child(2) {
+  justify-self: flex-end;
+}
+
+.lato-num {
+  font-family: 'Lato', sans-serif;
+  color: #000;
+  font-size: 13px;
+  font-weight: normal;
+  margin-right: 0.25rem;
 }
 
 /* ----------------------------------------------------------------------------------------------------------------- */
@@ -3452,6 +3507,17 @@ input.search-btn:focus {
 }
 /* iphone6.7.8 potrait */
 @media (max-width: 420px) {
+  .noticeboard-guideline .noticeboard-popup {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: #fff;
+    width: 73%;
+    position: absolute;
+    top: 5%;
+    left: 13%;
+    border-radius: 15px;
+  }
   #single-post .center .post {
     min-width: 90vw;
   }

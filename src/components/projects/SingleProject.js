@@ -70,10 +70,10 @@ const SingleProject = ({
                       .find((x) => x === true) && (
                       <>
                         <ProjectAdd singleproject={singleproject} />
-                        <AdminMoney
+                        {/* <AdminMoney
                           budget={total}
                           singleproject={singleproject}
-                        />
+                        /> */}
                       </>
                     )}
                   <ProjectPostForm singleproject={singleproject} />
@@ -93,7 +93,7 @@ const SingleProject = ({
                 singleproject={singleproject}
                 id={match.params.id}
               />
-              {singleproject?.admin
+              {/* {singleproject?.admin
                 .map((x) => x?.user === profile?.user?._id)
                 .find((x) => x === true) ? (
                 <div
@@ -119,7 +119,7 @@ const SingleProject = ({
                     <span>Expenses Tracker</span>
                   </div>
                 </div>
-              ) : null}
+              ) : null} */}
             </div>
           )}
         </div>
