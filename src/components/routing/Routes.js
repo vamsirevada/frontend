@@ -71,12 +71,6 @@ const Routes = () => {
         <PrivateRoute exact path='/projects/:id' component={Projects} />
         <PrivateRoute exact path='/projectlist/:id' component={ProjectList} />
         <PrivateRoute exact path='/projectfinance/:id' component={Finance} />
-
-        <PrivateRoute
-          exact
-          path='/noticeboardguidelines'
-          component={NoticeBoardGuidelines}
-        />
       </Switch>
     </>
   );

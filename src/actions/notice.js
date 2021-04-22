@@ -11,6 +11,23 @@ import {
   GET_SHORTLISTED_MEMBERS,
 } from './types';
 
+// Get all notices
+
+export const getAllNotices = () => async (dispatch) => {
+  try {
+    const res = await api.get('/notice/all');
+    dispatch({
+      type: GET_NOTICES,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: NOTICE_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 // Get all notices of user using user id
 
 export const getNoticesByUser = () => async (dispatch) => {

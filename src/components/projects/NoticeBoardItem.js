@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { getNoticesByUser, getNotice } from '../../actions/notice';
+// import { getNoticesByUser, getNotice } from '../../actions/notice';
+import { getAllNotices, getNotice } from '../../actions/notice';
 import noticecover from '../../images/volodymy2.png';
 import Moment from 'react-moment';
 import { Link } from 'react-router-dom';
@@ -8,15 +9,20 @@ import NoticeBoardPopup from './NoticeBoardPopup';
 import { Fragment } from 'react';
 
 const NoticeBoardItem = ({
-  getNoticesByUser,
+  // getNoticesByUser,
+  getAllNotices,
   getNotice,
   notice: { notices, notice },
 }) => {
   const [show, setShow] = useState(false);
 
+  // useEffect(() => {
+  //   getNoticesByUser();
+  // }, [getNoticesByUser]);
+
   useEffect(() => {
-    getNoticesByUser();
-  }, [getNoticesByUser]);
+    getAllNotices();
+  }, [getAllNotices]);
 
   const handleClick = (not) => {
     setShow(true);
@@ -96,6 +102,6 @@ const mapStateToProps = (state) => ({
   notice: state.notice,
 });
 
-export default connect(mapStateToProps, { getNoticesByUser, getNotice })(
+export default connect(mapStateToProps, { getAllNotices, getNotice })(
   NoticeBoardItem
 );

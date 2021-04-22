@@ -25,6 +25,7 @@ const NoticeBoardPopup = ({ notice, applyNotice, hide }) => {
 
   const apply = () => {
     applyNotice(notice?._id);
+
     hide();
   };
 
