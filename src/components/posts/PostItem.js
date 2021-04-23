@@ -325,7 +325,7 @@ const PostItem = ({
             )}
             {comments.length > 0 && (
               <a className='d-1'>
-                <span className='f-1'>{comments.length}</span> Comment
+                <span className='f-1'>{comments.length}</span> Comments
               </a>
             )}
           </div>

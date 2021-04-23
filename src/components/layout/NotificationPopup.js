@@ -29,6 +29,8 @@ const NotificationPopup = ({
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('');
 
+  const xyz = notifications.filter((not) => not.sender !== not.receiver);
+
   const add = (id) => {
     remove(id);
     projectFirestore.collection('notifications').add({
@@ -90,14 +92,10 @@ const NotificationPopup = ({
 
   let notificationsIcon;
 
-  if (notifications && notifications.length > 0) {
-    notifications.filter((not) => not.read === false).length > 0
+  if (xyz && xyz.length > 0) {
+    xyz.filter((not) => not.read === false).length > 0
       ? (notificationsIcon = (
-          <Badge
-            badgeContent={
-              notifications.filter((not) => not.read === false).length
-            }
-          >
+          <Badge badgeContent={xyz.filter((not) => not.read === false).length}>
             <NotificationsIcon
               style={{
                 fontSize: 22,
@@ -131,8 +129,8 @@ const NotificationPopup = ({
   }
 
   const notificationsMarkup =
-    notifications && notifications.length > 0 ? (
-      notifications.map((not, index) => {
+    xyz && xyz.length > 0 ? (
+      xyz.map((not, index) => {
         return (
           <div key={index}>
             <div className='notif-element'>

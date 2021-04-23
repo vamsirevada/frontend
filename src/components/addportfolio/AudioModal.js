@@ -90,7 +90,9 @@ const AudioModal = ({
   const like = (file) => {
     const likeObj = {
       user: auth?.user?._id,
-      fullName: auth?.user?.fullName,
+      fullName: auth?.user?.fullName
+        ? auth?.user?.fullName
+        : auth?.user?.groupName,
       likedUserAvatar: auth?.user?.avatar,
     };
     dispatch(portfolioLike(file.id, likeObj));
@@ -103,7 +105,9 @@ const AudioModal = ({
   const comment = (file) => {
     const commentObj = {
       user: auth?.user?._id,
-      fullName: auth?.user?.fullName,
+      fullName: auth?.user?.fullName
+        ? auth?.user?.fullName
+        : auth?.user?.groupName,
       commentedUserAvatar: auth?.user?.avatar,
       commentText: text,
       commentedTime: new Date(),
@@ -267,22 +271,18 @@ const AudioModal = ({
                     </div>
                   </div>
                   <div className='des-right'>
-                    <a className='d-1'>
-                      <span className='f-1'>
-                        {portfolio.likes &&
-                          portfolio.likes.length > 0 &&
-                          portfolio.likes.length}
-                      </span>{' '}
-                      Likes
-                    </a>
-                    <a className='d-1'>
-                      <span className='f-1'>
-                        {portfolio.comments &&
-                          portfolio.comments.length > 0 &&
-                          portfolio.comments.length}
-                      </span>{' '}
-                      Comment
-                    </a>
+                    {portfolio.likes.length > 0 && (
+                      <a className='d-1'>
+                        <span className='f-1'>{portfolio.likes.length}</span>{' '}
+                        Appreciations
+                      </a>
+                    )}
+                    {portfolio.comments.length > 0 && (
+                      <a className='d-1'>
+                        <span className='f-1'>{portfolio.comments.length}</span>{' '}
+                        Comment
+                      </a>
+                    )}
                   </div>
                 </div>
                 {edit ? (

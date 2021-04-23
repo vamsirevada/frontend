@@ -26,6 +26,7 @@ import { projectFirestore } from '../../firebase/config';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
+import PortfolioLikesPopup from './PortfolioLikesPopup';
 
 const Modal = ({
   auth,
@@ -38,12 +39,17 @@ const Modal = ({
   close,
 }) => {
   const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('');
   const [edit, setEdit] = useState(false);
   const [titleedit, setTitleEdit] = useState(false);
   const [des, setDes] = useState('');
   const [ptitle, setPtitle] = useState('');
+
+  const hide = () => {
+    setShow(false);
+  };
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -89,9 +95,14 @@ const Modal = ({
   const like = (file) => {
     const likeObj = {
       user: auth?.user?._id,
-      fullName: auth?.user?.fullName,
+      fullName: auth?.user?.fullName
+        ? auth?.user?.fullName
+        : auth?.user?.groupName,
       likedUserAvatar: auth?.user?.avatar,
     };
+
+    console.log(likeObj);
+
     dispatch(portfolioLike(file.id, likeObj));
     dispatch(getRealtimeData(file.id));
   };
@@ -103,7 +114,9 @@ const Modal = ({
   const comment = (file) => {
     const commentObj = {
       user: auth?.user?._id,
-      fullName: auth?.user?.fullName,
+      fullName: auth?.user?.fullName
+        ? auth?.user?.fullName
+        : auth?.user?.groupName,
       commentedUserAvatar: auth?.user?.avatar,
       commentText: text,
       commentedTime: new Date(),
@@ -119,6 +132,7 @@ const Modal = ({
 
   return (
     <>
+      {show && <PortfolioLikesPopup hide={hide} likes={portfolio.likes} />}
       {loading ? (
         <div className='post-pop-up'>
           <Loader />
@@ -261,22 +275,23 @@ const Modal = ({
                     </div>
                   </div>
                   <div className='des-right'>
-                    <a className='d-1'>
-                      <span className='f-1'>
-                        {portfolio.likes &&
-                          portfolio.likes.length > 0 &&
-                          portfolio.likes.length}
-                      </span>{' '}
-                      Likes
-                    </a>
-                    <a className='d-1'>
-                      <span className='f-1'>
-                        {portfolio.comments &&
-                          portfolio.comments.length > 0 &&
-                          portfolio.comments.length}
-                      </span>{' '}
-                      Comment
-                    </a>
+                    {portfolio.likes && portfolio.likes.length > 0 && (
+                      <a
+                        onClick={() => {
+                          setShow(true);
+                        }}
+                        className='d-1'
+                      >
+                        <span className='f-1'>{portfolio.likes.length}</span>{' '}
+                        Appreciations
+                      </a>
+                    )}
+                    {portfolio.comments && portfolio.comments.length > 0 && (
+                      <a className='d-1'>
+                        <span className='f-1'>{portfolio.comments.length}</span>{' '}
+                        Comment
+                      </a>
+                    )}
                   </div>
                 </div>
                 {edit ? (
