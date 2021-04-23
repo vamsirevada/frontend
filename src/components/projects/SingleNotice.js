@@ -24,9 +24,10 @@ const SingleNotice = ({
   match,
 }) => {
   const history = useHistory();
-  const [apply, setApply] = useState(true);
   const [shortlist, setShortlist] = useState(false);
+  const [apply, setApply] = useState(true);
   const { docs } = UseFirestore('images');
+
   const [text, setText] = useState(false);
 
   const onClick1 = () => {
@@ -40,7 +41,7 @@ const SingleNotice = ({
   };
 
   const handleClick = (id) => {
-    shortlistNotice(notice?._id, id);
+    shortlistNotice(match.params.id, id);
     setText(true);
   };
 
@@ -168,7 +169,35 @@ const SingleNotice = ({
           </div>
           <div className='singlenotice-noticemembers'>
             <>
-              {shortlist ? (
+              {apply ? (
+                <>
+                  {applied.map((item) => (
+                    <div
+                      key={item?._id}
+                      style={{
+                        display: 'flex',
+                      }}
+                    >
+                      <div>
+                        <ProfileItem
+                          key={item?._id}
+                          item={item}
+                          docs={docs}
+                          displayAdd={true}
+                        />
+                      </div>
+                      <div>
+                        <button
+                          onClick={() => handleClick(item?._id)}
+                          className='btn-blue'
+                        >
+                          {text ? 'Shortlisted' : 'Shortlist'}
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </>
+              ) : (
                 <>
                   {shortlisted.length > 0 &&
                     shortlisted.map((item) => (
@@ -178,34 +207,6 @@ const SingleNotice = ({
                         docs={docs}
                         displayAdd={true}
                       />
-                    ))}
-                </>
-              ) : (
-                <>
-                  {applied.length > 0 &&
-                    applied.map((item) => (
-                      <div
-                        key={item?._id}
-                        style={{
-                          display: 'flex',
-                        }}
-                      >
-                        <div>
-                          <ProfileItem
-                            item={item}
-                            docs={docs}
-                            displayAdd={true}
-                          />
-                        </div>
-                        <div>
-                          <button
-                            onClick={handleClick(item?._id)}
-                            className='btn-blue'
-                          >
-                            {text ? 'Shortlisted' : 'Shortlist'}
-                          </button>
-                        </div>
-                      </div>
                     ))}
                 </>
               )}

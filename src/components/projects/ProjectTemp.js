@@ -6,7 +6,16 @@ const ProjectTemp = ({
   // experience: { project, description, title, company, location, from, to },
   profile,
   user,
-  project: { _id, projectname, location, description, creator, date, members },
+  project: {
+    _id,
+    avatar,
+    projectname,
+    location,
+    description,
+    creator,
+    date,
+    members,
+  },
 }) => {
   const member = members.filter((e) => e.user === profile?.user?._id);
 
@@ -45,34 +54,45 @@ const ProjectTemp = ({
           </div>
           <div className='project-body'>
             <div className='project-body-container'>
-              <div className='project-body-1'>
-                <p className='list'>
-                  Created By : <span className='list-4'>{creator}</span>
-                </p>
+              <div className='project-body-desc-container'>
+                <div className='project-body-main'>
+                  <div className='project-body-1'>
+                    <p className='list'>
+                      Created By : <span className='list-4'>{creator}</span>
+                    </p>
 
-                <p className='list'>
-                  Designation :{' '}
-                  <span className='list-4'> {member && member[0]?.status}</span>
-                </p>
+                    <p className='list'>
+                      Designation :{' '}
+                      <span className='list-4'>
+                        {' '}
+                        {member && member[0]?.status}
+                      </span>
+                    </p>
 
-                <p className='list'>
-                  Location: <span className='list-4'>{location}</span>
-                </p>
-                <p className='list'>
-                  Started on:{' '}
-                  <span className='list-4'>
-                    {' '}
-                    <Moment format='DD MMM YYYY'>{date}</Moment>{' '}
-                    {/* {to === null ? 'Now' : <Moment format='MMM YYYY'>{to}</Moment>} */}
-                  </span>
-                </p>
+                    <p className='list'>
+                      Location: <span className='list-4'>{location}</span>
+                    </p>
+                    <p className='list'>
+                      Started on:{' '}
+                      <span className='list-4'>
+                        {' '}
+                        <Moment format='DD MMM YYYY'>{date}</Moment>{' '}
+                        {/* {to === null ? 'Now' : <Moment format='MMM YYYY'>{to}</Moment>} */}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <p className='list-5'>
+                    Description: <br />
+                    <span className='list-4'>{description}</span>
+                  </p>
+                </div>
               </div>
 
-              <div>
-                <p className='list-5'>
-                  Description: <br />
-                  <span className='list-4'>{description}</span>
-                </p>
+              <div className='project-pic'>
+                <img className='project-body-avatar' src={avatar} alt='' />
               </div>
             </div>
           </div>

@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { projectStorage } from '../../firebase/config';
 import plus from '../../images/icons/noun_Plus_2310779.svg';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 const Notices = ({
   id,
@@ -17,6 +19,8 @@ const Notices = ({
   notice: { notices },
 }) => {
   const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [viewall, setViewAll] = useState(false);
   let fileInput = React.createRef();
 
@@ -55,13 +59,38 @@ const Notices = ({
   const onFileChange = async (e) => {
     const file = e.target.files[0];
     const storageRef = projectStorage.ref('noticeboardpictures');
-    const fileRef = storageRef.child(file.name);
-    await fileRef.put(file);
-    setFormData({
-      ...formData,
-      noticeImg: await fileRef.getDownloadURL(),
-    });
+    const fileRef = storageRef.child(file.name).put(file);
+    fileRef.on(
+      'state_changed',
+      (snap) => {
+        let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+        setProgress(Math.round(percentage));
+        setOpen(true);
+      },
+      (error) => {
+        console.log(error);
+      },
+      () => {
+        fileRef.snapshot.ref.getDownloadURL().then((url) => {
+          setFormData({
+            ...formData,
+            noticeImg: url,
+          });
+          setOpen(false);
+        });
+      }
+    );
   };
+
+  const isAdmin =
+    singleproject?.admin &&
+    singleproject?.admin.map((x) => x?.user === userId).find((x) => x === true);
+
+  const isModerator =
+    singleproject?.moderator &&
+    singleproject?.moderator
+      .map((x) => x?.user === userId)
+      .find((x) => x === true);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -90,7 +119,13 @@ const Notices = ({
               .slice(0, viewall ? notices.length : 3)
               .map((notice, index) => (
                 <div key={index} className='notice-item'>
-                  <Link to={`/notice/${notice?._id}`}>
+                  <Link
+                    to={
+                      isAdmin || isModerator
+                        ? `/${singleproject?._id}/notice/${notice?._id}`
+                        : '#!'
+                    }
+                  >
                     <img
                       src={notice?.noticeImg ? notice?.noticeImg : logo}
                       alt=''
@@ -142,19 +177,16 @@ const Notices = ({
               ))}
         </div>
       </div>
-      {singleproject?.admin &&
-        singleproject?.admin
-          .map((x) => x?.user === userId)
-          .find((x) => x === true) && (
-          <div className='notice-publish'>
-            <a href='#!' onClick={() => setShow(true)}>
-              <span className='nbtn-yellow'>
-                <img src={plus} alt='' />
-              </span>
-              <span className='publish-text'>Publish new notice</span>
-            </a>
-          </div>
-        )}
+      {isAdmin || isModerator ? (
+        <div className='notice-publish'>
+          <a href='#!' onClick={() => setShow(true)}>
+            <span className='nbtn-yellow'>
+              <img src={plus} alt='' />
+            </span>
+            <span className='publish-text'>Publish new notice</span>
+          </a>
+        </div>
+      ) : null}
 
       {show && (
         <>
@@ -185,7 +217,16 @@ const Notices = ({
                     alt=''
                   />
                 </div>
-                <p>Add a Picture</p>
+                {open ? (
+                  <div style={{ width: 50, height: 50, margin: 'auto' }}>
+                    <CircularProgressbar
+                      value={progress}
+                      text={`${progress}%`}
+                    />
+                  </div>
+                ) : (
+                  <p>Add a Picture</p>
+                )}
               </div>
               <div className='n-form notice'>
                 <form onSubmit={(e) => onSubmit(e)}>
