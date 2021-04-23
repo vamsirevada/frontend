@@ -26,6 +26,7 @@ import { projectFirestore } from '../../firebase/config';
 import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
+import PortfolioLikesPopup from './PortfolioLikesPopup';
 
 const VideoModal = ({
   auth,
@@ -38,12 +39,17 @@ const VideoModal = ({
   close,
 }) => {
   const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('');
   const [edit, setEdit] = useState(false);
   const [titleedit, setTitleEdit] = useState(false);
   const [des, setDes] = useState('');
   const [ptitle, setPtitle] = useState('');
+
+  const hide = () => {
+    setShow(false);
+  };
 
   useEffect(() => {
     const t = setTimeout(() => {
@@ -122,6 +128,7 @@ const VideoModal = ({
 
   return (
     <>
+      {show && <PortfolioLikesPopup hide={hide} likes={portfolio.likes} />}
       {loading ? (
         <div className='post-pop-up'>
           <Loader />
