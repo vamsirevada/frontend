@@ -51,7 +51,9 @@ const RequestButton = ({
     projectFirestore.collection('notifications').add({
       sender: profile?._id,
       senderUserId: profile?.user?._id,
-      senderName: profile?.user?.fullName,
+      senderName: profile?.user?.fullName
+        ? profile?.user?.fullName
+        : profile?.user?.groupName,
       avatar: profile?.user?.avatar,
       receiver: item?.user?._id,
       type: 'request',

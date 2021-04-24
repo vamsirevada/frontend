@@ -89,7 +89,9 @@ const ChatRight = ({
         }
         projectFirestore.collection('notifications').add({
           sender: auth?.user?._id,
-          senderName: auth?.user?.userName,
+          senderName: auth?.user?.fullName
+            ? auth?.user?.fullName
+            : auth?.user?.groupName,
           avatar: auth?.user?.avatar,
           receiver: userUid,
           type: 'chat',
@@ -119,7 +121,7 @@ const ChatRight = ({
               <a href='#!'>
                 {chatProfile?.projectname
                   ? chatProfile?.projectname
-                  : chatProfile?.user?.fullName}
+                  : chatProfile?.user?.fullName || chatProfile?.user?.groupName}
               </a>
             </div>
             {auth?.user?.activityStatus === 'online' && (

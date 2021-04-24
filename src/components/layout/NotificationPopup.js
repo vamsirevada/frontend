@@ -35,7 +35,7 @@ const NotificationPopup = ({
     remove(id);
     projectFirestore.collection('notifications').add({
       sender: user?._id,
-      senderName: user?.fullName,
+      senderName: user?.fullName ? user?.fullName : user?.groupName,
       avatar: user?.avatar,
       receiver: id,
       type: 'accept',
@@ -48,7 +48,7 @@ const NotificationPopup = ({
     remove1(id);
     projectFirestore.collection('notifications').add({
       sender: user?._id,
-      senderName: user?.userName,
+      senderName: user?.fullName ? user?.fullName : user?.groupName,
       avatar: user?.avatar,
       receiver: id,
       type: 'project_accept',
