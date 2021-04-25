@@ -181,11 +181,13 @@ const VideoModal = ({
                         by <span className='blue'>{user.fullName}</span>
                         {', '}
                         <Moment format='DD MMM YY'>
-                          {portfolio?.createdAt.toDate()}
+                          {portfolio?.createdAt &&
+                            portfolio?.createdAt.toDate()}
                         </Moment>{' '}
                         {', '}
                         <Moment format='hh:mm A'>
-                          {portfolio?.createdAt.toDate()}
+                          {portfolio?.createdAt &&
+                            portfolio?.createdAt.toDate()}
                         </Moment>
                       </p>
                     </div>
@@ -276,13 +278,13 @@ const VideoModal = ({
                     </div>
                   </div>
                   <div className='des-right'>
-                    {portfolio.likes.length > 0 && (
+                    {portfolio.likes && portfolio.likes.length > 0 && (
                       <a className='d-1'>
                         <span className='f-1'>{portfolio.likes.length}</span>{' '}
                         Appreciations
                       </a>
                     )}
-                    {portfolio.comments.length > 0 && (
+                    {portfolio.comments && portfolio.comments.length > 0 && (
                       <a className='d-1'>
                         <span className='f-1'>{portfolio.comments.length}</span>{' '}
                         Comments

@@ -386,7 +386,9 @@ const ImageGrid = ({ auth: { user }, id, profile }) => {
                   </>
                 )}
               </div>
-              <a href={doc.url}>{doc.description}</a>
+              <a target='_blank' href={doc.url}>
+                {doc.description}
+              </a>
             </motion.div>
           ))}
       </div>
