@@ -43,7 +43,11 @@ const SingleProject = ({
   return (
     <>
       <div className='ribbon'>
-        <a href='#!' onClick={(e) => onClick1(e)} className='ribbon-left'>
+        <a
+          href='#!'
+          onClick={(e) => onClick1(e)}
+          className={displayLeft ? 'ribbon-left-active' : 'ribbon-left'}
+        >
           <BallotIcon />
         </a>
         <a href='#!' onClick={(e) => onClick2(e)} className='ribbon-right'>

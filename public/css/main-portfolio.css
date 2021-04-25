@@ -39,6 +39,11 @@
   height: inherit;
   width: 50vw;
 }
+.ribbon-left-active {
+  text-shadow: 2px 2px 5px #00000024;
+  background-color: #f4f4f4;
+  border-bottom: 1px solid #fad300;
+}
 .ribbon-right {
   height: inherit;
   width: 50vw;

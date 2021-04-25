@@ -34,8 +34,9 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import Tooltip from '@material-ui/core/Tooltip';
 import PersonalMessage from '../chat/PersonalMessage';
+import NavbarGuest from '../layout/NavbarGuest';
 
-const Portfolio1 = ({
+const Portfolio2 = ({
   getProfileById,
   getBuddiesById,
   getProjects,
@@ -92,6 +93,7 @@ const Portfolio1 = ({
 
   return (
     <>
+      <NavbarGuest />
       {loading ? (
         <div className='post-pop-up'>
           <Loader />
@@ -119,39 +121,7 @@ const Portfolio1 = ({
                       <div id='left-sidebar'>
                         <div className='left-container'>
                           <PortfolioLeftTop profile={profile1} />
-                          {user?._id !== profile1?.user?._id && (
-                            <Fragment>
-                              <div className='btns'>
-                                <div>
-                                  <RequestButton
-                                    item={profile1}
-                                    isGroup={false}
-                                  />
-                                </div>
-
-                                <div className='profile-tour-button'>
-                                  <Link
-                                    to={`/profile/${profile1?.user?._id}`}
-                                    className={`view-button `}
-                                  >
-                                    View profile
-                                  </Link>
-                                </div>
-                                <div className='btn-g'>
-                                  <Tooltip title='Chat' placement='top'>
-                                    <a
-                                      onClick={() => {
-                                        setStart(true);
-                                      }}
-                                      className='btn-blue g-1'
-                                    >
-                                      <img src={mail} alt='' />
-                                    </a>
-                                  </Tooltip>
-                                </div>
-                              </div>
-                            </Fragment>
-                          )}
+                          <hr className='hori guest' />
 
                           <PortfolioLeftAbout
                             key={profile1._id}
@@ -553,7 +523,7 @@ const Portfolio1 = ({
                     <div className='portfolio-right'>
                       <div id='main-grid' className='port-grid'>
                         <div className='main-grid-container'>
-                          <div className='main-grid-top'>
+                          {/* <div className='main-grid-top'>
                             <div className='profile-info-box p-black'>
                               <a href='#!' onClick={() => PortOn()}>
                                 <p className='border-1'>
@@ -583,64 +553,9 @@ const Portfolio1 = ({
                                 </p>
                               </a>
                             </div>
-                          </div>
+                          </div> */}
                           <div className='main-grid-body'>
-                            {displayPortfolio && profile1 !== null && (
-                              <PortfolioRightBody profile={profile1} />
-                            )}
-                            {displayBuddies && (
-                              <Fragment>
-                                {buddies.length === 0 ? (
-                                  <Fragment>
-                                    <h2 className='none'> None</h2>
-                                  </Fragment>
-                                ) : (
-                                  <Fragment>
-                                    {buddies.map((item) => (
-                                      <PortfolioRightBuddies
-                                        key={item?._id}
-                                        item={item}
-                                      />
-                                    ))}
-                                  </Fragment>
-                                )}
-                              </Fragment>
-                            )}
-                            {displayProjects && (
-                              <div className='project'>
-                                <div className='project-container'>
-                                  {projects.length > 0 && (
-                                    <Fragment>
-                                      <div>
-                                        {projects.map((project) => (
-                                          <ProjectTemp
-                                            key={project._id}
-                                            project={project}
-                                            profile={profile1}
-                                            user={user}
-                                          />
-                                        ))}
-                                      </div>
-                                    </Fragment>
-                                  )}
-
-                                  {profile1?.experience.length > 0 && (
-                                    <Fragment>
-                                      {profile1?.experience.map(
-                                        (experience) => (
-                                          <ExpTemp
-                                            key={experience._id}
-                                            experience={experience}
-                                            profile={profile1}
-                                            user={user}
-                                          />
-                                        )
-                                      )}
-                                    </Fragment>
-                                  )}
-                                </div>
-                              </div>
-                            )}
+                            <PortfolioRightBody profile={profile1} />
                           </div>
                         </div>
                       </div>
@@ -666,7 +581,7 @@ const Portfolio1 = ({
   );
 };
 
-Portfolio1.propTypes = {
+Portfolio2.propTypes = {
   getProfileById: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
@@ -682,4 +597,4 @@ export default connect(mapStateToProps, {
   getProfileById,
   getProjects,
   getBuddiesById,
-})(Portfolio1);
+})(Portfolio2);

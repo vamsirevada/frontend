@@ -44,6 +44,22 @@ html {
   text-align: justify;
 }
 
+/* Guest User */
+
+.navbar .nav-icons .guest-signup {
+  color: #303030;
+  background-color: #fad300;
+  padding: 0.5rem 0.819rem;
+  border-radius: 10px;
+  margin-right: 1rem;
+}
+
+.navbar .nav-icons .guest-signup:hover {
+  color: #fad300;
+  background-color: #303030;
+  transition: all 0.5s ease-in-out;
+}
+
 /* Landing page pagination */
 .dotstyle ul {
   position: relative;
@@ -3535,6 +3551,12 @@ input.search-btn:focus {
 }
 /* iphone6.7.8 potrait */
 @media (max-width: 420px) {
+  .navbar .container.blog {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
   .noticeboard-guideline .noticeboard-popup {
     display: flex;
     flex-direction: column;

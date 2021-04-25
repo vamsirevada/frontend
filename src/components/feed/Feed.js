@@ -29,7 +29,10 @@ const Feed = () => {
   return (
     <>
       <div className='ribbon'>
-        <a onClick={(e) => onClick1(e)} className='ribbon-left'>
+        <a
+          onClick={(e) => onClick1(e)}
+          className={displayLeft ? 'ribbon-left-active' : 'ribbon-left'}
+        >
           <BallotIcon />
         </a>
         <a onClick={(e) => onClick2(e)} className='ribbon-right'>

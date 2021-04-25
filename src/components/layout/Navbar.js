@@ -70,9 +70,9 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
     <Fragment>
       <div className='navbar'>
         <div className='s-logo'>
-          <a>
+          <Link to='/feed'>
             <img src={maskGroup} alt='Vanity' />
-          </a>
+          </Link>
         </div>
 
         <div

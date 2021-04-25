@@ -30,6 +30,7 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import steps from './steps';
 import './steps.css';
+import Portfolio2 from '../src/components/portfolio/Portfolio2';
 
 const tourOptions = {
   defaultStepOptions: {
@@ -91,6 +92,7 @@ const App = () => {
                 path='/create-group-profile'
                 component={CreateGroupProfile}
               />
+              <Route exact path='/portfolio/guest/:id' component={Portfolio2} />
               <PrivateRoute component={Routes} />
             </Switch>
           </Fragment>
