@@ -2785,7 +2785,7 @@ input.search-btn:focus {
     font-weight: 1000;
     line-height: 3.25rem;
     margin-bottom: 20px;
-    color: #272727;
+    /* color: #272727; */
   }
 }
 
@@ -4752,6 +4752,13 @@ input.search-btn:focus {
   .main-add .main-right .main-right-container .box1 {
     display: none;
   }
+  .navbar .s-logo img {
+    display: block;
+    position: absolute;
+    width: 3.5rem;
+    top: 6px;
+    left: 3px;
+  }
 }
 /* iphone-x */
 @media (max-width: 375px) and (max-height: 812px) {
@@ -4769,12 +4776,12 @@ input.search-btn:focus {
     top: 10px;
     overflow: scroll;
     margin: 0 10px;
-    padding: 10px 30px 10px 30px;
-    width: 70%;
+    padding: 30px 10px 10px 10px;
+    width: 100%;
   }
 
   .signup .column-2 .signup-column {
-    width: 90%;
+    width: 100%;
   }
   .flex-form-1 {
     line-height: 1.5rem;
@@ -4797,9 +4804,9 @@ input.search-btn:focus {
     overflow: hidden;
   }
   #login .column-l2 {
-    width: 70%;
+    width: 100%;
     max-width: 500px;
-    padding: 0px 60px;
+    padding: 0px 30px;
     margin: 0px 10px;
     position: relative;
     top: 20px;
