@@ -42,8 +42,6 @@ const tourOptions = {
 };
 
 const App = () => {
-  console.log(process.env);
-
   useEffect(() => {
     // check for token in Local Storage
     if (localStorage.token) {
