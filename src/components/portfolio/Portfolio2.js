@@ -1,14 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { getProfileById } from '../../actions/profile';
-import { getProjects } from '../../actions/project';
-import { getBuddiesById } from '../../actions/profile';
 import Loader from '../layout/Loader';
 import briefcase from '../../images/icons/nounBriefcase.svg';
-import mail from '../../images/mail.svg';
 import nounEducation from '../../images/icons/noun_education_2177318.svg';
 import nounSkill from '../../images/icons/noun_skill_1863702.svg';
 import nounevent from '../../images/icons/noun_event_1828492.svg';
@@ -26,42 +21,26 @@ import GPortfolioLeftTeam from './GPortfolioLeftTeam';
 import GPortfolioLeftPartner from './GPortfolioLeftPartner';
 import GPortfolioLeftClient from './GPortfolioLeftClient';
 import GPortfolioLeftContact from './GPortfolioLeftContact';
-import RequestButton from './RequestButton';
-import PortfolioRightBuddies from './PortfolioRIghtBuddies';
-import ProjectTemp from '../projects/ProjectTemp';
-import ExpTemp from '../projects/ExpTemp';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
-import Tooltip from '@material-ui/core/Tooltip';
-import PersonalMessage from '../chat/PersonalMessage';
 import NavbarGuest from '../layout/NavbarGuest';
 
 const Portfolio2 = ({
   getProfileById,
-  getBuddiesById,
-  getProjects,
-  auth: { user },
-  profile: { profile1, buddies, loading },
-  project: { projects },
+  profile: { profile1, loading },
   match,
 }) => {
-  useEffect(() => {
-    getProfileById(match.params.id);
-    getProjects(match.params.id);
-    getBuddiesById(match.params.id);
-  }, [getProfileById, getProjects, getBuddiesById, match.params.id]);
-
-  const [start, setStart] = useState(false);
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
-  const [displayPortfolio, tooglePortfolio] = useState(true);
-  const [displayBuddies, toogleBuddies] = useState(false);
-  const [displayProjects, toogleProjects] = useState(false);
   const [viewAll1, setViewAll1] = useState(false);
   const [viewAll2, setViewAll2] = useState(false);
   const [viewAll3, setViewAll3] = useState(false);
   const [viewAll4, setViewAll4] = useState(false);
   const [viewAll5, setViewAll5] = useState(false);
+
+  useEffect(() => {
+    getProfileById(match.params.id);
+  }, [getProfileById, match.params.id]);
 
   const onClick1 = (e) => {
     toogleLeft(true);
@@ -70,25 +49,6 @@ const Portfolio2 = ({
   const onClick2 = (e) => {
     toogleLeft(false);
     toogleRight(true);
-  };
-  const PortOn = (e) => {
-    tooglePortfolio(true);
-    toogleBuddies(false);
-    toogleProjects(false);
-  };
-  const BudOn = (e) => {
-    tooglePortfolio(false);
-    toogleBuddies(true);
-    toogleProjects(false);
-  };
-  const ProjectOn = (e) => {
-    tooglePortfolio(false);
-    toogleBuddies(false);
-    toogleProjects(true);
-  };
-
-  const chatClose = () => {
-    setStart(false);
   };
 
   return (
@@ -523,39 +483,11 @@ const Portfolio2 = ({
                     <div className='portfolio-right'>
                       <div id='main-grid' className='port-grid'>
                         <div className='main-grid-container'>
-                          {/* <div className='main-grid-top'>
-                            <div className='profile-info-box p-black'>
-                              <a href='#!' onClick={() => PortOn()}>
-                                <p className='border-1'>
-                                  <span className='f-1'></span>
-                                  View
-                                  <br /> Portfolio
-                                </p>
-                              </a>
-                              <a href='#!' onClick={() => BudOn()}>
-                                <p className='border-1'>
-                                  <span className='f-1'>
-                                    {buddies && buddies.length}
-                                  </span>
-                                  <br /> Connections
-                                </p>
-                              </a>
-                              <a href='#!' onClick={() => ProjectOn()}>
-                                <p>
-                                  <span className='f-1'>
-                                    {projects.length > 0 ||
-                                    profile1?.experience.length > 0
-                                      ? projects.length +
-                                        profile1?.experience.length
-                                      : '0'}
-                                  </span>
-                                  <br /> Projects{' '}
-                                </p>
-                              </a>
-                            </div>
-                          </div> */}
                           <div className='main-grid-body'>
-                            <PortfolioRightBody profile={profile1} />
+                            <PortfolioRightBody
+                              guest={true}
+                              profile={profile1}
+                            />
                           </div>
                         </div>
                       </div>
@@ -569,32 +501,14 @@ const Portfolio2 = ({
           </Fragment>
         </Fragment>
       )}
-      {start ? (
-        <PersonalMessage
-          userUid={profile1?.user?._id}
-          chatUserName={profile1?.user?.fullName}
-          chatUserImage={profile1?.avatar}
-          chatClose={chatClose}
-        />
-      ) : null}
     </>
   );
 };
 
-Portfolio2.propTypes = {
-  getProfileById: PropTypes.func.isRequired,
-  auth: PropTypes.object.isRequired,
-  profile: PropTypes.object.isRequired,
-};
-
 const mapStateToProps = (state) => ({
-  auth: state.auth,
   profile: state.profile,
-  project: state.project,
 });
 
 export default connect(mapStateToProps, {
   getProfileById,
-  getProjects,
-  getBuddiesById,
 })(Portfolio2);

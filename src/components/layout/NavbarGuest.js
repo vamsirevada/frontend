@@ -1,13 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment } from 'react';
 import maskGroup from '../../images/maskGroup.svg';
-// import maskGroup1 from '../../images/Vanity_logo-09.png';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { logout } from '../../actions/auth';
 
-const NavbarGuest = ({ logout, dislogout }) => {
+const NavbarGuest = () => {
   return (
     <Fragment>
       <div className='navbar'>
@@ -42,8 +38,4 @@ const NavbarGuest = ({ logout, dislogout }) => {
   );
 };
 
-NavbarGuest.propTypes = {
-  logout: PropTypes.func.isRequired,
-};
-
-export default connect(null, { logout })(NavbarGuest);
+export default NavbarGuest;

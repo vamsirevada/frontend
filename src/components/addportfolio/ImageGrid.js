@@ -13,7 +13,7 @@ import { connect, useDispatch } from 'react-redux';
 import VideoModal from './VideoModal';
 import AudioModal from './AudioModal';
 
-const ImageGrid = ({ auth: { user }, id, profile }) => {
+const ImageGrid = ({ auth: { user }, id, profile, guest }) => {
   const dispatch = useDispatch();
   const [edit, setEdit] = useState('');
   const { docs } = UseFirestore('images');
@@ -105,6 +105,7 @@ const ImageGrid = ({ auth: { user }, id, profile }) => {
           profile={profile}
           close={hideImage}
           value={value}
+          guest={guest}
         />
       )}
       {showVideo && (
@@ -115,6 +116,7 @@ const ImageGrid = ({ auth: { user }, id, profile }) => {
           profile={profile}
           close={hideVideo}
           value={value}
+          guest={guest}
         />
       )}
       {showAudio && (
@@ -125,6 +127,7 @@ const ImageGrid = ({ auth: { user }, id, profile }) => {
           profile={profile}
           close={hideAudio}
           value={value}
+          guest={guest}
         />
       )}
 
@@ -386,7 +389,7 @@ const ImageGrid = ({ auth: { user }, id, profile }) => {
                   </>
                 )}
               </div>
-              <a target='_blank' href={doc.url}>
+              <a rel='noreferrer' target='_blank' href={doc.url}>
                 {doc.description}
               </a>
             </motion.div>

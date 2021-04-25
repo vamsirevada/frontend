@@ -37,6 +37,7 @@ const Modal = ({
   dispImage,
   images,
   close,
+  guest,
 }) => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
@@ -241,61 +242,65 @@ const Modal = ({
                 </div>
               </div>
               <div className='des-comm-box'>
-                <div className='flex-des'>
-                  <div className='pic-des-1'>
-                    <div>
-                      {portfolio.likes &&
-                      portfolio.likes
-                        .map((x) => x.user === auth?.user?._id)
-                        .find((x) => x === true) ? (
-                        <div>
-                          <div
-                            onClick={() => {
-                              unlike(images[value]);
-                            }}
-                          >
-                            <img className='r-1' src={yheart} alt='' />
-                            <span className='d-1'>Apperciated</span>
+                {!guest && (
+                  <div className='flex-des'>
+                    <div className='pic-des-1'>
+                      <div>
+                        {portfolio.likes &&
+                        portfolio.likes
+                          .map((x) => x.user === auth?.user?._id)
+                          .find((x) => x === true) ? (
+                          <div>
+                            <div
+                              onClick={() => {
+                                unlike(images[value]);
+                              }}
+                            >
+                              <img className='r-1' src={yheart} alt='' />
+                              <span className='d-1'>Apperciated</span>
+                            </div>
                           </div>
-                        </div>
-                      ) : (
-                        <>
-                          <div
-                            onClick={() => {
-                              like(images[value]);
-                            }}
-                          >
-                            <img className='r-1' src={heart} alt='' />
-                            <span className='d-1'>Apperciate</span>
-                          </div>
-                        </>
+                        ) : (
+                          <>
+                            <div
+                              onClick={() => {
+                                like(images[value]);
+                              }}
+                            >
+                              <img className='r-1' src={heart} alt='' />
+                              <span className='d-1'>Apperciate</span>
+                            </div>
+                          </>
+                        )}
+                      </div>
+                      <div>
+                        <img className='r-1' src={com} alt='' />
+                        <span className='d-1'>Comment</span>
+                      </div>
+                    </div>
+                    <div className='des-right'>
+                      {portfolio.likes && portfolio.likes.length > 0 && (
+                        <a
+                          onClick={() => {
+                            setShow(true);
+                          }}
+                          className='d-1'
+                        >
+                          <span className='f-1'>{portfolio.likes.length}</span>{' '}
+                          Appreciations
+                        </a>
+                      )}
+                      {portfolio.comments && portfolio.comments.length > 0 && (
+                        <a className='d-1'>
+                          <span className='f-1'>
+                            {portfolio.comments.length}
+                          </span>{' '}
+                          Comment
+                        </a>
                       )}
                     </div>
-                    <div>
-                      <img className='r-1' src={com} alt='' />
-                      <span className='d-1'>Comment</span>
-                    </div>
                   </div>
-                  <div className='des-right'>
-                    {portfolio.likes && portfolio.likes.length > 0 && (
-                      <a
-                        onClick={() => {
-                          setShow(true);
-                        }}
-                        className='d-1'
-                      >
-                        <span className='f-1'>{portfolio.likes.length}</span>{' '}
-                        Appreciations
-                      </a>
-                    )}
-                    {portfolio.comments && portfolio.comments.length > 0 && (
-                      <a className='d-1'>
-                        <span className='f-1'>{portfolio.comments.length}</span>{' '}
-                        Comment
-                      </a>
-                    )}
-                  </div>
-                </div>
+                )}
                 {edit ? (
                   <div className='popup-description'>
                     <textarea
@@ -323,90 +328,93 @@ const Modal = ({
                     )}
                   </div>
                 )}
+                {!guest && (
+                  <>
+                    <hr className='Hori' />
+                    <div className='comment-box'>
+                      <div>
+                        <img
+                          className='comment-pic'
+                          src={auth?.user?.avatar}
+                          alt=''
+                        />
+                      </div>
+                      <div className='cmt-1'>
+                        <form
+                          onSubmit={(e) => {
+                            e.preventDefault();
+                            comment(images[value]);
+                          }}
+                        >
+                          <input
+                            type='text'
+                            name='comment'
+                            placeholder='Write a Comment...'
+                            value={text}
+                            onChange={(e) => setText(e.target.value)}
+                          />
 
-                <hr className='Hori' />
-                <div className='comment-box'>
-                  <div>
-                    <img
-                      className='comment-pic'
-                      src={auth?.user?.avatar}
-                      alt=''
-                    />
-                  </div>
-                  <div className='cmt-1'>
-                    <form
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        comment(images[value]);
-                      }}
-                    >
-                      <input
-                        type='text'
-                        name='comment'
-                        placeholder='Write a Comment...'
-                        value={text}
-                        onChange={(e) => setText(e.target.value)}
-                      />
-
-                      <button type='submit' className='btn-blue'>
-                        <img src={plane} alt='' />
-                      </button>
-                    </form>
-                  </div>
-                </div>
-                <hr className='Hori' />
-                {portfolio.comments && portfolio.comments.length > 0 && (
-                  <div className='comments'>
-                    <div className='comment-box-heading'>
-                      <h5>Comments</h5>
+                          <button type='submit' className='btn-blue'>
+                            <img src={plane} alt='' />
+                          </button>
+                        </form>
+                      </div>
                     </div>
-                    {portfolio.comments.map((comment, index) => (
-                      <Fragment key={index}>
-                        <div className='comment-box'>
-                          <div>
-                            <Link to={`portfolio/${comment?.user}`}>
-                              <img
-                                className='comment-pic'
-                                src={
-                                  comment?.commentedUserAvatar
-                                    ? comment?.commentedUserAvatar
-                                    : logo
-                                }
-                                alt=''
-                              />
-                            </Link>
-                          </div>
-                          <div className='cmt-1 list'>
-                            <div>
+                    <hr className='Hori' />
+                    {portfolio.comments && portfolio.comments.length > 0 && (
+                      <div className='comments'>
+                        <div className='comment-box-heading'>
+                          <h5>Comments</h5>
+                        </div>
+                        {portfolio.comments.map((comment, index) => (
+                          <Fragment key={index}>
+                            <div className='comment-box'>
                               <div>
                                 <Link to={`portfolio/${comment?.user}`}>
-                                  <span className='d-1'>
-                                    {comment?.fullName && comment?.fullName}
-                                  </span>{' '}
+                                  <img
+                                    className='comment-pic'
+                                    src={
+                                      comment?.commentedUserAvatar
+                                        ? comment?.commentedUserAvatar
+                                        : logo
+                                    }
+                                    alt=''
+                                  />
                                 </Link>
                               </div>
-                              <div className='d-3'>
-                                <p>{comment.commentText}</p>
+                              <div className='cmt-1 list'>
+                                <div>
+                                  <div>
+                                    <Link to={`portfolio/${comment?.user}`}>
+                                      <span className='d-1'>
+                                        {comment?.fullName && comment?.fullName}
+                                      </span>{' '}
+                                    </Link>
+                                  </div>
+                                  <div className='d-3'>
+                                    <p>{comment.commentText}</p>
+                                  </div>
+                                </div>
+                                <div>
+                                  {!auth.loading &&
+                                    comment?.user === auth.user._id && (
+                                      <button
+                                        type='button'
+                                        className='btn-blue btn-red'
+                                        onClick={removeComment}
+                                      >
+                                        <img src={bin} alt='' />
+                                      </button>
+                                    )}
+                                </div>
                               </div>
                             </div>
-                            <div>
-                              {!auth.loading &&
-                                comment?.user === auth.user._id && (
-                                  <button
-                                    type='button'
-                                    className='btn-blue btn-red'
-                                    onClick={removeComment}
-                                  >
-                                    <img src={bin} alt='' />
-                                  </button>
-                                )}
-                            </div>
-                          </div>
-                        </div>
-                        <hr className='Hori' />
-                      </Fragment>
-                    ))}
-                  </div>
+                            <hr className='Hori' />
+                          </Fragment>
+                        ))}
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             </div>

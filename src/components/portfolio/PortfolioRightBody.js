@@ -1,11 +1,11 @@
-import React from "react";
-import ImageGrid from "../addportfolio/ImageGrid";
+import React from 'react';
+import ImageGrid from '../addportfolio/ImageGrid';
 
-const PortfolioRightBody = ({ profile }) => {
+const PortfolioRightBody = ({ guest, profile }) => {
   return (
-    <div className="gallery">
+    <div className='gallery'>
       {profile !== null && (
-        <ImageGrid profile={profile} id={profile?.user?._id} />
+        <ImageGrid guest={guest} profile={profile} id={profile?.user?._id} />
       )}
     </div>
   );

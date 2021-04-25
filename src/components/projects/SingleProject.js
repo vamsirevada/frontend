@@ -9,8 +9,8 @@ import ProjectPostForm from '../projectposts/ProjectPostForm';
 import ProjectPosts from '../projectposts/ProjectPosts';
 import MiniProjectInfo from './MiniProjectInfo';
 import BallotIcon from '@material-ui/icons/Ballot';
-import AdminMoney from './AdminMoney';
-import { useHistory } from 'react-router';
+// import AdminMoney from './AdminMoney';
+// import { useHistory } from 'react-router';
 
 const SingleProject = ({
   profile: { profile },
@@ -19,7 +19,7 @@ const SingleProject = ({
   project: { singleproject, budget, loading },
   match,
 }) => {
-  const history = useHistory();
+  // const history = useHistory();
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
 
@@ -28,9 +28,9 @@ const SingleProject = ({
     getProjectBudget(match.params.id);
   }, [getProject, getProjectBudget, match.params.id]);
 
-  const budgets = budget.map((x) => x.budget);
+  // const budgets = budget.map((x) => x.budget);
 
-  const total = budgets.reduce((acc, item) => (acc += item), 0).toFixed(2);
+  // const total = budgets.reduce((acc, item) => (acc += item), 0).toFixed(2);
 
   const onClick1 = (e) => {
     toogleLeft(true);
