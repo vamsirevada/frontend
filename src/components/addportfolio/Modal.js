@@ -185,11 +185,13 @@ const Modal = ({
                         by <span className='blue'>{user.fullName}</span>
                         {', '}
                         <Moment format='DD MMM YY'>
-                          {portfolio?.createdAt.toDate()}
+                          {portfolio?.createdAt &&
+                            portfolio?.createdAt.toDate()}
                         </Moment>{' '}
                         {', '}
                         <Moment format='hh:mm A'>
-                          {portfolio?.createdAt.toDate()}
+                          {portfolio?.createdAt &&
+                            portfolio?.createdAt.toDate()}
                         </Moment>
                       </p>
                     </div>
