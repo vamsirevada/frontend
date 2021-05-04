@@ -43,7 +43,7 @@ const EditButton = ({ profile }) => {
               <li>
                 <a
                   id='share-port-1'
-                  href={`sms:?body=Dear Sir/Madam,
+                  href={`sms:?&body=Dear Sir/Madam,
                   %0D%0A
                   %0D%0AI'm ${profile?.user?.fullName}, ${profile?.status}. I came to know through [name of website/poster] that you’re looking for new talent for [so and so role] and I'm suitable for what you're looking for. You can also view my portfolio to see my work.
                   %0D%0A
