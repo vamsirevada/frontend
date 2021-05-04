@@ -42,7 +42,8 @@
 .ribbon-left-active {
   text-shadow: 2px 2px 5px #00000024;
   background-color: #f4f4f4;
-  border-bottom: 1px solid #fad300;
+  border-bottom: 2px solid #fad300;
+  box-shadow: 0px 0px 10px 0px #00000024;
 }
 .ribbon-right {
   height: inherit;
@@ -53,14 +54,16 @@
 .ribbon-left:focus {
   text-shadow: 2px 2px 5px #00000024;
   background-color: #f4f4f4;
-  border-bottom: 1px solid #fad300;
+  border-bottom: 2px solid #fad300;
+  box-shadow: 0px 0px 10px 0px #00000024;
 }
 
 .ribbon-right:hover,
 .ribbon-right:focus {
   text-shadow: 2px 2px 5px #00000024;
   background-color: #f4f4f4;
-  border-bottom: 1px solid #fad300;
+  border-bottom: 2px solid #fad300;
+  box-shadow: 0px 0px 10px 0px #00000024;
 }
 
 #portfolio {
