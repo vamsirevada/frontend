@@ -47,7 +47,8 @@ const Createprofile = ({ createProfile, history }) => {
   const onFileChange = async (e) => {
     const file = e.target.files[0];
     const storageRef = projectStorage.ref('profilepictures');
-    const fileRef = await storageRef.child(file.name).put(file);
+    const fileRef = storageRef.child(file.name).put(file);
+
     fileRef.on(
       'state_changed',
       (snap) => {

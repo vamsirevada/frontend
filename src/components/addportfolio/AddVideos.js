@@ -39,9 +39,18 @@ const AddVideos = ({ setAlert }) => {
 
   const handleChange = (e) => {
     let selected = e.target.files[0];
-    if (selected) {
-      setDisplay(URL.createObjectURL(e.target.files[0]));
-      setFile(selected);
+    const blob = selected.slice(0, selected.size, selected.type);
+    const newFile = new File([blob], selected.name, { type: 'video/mp4' });
+
+    console.log(newFile.type);
+
+    console.log(URL.createObjectURL(newFile));
+
+    if (newFile) {
+      // setDisplay(URL.createObjectURL(e.target.files[0]));
+      setDisplay(URL.createObjectURL(newFile));
+      // setFile(selected);
+      setFile(newFile);
       setError('');
     } else {
       setFile(null);
@@ -60,7 +69,7 @@ const AddVideos = ({ setAlert }) => {
             src={display}
             controls
             className={display ? '' : 'box1'}
-          />
+          ></video>
           <br />
           {upload && (
             <ProgressBar
