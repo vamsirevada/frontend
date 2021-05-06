@@ -4,7 +4,6 @@ import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addLike, removeLike, deletePost } from '../../actions/post';
-import { notePost, unnotePost } from '../../actions/profile';
 import Moment from 'react-moment';
 import path from '../../images/path.svg';
 import heart from '../../images/heart.svg';
@@ -13,16 +12,13 @@ import com from '../../images/noun_comment_767203 copy.svg';
 import CommentForm from './CommentForm';
 import CommentItem from './CommentItem';
 import logo from '../../images/dummyimage.jpg';
-import noteimg from '../../images/icons/summarize-24px.svg';
 import poster from '../../images/play.jpg';
 import PostType from './PostType';
 import { projectFirestore } from '../../firebase/config';
-import NotePostPopUp from './NotePostPopUp';
 import LikesPopup from './LikesPopup';
 
 const WelcomePostItem = ({
   auth,
-  profile: { profile },
   post: {
     _id,
     text,
@@ -41,35 +37,19 @@ const WelcomePostItem = ({
   addLike,
   removeLike,
   deletePost,
-  notePost,
-  unnotePost,
   params,
 }) => {
   const abc = likes.map((like) => like.user === auth?.user?._id);
   const xyz = abc.find((num) => num === true);
 
-  const postnoted = profile?.postnote.map((e) => e.post === _id);
-
-  const rei = postnoted.find((num) => num === true);
-
-  const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
   const [displayDot, toogleDot] = useState(false);
   const [displayLbtn, toogleLbtn] = useState(xyz);
-  const [displayNbtn, toogleNbtn] = useState(rei);
   const [displayAddCmt, toogleAddCmt] = useState(false);
 
   const onLike = (e) => {
     e.preventDefault();
     toogleLbtn(!displayLbtn);
-  };
-
-  const note = () => {
-    toogleNbtn(!displayNbtn);
-  };
-  const unnote = () => {
-    unnotePost(_id);
-    toogleNbtn(!displayNbtn);
   };
 
   const like = () => {
@@ -100,30 +80,12 @@ const WelcomePostItem = ({
       });
   };
 
-  const close = () => {
-    setShow(false);
-  };
-
   const hide = () => {
     setOpen(false);
   };
 
   return (
     <>
-      <NotePostPopUp
-        show={show}
-        close={close}
-        id={_id}
-        text={text}
-        fullName={fullName}
-        username={userName}
-        groupName={groupName}
-        date={date}
-        user={user}
-        type={type}
-        url={url}
-        note={note}
-      />
       {open && <LikesPopup hide={hide} likes={likes} />}
       <div className='post'>
         <div className='post-heading'>
@@ -287,27 +249,6 @@ const WelcomePostItem = ({
               <img className='r-1' src={com} alt='' />
               <span className='d-1'>Comment</span>
             </div>
-            <div>
-              {displayNbtn ? (
-                <Fragment>
-                  <div onClick={unnote}>
-                    <img className='r-1 unnote' src={noteimg} alt='' />
-                    <span className='d-1'>Unnote Post</span>
-                  </div>
-                </Fragment>
-              ) : (
-                <Fragment>
-                  <div
-                    onClick={() => {
-                      setShow(true);
-                    }}
-                  >
-                    <img className='r-1 note' src={noteimg} alt='' />
-                    <span className='d-1'>Note Post</span>
-                  </div>
-                </Fragment>
-              )}
-            </div>
           </div>
           <div className='des-right'>
             {likes.length > 0 && (
@@ -378,7 +319,5 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {
   addLike,
   removeLike,
-  notePost,
-  unnotePost,
   deletePost,
 })(WelcomePostItem);
