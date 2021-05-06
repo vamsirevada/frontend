@@ -62,18 +62,10 @@ const PostForm = ({ addPost }) => {
     if (url !== null) {
       addPost({
         text: index >= 0 ? newText : text,
-        url,
+        url: url ? url : null,
         link: index >= 0 ? newLink : null,
-        type: filetype,
+        type: filetype ? filetype : 'default',
       });
-      setText('');
-      setShow(false);
-    } else if (index >= 0) {
-      addPost({ text: newText, link: newLink, type: 'Blog' });
-      setText('');
-      setShow(false);
-    } else {
-      addPost({ text: text, type: 'default' });
       setText('');
       setShow(false);
     }

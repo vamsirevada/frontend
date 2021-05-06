@@ -2073,8 +2073,13 @@ input.search-btn:focus {
   overflow: auto;
 }
 .navbar .nav-icons .search-dis .search-dis-container {
+  display: flex;
   width: 90%;
   margin: auto;
+}
+
+.search-cross {
+  cursor: pointer;
 }
 
 .search-dis-container .search-header {

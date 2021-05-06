@@ -172,11 +172,6 @@ const PostItem = ({
           )}
         </div>
 
-        {PostType(type) === 'default' && (
-          <div style={{ marginBottom: 10 }} className='post-description'>
-            <p>{text}</p>
-          </div>
-        )}
         {PostType(type) === 'Picture' && (
           <>
             <p style={{ marginBottom: 10 }} className='post-description'>
@@ -251,19 +246,21 @@ const PostItem = ({
           </>
         )}
 
-        {PostType(type) === 'Blog' && (
+        {PostType(type) === 'default' && (
           <>
             <p className='post-description' style={{ marginBottom: 10 }}>
               {text}
             </p>
-            <a
-              className='blog-url'
-              target='_blank'
-              href={link}
-              style={{ marginBottom: 10 }}
-            >
-              {link}
-            </a>
+            {link && (
+              <a
+                className='blog-url'
+                target='_blank'
+                href={link}
+                style={{ marginBottom: 10 }}
+              >
+                {link}
+              </a>
+            )}
           </>
         )}
 

@@ -52,117 +52,137 @@ const SearchPage = ({ getProfiles }) => {
       {input !== '' && (
         <div className='search-dis' data-aos='fade-in'>
           <div className='search-dis-container'>
-            <div className='search-header'>
-              <h2>
-                Search Result for <span className='blue'>'{input}'</span>
-              </h2>
-              <div
-                onClick={() => {
-                  setInput('');
-                  history.push('/profiles');
-                }}
-                className='search-seeall'
-              >
-                see all
+            <div>
+              <div className='search-header'>
+                <h2>
+                  Search Result for <span className='blue'>'{input}'</span>
+                </h2>
+                <div
+                  onClick={() => {
+                    setInput('');
+                    history.push('/profiles');
+                  }}
+                  className='search-seeall'
+                >
+                  see all
+                </div>
               </div>
-            </div>
-            <hr className='hori' />
+              <hr className='hori' />
 
-            <div className='search-buddy-grid'>
-              {users
-                .filter((val) => {
-                  if (input === '') {
-                    return null;
-                  } else if (
-                    (val.user.fullName &&
-                      val.user.fullName
+              <div className='search-buddy-grid'>
+                {users
+                  .filter((val) => {
+                    if (input === '') {
+                      return null;
+                    } else if (
+                      (val.user.fullName &&
+                        val.user.fullName
+                          .toLowerCase()
+                          .includes(input.toLowerCase())) ||
+                      val.user.userName
                         .toLowerCase()
-                        .includes(input.toLowerCase())) ||
-                    val.user.userName
-                      .toLowerCase()
-                      .includes(input.toLowerCase()) ||
-                    (val.user.groupName &&
-                      val.user.groupName
-                        .toLowerCase()
-                        .includes(input.toLowerCase())) ||
-                    val.bio.toLowerCase().includes(input.toLowerCase()) ||
-                    val.status.toLowerCase().includes(input.toLowerCase())
-                  ) {
-                    return val;
-                  } else {
-                    return null;
-                  }
-                })
-                .map((val, key) => {
-                  return (
-                    <div key={key} className='buddy-grid'>
-                      <div className='connect-left'>
-                        <div className='connect-left-top'>
-                          <div
-                            style={{
-                              background: `url(${
-                                val.avatar ? val.avatar : logo
-                              }) no-repeat center center/cover`,
-                            }}
-                            className='display-pic'
-                          ></div>
-                          <div className='flex-c'>
-                            <p>
-                              <span className='bold'>
-                                {val.user.fullName && val.user.fullName}
-                                {val.user.groupName && val.user.groupName}
-                              </span>{' '}
-                              <br />
-                              <span className='second-bold'></span>{' '}
-                              <span className='second-bold'>{val.status}</span>{' '}
-                              <br />
-                              <span className='second-bold'>
-                                {val.location}
-                              </span>
-                              <br />
-                              <span className='third-bold'>
-                                Connections :{' '}
-                                <span className='f-1'>
-                                  {val.buddies.length}
-                                </span>
-                              </span>
-                            </p>
-                          </div>
-                        </div>
-                        <div className='connect-left-bottom'>
-                          <div className='btn-b'>
-                            {' '}
-                            <a
-                              onClick={() => {
-                                setInput('');
-                                history.push(`/portfolio/${val?.user?._id}`);
+                        .includes(input.toLowerCase()) ||
+                      (val.user.groupName &&
+                        val.user.groupName
+                          .toLowerCase()
+                          .includes(input.toLowerCase())) ||
+                      val.bio.toLowerCase().includes(input.toLowerCase()) ||
+                      val.status.toLowerCase().includes(input.toLowerCase())
+                    ) {
+                      return val;
+                    } else {
+                      return null;
+                    }
+                  })
+                  .map((val, key) => {
+                    return (
+                      <div key={key} className='buddy-grid'>
+                        <div className='connect-left'>
+                          <div className='connect-left-top'>
+                            <div
+                              style={{
+                                background: `url(${
+                                  val.avatar ? val.avatar : logo
+                                }) no-repeat center center/cover`,
                               }}
-                              className='btn-blue'
-                            >
-                              Portfolio
-                            </a>
+                              className='display-pic'
+                            ></div>
+                            <div className='flex-c'>
+                              <p>
+                                <span
+                                  onClick={() => {
+                                    setInput('');
+                                    history.push(
+                                      `/portfolio/${val?.user?._id}`
+                                    );
+                                  }}
+                                  className='bold'
+                                >
+                                  {val.user.fullName && val.user.fullName}
+                                  {val.user.groupName && val.user.groupName}
+                                </span>{' '}
+                                <br />
+                                <span className='second-bold'></span>{' '}
+                                <span className='second-bold'>
+                                  {val.status}
+                                </span>{' '}
+                                <br />
+                                <span className='second-bold'>
+                                  {val.location}
+                                </span>
+                                <br />
+                                <span className='third-bold'>
+                                  Connections :{' '}
+                                  <span className='f-1'>
+                                    {val.buddies.length}
+                                  </span>
+                                </span>
+                              </p>
+                            </div>
                           </div>
-                          <CRequest item={val} />
-                          <div className='btn-g'>
-                            <Tooltip title='Chat' placement='top'>
+                          <div className='connect-left-bottom'>
+                            <div className='btn-b'>
+                              {' '}
                               <a
                                 onClick={() => {
-                                  setStart(true);
-                                  setUserUid(val?.user?._id);
-                                  setChatUserName(val?.user?.fullName);
-                                  setChatUserImage(val?.avatar);
+                                  setInput('');
+                                  history.push(`/portfolio/${val?.user?._id}`);
                                 }}
-                                className='btn-blue g-1'
+                                className='btn-blue'
                               >
-                                <img className='g-1' src={mail} alt='' />
+                                Portfolio
                               </a>
-                            </Tooltip>
+                            </div>
+                            <CRequest item={val} />
+                            <div className='btn-g'>
+                              <Tooltip title='Chat' placement='top'>
+                                <a
+                                  onClick={() => {
+                                    setStart(true);
+                                    setUserUid(val?.user?._id);
+                                    setChatUserName(val?.user?.fullName);
+                                    setChatUserImage(val?.avatar);
+                                  }}
+                                  className='btn-blue g-1'
+                                >
+                                  <img className='g-1' src={mail} alt='' />
+                                </a>
+                              </Tooltip>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+              </div>
+            </div>
+            <div
+              className='search-cross'
+              onClick={() => {
+                setInput('');
+              }}
+            >
+              x
             </div>
           </div>
         </div>

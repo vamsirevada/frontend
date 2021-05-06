@@ -675,6 +675,7 @@
   margin-left: 1rem;
 }
 .buddy-grid .connect-left .connect-left-top .flex-c .bold {
+  cursor: pointer;
   font-size: 1rem;
   color: #272727;
 }

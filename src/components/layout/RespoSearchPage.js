@@ -110,7 +110,13 @@ const RespoSearchPage = ({ closeRespoBar, getProfiles }) => {
                         ></div>
                         <div className='flex-c'>
                           <p>
-                            <span className='bold'>
+                            <span
+                              onClick={() => {
+                                setInput('');
+                                history.push(`/portfolio/${val?.user?._id}`);
+                              }}
+                              className='bold'
+                            >
                               {val.user.fullName && val.user.fullName}
                               {val.user.groupName && val.user.groupName}
                             </span>{' '}
