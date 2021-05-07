@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
@@ -69,9 +70,10 @@ const CRequest = ({
   };
 
   const onClick = () => {
-    if (!btn.disabled) {
-      sendRequest();
-    }
+    console.log('object');
+    // if (!btn.disabled) {
+    //   sendRequest();
+    // }
   };
 
   return (

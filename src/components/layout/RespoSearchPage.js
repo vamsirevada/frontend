@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../utils/api';
 import { useHistory } from 'react-router-dom';
-import { getProfiles } from '../../actions/profile';
-import { connect } from 'react-redux';
 import logo from '../../images/dummyimage.jpg';
 import nounPlus from '../../images/noun_Plus_2310779.svg';
 import mail from '../../images/chat.svg';
@@ -11,7 +9,7 @@ import PersonalMessage from '../chat/PersonalMessage';
 import CRequest from '../profiles/CRequest';
 import Tooltip from '@material-ui/core/Tooltip';
 
-const RespoSearchPage = ({ closeRespoBar, getProfiles }) => {
+const RespoSearchPage = ({ closeRespoBar }) => {
   const history = useHistory();
   const [input, setInput] = useState('');
   const [users, setUsers] = useState([]);
@@ -28,8 +26,7 @@ const RespoSearchPage = ({ closeRespoBar, getProfiles }) => {
 
   useEffect(() => {
     fetchData();
-    getProfiles();
-  }, [getProfiles]);
+  }, []);
 
   const chatClose = () => {
     setStart(false);
@@ -183,8 +180,5 @@ const RespoSearchPage = ({ closeRespoBar, getProfiles }) => {
     </>
   );
 };
-const mapStateToProps = (state) => ({
-  profile: state.profile,
-});
 
-export default connect(mapStateToProps, { getProfiles })(RespoSearchPage);
+export default RespoSearchPage;

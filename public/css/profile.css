@@ -232,6 +232,7 @@ h4 {
   height: 35px;
   position: relative;
 }
+
 .btn-white.Connect::after {
   content: '';
   width: 48px;

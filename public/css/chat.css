@@ -675,8 +675,7 @@ a {
   position: relative;
 }
 
-.dp-4::before {
-  content: '';
+.dp-4-dot {
   display: inline-block;
   width: 12px;
   height: 12px;
@@ -730,11 +729,11 @@ a {
   justify-content: space-between !important;
   align-items: center;
   background-color: #f9f9f9;
-  /* padding: 1.106rem; */
   padding: 0.8rem;
   border: 1px solid #dfe4ea;
   border-radius: 0px 8px 0px 0px;
-  position: fixed;
+  position: sticky;
+  top: 0px;
   z-index: 10;
 }
 
@@ -814,7 +813,6 @@ a {
 
 .fullchat-mainbody {
   position: relative;
-  top: 74px;
   width: 100%;
   height: 89%;
   background-image: url(../img/Rectangle.png);
@@ -946,9 +944,9 @@ a {
 .fullchat-type {
   width: 100%;
   height: 70px;
-  position: fixed;
+  position: sticky;
   right: 0px;
-  bottom: -10px;
+  bottom: 0px;
   z-index: 10;
 }
 

@@ -2,8 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../utils/api';
 import { useHistory } from 'react-router-dom';
-import { getProfiles } from '../../actions/profile';
-import { connect } from 'react-redux';
 import searchIcon from '../../images/searchIcon.svg';
 import logo from '../../images/dummyimage.jpg';
 import mail from '../../images/mail.svg';
@@ -11,7 +9,7 @@ import PersonalMessage from '../chat/PersonalMessage';
 import CRequest from '../profiles/CRequest';
 import Tooltip from '@material-ui/core/Tooltip';
 
-const SearchPage = ({ getProfiles }) => {
+const SearchPage = () => {
   const history = useHistory();
   const [start, setStart] = useState(false);
   const [input, setInput] = useState('');
@@ -28,8 +26,7 @@ const SearchPage = ({ getProfiles }) => {
 
   useEffect(() => {
     fetchData();
-    getProfiles();
-  }, [getProfiles]);
+  }, []);
 
   const chatClose = () => {
     setStart(false);
@@ -199,4 +196,4 @@ const SearchPage = ({ getProfiles }) => {
   );
 };
 
-export default connect(null, { getProfiles })(SearchPage);
+export default SearchPage;

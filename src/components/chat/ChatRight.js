@@ -105,7 +105,7 @@ const ChatRight = ({
   };
 
   return (
-    <section id='fullchat-right' data-aos='zoom-in'>
+    <div id='fullchat-right' data-aos='zoom-in'>
       <div className='fullchat-maintop'>
         <div className='fullchat-maintop-left'>
           <div
@@ -115,7 +115,11 @@ const ChatRight = ({
               }) no-repeat center center/cover`,
             }}
             className='dp-4'
-          ></div>
+          >
+            {chatProfile?.user?.activityStatus === 'online' && (
+              <span className='dp-4-dot'></span>
+            )}
+          </div>
           <div className='flex-column'>
             <div className='chat-name'>
               <a href='#!'>
@@ -124,7 +128,7 @@ const ChatRight = ({
                   : chatProfile?.user?.fullName || chatProfile?.user?.groupName}
               </a>
             </div>
-            {auth?.user?.activityStatus === 'online' && (
+            {chatProfile?.user?.activityStatus === 'online' && (
               <div className='chat-body'>
                 <p>Active Now</p>
               </div>
@@ -238,7 +242,7 @@ const ChatRight = ({
               value={formValue}
               placeholder='Type your Message'
               onChange={(e) => setFormValue(e.target.value)}
-              rows='1'
+              rows='3'
             ></textarea>
           </div>
           <div className='form-flex-right'>
@@ -271,7 +275,7 @@ const ChatRight = ({
           </div>
         </form>
       </div>
-    </section>
+    </div>
   );
 };
 

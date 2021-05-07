@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { Fragment, useEffect, useRef, useState } from 'react';
-import { getProfiles, getBuddiesById } from '../../actions/profile';
+import React, { Fragment, useEffect, useState } from 'react';
+import { getBuddiesById } from '../../actions/profile';
 import { getProjects } from '../../actions/project';
 import { getRealtimeConversations } from '../../actions/chat';
 import { connect, useDispatch } from 'react-redux';
 import logo from '../../images/dummyimage.jpg';
+import api from '../../utils/api';
 import emoji from '../../images/emoji.svg';
 import path from '../../images/path.svg';
 import videocall from '../../images/videocall.png';
@@ -15,25 +16,32 @@ import ResponsiveChatPopup from './ResponsiveChatPopup';
 
 const ChatPage = ({
   auth,
-  getProfiles,
+  getBuddiesById,
   getProjects,
-  profile: { profiles },
+  profile: { buddies },
   project: { projects },
   chat: { conversations },
 }) => {
   const dispatch = useDispatch();
+  const [input, setInput] = useState('');
+  const [users, setUsers] = useState([]);
   const [viewAll, setViewAll] = useState(false);
   const [chatProfile, setChatProfile] = useState('');
   const [chatStarted, setChatStarted] = useState(false);
   const [chatUserImage, setChatUserImage] = useState(logo);
   const [userUid, setUserUid] = useState(null);
 
-  useEffect(() => {
-    getProfiles();
-    getProjects(auth?.user?._id);
-  }, [getProfiles, getProjects, auth?.user?._id]);
+  const fetchData = async () => {
+    return await api.get('/profile').then((data) => {
+      setUsers(data.data);
+    });
+  };
 
-  const newprofiles = profiles.filter((x) => x?.user?._id !== auth?.user?._id);
+  useEffect(() => {
+    getBuddiesById(auth?.user?._id);
+    getProjects(auth?.user?._id);
+    fetchData();
+  }, [getBuddiesById, getProjects, auth?.user?._id]);
 
   const chatClose = () => {
     setChatStarted(false);
@@ -54,9 +62,13 @@ const ChatPage = ({
             ></div>
             <div>
               <input
-                type='search'
+                type='text'
+                value={input}
                 name='search'
                 placeholder='Search People & Groups'
+                onChange={(e) => {
+                  setInput(e.target.value);
+                }}
               />
             </div>
           </div>
@@ -64,34 +76,170 @@ const ChatPage = ({
         <div className='fullchat-leftcontainer'>
           <div className='fullchat-leftbody'>
             <div className='chats'>
-              <div className='chats-heading'>
-                <h3>
-                  Contacts <span className='blue'>({newprofiles.length})</span>
-                </h3>
-                <a
-                  onClick={() => {
-                    setViewAll(!viewAll);
-                  }}
-                  className='blue'
-                >
-                  See More
-                </a>
-              </div>
-              {newprofiles &&
-                newprofiles
-                  .slice(0, viewAll ? newprofiles.length : 4)
-                  .map((profile, index) => (
-                    <Fragment key={index}>
+              {input !== '' ? (
+                <div className='chats-heading'>
+                  <h3>Profiles</h3>
+                </div>
+              ) : (
+                <div className='chats-heading'>
+                  <h3>
+                    Contacts <span className='blue'>({buddies.length})</span>
+                  </h3>
+                  <a
+                    onClick={() => {
+                      setViewAll(!viewAll);
+                    }}
+                    className='blue'
+                  >
+                    See More
+                  </a>
+                </div>
+              )}
+              {input !== '' ? (
+                <>
+                  {users
+                    .filter((val) => {
+                      if (input === '') {
+                        return null;
+                      } else if (
+                        (val.user.fullName &&
+                          val.user.fullName
+                            .toLowerCase()
+                            .includes(input.toLowerCase())) ||
+                        val.user.userName
+                          .toLowerCase()
+                          .includes(input.toLowerCase()) ||
+                        (val.user.groupName &&
+                          val.user.groupName
+                            .toLowerCase()
+                            .includes(input.toLowerCase())) ||
+                        val.bio.toLowerCase().includes(input.toLowerCase()) ||
+                        val.status.toLowerCase().includes(input.toLowerCase())
+                      ) {
+                        return val;
+                      } else {
+                        return null;
+                      }
+                    })
+                    .map((val, key) => {
+                      return (
+                        <Fragment key={key}>
+                          <div
+                            onClick={() => {
+                              setChatProfile(val);
+                              setChatStarted(true);
+                              setUserUid(val?.user?._id);
+                              setChatUserImage(val?.avatar);
+                              dispatch(
+                                getRealtimeConversations({
+                                  uid_1: auth?.user?._id,
+                                  uid_2: val?.user?._id,
+                                })
+                              );
+                            }}
+                            className='fullchat-chatgrid'
+                          >
+                            <div
+                              style={{
+                                background: `url(${
+                                  val?.avatar ? val?.avatar : logo
+                                }) no-repeat center center/cover`,
+                              }}
+                              className='dp'
+                            ></div>
+                            <div className='flex-column-1'>
+                              <div className='chat-name'>
+                                <a>
+                                  {val?.user?.fullName && val?.user?.fullName}
+                                </a>
+                                <a>
+                                  {val?.user?.groupName && val?.user?.groupName}
+                                </a>
+                              </div>
+                              <div className='chat-body'>
+                                <p>{val.status}</p>
+                              </div>
+                            </div>
+                          </div>
+                          <hr className='hori-2' />
+                        </Fragment>
+                      );
+                    })}
+                </>
+              ) : (
+                <>
+                  {buddies &&
+                    buddies
+                      .slice(0, viewAll ? buddies.length : 4)
+                      .map((profile, index) => (
+                        <Fragment key={index}>
+                          <div
+                            onClick={() => {
+                              setChatProfile(profile);
+                              setChatStarted(true);
+                              setUserUid(profile?.user?._id);
+                              setChatUserImage(profile?.avatar);
+                              dispatch(
+                                getRealtimeConversations({
+                                  uid_1: auth?.user?._id,
+                                  uid_2: profile?.user?._id,
+                                })
+                              );
+                            }}
+                            className='fullchat-chatgrid'
+                          >
+                            <div
+                              style={{
+                                background: `url(${
+                                  profile?.avatar ? profile?.avatar : logo
+                                }) no-repeat center center/cover`,
+                              }}
+                              className='dp'
+                            ></div>
+                            <div className='flex-column-1'>
+                              <div className='chat-name'>
+                                <a>
+                                  {profile?.user?.fullName &&
+                                    profile?.user?.fullName}
+                                </a>
+                                <a>
+                                  {profile?.user?.groupName &&
+                                    profile?.user?.groupName}
+                                </a>
+                              </div>
+                              <div className='chat-body'>
+                                <p>{profile.status}</p>
+                              </div>
+                            </div>
+                          </div>
+                          <hr className='hori-2' />
+                        </Fragment>
+                      ))}
+                </>
+              )}
+            </div>
+            {input === '' ? (
+              <div className='chats'>
+                <div className='chats-heading'>
+                  <h3>
+                    ProjectGroups{' '}
+                    <span className='blue'>({projects.length})</span>
+                  </h3>
+                  <a className='blue'>See More</a>
+                </div>
+                {projects &&
+                  projects.map((project) => (
+                    <Fragment key={project?._id}>
                       <div
                         onClick={() => {
-                          setChatProfile(profile);
+                          setChatProfile(project);
                           setChatStarted(true);
-                          setUserUid(profile?.user?._id);
-                          setChatUserImage(profile?.avatar);
+                          setUserUid(project?._id);
+                          setChatUserImage(project?.avatar);
                           dispatch(
                             getRealtimeConversations({
                               uid_1: auth?.user?._id,
-                              uid_2: profile?.user?._id,
+                              uid_2: project?._id,
                             })
                           );
                         }}
@@ -100,78 +248,25 @@ const ChatPage = ({
                         <div
                           style={{
                             background: `url(${
-                              profile?.avatar ? profile?.avatar : logo
+                              project?.avatar ? project?.avatar : logo
                             }) no-repeat center center/cover`,
                           }}
                           className='dp'
                         ></div>
                         <div className='flex-column-1'>
                           <div className='chat-name'>
-                            <a>
-                              {profile?.user?.fullName &&
-                                profile?.user?.fullName}
-                            </a>
-                            <a>
-                              {profile?.user?.groupName &&
-                                profile?.user?.groupName}
-                            </a>
+                            <a>{project?.projectname}</a>
                           </div>
                           <div className='chat-body'>
-                            <p>{profile.status}</p>
+                            <p>{project?.location}</p>
                           </div>
                         </div>
                       </div>
                       <hr className='hori-2' />
                     </Fragment>
                   ))}
-            </div>
-            <div className='chats'>
-              <div className='chats-heading'>
-                <h3>
-                  ProjectGroups{' '}
-                  <span className='blue'>({projects.length})</span>
-                </h3>
-                <a className='blue'>See More</a>
               </div>
-              {projects &&
-                projects.map((project) => (
-                  <Fragment key={project?._id}>
-                    <div
-                      onClick={() => {
-                        setChatProfile(project);
-                        setChatStarted(true);
-                        setUserUid(project?._id);
-                        setChatUserImage(project?.avatar);
-                        dispatch(
-                          getRealtimeConversations({
-                            uid_1: auth?.user?._id,
-                            uid_2: project?._id,
-                          })
-                        );
-                      }}
-                      className='fullchat-chatgrid'
-                    >
-                      <div
-                        style={{
-                          background: `url(${
-                            project?.avatar ? project?.avatar : logo
-                          }) no-repeat center center/cover`,
-                        }}
-                        className='dp'
-                      ></div>
-                      <div className='flex-column-1'>
-                        <div className='chat-name'>
-                          <a>{project?.projectname}</a>
-                        </div>
-                        <div className='chat-body'>
-                          <p>{project?.location}</p>
-                        </div>
-                      </div>
-                    </div>
-                    <hr className='hori-2' />
-                  </Fragment>
-                ))}
-            </div>
+            ) : null}
           </div>
         </div>
         {chatStarted && (
@@ -221,6 +316,6 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  getProfiles,
+  getBuddiesById,
   getProjects,
 })(ChatPage);

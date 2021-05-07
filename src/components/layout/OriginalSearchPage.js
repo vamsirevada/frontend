@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../utils/api';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import searchIcon from '../../images/searchIcon.svg';
 import logo from '../../images/dummyimage.jpg';
 import connections from '../../images/noun_Friend_2987728.svg';
@@ -18,8 +18,7 @@ const OriginalSearchPage = () => {
 
   useEffect(() => {
     fetchData();
-    //eslint-disable-next-line
-  }, [fetchData]);
+  }, []);
 
   return (
     <>
@@ -59,6 +58,8 @@ const OriginalSearchPage = () => {
                 val.status.toLowerCase().includes(input.toLowerCase())
               ) {
                 return val;
+              } else {
+                return null;
               }
             })
             .map((val, key) => {

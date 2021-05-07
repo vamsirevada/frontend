@@ -258,5 +258,24 @@ export const sendReferral = ({ email }) => async (dispatch) => {
 };
 
 export const logout = () => async (dispatch) => {
-  dispatch({ type: LOGOUT });
+  try {
+    const res = await api.get('/auth/signout');
+    dispatch({
+      type: LOGOUT,
+      payload: res.data.message,
+    });
+  } catch (err) {
+    const errors = err.response.data.errors;
+    console.log(errors);
+    if (errors) {
+      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    }
+    dispatch({
+      type: LOGIN_FAIL,
+    });
+  }
 };
+
+// export const logout = () => async (dispatch) => {
+//   dispatch({ type: LOGOUT });
+// };
