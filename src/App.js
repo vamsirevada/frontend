@@ -31,6 +31,7 @@ import 'aos/dist/aos.css';
 import steps from './steps';
 import './steps.css';
 import Portfolio2 from '../src/components/portfolio/Portfolio2';
+import TermsAndConditions from './components/auth/TermsAndConditions';
 
 const tourOptions = {
   defaultStepOptions: {
@@ -68,6 +69,7 @@ const App = () => {
               <Route exact path='/help' component={Help} />
               <Route exact path='/register' component={Register} />
               <Route exact path='/groupregister' component={Groupregister} />
+              <Route exact path='/privacy' component={TermsAndConditions} />
               <Route exact path='/login' component={Login} />
               <Route exact path='/forgot-password' component={Forgot} />
               <Route

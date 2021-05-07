@@ -15,7 +15,7 @@ const Landing = ({ isAuthenticated }) => {
   const [header, setHeader] = useState('header');
 
   const listenScrollEvent = (event) => {
-    // console.log(window.scrollY);
+    console.log(window.scrollY);
     // 758
     if (window.scrollY < 481) {
       return setHeader('header');
@@ -46,8 +46,9 @@ const Landing = ({ isAuthenticated }) => {
 
   useEffect(() => {
     window.addEventListener('scroll', listenScrollEvent);
-
-    return () => window.removeEventListener('scroll', listenScrollEvent);
+    return () => {
+      window.removeEventListener('scroll', listenScrollEvent);
+    };
   }, []);
 
   if (isAuthenticated) {

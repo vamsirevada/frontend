@@ -1,10 +1,19 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../../../images/vanitylogo1.png';
 
 const Footer = () => {
   return (
     <div id='main-footer'>
-      <div className='ft-para'> &copy; Vanity 2021, All Rights Reserved.</div>
+      <div className='ft-para'>
+        {' '}
+        &copy; Vanity 2021, All Rights Reserved.
+        <br />
+        <Link className='privacy-link' to='/privacy'>
+          Terms & Conditions
+        </Link>
+      </div>
+
       <div className='center'>
         <img src={logo} alt='logo' />
       </div>

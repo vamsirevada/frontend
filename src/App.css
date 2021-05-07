@@ -60,6 +60,44 @@ html {
   transition: all 0.5s ease-in-out;
 }
 
+.privacy-container {
+  position: relative;
+  top: 72px;
+  margin: auto;
+  padding: 20px;
+  width: 70%;
+}
+
+.privacy-heading {
+  padding: 20px;
+  text-align: center;
+}
+
+.privacy-content {
+  text-align: justify;
+  line-height: 1.8em;
+  white-space: pre-line;
+  font-family: var(--raleway-font);
+  color: #5d5d5d;
+  font-size: 1rem;
+}
+
+.privacy-list-main {
+  padding-top: 1em;
+  margin-left: 2em;
+  list-style: outside;
+}
+
+.privacy-list {
+  list-style-type: circle;
+  margin-left: 2em;
+}
+
+.privacy-link {
+  font-size: 0.8rem;
+  color: #7480ff;
+}
+
 /* Landing page pagination */
 .dotstyle ul {
   position: relative;

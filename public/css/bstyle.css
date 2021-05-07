@@ -461,7 +461,6 @@ a {
   font-family: var(--raleway-font);
   font-size: 1rem;
   opacity: 0.8;
-  float: right;
 }
 .file-upload__input::-webkit-file-upload-button:hover {
   opacity: 1;

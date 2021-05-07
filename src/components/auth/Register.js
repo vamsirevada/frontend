@@ -181,8 +181,10 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                   }}
                 />{' '}
                 Creating an account means you’re agree with our{' '}
-                <a className='referral-request'>Terms of Service</a>,
-                <a className='referral-request'> Privacy Policy</a>, and our
+                <Link to='/privacy' className='referral-request'>
+                  Terms of Service
+                </Link>
+                ,<a className='referral-request'> Privacy Policy</a>, and our
                 default Notification Settings.
               </div>
 

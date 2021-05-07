@@ -12,7 +12,6 @@ import Modal from './Modal';
 import { connect, useDispatch } from 'react-redux';
 import VideoModal from './VideoModal';
 import AudioModal from './AudioModal';
-import ReactPlayer from 'react-player';
 
 const ImageGrid = ({ auth: { user }, id, profile, guest }) => {
   const dispatch = useDispatch();
