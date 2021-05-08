@@ -102,8 +102,6 @@ const Modal = ({
       likedUserAvatar: auth?.user?.avatar,
     };
 
-    console.log(likeObj);
-
     dispatch(portfolioLike(file.id, likeObj));
     dispatch(getRealtimeData(file.id));
   };

@@ -14,7 +14,6 @@ import Badge from '@material-ui/core/Badge';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { projectFirestore } from '../../firebase/config';
 import { grey } from '@material-ui/core/colors';
-import { useHistory } from 'react-router';
 
 const NotificationPopup = ({
   auth: { user },
@@ -25,7 +24,6 @@ const NotificationPopup = ({
   declineProjectInvite,
   markNotificationsRead,
 }) => {
-  const history = useHistory();
   const [open, setOpen] = useState(false);
   const [status, setStatus] = useState('');
 
@@ -142,19 +140,6 @@ const NotificationPopup = ({
                     appreciated your post{' '}
                   </p>
                 </>
-              )}
-              {not.type === 'chat' && (
-                <div
-                  onClick={() => {
-                    history.push('/chats');
-                  }}
-                >
-                  <img src={not.avatar ? not.avatar : logo} alt='' />
-                  <p>
-                    New Message from{' '}
-                    <span className='notif-bold'>{not.senderName}</span>
-                  </p>
-                </div>
               )}
               {not.type === 'comment' && (
                 <>

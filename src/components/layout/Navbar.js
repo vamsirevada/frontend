@@ -3,7 +3,6 @@ import React, { useState, Fragment, useEffect } from 'react';
 import store from '../../store';
 import maskGroup from '../../images/maskGroup.svg';
 import home from '../../images/Home.svg';
-import chat from '../../images/chat.svg';
 import NotificationPopup from './NotificationPopup';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -16,6 +15,8 @@ import { getRealtimeNotifications } from '../../actions/notification';
 import SearchPage from './SearchPage';
 import RespoSearchPage from './RespoSearchPage';
 import searchIcon from '../../images/searchIcon.svg';
+import { getAllConversations } from '../../actions/chat';
+import Chat from '../chat/Chat';
 
 const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
   const [displayMenu, toogleMenu] = useState(false);
@@ -23,7 +24,6 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
   const [feedActive, toogleFeedActive] = useState(false);
   const [portActive, tooglePortActive] = useState(false);
   const [nbActive, toogleNbActive] = useState(false);
-  const [chatActive, toogleChatActive] = useState(false);
 
   useEffect(() => {
     if (user?._id) {
@@ -32,6 +32,7 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
           uid_1: user?._id,
         })
       );
+      store.dispatch(getAllConversations(user?._id));
     }
   }, [user?._id]);
 
@@ -43,27 +44,17 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
     toogleFeedActive(!feedActive);
     tooglePortActive(false);
     toogleNbActive(false);
-    toogleChatActive(false);
   };
   const toggleP = async () => {
     toogleFeedActive(false);
     tooglePortActive(!portActive);
     toogleNbActive(false);
-    toogleChatActive(false);
-  };
-
-  const toggleC = async () => {
-    toogleFeedActive(false);
-    tooglePortActive(false);
-    toogleNbActive(false);
-    toogleChatActive(!chatActive);
   };
 
   const toggleNb = async () => {
     toogleFeedActive(false);
     tooglePortActive(false);
     toogleNbActive(!nbActive);
-    toogleChatActive(false);
   };
 
   return (
@@ -77,14 +68,14 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
 
         <div
           className={
-            feedActive || portActive || nbActive || chatActive
+            feedActive || portActive || nbActive
               ? 'container ipad'
               : 'container'
           }
         >
           <div
             className={
-              feedActive || portActive || nbActive || chatActive
+              feedActive || portActive || nbActive
                 ? 'logo-box ipad'
                 : 'logo-box'
             }
@@ -158,18 +149,7 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
                 <p>NoticeBoard</p>
               </Link>
             </div>
-            <div
-              className={
-                chatActive ? 'tab active unique chat' : 'tab classnamechat'
-              }
-              onClick={toggleC}
-            >
-              <Link to='/chats' className='chat icon'>
-                <img src={chat} className='white chat' alt='chat' />
-                <p>Chat</p>
-              </Link>
-            </div>
-
+            <Chat />
             <NotificationPopup />
             <div>
               <img
@@ -180,7 +160,6 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
                 }}
                 alt=''
               />
-
               {displayMenu && (
                 <Fragment>
                   <div

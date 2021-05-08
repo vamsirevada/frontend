@@ -25,9 +25,6 @@ export const portfolioLike = (fileId, likeObj) => {
       .update({
         likes: firebase.firestore.FieldValue.arrayUnion(likeObj),
       })
-      .then((data) => {
-        console.log(data);
-      })
       .catch((error) => {
         console.error(error);
       });
@@ -41,9 +38,6 @@ export const portfolioComment = (fileId, commentObj) => {
       .doc(fileId)
       .update({
         comments: firebase.firestore.FieldValue.arrayUnion(commentObj),
-      })
-      .then((data) => {
-        console.log(data);
       })
       .catch((error) => {
         console.error(error);

@@ -5,6 +5,7 @@ import { useHistory } from 'react-router-dom';
 import searchIcon from '../../images/searchIcon.svg';
 import logo from '../../images/dummyimage.jpg';
 import mail from '../../images/mail.svg';
+import cancel from '../../images/close.svg';
 import PersonalMessage from '../chat/PersonalMessage';
 import CRequest from '../profiles/CRequest';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -173,13 +174,14 @@ const SearchPage = () => {
                   })}
               </div>
             </div>
-            <div
-              className='search-cross'
-              onClick={() => {
-                setInput('');
-              }}
-            >
-              x
+            <div className='flex-right'>
+              <img
+                src={cancel}
+                onClick={() => {
+                  setInput('');
+                }}
+                alt=''
+              />
             </div>
           </div>
         </div>

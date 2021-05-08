@@ -1,9 +1,13 @@
 import React, { createRef, useState } from 'react';
-import { getRealtimeConversations, updateMessage } from '../../actions/chat';
+import {
+  getRealtimeConversations,
+  updateMessage,
+  messageNotificationsRead,
+} from '../../actions/chat';
 import { useDispatch } from 'react-redux';
 import attach from '../../images/attach.svg';
 import sendbutton from '../../images/sendbutton.svg';
-import { projectFirestore, projectStorage } from '../../firebase/config';
+import { projectStorage } from '../../firebase/config';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import logo from '../../images/dummyimage.jpg';
@@ -61,6 +65,30 @@ const ChatRight = ({
     );
   };
 
+  const unreadMessageIds = conversations
+    .filter((conv) => !conv.isView)
+    .map((x) => x.id);
+
+  const uno = conversations
+    .filter((conv) => !conv.isView)
+    .map((x) => x.user_uid_2);
+
+  const isRight = uno.filter((item, key) => {
+    return uno.indexOf(item) === key;
+  });
+
+  const messageRead = () => {
+    if (isRight[0] === auth?.user?._id) {
+      dispatch(messageNotificationsRead(unreadMessageIds));
+      dispatch(
+        getRealtimeConversations({
+          uid_1: auth?.user?._id,
+          uid_2: chatProfile?.user?._id,
+        })
+      );
+    }
+  };
+
   const sendMessage = async (e) => {
     e.preventDefault();
     const msgObj = {
@@ -87,17 +115,6 @@ const ChatRight = ({
             })
           );
         }
-        projectFirestore.collection('notifications').add({
-          sender: auth?.user?._id,
-          senderName: auth?.user?.fullName
-            ? auth?.user?.fullName
-            : auth?.user?.groupName,
-          avatar: auth?.user?.avatar,
-          receiver: userUid,
-          type: 'chat',
-          read: false,
-          createdAt: new Date(),
-        });
         setFormValue('');
         setShow(false);
       });
@@ -105,7 +122,7 @@ const ChatRight = ({
   };
 
   return (
-    <div id='fullchat-right' data-aos='zoom-in'>
+    <div onClick={messageRead} id='fullchat-right' data-aos='zoom-in'>
       <div className='fullchat-maintop'>
         <div className='fullchat-maintop-left'>
           <div

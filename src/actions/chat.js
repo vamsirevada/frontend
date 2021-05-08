@@ -1,8 +1,8 @@
-import { GET_CHATS } from './types';
+import { GET_CHATS, GET_MESSAGES, MARK_MESSAGES_READ } from './types';
 import { projectFirestore } from '../firebase/config';
 
 export const updateMessage = (msgObj) => {
-  return async (dispatch) => {
+  return async () => {
     projectFirestore
       .collection('conversations')
       .add({
@@ -10,11 +10,27 @@ export const updateMessage = (msgObj) => {
         isView: false,
         createdAt: new Date(),
       })
-      .then((data) => {
-        console.log(data);
-      })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
+      });
+  };
+};
+
+export const getAllConversations = (user_id) => {
+  return async (dispatch) => {
+    projectFirestore
+      .collection('conversations')
+      // .where('user_uid_2', '==', user_id)
+      .orderBy('createdAt', 'desc')
+      .onSnapshot((snapshot) => {
+        const messages = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        dispatch({
+          type: GET_MESSAGES,
+          payload: { messages },
+        });
       });
   };
 };
@@ -34,7 +50,7 @@ export const getRealtimeConversations = (user) => {
             (doc.data().user_uid_1 === user.uid_2 &&
               doc.data().user_uid_2 === user.uid_1)
           ) {
-            conversations.push(doc.data());
+            conversations.push({ id: doc.id, ...doc.data() });
           }
         });
 
@@ -43,5 +59,19 @@ export const getRealtimeConversations = (user) => {
           payload: { conversations },
         });
       });
+  };
+};
+
+export const messageNotificationsRead = (messageIds) => {
+  return async (dispatch) => {
+    const batch = projectFirestore.batch();
+    messageIds.forEach((messageId) => {
+      const message = projectFirestore.doc(`/conversations/${messageId}`);
+      batch.update(message, { isView: true });
+    });
+    batch.commit();
+    dispatch({
+      type: MARK_MESSAGES_READ,
+    });
   };
 };

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getProjectPosts, getMemberPosts } from '../../actions/projectpost';
 import ProjectPostItem from './ProjectPostItem';
@@ -11,7 +11,7 @@ const ProjectPosts = ({
   id,
   projectpost: { projectposts, oprojectposts, loading },
 }) => {
-  const [own, setOwn] = useState(false);
+  // const [own, setOwn] = useState(false);
 
   useEffect(() => {
     getProjectPosts(id);
@@ -29,7 +29,7 @@ const ProjectPosts = ({
       >
         Sort
       </button> */}
-      {own ? (
+      {/* {own ? (
         <Fragment>
           <div className='posts'>
             {oprojectposts.map((post) => (
@@ -42,20 +42,20 @@ const ProjectPosts = ({
             ))}
           </div>
         </Fragment>
-      ) : (
-        <Fragment>
-          <div className='posts'>
-            {projectposts.map((post) => (
-              <ProjectPostItem
-                singleproject={singleproject}
-                profile={profile}
-                key={post._id}
-                post={post}
-              />
-            ))}
-          </div>
-        </Fragment>
-      )}
+      ) : ( */}
+      <Fragment>
+        <div className='posts'>
+          {projectposts.map((post) => (
+            <ProjectPostItem
+              singleproject={singleproject}
+              profile={profile}
+              key={post._id}
+              post={post}
+            />
+          ))}
+        </div>
+      </Fragment>
+      {/* )} */}
     </>
   );
 };
