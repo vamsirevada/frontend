@@ -30,6 +30,7 @@ const ChatRight = ({
   userUid,
   chatProfile,
   chatUserImage,
+  setChatStarted,
 }) => {
   const [formValue, setFormValue] = useState('');
   const dispatch = useDispatch();
@@ -152,6 +153,7 @@ const ChatRight = ({
             )}
           </div>
         </div>
+        <div onClick={() => setChatStarted(false)}>x</div>
       </div>
 
       <div className='fullchat-mainbody'>

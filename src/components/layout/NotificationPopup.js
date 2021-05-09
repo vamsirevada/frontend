@@ -276,11 +276,11 @@ const NotificationPopup = ({
           <div onClick={onMenuOpened} className='notif-dis'>
             <div className='notify-ribbon'>
               <h4>Notifications</h4>
-              <div className='notify-ribbon-right'>
+              {/* <div className='notify-ribbon-right'>
                 <p className='notify-cate'>All</p>
                 <p className='notify-cate'>NoticeBoard</p>
                 <p className='notify-cate'>Project</p>
-              </div>
+              </div> */}
             </div>
             {notificationsMarkup}
             <div className='notify-seeall'>

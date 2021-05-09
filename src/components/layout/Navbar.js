@@ -3,6 +3,7 @@ import React, { useState, Fragment, useEffect } from 'react';
 import store from '../../store';
 import maskGroup from '../../images/maskGroup.svg';
 import home from '../../images/Home.svg';
+import chat from '../../images/chat.svg';
 import NotificationPopup from './NotificationPopup';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -16,14 +17,20 @@ import SearchPage from './SearchPage';
 import RespoSearchPage from './RespoSearchPage';
 import searchIcon from '../../images/searchIcon.svg';
 import { getAllConversations } from '../../actions/chat';
-import Chat from '../chat/Chat';
+import Badge from '@material-ui/core/Badge';
 
-const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
+const Navbar = ({
+  auth: { user },
+  profile: { profile },
+  chat: { messages },
+  logout,
+}) => {
   const [displayMenu, toogleMenu] = useState(false);
   const [RSearch, setRSearch] = useState(false);
   const [feedActive, toogleFeedActive] = useState(false);
   const [portActive, tooglePortActive] = useState(false);
   const [nbActive, toogleNbActive] = useState(false);
+  const [chatActive, toogleChatActive] = useState(false);
 
   useEffect(() => {
     if (user?._id) {
@@ -36,6 +43,12 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
     }
   }, [user?._id]);
 
+  const xyz =
+    messages &&
+    messages.filter(
+      (msg) => msg.user_uid_2 === user?._id && msg.isView === false
+    );
+
   const closeRespoBar = () => {
     setRSearch(false);
   };
@@ -44,17 +57,27 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
     toogleFeedActive(!feedActive);
     tooglePortActive(false);
     toogleNbActive(false);
+    toogleChatActive(false);
   };
   const toggleP = async () => {
     toogleFeedActive(false);
     tooglePortActive(!portActive);
     toogleNbActive(false);
+    toogleChatActive(false);
+  };
+
+  const toggleC = async () => {
+    toogleFeedActive(false);
+    tooglePortActive(false);
+    toogleNbActive(false);
+    toogleChatActive(!chatActive);
   };
 
   const toggleNb = async () => {
     toogleFeedActive(false);
     tooglePortActive(false);
     toogleNbActive(!nbActive);
+    toogleChatActive(false);
   };
 
   return (
@@ -68,14 +91,14 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
 
         <div
           className={
-            feedActive || portActive || nbActive
+            feedActive || portActive || nbActive || chatActive
               ? 'container ipad'
               : 'container'
           }
         >
           <div
             className={
-              feedActive || portActive || nbActive
+              feedActive || portActive || nbActive || chatActive
                 ? 'logo-box ipad'
                 : 'logo-box'
             }
@@ -149,7 +172,19 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
                 <p>NoticeBoard</p>
               </Link>
             </div>
-            <Chat />
+            <Badge className='message-count-label' badgeContent={xyz.length}>
+              <div
+                className={
+                  chatActive ? 'tab active unique chat' : 'tab classnamechat'
+                }
+                onClick={toggleC}
+              >
+                <Link to='/chats' className='chat icon'>
+                  <img src={chat} className='white chat' alt='chat' />
+                  <p>Chat</p>
+                </Link>
+              </div>
+            </Badge>
             <NotificationPopup />
             <div>
               <img
@@ -178,11 +213,7 @@ const Navbar = ({ auth: { user }, profile: { profile }, logout }) => {
                         toogleMenu(false);
                       }}
                     >
-                      <li
-                      // onClick={(e) => {
-                      //   toogleMenu(false);
-                      // }}
-                      >
+                      <li>
                         <Link to='/profile'>View Profile</Link>
                       </li>
                       <li>
@@ -214,6 +245,7 @@ Navbar.propTypes = {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  chat: state.chat,
   profile: state.profile,
 });
 

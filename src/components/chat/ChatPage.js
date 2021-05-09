@@ -114,7 +114,10 @@ const ChatPage = ({
               {input !== '' ? (
                 <>
                   <div className='chats-heading'>
-                    <h3>Profiles</h3>
+                    <h3>
+                      Search Results for{'    '}
+                      <span className='blue'>'{input}'</span>
+                    </h3>
                   </div>
                   {users
                     .filter((val) => {
@@ -420,6 +423,7 @@ const ChatPage = ({
             chatProfile={chatProfile}
             chatUserImage={chatUserImage}
             userUid={userUid}
+            setChatStarted={setChatStarted}
           />
         </Fragment>
       ) : (
