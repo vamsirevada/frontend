@@ -65,15 +65,12 @@ const ChatPage = ({
   // }));
 
   const result = xyz.map((res) => res.user_uid_2);
+
   const result1 = xyz.map((res) => res.user_uid_1);
 
-  const abc = result.filter((item, key) => {
-    return result.indexOf(item) === key;
-  });
+  const abc = [...new Set(result)];
 
-  const def = result1.filter((item, key) => {
-    return result1.indexOf(item) === key;
-  });
+  const def = [...new Set(result1)];
 
   const chats =
     profiles &&
