@@ -1,0 +1,6 @@
+<svg id="search_icon" data-name="search icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <g id="ic_search_white" opacity="0.7">
+    <rect id="rectangle" width="20" height="20" fill="none"/>
+    <path id="ic_search_white-2" data-name="ic_search_white" d="M306.23,61.058H305.5l-.274-.274a5.723,5.723,0,0,0,1.463-3.84,5.943,5.943,0,1,0-5.943,5.943,5.723,5.723,0,0,0,3.84-1.463l.274.274v.732L309.43,67,310.8,65.63Zm-5.486,0a4.115,4.115,0,1,1,4.115-4.115A4.1,4.1,0,0,1,300.743,61.058Z" transform="translate(-293.083 -49.283)" fill="#787878"/>
+  </g>
+</svg>

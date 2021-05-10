@@ -1,0 +1,240 @@
+:root {
+  --yellow-color: #fad300;
+  --blue-color: #7480fc;
+  --gray-color: #f8f8f8;
+  --white-color: #fff;
+  --font-black-color: #212121;
+}
+
+/* Buttons */
+
+/* Special Text */
+
+.blue-text {
+  color: var(--blue-color);
+}
+
+.current {
+  background-color: #e6e6e6;
+  border-right: 10px solid var(--blue-color);
+}
+
+.add-portfolio {
+  position: relative;
+  top: 72px;
+  overflow: hidden;
+}
+
+.add-portfolio .container {
+  max-width: 1240px;
+  margin: auto;
+}
+
+/* Pictures */
+
+.add-heading .container .heading-container {
+  justify-self: center;
+  padding: 1.5rem 0;
+  text-align: center;
+}
+
+/* Main- adding area */
+
+#add .main-add {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 30% 70%;
+  grid-gap: 1rem;
+  /* overflow-y: hidden; */
+}
+
+.main-add .main-left {
+  padding: 1rem 0;
+  width: 100%;
+  text-align: center;
+}
+
+.main-add .main-left .btn-gray {
+  display: block;
+  margin: 2rem;
+  background-color: #e8e8e8;
+}
+.main-add .main-left .btn-gray.blue {
+  display: block;
+  margin: 2rem;
+  background-color: #e6e6e6;
+  border-right: 10px solid #7480ff;
+  opacity: 1;
+  font-size: 1rem;
+}
+
+.main-add .main-left .current {
+  background-color: #e6e6e6;
+}
+
+.main-add .main-left .btn-gray:hover {
+  background-color: #e6e6e6;
+  border-right: 10px solid #7480ff;
+  opacity: 1;
+}
+
+.main-add .main-left .card {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.8rem;
+  font-weight: normal;
+}
+
+.main-add .main-right {
+  padding: 1.6rem;
+  margin: auto;
+  width: 85%;
+  position: relative;
+}
+
+.main-add .main-right1 {
+  padding: 1rem;
+  margin: 1.5rem 1.5rem;
+}
+
+.main-add .main-right h2 {
+  font-size: 1rem;
+}
+
+.main-add .main-right p {
+  font-size: 10px;
+  line-height: 1rem;
+}
+
+/* Upload area */
+.main-add .main-right .main-right-container .cloud {
+  width: 50px;
+  height: 50px;
+  background: url(../img/upload.svg) no-repeat center center/contain;
+}
+.main-add .main-right1 .main-right-container-1 .cloud-1 {
+  width: 30px;
+  height: 30px;
+  background: url(../img/upload.svg) no-repeat center center/contain;
+}
+
+.main-add .main-right1 .main-right-container-1 .cloud {
+  width: 30px;
+  height: 30px;
+}
+
+.main-add .main-right .main-right-container .pos {
+  padding: 8px 30px;
+  font-size: 14px;
+  margin: 0px;
+  border-radius: 10px;
+}
+
+.main-add .main-right .main-right-container {
+  display: grid;
+  grid-template-columns: repeat(2, 50%);
+  grid-gap: 1rem;
+  width: 80%;
+}
+
+.main-add .main-right .main-right-container.blog {
+  display: block;
+}
+.main-add .main-right .main-right-container.blog input {
+  width: 100%;
+  color: #707070;
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  background: transparent;
+  outline: none;
+  border: none;
+  padding: 0.5rem 0.2rem;
+  border-bottom: 2px solid #c9c9c9;
+}
+
+/* picture area */
+
+.main-add .main-right .main-right-container .preview {
+  width: 250px;
+  height: 150px;
+  border-radius: 10px;
+  border-color: #fff;
+  background-color: transparent;
+  object-fit: contain;
+  margin: auto;
+}
+
+.main-add .main-right .main-right-container .box2 {
+  padding: 0.35rem 0.6rem;
+  width: 35px;
+  height: 35px;
+  background-color: var(--blue-color);
+  border-radius: 5px;
+  position: absolute;
+  left: 61%;
+  margin-top: 10px;
+}
+
+.main-add .main-right .main-right-container .box2 img {
+  width: 15px;
+  height: 15px;
+}
+
+.main-add .main-right .main-right-container .box3 {
+  padding: 0.35rem 0.6rem;
+  width: 35px;
+  height: 35px;
+  background-color: var(--blue-color);
+  border-radius: 5px;
+  position: absolute;
+  top: 43%;
+  left: 66%;
+  margin-top: 10px;
+}
+
+.main-add .main-right .main-right-container .box3 img {
+  width: 15px;
+  height: 15px;
+}
+
+.main-add .main-right .main-right-container .box4 {
+  float: right;
+  margin-top: 10px;
+  position: absolute;
+  top: 44%;
+  left: 77%;
+}
+
+.main-add .main-right .main-right-container > *:last-child {
+  grid-column: 1 / span 2;
+  /* padding: 1rem 0;
+  margin-top: 1rem; */
+  line-height: 1rem;
+  width: 100%;
+}
+
+.main-add .main-right .main-right-container .des {
+  padding: 0rem;
+}
+.main-add .main-right .main-right-container .select {
+  justify-self: flex-end;
+  align-self: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.main-add .main-right .main-right-container .float-numb {
+  float: right;
+  color: #707070;
+}
+
+.main-add .main-right .main-right-container input,
+.main-add .main-right .main-right-container textarea {
+  width: 100%;
+  color: #707070;
+  font-family: 'Lato', sans-serif;
+  font-size: 1rem;
+  background: transparent;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid #c9c9c9;
+  padding: 1rem 1rem 1rem 0rem;
+}

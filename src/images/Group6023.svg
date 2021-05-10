@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="48" viewBox="0 0 120 48">
+  <g id="Group_6023" data-name="Group 6023" transform="translate(-1530 -172)">
+    <rect id="Rectangle_598" data-name="Rectangle 598" width="120" height="48" rx="15" transform="translate(1530 172)" fill="#f8f8f8"/>
+    <text id="Sort_by" data-name="Sort by" transform="translate(1556 187)" fill="#272727" font-size="16" font-family="Raleway-Medium, Raleway" font-weight="500"><tspan x="0" y="15">Sort by</tspan></text>
+    <g id="ic_arrow_drop_down" transform="translate(1610 184)">
+      <rect id="rectangle" width="24" height="24" fill="none"/>
+      <path id="path" d="M7,10l5,5,5-5Z" fill="#272727" fill-rule="evenodd" opacity="0.54"/>
+    </g>
+  </g>
+</svg>

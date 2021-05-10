@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700;900&display=swap');
+
+.ft-heading {
+  font-family: 'Lato', sans-serif;
+  font-size: 48px;
+  font-weight: 1000;
+  line-height: 4rem;
+  margin-bottom: 20px;
+  color: #272727;
+}
+
+.ft-heading-light{
+  color: #fff;
+}
+
+ .ft-para {
+  font-family: 'Raleway', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #5d5d5d;
+}
+
+.ft-para-light{
+  color: #fff;
+}
+
+.btn{
+  font-family: 'Raleway',sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  color: #fff;
+  background-color: #7480FF;
+  padding: 10px 50px;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.btn-light{
+  font-family: 'Lato',sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #272727;
+  background-color: #ECECEC;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  margin: 0px;
+}
+
+
+.btn-light:hover{
+  border: 1px #7480FF solid;
+  opacity: 1;
+
+}
+.ut-flexform{
+  display:flex;
+  justify-content: flex-start;
+  text-align: center;
+  align-items: center;
+  flex: 1;
+  width: 90%;
+}
+
+
+.ut-btn-light{
+  font-family: 'Lato',sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #272727;
+  background-color: #ECECEC;
+  width: 100%;
+  padding: 8px 20px; 
+  margin-right: 10px;
+  border: none;
+  border-radius: 10px;
+  opacity: 0.6;
+}
+
+.ut-btn-light-f{
+  font-family: 'Lato',sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #ECECEC;
+  background-color: #4267B2;
+  width: 100%;
+  padding: 8px 20px; 
+  margin-right: 10px;
+  border: none;
+  border-radius: 10px;
+  opacity: 0.8;
+}
+  
+.ut-btn-light-g{
+  font-family: 'Lato',sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #ECECEC ;
+  background-color: #FF9391;
+  width: 100%;
+  padding: 8px 20px; 
+  margin-right: 10px;
+  border: none;
+  border-radius: 10px;
+  opacity:0.8;
+}
+  
+  
+
+.ut-btn-light:hover{
+  border: 1px #7480FF solid;
+  opacity: 1;
+}
+.ut-btn-light-g:hover{
+  border: 1px #FF9391 solid;
+  opacity: 1;
+}
+.ut-btn-light-f:hover{
+  border: 1px #4267B2 solid;
+  opacity: 1;
+}
+
+.ut-btn-light:checked{
+  border: 1px #7480FF solid;
+  opacity: 1;
+}
+
+
+.btn-yellow{
+  display: block;
+  font-family: 'Lato',sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  color: #272727;
+  background-color: #FAD300;
+  /* width: 80%; */
+  padding: 10px 30px;
+  margin: 10px 0px;
+  border: none;
+  border-radius: 10px;
+  float: right;
+}
+
+  
+/* Signup Page */
+
+.signup-heading{
+  font-size: 20px;
+  font-family: 'Lato',sans-serif;
+  font-weight: 900;
+  color: #272727;
+}
+
+.signup-para{
+  font-size: 0.8rem;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  color: #5D5D5D;
+}
+
+.signup-label{
+  display: block;
+  font-size: 0.9rem;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  color: #272727;
+  margin-bottom:0rem;
+}
+
+.signup-label .referral-request{
+  font-size: 0.6rem;
+  float: right;
+  color: #7480FF;
+}
+
+.user-permission .referral-request{
+  font-size: 0.8rem;
+  color: #7480FF;
+}
+
+
+/* Login */
+
+/* .signup .column-l2 .flex-form-l1{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+} */

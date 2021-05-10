@@ -1,0 +1,7 @@
+<svg id="Component_31" data-name="Component 31" xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <rect id="Rectangle_1074" data-name="Rectangle 1074" width="48" height="48" rx="15" fill="#fad300"/>
+  <g id="ic_add" transform="translate(8 8.333)">
+    <rect id="rectangle" width="32" height="32" transform="translate(0 -0.333)" fill="none"/>
+    <path id="path" d="M12.939,5v7.939H5v2.646h7.939v7.939h2.646V15.586h7.939V12.939H15.586V5Z" transform="translate(1.616 1.525)" fill="#fff" fill-rule="evenodd"/>
+  </g>
+</svg>
