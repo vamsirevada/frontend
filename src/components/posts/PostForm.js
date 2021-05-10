@@ -48,7 +48,7 @@ const PostForm = ({ addPost }) => {
       },
       async () => {
         await storageRef.getDownloadURL().then((x) => {
-          setUrl(`${x}`);
+          setUrl(x);
         });
       }
     );

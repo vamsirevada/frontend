@@ -42,14 +42,8 @@ const AddVideos = ({ setAlert }) => {
     const blob = selected.slice(0, selected.size, selected.type);
     const newFile = new File([blob], selected.name, { type: 'video/mp4' });
 
-    console.log(newFile.type);
-
-    console.log(URL.createObjectURL(newFile));
-
     if (newFile) {
-      // setDisplay(URL.createObjectURL(e.target.files[0]));
       setDisplay(URL.createObjectURL(newFile));
-      // setFile(selected);
       setFile(newFile);
       setError('');
     } else {
@@ -90,6 +84,7 @@ const AddVideos = ({ setAlert }) => {
           <input
             accept='video/*'
             onChange={handleChange}
+            onClick={(e) => (e.target.value = null)}
             type='file'
             hidden={true}
             ref={fileInput}

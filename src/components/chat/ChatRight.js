@@ -36,9 +36,11 @@ const ChatRight = ({
   const dispatch = useDispatch();
   const [progress, setProgress] = useState(0);
   const [show, setShow] = useState(false);
+  const [res, setRes] = useState(null);
   const fileInput = createRef();
   const [url, setUrl] = useState(null);
   const [filetype, setFileType] = useState(null);
+  const [preview, setPreview] = useState(null);
 
   const onOpenFileDialog = () => {
     fileInput.current.click();
@@ -46,24 +48,60 @@ const ChatRight = ({
 
   const handleChange = async (e) => {
     const file = e.target.files[0];
-    const type = _gettype(file.type.split('/')[0]);
-    setFileType(type);
+    setRes(file);
+    setFileType(_gettype(file.type.split('/')[0]));
     const storageRef = projectStorage.ref(file.name);
-    storageRef.put(file).on(
-      'state_changed',
-      (snap) => {
-        let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
-        setProgress(Math.round(percentage));
-        setShow(true);
-      },
-      (err) => {
-        console.log(err);
-      },
-      async () => {
-        const url = await storageRef.getDownloadURL();
-        setUrl(`${url}`);
-      }
-    );
+    if (filetype === 'photo') {
+      setPreview(URL.createObjectURL(e.target.files[0]));
+      storageRef.put(file).on(
+        'state_changed',
+        (snap) => {
+          let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+          setProgress(Math.round(percentage));
+          setShow(true);
+        },
+        (error) => {
+          switch (error.code) {
+            case 'storage/canceled':
+              return setShow(false) && console.log('cancelled');
+            default:
+              return console.log(error);
+          }
+        },
+        async () => {
+          await storageRef.getDownloadURL().then((x) => {
+            setUrl(x);
+          });
+        }
+      );
+    } else {
+      const blob = file.slice(0, file.size, file.type);
+      const newFile = new File([blob], file.name, {
+        type: 'video/mp4',
+      });
+      setPreview(URL.createObjectURL(newFile));
+      storageRef.put(newFile).on(
+        'state_changed',
+        (snap) => {
+          let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+          setProgress(Math.round(percentage));
+          setShow(true);
+        },
+        (error) => {
+          switch (error.code) {
+            case 'storage/canceled':
+              return setShow(false) && console.log('cancelled');
+            default:
+              return console.log(error);
+          }
+        },
+        async () => {
+          await storageRef.getDownloadURL().then((x) => {
+            setUrl(x);
+          });
+        }
+      );
+    }
   };
 
   const unreadMessageIds = conversations
@@ -99,7 +137,7 @@ const ChatRight = ({
       url,
       filetype,
     };
-    if (formValue !== '') {
+    if (formValue || url !== '') {
       dispatch(updateMessage(msgObj)).then(() => {
         if (chatProfile.projectname) {
           dispatch(
@@ -117,7 +155,10 @@ const ChatRight = ({
           );
         }
         setFormValue('');
+        setUrl(null);
         setShow(false);
+        setPreview(null);
+        setFileType(null);
       });
     }
   };
@@ -255,24 +296,46 @@ const ChatRight = ({
       <div className='fullchat-type'>
         <form className='form-grid' onSubmit={sendMessage}>
           <div className='form-flex-left'>
-            <textarea
+            {preview !== null && (
+              <div className='message-preview'>
+                {filetype === 'photo' ? (
+                  <img className='message-preview-image' src={preview} alt='' />
+                ) : (
+                  <video>
+                    <source src={preview} type='video/mp4' />
+                  </video>
+                )}
+                <span
+                  onClick={() => {
+                    setPreview(null);
+                    projectStorage.ref(res.name).put(res).cancel();
+                    setShow(false);
+                  }}
+                  className='message-preview-close'
+                >
+                  x
+                </span>
+              </div>
+            )}
+
+            <input
               type='text'
               name='typemessage'
               value={formValue}
               placeholder='Type your Message'
               onChange={(e) => setFormValue(e.target.value)}
-              rows='3'
-            ></textarea>
+            ></input>
           </div>
           <div className='form-flex-right'>
             <input
               onChange={handleChange}
+              onClick={(e) => (e.target.value = null)}
               type='file'
               accept='*'
               hidden={true}
               ref={fileInput}
             />
-            {!show && (
+            {show === false && (
               <div>
                 <img
                   className='messageattach'

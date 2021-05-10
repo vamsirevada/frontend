@@ -79,6 +79,7 @@ const AddPhoto = ({ setAlert }) => {
           <input
             accept='image/*'
             onChange={handleChange}
+            onClick={(e) => (e.target.value = null)}
             type='file'
             hidden={true}
             ref={fileInput}
