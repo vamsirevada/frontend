@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import UseFirestore from './UseFireStore';
 import api from '../../utils/api';
 import { motion } from 'framer-motion';
@@ -13,7 +13,7 @@ import { connect, useDispatch } from 'react-redux';
 import VideoModal from './VideoModal';
 import AudioModal from './AudioModal';
 
-const ImageGrid = ({ auth: { user }, id, profile, guest }) => {
+const ImageGrid = ({ auth: { user }, id, profile, guest, setProgress }) => {
   const dispatch = useDispatch();
   const [edit, setEdit] = useState('');
   const { docs } = UseFirestore('images');
@@ -55,6 +55,17 @@ const ImageGrid = ({ auth: { user }, id, profile, guest }) => {
     docs && docs.filter((i) => i?.userId === id && i?.type === 'Audio');
   const blogs =
     docs && docs.filter((i) => i?.userId === id && i?.type === 'Blog');
+
+  useEffect(() => {
+    if (
+      videos.length !== 0 &&
+      images.length !== 0 &&
+      audios.length !== 0 &&
+      blogs.length !== 0
+    ) {
+      setProgress(40);
+    }
+  });
 
   const displayImage = (index) => {
     const image = images[index];

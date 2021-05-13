@@ -43,6 +43,13 @@ h3 {
   animation: none;
   z-index: 100;
 }
+
+.timeline-progress {
+  position: fixed !important;
+  right: 25px;
+  top: 88%;
+}
+
 @keyframes growdemotourbutton {
   100% {
     transform: scale(1.1);
