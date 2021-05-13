@@ -714,15 +714,16 @@ const Portfolio = ({
                   Take a Tour to get to know about features of website
                 </span>
               </button>
-              {/* {progress < 100 && ( */}
-              <Tooltip title='Profile Completed Percentage' placement='top'>
-                <Fab className='timeline-progress'>
-                  <CircularProgressbar
-                    value={progress + progress1 + progress2}
-                    text={`${progress + progress1 + progress2}%`}
-                  />
-                </Fab>
-              </Tooltip>
+              {progress + progress1 + progress2 < 100 && (
+                <Tooltip title='Profile Completed Percentage' placement='top'>
+                  <Fab className='timeline-progress'>
+                    <CircularProgressbar
+                      value={progress + progress1 + progress2}
+                      text={`${progress + progress1 + progress2}%`}
+                    />
+                  </Fab>
+                </Tooltip>
+              )}
             </Fragment>
           ) : (
             <Loader data-aos-duration='1000' />
