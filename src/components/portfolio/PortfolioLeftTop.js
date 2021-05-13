@@ -14,7 +14,7 @@ const PortfolioLeftTop = ({ profile: { location, status, user, avatar } }) => {
       <p> {user.userName && user.userName}</p>
       <p className='status'> {status}</p>
       <p>
-        <img className='resize gps' src={gps} alt='' />{' '}
+        <img className='resize' src={gps} alt='' />{' '}
         <span className='gray'>{location}</span>
       </p>
     </div>
