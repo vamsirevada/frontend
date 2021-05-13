@@ -557,9 +557,14 @@ const Portfolio1 = ({
                             <div className='profile-info-box p-black'>
                               <a href='#!' onClick={() => PortOn()}>
                                 <p className='border-1'>
-                                  <span className='f-1'></span>
                                   View
-                                  <br /> Portfolio
+                                  <span
+                                    className={
+                                      displayPortfolio ? 'b-1 active' : 'b-1'
+                                    }
+                                  >
+                                    <br /> Portfolio
+                                  </span>
                                 </p>
                               </a>
                               <a href='#!' onClick={() => BudOn()}>
@@ -567,7 +572,15 @@ const Portfolio1 = ({
                                   <span className='f-1'>
                                     {buddies && buddies.length}
                                   </span>
-                                  <br /> Connections
+
+                                  <br />
+                                  <span
+                                    className={
+                                      displayBuddies ? 'b-1 active' : 'b-1'
+                                    }
+                                  >
+                                    Connections
+                                  </span>
                                 </p>
                               </a>
                               <a href='#!' onClick={() => ProjectOn()}>
@@ -579,7 +592,13 @@ const Portfolio1 = ({
                                         profile1?.experience.length
                                       : '0'}
                                   </span>
-                                  <br /> Projects{' '}
+                                  <span
+                                    className={
+                                      displayProjects ? 'b-1 active' : 'b-1'
+                                    }
+                                  >
+                                    <br /> Projects{' '}
+                                  </span>
                                 </p>
                               </a>
                             </div>

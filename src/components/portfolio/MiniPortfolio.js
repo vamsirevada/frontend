@@ -35,7 +35,7 @@ const MiniPortfolio = ({
             <p> {profile?.user?.userName}</p>
             <p className='status'> {profile?.status}</p>
             <p>
-              <img className='resize' src={loc} alt='' />{' '}
+              <img className='resize gps' src={loc} alt='' />{' '}
               <span className='gray'> {profile?.location} </span>
             </p>
           </div>

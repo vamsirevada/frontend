@@ -101,6 +101,20 @@
   padding-right: 1rem;
   border-right: 2px solid #000;
 }
+.profile-info-box .b-1.active {
+  border-bottom: 2px solid #212121;
+  transition: all 0.1s ease;
+}
+
+.profile-info-box .b-1:hover {
+  border-bottom: 2px solid #212121;
+  font-family: 'Raleway', sans-serif !important;
+
+  transition: all 0.25s ease;
+}
+.profile-info-box .b-1 {
+  padding-bottom: 0.25rem;
+}
 
 .profile-info-box .border-1.white {
   border-right: 2px solid #fff;
@@ -232,6 +246,7 @@
   justify-content: center;
   align-items: flex-start;
   line-height: 1.2rem;
+  width: 64%;
 }
 .connect-main .connect-left-top .display-pic {
   width: 78px;

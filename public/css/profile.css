@@ -113,7 +113,7 @@ h4 {
 .btn-req-white.Friend a,
 .btn-req-white.Connect a,
 .btn-req-white.Requested a {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .btn-req-white.Friend .resize,
@@ -132,7 +132,7 @@ h4 {
   background-color: #ff9391;
   color: #fff;
   border: none;
-  padding: 0.5rem 1.5rem;
+  padding: 0.5rem 1.25rem;
   border-radius: 10px;
   width: inherit;
   height: 35px;

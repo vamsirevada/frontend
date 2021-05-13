@@ -71,7 +71,9 @@ const Friends1 = ({
               <Link to={`/friends/${profile1?.user?._id}`}>
                 <p className='border-1'>
                   <span className='f-1'>{buddies && buddies.length}</span>
-                  <br /> Connections
+                  <span className='b-1'>
+                    <br /> Connections
+                  </span>
                 </p>
               </Link>
               <Link to={`/projectlist/${profile1?.user?._id}`}>
@@ -81,7 +83,9 @@ const Friends1 = ({
                       ? projects.length + profile1?.experience.length
                       : '0'}
                   </span>
-                  <br /> Projects{' '}
+                  <span className='b-1'>
+                    <br /> Projects
+                  </span>
                 </p>
               </Link>
             </div>

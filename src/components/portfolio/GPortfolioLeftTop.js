@@ -12,7 +12,7 @@ const GPortfolioLeftTop = ({ profile: { location, status, user } }) => {
       <p> {user.userName && user.userName}</p>
       <p> {status}</p>
       <p>
-        <img className='resize' src={gps} alt='' />{' '}
+        <img className='resize gps' src={gps} alt='' />{' '}
         <span className='gray'>{location}</span>
       </p>
     </div>
