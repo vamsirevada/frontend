@@ -401,7 +401,7 @@ a {
   line-height: 18px;
 }
 
-.dp-1::before {
+.dp-1-dot {
   content: '';
   display: inline-block;
   width: 12px;

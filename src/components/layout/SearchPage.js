@@ -16,6 +16,7 @@ const SearchPage = () => {
   const [input, setInput] = useState('');
   const [users, setUsers] = useState([]);
   const [chatUserName, setChatUserName] = useState('');
+  const [chatUserStatus, setChatUserStatus] = useState('');
   const [chatUserImage, setChatUserImage] = useState(logo);
   const [userUid, setUserUid] = useState(null);
 
@@ -168,8 +169,15 @@ const SearchPage = () => {
                                   onClick={() => {
                                     setStart(true);
                                     setUserUid(val?.user?._id);
-                                    setChatUserName(val?.user?.fullName);
+                                    setChatUserName(
+                                      val?.user?.fullName
+                                        ? val?.user?.fullName
+                                        : val?.user?.groupName
+                                    );
                                     setChatUserImage(val?.avatar);
+                                    setChatUserStatus(
+                                      val?.user?.activityStatus
+                                    );
                                   }}
                                   className='btn-blue g-1'
                                 >
@@ -190,6 +198,7 @@ const SearchPage = () => {
       {start ? (
         <PersonalMessage
           userUid={userUid}
+          chatUserStatus={chatUserStatus}
           chatUserName={chatUserName}
           chatUserImage={chatUserImage}
           chatClose={chatClose}

@@ -28,7 +28,7 @@ const ProfileTop = ({
               <Link to={`/projectlist/${user?._id}`}>
                 <p>
                   <span className='f-1'>{projects && projects.length}</span>
-                  <span classname='b-1'>
+                  <span className='b-1'>
                     <br /> Projects{' '}
                   </span>
                 </p>

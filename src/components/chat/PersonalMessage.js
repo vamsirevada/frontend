@@ -11,6 +11,7 @@ const PersonalMessage = ({
   userUid,
   chatUserImage,
   chatClose,
+  chatUserStatus,
 }) => {
   const dispatch = useDispatch();
   const [formValue, setFormValue] = useState('');
@@ -37,6 +38,7 @@ const PersonalMessage = ({
       });
     }
   };
+
   return (
     <div
       onClick={(e) => {
@@ -54,10 +56,14 @@ const PersonalMessage = ({
                 background: `url(${chatUserImage}) no-repeat center center/cover`,
               }}
               className='dp-1'
-            ></span>
+            >
+              {chatUserStatus === 'online' && (
+                <span className='dp-1-dot'></span>
+              )}
+            </span>
             <div>
               <h4>{chatUserName}</h4>
-              {user?.activityStatus === 'online' && <small>Active Now</small>}
+              {chatUserStatus === 'online' && <small>Active Now</small>}
             </div>
           </div>
           <div onClick={chatClose} className='personalmessagepopup-cross'>

@@ -35,12 +35,8 @@ const Profile = ({
 }) => {
   useEffect(() => {
     getProfileById(match.params.id);
-  }, [getProfileById, match.params.id]);
-
-  useEffect(() => {
-    getProjects(profile1?.user?._id);
-    //eslint-disable-next-line
-  }, [getProjects]);
+    getProjects(match.params.id);
+  }, [getProfileById, getProjects, match.params.id]);
 
   return (
     <Fragment>
@@ -102,10 +98,10 @@ const Profile = ({
                             <Fragment>
                               {profile1.experience.map((experience) => (
                                 // <profileExperience
-                                //   key={experience._id}
+                                //    key={experience._id}
                                 //   experience={experience}
                                 // />
-                                <div className='btn-gray'>
+                                <div key={experience._id} className='btn-gray'>
                                   <div>
                                     {experience.title}
                                     <br />
@@ -403,7 +399,6 @@ Profile.propTypes = {
   getProfileById: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  deleteExperience: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
