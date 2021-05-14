@@ -20,7 +20,7 @@ const ProfileTop = ({
               <Link to={`/friends/${user?._id}`}>
                 <p className='border-1 white'>
                   <span className='f-1'>{buddies && buddies.length}</span>
-                  <span className='b-1'>
+                  <span>
                     <br /> Connections
                   </span>
                 </p>
@@ -28,7 +28,7 @@ const ProfileTop = ({
               <Link to={`/projectlist/${user?._id}`}>
                 <p>
                   <span className='f-1'>{projects && projects.length}</span>
-                  <span className='b-1'>
+                  <span>
                     <br /> Projects{' '}
                   </span>
                 </p>
