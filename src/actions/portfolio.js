@@ -45,13 +45,42 @@ export const portfolioComment = (fileId, commentObj) => {
   };
 };
 
-export const portfolioDisLike = (fileId, likes, userId) => {
+export const portfolioDisLike = (fileId, unlikeObj) => {
   return async (dispatch) => {
     projectFirestore
       .collection('images')
       .doc(fileId)
       .update({
-        likes: likes.filter((like) => like.user !== userId),
+        likes: firebase.firestore.FieldValue.arrayRemove(unlikeObj),
+      });
+  };
+};
+
+export const portfolioUnComment = (fileId, uncommentObj) => {
+  return async (dispatch) => {
+    projectFirestore
+      .collection('images')
+      .doc(fileId)
+      .update({
+        comments: firebase.firestore.FieldValue.arrayRemove(uncommentObj),
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+};
+
+export const portfolioAcknowledge = (fileId, acknowledgeObj) => {
+  return async (dispatch) => {
+    projectFirestore
+      .collection('images')
+      .doc(fileId)
+      .update({
+        acknowledgements:
+          firebase.firestore.FieldValue.arrayUnion(acknowledgeObj),
+      })
+      .catch((error) => {
+        console.error(error);
       });
   };
 };

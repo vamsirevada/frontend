@@ -31,10 +31,7 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import { Link } from 'react-router-dom';
 import { ShepherdTourContext } from 'react-shepherd';
-import Fab from '@material-ui/core/Fab';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-import Tooltip from '@material-ui/core/Tooltip';
+import LinearProgress from '@material-ui/core/LinearProgress';
 const Portfolio = ({
   getProjects,
   getBuddies,
@@ -641,6 +638,11 @@ const Portfolio = ({
                           </div>
                         </div>
 
+                        <LinearProgress
+                          variant='determinate'
+                          value={progress + progress1 + progress2}
+                        />
+
                         <div className='main-grid-body'>
                           {displayPortfolio && profile !== null && (
                             <PortfolioRightBody
@@ -714,16 +716,6 @@ const Portfolio = ({
                   Take a Tour to get to know about features of website
                 </span>
               </button>
-              {progress + progress1 + progress2 < 100 && (
-                <Tooltip title='Profile Completed Percentage' placement='top'>
-                  <Fab className='timeline-progress'>
-                    <CircularProgressbar
-                      value={progress + progress1 + progress2}
-                      text={`${progress + progress1 + progress2}%`}
-                    />
-                  </Fab>
-                </Tooltip>
-              )}
             </Fragment>
           ) : (
             <Loader data-aos-duration='1000' />

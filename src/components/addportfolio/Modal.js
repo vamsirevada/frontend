@@ -14,11 +14,13 @@ import yheart from '../../images/liked.png';
 import com from '../../images/noun_comment_767203 copy.svg';
 import plane from '../../images/noun_paper plane_367806 copy.svg';
 import bin from '../../images/icons/noun_bin_2832480.svg';
+import medal from '../../images/icons/noun_Medal_22448.svg';
 import {
   getRealtimeData,
   portfolioDisLike,
   portfolioLike,
   portfolioComment,
+  portfolioUnComment,
 } from '../../actions/portfolio';
 import Loader from '../layout/Loader';
 import { Fragment } from 'react';
@@ -27,6 +29,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import PortfolioLikesPopup from './PortfolioLikesPopup';
+import PortfolioAcknowledgePopup from './PortfolioAcknowledgePopup';
 
 const Modal = ({
   auth,
@@ -41,12 +44,17 @@ const Modal = ({
 }) => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
+  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('');
   const [edit, setEdit] = useState(false);
   const [titleedit, setTitleEdit] = useState(false);
   const [des, setDes] = useState('');
   const [ptitle, setPtitle] = useState('');
+
+  const close1 = () => {
+    setOpen(false);
+  };
 
   const hide = () => {
     setShow(false);
@@ -106,8 +114,16 @@ const Modal = ({
     dispatch(getRealtimeData(file.id));
   };
 
-  const unlike = (file, likes) => {
-    dispatch(portfolioDisLike(file.id, likes, auth?.user?._id));
+  const unlike = (file) => {
+    const unlikeObj = {
+      user: auth?.user?._id,
+      fullName: auth?.user?.fullName
+        ? auth?.user?.fullName
+        : auth?.user?.groupName,
+      likedUserAvatar: auth?.user?.avatar,
+    };
+    dispatch(portfolioDisLike(file.id, unlikeObj));
+    dispatch(getRealtimeData(file.id));
   };
 
   const comment = (file) => {
@@ -125,13 +141,31 @@ const Modal = ({
     dispatch(getRealtimeData(file.id));
   };
 
-  const removeComment = () => {
-    console.log('removed');
+  const removeComment = (file) => {
+    const uncommentObj = {
+      user: auth?.user?._id,
+      fullName: auth?.user?.fullName
+        ? auth?.user?.fullName
+        : auth?.user?.groupName,
+      commentedUserAvatar: auth?.user?.avatar,
+      commentText: text,
+      commentedTime: new Date(),
+    };
+
+    dispatch(portfolioUnComment(file.id, uncommentObj));
+    dispatch(getRealtimeData(file.id));
   };
 
   return (
     <>
       {show && <PortfolioLikesPopup hide={hide} likes={portfolio.likes} />}
+      {open && (
+        <PortfolioAcknowledgePopup
+          auth={auth}
+          file={images[value]}
+          close={close1}
+        />
+      )}
       {loading ? (
         <div className='post-pop-up'>
           <Loader />
@@ -242,63 +276,92 @@ const Modal = ({
               <div className='des-comm-box'>
                 {!guest && (
                   <div className='flex-des'>
-                    <div className='pic-des-1'>
-                      <div>
-                        {portfolio.likes &&
-                        portfolio.likes
-                          .map((x) => x.user === auth?.user?._id)
-                          .find((x) => x === true) ? (
-                          <div>
-                            <div
-                              onClick={() => {
-                                unlike(images[value]);
-                              }}
-                            >
-                              <img className='r-1' src={yheart} alt='' />
-                              <span className='d-1'>Apperciated</span>
+                    <div className='flex-des-box'>
+                      <div className='pic-des-1'>
+                        <div>
+                          {portfolio.likes &&
+                          portfolio.likes
+                            .map((x) => x.user === auth?.user?._id)
+                            .find((x) => x === true) ? (
+                            <div>
+                              <div
+                                onClick={() => {
+                                  unlike(images[value]);
+                                }}
+                              >
+                                <img className='r-1' src={yheart} alt='' />
+                                <span className='d-1'>Apperciated</span>
+                              </div>
                             </div>
-                          </div>
-                        ) : (
-                          <>
-                            <div
-                              onClick={() => {
-                                like(images[value]);
-                              }}
-                            >
-                              <img className='r-1' src={heart} alt='' />
-                              <span className='d-1'>Apperciate</span>
-                            </div>
-                          </>
+                          ) : (
+                            <>
+                              <div
+                                onClick={() => {
+                                  like(images[value]);
+                                }}
+                              >
+                                <img className='r-1' src={heart} alt='' />
+                                <span className='d-1'>Apperciate</span>
+                              </div>
+                            </>
+                          )}
+                        </div>
+                        <div>
+                          <img className='r-1' src={com} alt='' />
+                          <span className='d-1'>Comment</span>
+                        </div>
+                      </div>
+                      <div className='des-right'>
+                        {portfolio.likes && portfolio.likes.length > 0 && (
+                          <a
+                            onClick={() => {
+                              setShow(true);
+                            }}
+                            className='d-1'
+                          >
+                            <span className='f-1'>
+                              {portfolio.likes.length}
+                            </span>{' '}
+                            Appreciations
+                          </a>
+                        )}
+                        {portfolio.comments && portfolio.comments.length > 0 && (
+                          <a className='d-1'>
+                            <span className='f-1'>
+                              {portfolio.comments.length}
+                            </span>{' '}
+                            Comments
+                          </a>
                         )}
                       </div>
-                      <div>
-                        <img className='r-1' src={com} alt='' />
-                        <span className='d-1'>Comment</span>
-                      </div>
                     </div>
-                    <div className='des-right'>
-                      {portfolio.likes && portfolio.likes.length > 0 && (
-                        <a
-                          onClick={() => {
-                            setShow(true);
-                          }}
-                          className='d-1'
-                        >
-                          <span className='f-1'>{portfolio.likes.length}</span>{' '}
-                          Appreciations
-                        </a>
-                      )}
-                      {portfolio.comments && portfolio.comments.length > 0 && (
-                        <a className='d-1'>
-                          <span className='f-1'>
-                            {portfolio.comments.length}
-                          </span>{' '}
-                          Comment
-                        </a>
-                      )}
+                    <div
+                      onClick={() => setOpen(true)}
+                      className='acknowledge-box'
+                    >
+                      <img src={medal} alt='' />
+                      Acknowledge
                     </div>
                   </div>
                 )}
+                {portfolio.acknowledgements && (
+                  <div className='acknowledged-box'>
+                    <h3>Acknowledged by</h3>
+                    <div className='acknowledged-avatars'>
+                      {portfolio.acknowledgements
+                        .slice(0, 3)
+                        .map((x, index) => (
+                          <span key={index} className='acknowledged-avatar'>
+                            <img src={x?.acknowledgedUserAvatar} alt='' />
+                          </span>
+                        ))}
+                      <span className='acknowledged-count'>
+                        +{portfolio.acknowledgements.length - 3}
+                      </span>
+                    </div>
+                  </div>
+                )}
+
                 {edit ? (
                   <div className='popup-description'>
                     <textarea
@@ -399,7 +462,9 @@ const Modal = ({
                                       <button
                                         type='button'
                                         className='btn-blue btn-red'
-                                        onClick={removeComment}
+                                        onClick={() =>
+                                          removeComment(images[value])
+                                        }
                                       >
                                         <img src={bin} alt='' />
                                       </button>

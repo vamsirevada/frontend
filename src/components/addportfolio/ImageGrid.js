@@ -94,6 +94,7 @@ const ImageGrid = ({ auth: { user }, id, profile, guest, setProgress }) => {
   };
 
   const displayAudio = (index) => {
+    console.log('object');
     const audio = audios[index];
     setDispAudio({
       audioUrl: audio.url,
