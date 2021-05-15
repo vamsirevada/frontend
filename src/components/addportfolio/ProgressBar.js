@@ -4,31 +4,30 @@ import { motion } from 'framer-motion';
 
 const ProgressBar = ({
   file,
-  setFile,
   type,
   title,
   description,
+  stringlength,
   setAlert,
-  setUpload,
-  setTitle,
-  setDescription,
+  setState,
 }) => {
   const { progress, url } = UseStorage(
     file,
     type,
     title,
     description,
+    stringlength,
     setAlert,
-    setUpload,
-    setTitle,
-    setDescription
+    setState
   );
   useEffect(() => {
     if (url) {
-      setFile(null);
-      setUpload(false);
+      setState({
+        file: null,
+        upload: false,
+      });
     }
-  }, [url, setFile, setUpload]);
+  }, [url, setState]);
 
   return (
     <motion.div

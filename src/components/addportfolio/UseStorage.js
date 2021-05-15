@@ -6,6 +6,7 @@ import {
   projectFirestore,
   timestamp,
 } from '../../firebase/config';
+import preview from '../../images/preview.png';
 
 const parseJwt = (token) => {
   var base64Url = token.split('.')[1];
@@ -26,10 +27,9 @@ const UseStorage = (
   type,
   title,
   description,
+  stringlength,
   setAlert,
-  setUpload,
-  setTitle,
-  setDescription
+  setState
 ) => {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
@@ -74,14 +74,19 @@ const UseStorage = (
               url,
               title,
               description,
+              stringlength,
               createdAt,
               userId,
               Id,
             });
-            await setUpload(false);
-            await setTitle('');
-            await setDescription('');
             await setAlert('Portfolio updated Successfully', 'success');
+            await setState({
+              upload: false,
+              title: '',
+              description: '',
+              stringlength: 0,
+              display: preview,
+            });
           })
 
           .catch((err) => {
@@ -91,16 +96,7 @@ const UseStorage = (
         setUrl(url);
       }
     );
-  }, [
-    description,
-    file,
-    setAlert,
-    setUpload,
-    title,
-    type,
-    setTitle,
-    setDescription,
-  ]);
+  }, [description, file, setAlert, title, type, stringlength, setState]);
 
   return { progress, url, error };
 };

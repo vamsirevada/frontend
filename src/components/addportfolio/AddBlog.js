@@ -23,8 +23,12 @@ const parseJwt = (token) => {
 };
 
 const AddBlog = ({ suggestions, setAlert }) => {
-  const [description, setDescription] = useState('');
-  const [link, setLink] = useState('');
+  const [state, setState] = useState({
+    description: '',
+    link: '',
+    show: false,
+    stringlength: 0,
+  });
   const [referenceElement, setReferenceElement] = useState(null);
   const [popperElement, setPopperElement] = useState(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
@@ -34,9 +38,9 @@ const AddBlog = ({ suggestions, setAlert }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const collectionRef = projectFirestore.collection('images');
-    if (link === '') {
+    if (state.link === '') {
       setAlert('Blog Link is required', 'danger');
-    } else if (description === '') {
+    } else if (state.description === '') {
       setAlert('Description is required', 'danger');
     } else {
       const createdAt = await timestamp();
@@ -45,8 +49,8 @@ const AddBlog = ({ suggestions, setAlert }) => {
       const userId = user?.user?.id;
       const Id = uuidv4();
       const body = {
-        text: description,
-        url: link,
+        text: state.description,
+        url: state.link,
         type: 'Blog',
         user: userId,
       };
@@ -55,15 +59,17 @@ const AddBlog = ({ suggestions, setAlert }) => {
         .then(async (res) => {
           await collectionRef.add({
             type: 'Blog',
-            url: link,
-            description: description,
+            url: state.link,
+            description: state.description,
             createdAt,
             userId,
             Id,
           });
-          setLink('');
-          setDescription('');
           await setAlert('Portfolio updated Successfully', 'success');
+          setState({
+            description: '',
+            link: '',
+          });
         })
 
         .catch((err) => {
@@ -81,8 +87,13 @@ const AddBlog = ({ suggestions, setAlert }) => {
             type='url'
             name='link'
             className='search-btn'
-            value={link}
-            onChange={(e) => setLink(e.target.value)}
+            value={state.link}
+            onChange={(e) =>
+              setState({
+                ...state,
+                link: e.target.value,
+              })
+            }
             placeholder='Add Link'
           />
         </div>
@@ -93,21 +104,25 @@ const AddBlog = ({ suggestions, setAlert }) => {
               type='text'
               className='search-btn'
               name='description'
-              value={description}
+              value={state.description}
               placeholder='add description'
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) => {
+                setState({
+                  ...state,
+                  description: e.target.value,
+                });
+                if (e.target.value.includes('@')) {
+                  setState({ ...state, show: true });
+                }
+              }}
               ref={setReferenceElement}
             >
               Lorem ipsum dolor, sit amet consectetur adipisicing elit.
               Suscipit, fugiat.
             </textarea>
-            {description !== '' && description.includes('@') && (
+            {state.show && (
               <ul
-                className={
-                  description !== '' &&
-                  description.includes('@') &&
-                  'acknowledge-tooltip'
-                }
+                className='acknowledge-tooltip'
                 ref={setPopperElement}
                 style={styles.popper}
                 {...attributes.popper}
@@ -116,7 +131,12 @@ const AddBlog = ({ suggestions, setAlert }) => {
                   <Fragment key={index}>
                     <li
                       onClick={() => {
-                        setDescription(description.replace('@', '').concat(x));
+                        setState({
+                          ...state,
+                          description: state.description.concat(`${x + ' '}`),
+                          stringlength: x.length,
+                          show: false,
+                        });
                       }}
                     >
                       {x}
@@ -137,5 +157,4 @@ const AddBlog = ({ suggestions, setAlert }) => {
     </div>
   );
 };
-const mapStateToProps = (state) => ({});
-export default connect(mapStateToProps, { setAlert })(AddBlog);
+export default connect(null, { setAlert })(AddBlog);

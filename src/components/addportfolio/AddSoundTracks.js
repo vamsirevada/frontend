@@ -5,15 +5,20 @@ import { setAlert } from '../../actions/alert';
 import { connect } from 'react-redux';
 import { usePopper } from 'react-popper';
 import { Fragment } from 'react';
+import preview from '../../images/preview.png';
 
 const AddSoundTracks = ({ suggestions, setAlert }) => {
   const fileInput = React.createRef();
-  const [file, setFile] = useState(null);
-  const [display, setDisplay] = useState('');
-  const [error, setError] = useState(null);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [upload, setUpload] = useState(false);
+  const [state, setState] = useState({
+    show: false,
+    file: null,
+    display: preview,
+    error: null,
+    upload: false,
+    title: '',
+    description: '',
+    stringlength: 0,
+  });
   const [referenceElement, setReferenceElement] = useState(null);
   const [popperElement, setPopperElement] = useState(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
@@ -26,28 +31,35 @@ const AddSoundTracks = ({ suggestions, setAlert }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    if (file === null) {
+    if (state.file === null) {
       setAlert('Select File', 'danger', 1000);
-    } else if (title === '') {
+    } else if (state.title === '') {
       setAlert('Please add a Title ', 'danger', 1000);
-    } else if (description === '') {
+    } else if (state.description === '') {
       setAlert('Please add a Description', 'danger', 1000);
     } else {
-      setUpload(true);
-      setDisplay('');
+      setState({
+        ...state,
+        upload: true,
+      });
     }
   };
 
   const handleChange = (e) => {
     let selected = e.target.files[0];
     if (selected) {
-      setDisplay(URL.createObjectURL(e.target.files[0]));
-      setFile(selected);
-      setError('');
-      console.log(error);
+      setState({
+        ...state,
+        display: URL.createObjectURL(e.target.files[0]),
+        file: e.target.files[0],
+        error: '',
+      });
     } else {
-      setFile(null);
-      setError('Please select an audio file (mp4)');
+      setState({
+        ...state,
+        file: null,
+        error: 'Please select an audio file (mp4)',
+      });
     }
   };
 
@@ -59,23 +71,21 @@ const AddSoundTracks = ({ suggestions, setAlert }) => {
           <video
             width='250px'
             height='150px'
-            src={display}
+            poster={state.display}
             controls
-            className={display ? '' : 'box1'}
+            className={state.display ? '' : 'box1'}
           />
           <br />
-          {upload && (
+          {state.upload && (
             <ProgressBar
               className='box4 blue-text'
-              file={file}
-              setFile={setFile}
+              file={state.file}
               type={'Audio'}
-              title={title}
-              description={description}
+              title={state.title}
+              description={state.description}
               setAlert={setAlert}
-              setUpload={setUpload}
-              setTitle={setTitle}
-              setDescription={setDescription}
+              setState={setState}
+              stringlength={state.stringlength}
             />
           )}
         </div>
@@ -97,14 +107,18 @@ const AddSoundTracks = ({ suggestions, setAlert }) => {
         <form onSubmit={(e) => onSubmit(e)}>
           <div>
             <h2 className='des'>Title</h2>
-
             <input
               type='text'
               className='search-btn'
               name='title'
-              value={title}
+              value={state.title}
               placeholder='add a title'
-              onChange={(e) => setTitle(e.target.value)}
+              onChange={(e) =>
+                setState({
+                  ...state,
+                  title: e.target.value,
+                })
+              }
             />
           </div>
           <div>
@@ -113,18 +127,22 @@ const AddSoundTracks = ({ suggestions, setAlert }) => {
               type='text'
               className='search-btn'
               name='description'
-              value={description}
+              value={state.description}
               placeholder='add description'
-              onChange={(e) => setDescription(e.target.value)}
+              onChange={(e) => {
+                setState({
+                  ...state,
+                  description: e.target.value,
+                });
+                if (e.target.value.includes('@')) {
+                  setState({ ...state, show: true });
+                }
+              }}
               ref={setReferenceElement}
             ></textarea>
-            {description !== '' && description.includes('@') && (
+            {state.show && (
               <ul
-                className={
-                  description !== '' &&
-                  description.includes('@') &&
-                  'acknowledge-tooltip'
-                }
+                className='acknowledge-tooltip'
                 ref={setPopperElement}
                 style={styles.popper}
                 {...attributes.popper}
@@ -133,7 +151,12 @@ const AddSoundTracks = ({ suggestions, setAlert }) => {
                   <Fragment key={index}>
                     <li
                       onClick={() => {
-                        setDescription(description.replace('@', '').concat(x));
+                        setState({
+                          ...state,
+                          description: state.description.concat(`${x + ' '}`),
+                          stringlength: x.length,
+                          show: false,
+                        });
                       }}
                     >
                       {x}
@@ -154,5 +177,5 @@ const AddSoundTracks = ({ suggestions, setAlert }) => {
     </div>
   );
 };
-const mapStateToProps = (state) => ({});
-export default connect(mapStateToProps, { setAlert })(AddSoundTracks);
+
+export default connect(null, { setAlert })(AddSoundTracks);
