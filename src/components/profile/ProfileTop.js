@@ -27,7 +27,11 @@ const ProfileTop = ({
               </Link>
               <Link to={`/projectlist/${user?._id}`}>
                 <p>
-                  <span className='f-1'>{projects && projects.length}</span>
+                  <span className='f-1'>
+                    {projects.length > 0 || experience.length > 0
+                      ? projects.length + experience.length
+                      : 0}
+                  </span>
                   <span>
                     <br /> Projects{' '}
                   </span>

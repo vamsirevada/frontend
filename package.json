@@ -20,6 +20,8 @@
     "react-calendar": "^3.3.1",
     "react-circular-progressbar": "^2.0.3",
     "react-dom": "^17.0.1",
+    "react-input-trigger": "^1.1.2",
+    "react-mentions": "^4.1.1",
     "react-moment": "^1.0.0",
     "react-player": "^2.9.0",
     "react-popper": "^2.2.5",

@@ -3,32 +3,34 @@ import ProgressBar from './ProgressBar';
 import './Gallery.css';
 import { setAlert } from '../../actions/alert';
 import { connect } from 'react-redux';
+import { usePopper } from 'react-popper';
+import { Fragment } from 'react';
 
-const AddSoundTracks = ({ setAlert }) => {
+const AddSoundTracks = ({ suggestions, setAlert }) => {
   const fileInput = React.createRef();
   const [file, setFile] = useState(null);
   const [display, setDisplay] = useState('');
   const [error, setError] = useState(null);
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-  });
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [upload, setUpload] = useState(false);
+  const [referenceElement, setReferenceElement] = useState(null);
+  const [popperElement, setPopperElement] = useState(null);
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: 'auto',
+  });
+
   const onOpenFileDialog = () => {
     fileInput.current.click();
   };
-
-  const { title, description } = formData;
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
     e.preventDefault();
     if (file === null) {
       setAlert('Select File', 'danger', 1000);
-    } else if (formData.title === '') {
+    } else if (title === '') {
       setAlert('Please add a Title ', 'danger', 1000);
-    } else if (formData.description === '') {
+    } else if (description === '') {
       setAlert('Please add a Description', 'danger', 1000);
     } else {
       setUpload(true);
@@ -68,11 +70,12 @@ const AddSoundTracks = ({ setAlert }) => {
               file={file}
               setFile={setFile}
               type={'Audio'}
-              title={formData.title}
-              description={formData.description}
+              title={title}
+              description={description}
               setAlert={setAlert}
               setUpload={setUpload}
-              setFormData={setFormData}
+              setTitle={setTitle}
+              setDescription={setDescription}
             />
           )}
         </div>
@@ -101,7 +104,7 @@ const AddSoundTracks = ({ setAlert }) => {
               name='title'
               value={title}
               placeholder='add a title'
-              onChange={(e) => onChange(e)}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <div>
@@ -112,8 +115,34 @@ const AddSoundTracks = ({ setAlert }) => {
               name='description'
               value={description}
               placeholder='add description'
-              onChange={(e) => onChange(e)}
+              onChange={(e) => setDescription(e.target.value)}
+              ref={setReferenceElement}
             ></textarea>
+            {description !== '' && description.includes('@') && (
+              <ul
+                className={
+                  description !== '' &&
+                  description.includes('@') &&
+                  'acknowledge-tooltip'
+                }
+                ref={setPopperElement}
+                style={styles.popper}
+                {...attributes.popper}
+              >
+                {suggestions.map((x, index) => (
+                  <Fragment key={index}>
+                    <li
+                      onClick={() => {
+                        setDescription(description.replace('@', '').concat(x));
+                      }}
+                    >
+                      {x}
+                    </li>
+                    <hr />
+                  </Fragment>
+                ))}
+              </ul>
+            )}
           </div>
           <div className='prof-flex-btn'>
             <button type='submit' className='btn-yellow'>

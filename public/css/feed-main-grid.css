@@ -235,9 +235,6 @@
   padding: 0rem 1rem;
 }
 .flex-des {
-  display: grid;
-  grid-template-columns: 80% 20%;
-  grid-gap: 0.5em;
   width: 100%;
   height: 70px;
   background-color: #fcfcfc;
@@ -271,15 +268,41 @@
   align-self: center;
 }
 
+.acknowledge-tooltip {
+  background-color: #f2f2f2;
+  box-shadow: 0px 3px 3px #00000040;
+  border-radius: 15px;
+  padding: 10px;
+  height: 35%;
+  overflow-y: scroll;
+}
+
+.acknowledge-tooltip li {
+  display: block;
+  font-size: 1rem;
+  color: #272727;
+  padding: 0.35rem 0.75rem;
+  opacity: 0.8;
+}
+
+.acknowledge-tooltip li:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
 .acknowledge-box img {
   height: 18px;
   width: 18px;
 }
 
 .acknowledged-box {
+  display: grid;
+  grid-template-columns: 80% 20%;
+  margin: 25px;
+}
+
+.acknowledged-box-1 {
   display: flex;
-  flex-direction: row;
-  margin: 25px 0px 0px 25px;
 }
 
 .acknowledged-box h3 {

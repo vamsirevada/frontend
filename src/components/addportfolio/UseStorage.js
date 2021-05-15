@@ -28,7 +28,8 @@ const UseStorage = (
   description,
   setAlert,
   setUpload,
-  setFormData
+  setTitle,
+  setDescription
 ) => {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
@@ -78,10 +79,8 @@ const UseStorage = (
               Id,
             });
             await setUpload(false);
-            await setFormData({
-              title: '',
-              description: '',
-            });
+            await setTitle('');
+            await setDescription('');
             await setAlert('Portfolio updated Successfully', 'success');
           })
 
@@ -92,7 +91,16 @@ const UseStorage = (
         setUrl(url);
       }
     );
-  }, [description, file, setAlert, setUpload, title, type, setFormData]);
+  }, [
+    description,
+    file,
+    setAlert,
+    setUpload,
+    title,
+    type,
+    setTitle,
+    setDescription,
+  ]);
 
   return { progress, url, error };
 };

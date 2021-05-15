@@ -45,6 +45,7 @@ const Modal = ({
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
+  const [viewAll, setViewAll] = useState(false);
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('');
   const [edit, setEdit] = useState(false);
@@ -335,33 +336,36 @@ const Modal = ({
                         )}
                       </div>
                     </div>
-                    <div
-                      onClick={() => setOpen(true)}
-                      className='acknowledge-box'
-                    >
-                      <img src={medal} alt='' />
-                      Acknowledge
-                    </div>
                   </div>
                 )}
-                {portfolio.acknowledgements && (
-                  <div className='acknowledged-box'>
-                    <h3>Acknowledged by</h3>
-                    <div className='acknowledged-avatars'>
-                      {portfolio.acknowledgements
-                        .slice(0, 3)
-                        .map((x, index) => (
-                          <span key={index} className='acknowledged-avatar'>
-                            <img src={x?.acknowledgedUserAvatar} alt='' />
+                <div className='acknowledged-box'>
+                  <div>
+                    {portfolio.acknowledgements && (
+                      <div className='acknowledged-box-1'>
+                        <h3>Acknowledged by</h3>
+                        <div className='acknowledged-avatars'>
+                          {portfolio.acknowledgements
+                            .slice(0, 3)
+                            .map((x, index) => (
+                              <span key={index} className='acknowledged-avatar'>
+                                <img src={x?.acknowledgedUserAvatar} alt='' />
+                              </span>
+                            ))}
+                          <span className='acknowledged-count'>
+                            +{portfolio.acknowledgements.length - 3}
                           </span>
-                        ))}
-                      <span className='acknowledged-count'>
-                        +{portfolio.acknowledgements.length - 3}
-                      </span>
-                    </div>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                )}
-
+                  <div
+                    onClick={() => setOpen(true)}
+                    className='acknowledge-box'
+                  >
+                    <img src={medal} alt='' />
+                    Acknowledge
+                  </div>
+                </div>
                 {edit ? (
                   <div className='popup-description'>
                     <textarea
@@ -389,9 +393,70 @@ const Modal = ({
                     )}
                   </div>
                 )}
+                {portfolio.acknowledgements && (
+                  <div
+                    style={{
+                      borderRadius: '15px',
+                      backgroundColor: '#f8f8f8',
+                    }}
+                    className='comments'
+                  >
+                    <div className='comment-box-heading'>
+                      <h5>Testimonals</h5>
+                    </div>
+                    {portfolio.acknowledgements
+                      .slice(0, viewAll ? portfolio.acknowledgements.length : 2)
+                      .map((x, index) => (
+                        <Fragment key={index}>
+                          <div className='comment-box'>
+                            <div>
+                              <Link to={`portfolio/${x.user}`}>
+                                <img
+                                  className='comment-pic'
+                                  src={
+                                    x.acknowledgedUserAvatar
+                                      ? x.acknowledgedUserAvatar
+                                      : logo
+                                  }
+                                  alt=''
+                                />
+                              </Link>
+                            </div>
+                            <div className='cmt-1 list'>
+                              <div>
+                                <div>
+                                  <Link to={`portfolio/${x?.user}`}>
+                                    <span className='d-1'>
+                                      {x?.fullName && x?.fullName}
+                                    </span>{' '}
+                                  </Link>
+                                </div>
+                                <div className='d-3'>
+                                  <p>{x.acknowledgedComment}</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <hr className='Hori' />
+                        </Fragment>
+                      ))}
+                  </div>
+                )}
+                {portfolio.acknowledgements &&
+                  portfolio.acknowledgements.length > 2 && (
+                    <div
+                      className='load'
+                      onClick={() => {
+                        setViewAll(!viewAll);
+                      }}
+                    >
+                      <div className='loadmore'>
+                        {viewAll ? 'View Less' : 'View All'}
+                      </div>
+                    </div>
+                  )}
                 {!guest && (
                   <>
-                    <hr className='Hori' />
                     <div className='comment-box'>
                       <div>
                         <img

@@ -4,33 +4,34 @@ import './Gallery.css';
 import { setAlert } from '../../actions/alert';
 import { connect } from 'react-redux';
 import preview from '../../images/preview.png';
+import { usePopper } from 'react-popper';
+import { Fragment } from 'react';
 
-const AddPhoto = ({ setAlert }) => {
+const AddPhoto = ({ suggestions, setAlert }) => {
   const fileInput = React.createRef();
   const [file, setFile] = useState(null);
   const [display, setDisplay] = useState(preview);
   const [error, setError] = useState(null);
   const [upload, setUpload] = useState(false);
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [referenceElement, setReferenceElement] = useState(null);
+  const [popperElement, setPopperElement] = useState(null);
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: 'auto',
   });
 
   const onOpenFileDialog = () => {
     fileInput.current.click();
   };
 
-  const { title, description } = formData;
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
   const onSubmit = (e) => {
     e.preventDefault();
     if (file === null) {
       setAlert('Select File', 'danger', 1000);
-    } else if (formData.title === '') {
+    } else if (title === '') {
       setAlert('Please add a Title ', 'danger', 1000);
-    } else if (formData.description === '') {
+    } else if (description === '') {
       setAlert('Please add a Description', 'danger', 1000);
     } else {
       setUpload(true);
@@ -65,11 +66,12 @@ const AddPhoto = ({ setAlert }) => {
                 file={file}
                 setFile={setFile}
                 type={'Picture'}
-                title={formData.title}
-                description={formData.description}
+                title={title}
+                description={description}
                 setAlert={setAlert}
                 setUpload={setUpload}
-                setFormData={setFormData}
+                setTitle={setTitle}
+                setDescription={setDescription}
               />
             )}
           </div>
@@ -98,19 +100,46 @@ const AddPhoto = ({ setAlert }) => {
               name='title'
               value={title}
               placeholder='add a title'
-              onChange={(e) => onChange(e)}
+              onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <div>
             <h2 className='des'>Description</h2>
             <textarea
               type='text'
+              id='portfolio-description'
               className='search-btn'
               name='description'
               value={description}
               placeholder='add description'
-              onChange={(e) => onChange(e)}
+              onChange={(e) => setDescription(e.target.value)}
+              ref={setReferenceElement}
             ></textarea>
+            {description !== '' && description.includes('@') && (
+              <ul
+                className={
+                  description !== '' &&
+                  description.includes('@') &&
+                  'acknowledge-tooltip'
+                }
+                ref={setPopperElement}
+                style={styles.popper}
+                {...attributes.popper}
+              >
+                {suggestions.map((x, index) => (
+                  <Fragment key={index}>
+                    <li
+                      onClick={() => {
+                        setDescription(description.replace('@', '').concat(x));
+                      }}
+                    >
+                      {x}
+                    </li>
+                    <hr />
+                  </Fragment>
+                ))}
+              </ul>
+            )}
           </div>
           <div className='prof-flex-btn'>
             <button type='submit' className='btn-yellow'>
@@ -123,5 +152,4 @@ const AddPhoto = ({ setAlert }) => {
   );
 };
 
-const mapStateToProps = (state) => ({});
-export default connect(mapStateToProps, { setAlert })(AddPhoto);
+export default connect(null, { setAlert })(AddPhoto);

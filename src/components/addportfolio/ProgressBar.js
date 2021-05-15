@@ -10,7 +10,8 @@ const ProgressBar = ({
   description,
   setAlert,
   setUpload,
-  setFormData,
+  setTitle,
+  setDescription,
 }) => {
   const { progress, url } = UseStorage(
     file,
@@ -19,7 +20,8 @@ const ProgressBar = ({
     description,
     setAlert,
     setUpload,
-    setFormData
+    setTitle,
+    setDescription
   );
   useEffect(() => {
     if (url) {

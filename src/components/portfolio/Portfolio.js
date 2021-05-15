@@ -31,7 +31,6 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import { Link } from 'react-router-dom';
 import { ShepherdTourContext } from 'react-shepherd';
-import LinearProgress from '@material-ui/core/LinearProgress';
 const Portfolio = ({
   getProjects,
   getBuddies,
@@ -59,49 +58,6 @@ const Portfolio = ({
   const [viewAll3, setViewAll3] = useState(false);
   const [viewAll4, setViewAll4] = useState(false);
   const [viewAll5, setViewAll5] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [progress1, setProgress1] = useState(0);
-  const [progress2, setProgress2] = useState(0);
-
-  useEffect(() => {
-    if (
-      profile?.location !== '' &&
-      profile?.avatar !== '' &&
-      profile?.bio !== '' &&
-      profile?.status !== '' &&
-      profile?.founder.length !== 0 &&
-      profile?.dob !== '' &&
-      profile?.gender !== '' &&
-      profile?.hometown !== '' &&
-      profile?.languageknown !== ''
-    ) {
-      setProgress(30);
-    }
-    if (
-      profile?.experience.length !== 0 &&
-      profile?.education.length !== 0 &&
-      profile?.awards.length !== 0 &&
-      profile?.events.length !== 0 &&
-      profile?.skills.length !== 0
-    ) {
-      setProgress1(30);
-    }
-  }, [
-    profile?.location,
-    profile?.avatar,
-    profile?.bio,
-    profile?.status,
-    profile?.founder,
-    profile?.dob,
-    profile?.gender,
-    profile?.hometown,
-    profile?.languageknown,
-    profile?.experience,
-    profile?.education,
-    profile?.awards,
-    profile?.events,
-    profile?.skills,
-  ]);
 
   const onClick1 = (e) => {
     toogleLeft(true);
@@ -638,17 +594,9 @@ const Portfolio = ({
                           </div>
                         </div>
 
-                        <LinearProgress
-                          variant='determinate'
-                          value={progress + progress1 + progress2}
-                        />
-
                         <div className='main-grid-body'>
                           {displayPortfolio && profile !== null && (
-                            <PortfolioRightBody
-                              setProgress={setProgress2}
-                              profile={profile}
-                            />
+                            <PortfolioRightBody profile={profile} />
                           )}
                           {displayBuddies && (
                             <Fragment>

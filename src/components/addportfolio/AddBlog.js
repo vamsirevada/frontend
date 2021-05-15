@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { setAlert } from '../../actions/alert';
 import { connect } from 'react-redux';
 import api from '../../utils/api';
+import { usePopper } from 'react-popper';
+import { Fragment } from 'react';
 
 const parseJwt = (token) => {
   var base64Url = token.split('.')[1];
@@ -20,16 +22,14 @@ const parseJwt = (token) => {
   return JSON.parse(jsonPayload);
 };
 
-const AddBlog = ({ setAlert }) => {
-  const [formData, setFormData] = useState({
-    description: '',
-  });
-
+const AddBlog = ({ suggestions, setAlert }) => {
+  const [description, setDescription] = useState('');
   const [link, setLink] = useState('');
-
-  const { description } = formData;
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const [referenceElement, setReferenceElement] = useState(null);
+  const [popperElement, setPopperElement] = useState(null);
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: 'auto',
+  });
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -62,9 +62,7 @@ const AddBlog = ({ setAlert }) => {
             Id,
           });
           setLink('');
-          setFormData({
-            description: '',
-          });
+          setDescription('');
           await setAlert('Portfolio updated Successfully', 'success');
         })
 
@@ -97,11 +95,37 @@ const AddBlog = ({ setAlert }) => {
               name='description'
               value={description}
               placeholder='add description'
-              onChange={(e) => onChange(e)}
+              onChange={(e) => setDescription(e.target.value)}
+              ref={setReferenceElement}
             >
               Lorem ipsum dolor, sit amet consectetur adipisicing elit.
               Suscipit, fugiat.
             </textarea>
+            {description !== '' && description.includes('@') && (
+              <ul
+                className={
+                  description !== '' &&
+                  description.includes('@') &&
+                  'acknowledge-tooltip'
+                }
+                ref={setPopperElement}
+                style={styles.popper}
+                {...attributes.popper}
+              >
+                {suggestions.map((x, index) => (
+                  <Fragment key={index}>
+                    <li
+                      onClick={() => {
+                        setDescription(description.replace('@', '').concat(x));
+                      }}
+                    >
+                      {x}
+                    </li>
+                    <hr />
+                  </Fragment>
+                ))}
+              </ul>
+            )}
           </div>
           <div className='prof-flex-btn'>
             <button type='submit' className='btn-yellow'>
