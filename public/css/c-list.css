@@ -103,14 +103,11 @@
 }
 .profile-info-box .b-1.active {
   border-bottom: 2px solid #212121;
-  transition: all 0.1s ease;
 }
 
 .profile-info-box .b-1:hover {
   border-bottom: 2px solid #212121;
   font-family: 'Raleway', sans-serif !important;
-
-  transition: all 0.25s ease;
 }
 .profile-info-box .b-1 {
   padding-bottom: 0.25rem;
