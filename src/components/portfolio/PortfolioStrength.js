@@ -8,6 +8,9 @@ import Check from '@material-ui/icons/Check';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
+import api from '../../utils/api';
+import { setAlert } from '../../actions/alert';
+import { connect } from 'react-redux';
 
 const QontoConnector = withStyles({
   alternativeLabel: {
@@ -74,12 +77,18 @@ function QontoStepIcon(props) {
   );
 }
 
-const PortfolioStrength = ({ profile, xyz }) => {
+const PortfolioStrength = ({ profile, xyz, setAlert }) => {
   const [activeStep, setActiveStep] = useState(0);
 
   function getSteps() {
     return ['Begineer', 'Intermediate', 'Expert'];
   }
+
+  const getStatus = async () => {
+    return await api.get('/profile/status').then((data) => {
+      setAlert(data.data.message, 'success');
+    });
+  };
 
   const steps = getSteps();
 
@@ -135,7 +144,7 @@ const PortfolioStrength = ({ profile, xyz }) => {
                 float: 'right',
                 marginRight: '40px',
               }}
-              onClick={() => setActiveStep(3)}
+              onClick={() => getStatus()}
               className='btn-white'
             >
               Profile Completed
@@ -159,7 +168,7 @@ const PortfolioStrength = ({ profile, xyz }) => {
 
   return (
     <>
-      {activeStep !== steps.length && (
+      {!profile.progressStatus && (
         <div className='profile-strength'>
           <div className='profile-strength-text'>
             <h6 className='strength-bold'>
@@ -186,4 +195,4 @@ const PortfolioStrength = ({ profile, xyz }) => {
   );
 };
 
-export default React.memo(PortfolioStrength);
+export default connect(null, { setAlert })(PortfolioStrength);
