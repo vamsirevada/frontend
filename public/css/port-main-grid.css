@@ -1,3 +1,7 @@
+:root {
+  --Raleway: 'Raleway', sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -190,6 +194,34 @@ a {
   border-left: 2px solid #fff;
   border-bottom: 2px solid #fff;
   z-index: 5;
+}
+
+.profile-strength {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.profile-strength-bar {
+  height: 8px;
+  background-color: #7480ff;
+  color: #ffffff;
+  border-radius: 5px;
+  margin: 0.5rem;
+}
+
+.strength-bold {
+  font-weight: 600;
+  font-size: 16px;
+  color: #272727;
+}
+
+.strength-light {
+  font-family: var(--Raleway);
+  font-weight: 500;
+  font-size: 14px;
+  color: #5d5d5d;
+  white-space: pre-line;
 }
 
 /* Main portfolio grid */

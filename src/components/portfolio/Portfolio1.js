@@ -34,6 +34,7 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import Tooltip from '@material-ui/core/Tooltip';
 import PersonalMessage from '../chat/PersonalMessage';
+import UseFirestore from '../addportfolio/UseFireStore';
 
 const Portfolio1 = ({
   getProfileById,
@@ -50,6 +51,7 @@ const Portfolio1 = ({
     getBuddiesById(match.params.id);
   }, [getProfileById, getProjects, getBuddiesById, match.params.id]);
 
+  const { docs } = UseFirestore('images');
   const [start, setStart] = useState(false);
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
@@ -605,7 +607,10 @@ const Portfolio1 = ({
                           </div>
                           <div className='main-grid-body'>
                             {displayPortfolio && profile1 !== null && (
-                              <PortfolioRightBody profile={profile1} />
+                              <PortfolioRightBody
+                                docs={docs}
+                                profile={profile1}
+                              />
                             )}
                             {displayBuddies && (
                               <Fragment>

@@ -31,6 +31,9 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import { Link } from 'react-router-dom';
 import { ShepherdTourContext } from 'react-shepherd';
+import PortfolioStrength from './PortfolioStrength';
+import UseFirestore from '../addportfolio/UseFireStore';
+
 const Portfolio = ({
   getProjects,
   getBuddies,
@@ -40,14 +43,11 @@ const Portfolio = ({
 }) => {
   useEffect(() => {
     getProjects(user?._id);
-  }, [getProjects, user?._id]);
-
-  useEffect(() => {
     getBuddies();
-  }, [getBuddies]);
+  }, [getProjects, getBuddies, user?._id]);
 
   const tour = useContext(ShepherdTourContext);
-
+  const { docs } = UseFirestore('images');
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
   const [displayPortfolio, tooglePortfolio] = useState(true);
@@ -58,6 +58,8 @@ const Portfolio = ({
   const [viewAll3, setViewAll3] = useState(false);
   const [viewAll4, setViewAll4] = useState(false);
   const [viewAll5, setViewAll5] = useState(false);
+
+  const xyz = docs.filter((i) => i.userId === user?._id);
 
   const onClick1 = (e) => {
     toogleLeft(true);
@@ -113,7 +115,15 @@ const Portfolio = ({
                     <div id='left-sidebar'>
                       <div className='left-container'>
                         <PortfolioLeftTop profile={profile} />
-                        <EditButton profile={profile} />
+                        <div className='btns'>
+                          <span className='profile-tour-button'>
+                            <Link to='profile' className={`btn-white `}>
+                              Add/Edit Profile
+                            </Link>
+                          </span>
+                          <EditButton profile={profile} />
+                        </div>
+
                         <PortfolioLeftAbout profile={profile} />
                         {profile?.founder.length > 0 && (
                           <div className='prof-exp'>
@@ -593,10 +603,14 @@ const Portfolio = ({
                             </div>
                           </div>
                         </div>
-
+                        <PortfolioStrength
+                          user={user}
+                          profile={profile}
+                          xyz={xyz}
+                        />
                         <div className='main-grid-body'>
                           {displayPortfolio && profile !== null && (
-                            <PortfolioRightBody profile={profile} />
+                            <PortfolioRightBody docs={docs} profile={profile} />
                           )}
                           {displayBuddies && (
                             <Fragment>

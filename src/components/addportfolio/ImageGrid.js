@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
-import UseFirestore from './UseFireStore';
 import api from '../../utils/api';
 import { motion } from 'framer-motion';
 import path from '../../images/path.svg';
@@ -13,10 +12,9 @@ import { connect, useDispatch } from 'react-redux';
 import VideoModal from './VideoModal';
 import AudioModal from './AudioModal';
 
-const ImageGrid = ({ auth: { user }, id, profile, guest }) => {
+const ImageGrid = ({ auth: { user }, id, profile, docs, guest }) => {
   const dispatch = useDispatch();
   const [edit, setEdit] = useState('');
-  const { docs } = UseFirestore('images');
   const [viewAllImg, setViewAllImg] = useState(false);
   const [viewAllVideo, setViewAllVideo] = useState(false);
   const [viewAllAudio, setViewAllAudio] = useState(false);
