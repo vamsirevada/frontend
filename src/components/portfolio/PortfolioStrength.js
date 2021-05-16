@@ -163,7 +163,8 @@ const PortfolioStrength = ({ profile, xyz }) => {
         <div className='profile-strength'>
           <div className='profile-strength-text'>
             <h6 className='strength-bold'>
-              Profile Strength: <span className='strength-light'>Begineer</span>
+              Profile Strength:{' '}
+              <span className='strength-light'>{steps[activeStep]}</span>
             </h6>
           </div>
 
