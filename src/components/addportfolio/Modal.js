@@ -14,10 +14,6 @@ import yheart from '../../images/liked.png';
 import com from '../../images/noun_comment_767203 copy.svg';
 import bin from '../../images/icons/noun_bin_2832480.svg';
 import medal from '../../images/icons/noun_Medal_22448.svg';
-<<<<<<< HEAD
-=======
-
->>>>>>> ec3a361618bfb91483ba91328be5d20e602d6eae
 import {
   getRealtimeData,
   portfolioDisLike,
@@ -35,10 +31,7 @@ import PortfolioLikesPopup from './PortfolioLikesPopup';
 import PortfolioAcknowledgePopup from './PortfolioAcknowledgePopup';
 import { usePopper } from 'react-popper';
 import api from '../../utils/api';
-<<<<<<< HEAD
 import firebase from 'firebase/app';
-=======
->>>>>>> ec3a361618bfb91483ba91328be5d20e602d6eae
 
 const Modal = ({
   auth,
@@ -414,7 +407,6 @@ const Modal = ({
                       </div>
                     )}
                   </div>
-<<<<<<< HEAD
                   <div
                     onClick={() => setOpen(true)}
                     className='acknowledge-box'
@@ -422,8 +414,6 @@ const Modal = ({
                     <img src={medal} alt='' />
                     Acknowledge
                   </div>
-=======
->>>>>>> ec3a361618bfb91483ba91328be5d20e602d6eae
                 </div>
                 {edit ? (
                   <div className='popup-description'>
@@ -480,17 +470,7 @@ const Modal = ({
                   </div>
                 )}
                 {portfolio.acknowledgements && (
-<<<<<<< HEAD
-                  <div
-                    style={{
-                      borderRadius: '15px',
-                      backgroundColor: '#f8f8f8',
-                    }}
-                    className='comments'
-                  >
-=======
                   <div className='comments'>
->>>>>>> ec3a361618bfb91483ba91328be5d20e602d6eae
                     <div className='comment-box-heading'>
                       <h5>Testimonials</h5>
                     </div>
