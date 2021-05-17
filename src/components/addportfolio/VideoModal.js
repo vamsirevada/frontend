@@ -111,7 +111,7 @@ const VideoModal = ({
   const updateEditMode = () => {
     projectFirestore.collection('images').doc(portfolio.id).update({
       description: des,
-      stringlength: stringlength,
+      // stringlength: stringlength,
     });
     setEdit(false);
     dispatch(getRealtimeData(portfolio.id));
@@ -397,7 +397,7 @@ const VideoModal = ({
                       rows='2'
                       defaultValue={portfolio.description}
                       onChange={(e) => setDes(e.target.value)}
-                      ref={setReferenceElement}
+                      // ref={setReferenceElement}
                     />
                     {des !== '' && des.includes('@') && (
                       <ul

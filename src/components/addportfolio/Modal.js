@@ -13,7 +13,7 @@ import heart from '../../images/heart.svg';
 import yheart from '../../images/liked.png';
 import com from '../../images/noun_comment_767203 copy.svg';
 import bin from '../../images/icons/noun_bin_2832480.svg';
-import medal from '../../images/icons/noun_Medal_22448.svg';
+// import medal from '../../images/icons/noun_Medal_22448.svg';s
 import {
   getRealtimeData,
   portfolioDisLike,
@@ -111,7 +111,7 @@ const Modal = ({
   const updateEditMode = () => {
     projectFirestore.collection('images').doc(portfolio.id).update({
       description: des,
-      stringlength: stringlength,
+      // stringlength: stringlength,
     });
     setEdit(false);
     dispatch(getRealtimeData(portfolio.id));
@@ -398,7 +398,7 @@ const Modal = ({
                       rows='2'
                       defaultValue={portfolio.description}
                       onChange={(e) => setDes(e.target.value)}
-                      ref={setReferenceElement}
+                      // ref={setReferenceElement}
                     />
                     {des !== '' && des.includes('@') && (
                       <ul

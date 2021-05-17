@@ -12,7 +12,6 @@ import Moment from 'react-moment';
 import heart from '../../images/heart.svg';
 import yheart from '../../images/liked.png';
 import com from '../../images/noun_comment_767203 copy.svg';
-
 import medal from '../../images/icons/noun_Medal_22448.svg';
 import bin from '../../images/icons/noun_bin_2832480.svg';
 import {
@@ -114,7 +113,7 @@ const AudioModal = ({
   const updateEditMode = () => {
     projectFirestore.collection('images').doc(portfolio.id).update({
       description: des,
-      stringlength: stringlength,
+      // stringlength: stringlength,
     });
     setEdit(false);
     dispatch(getRealtimeData(portfolio.id));
@@ -401,7 +400,7 @@ const AudioModal = ({
                       rows='2'
                       defaultValue={portfolio.description}
                       onChange={(e) => setDes(e.target.value)}
-                      ref={setReferenceElement}
+                      // ref={setReferenceElement}
                     />
                     {des !== '' && des.includes('@') && (
                       <ul
