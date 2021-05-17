@@ -35,7 +35,6 @@ const Profile2 = ({
 
   useEffect(() => {
     getProjects(_id);
-    //eslint-disable-next-line
   }, [getProjects, _id]);
 
   return (

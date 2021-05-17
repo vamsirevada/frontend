@@ -47,7 +47,6 @@ const CreateGroupProfile = ({ createProfile, history }) => {
             ...formData,
             avatar: url,
           });
-          createProfile({ ...formData, avatar: url }, history, true);
           setProgress(0);
           setShow(false);
         });

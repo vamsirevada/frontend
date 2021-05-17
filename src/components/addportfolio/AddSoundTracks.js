@@ -3,49 +3,63 @@ import ProgressBar from './ProgressBar';
 import './Gallery.css';
 import { setAlert } from '../../actions/alert';
 import { connect } from 'react-redux';
+import { usePopper } from 'react-popper';
+import { Fragment } from 'react';
+import preview from '../../images/preview.png';
 
-const AddSoundTracks = ({ setAlert }) => {
+const AddSoundTracks = ({ suggestions, setAlert }) => {
   const fileInput = React.createRef();
-  const [file, setFile] = useState(null);
-  const [display, setDisplay] = useState('');
-  const [error, setError] = useState(null);
-  const [formData, setFormData] = useState({
+  const [state, setState] = useState({
+    show: false,
+    file: null,
+    display: preview,
+    error: null,
+    upload: false,
     title: '',
     description: '',
+    stringlength: 0,
   });
-  const [upload, setUpload] = useState(false);
+  const [referenceElement, setReferenceElement] = useState(null);
+  const [popperElement, setPopperElement] = useState(null);
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: 'auto',
+  });
+
   const onOpenFileDialog = () => {
     fileInput.current.click();
   };
 
-  const { title, description } = formData;
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
   const onSubmit = (e) => {
     e.preventDefault();
-    if (file === null) {
+    if (state.file === null) {
       setAlert('Select File', 'danger', 1000);
-    } else if (formData.title === '') {
+    } else if (state.title === '') {
       setAlert('Please add a Title ', 'danger', 1000);
-    } else if (formData.description === '') {
+    } else if (state.description === '') {
       setAlert('Please add a Description', 'danger', 1000);
     } else {
-      setUpload(true);
-      setDisplay('');
+      setState({
+        ...state,
+        upload: true,
+      });
     }
   };
 
   const handleChange = (e) => {
     let selected = e.target.files[0];
     if (selected) {
-      setDisplay(URL.createObjectURL(e.target.files[0]));
-      setFile(selected);
-      setError('');
-      console.log(error);
+      setState({
+        ...state,
+        display: URL.createObjectURL(e.target.files[0]),
+        file: e.target.files[0],
+        error: '',
+      });
     } else {
-      setFile(null);
-      setError('Please select an audio file (mp4)');
+      setState({
+        ...state,
+        file: null,
+        error: 'Please select an audio file (mp4)',
+      });
     }
   };
 
@@ -57,22 +71,21 @@ const AddSoundTracks = ({ setAlert }) => {
           <video
             width='250px'
             height='150px'
-            src={display}
+            poster={state.display}
             controls
-            className={display ? '' : 'box1'}
+            className={state.display ? '' : 'box1'}
           />
           <br />
-          {upload && (
+          {state.upload && (
             <ProgressBar
               className='box4 blue-text'
-              file={file}
-              setFile={setFile}
+              file={state.file}
               type={'Audio'}
-              title={formData.title}
-              description={formData.description}
+              title={state.title}
+              description={state.description}
               setAlert={setAlert}
-              setUpload={setUpload}
-              setFormData={setFormData}
+              setState={setState}
+              stringlength={state.stringlength}
             />
           )}
         </div>
@@ -94,14 +107,18 @@ const AddSoundTracks = ({ setAlert }) => {
         <form onSubmit={(e) => onSubmit(e)}>
           <div>
             <h2 className='des'>Title</h2>
-
             <input
               type='text'
               className='search-btn'
               name='title'
-              value={title}
+              value={state.title}
               placeholder='add a title'
-              onChange={(e) => onChange(e)}
+              onChange={(e) =>
+                setState({
+                  ...state,
+                  title: e.target.value,
+                })
+              }
             />
           </div>
           <div>
@@ -110,10 +127,45 @@ const AddSoundTracks = ({ setAlert }) => {
               type='text'
               className='search-btn'
               name='description'
-              value={description}
+              value={state.description}
               placeholder='add description'
-              onChange={(e) => onChange(e)}
+              onChange={(e) => {
+                setState({
+                  ...state,
+                  description: e.target.value,
+                });
+                if (e.target.value.includes('@')) {
+                  setState({ ...state, show: true });
+                }
+              }}
+              ref={setReferenceElement}
             ></textarea>
+            {state.show && (
+              <ul
+                className='acknowledge-tooltip'
+                ref={setPopperElement}
+                style={styles.popper}
+                {...attributes.popper}
+              >
+                {suggestions.map((x, index) => (
+                  <Fragment key={index}>
+                    <li
+                      onClick={() => {
+                        setState({
+                          ...state,
+                          description: state.description.concat(`${x + ' '}`),
+                          stringlength: x.length,
+                          show: false,
+                        });
+                      }}
+                    >
+                      {x}
+                    </li>
+                    <hr />
+                  </Fragment>
+                ))}
+              </ul>
+            )}
           </div>
           <div className='prof-flex-btn'>
             <button type='submit' className='btn-yellow'>
@@ -125,5 +177,5 @@ const AddSoundTracks = ({ setAlert }) => {
     </div>
   );
 };
-const mapStateToProps = (state) => ({});
-export default connect(mapStateToProps, { setAlert })(AddSoundTracks);
+
+export default connect(null, { setAlert })(AddSoundTracks);

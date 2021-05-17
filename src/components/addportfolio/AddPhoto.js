@@ -4,49 +4,63 @@ import './Gallery.css';
 import { setAlert } from '../../actions/alert';
 import { connect } from 'react-redux';
 import preview from '../../images/preview.png';
+import { usePopper } from 'react-popper';
+import { Fragment } from 'react';
 
-const AddPhoto = ({ setAlert }) => {
+const AddPhoto = ({ suggestions, setAlert }) => {
   const fileInput = React.createRef();
-  const [file, setFile] = useState(null);
-  const [display, setDisplay] = useState(preview);
-  const [error, setError] = useState(null);
-  const [upload, setUpload] = useState(false);
-  const [formData, setFormData] = useState({
+  const [state, setState] = useState({
+    show: false,
+    file: null,
+    display: preview,
+    error: null,
+    upload: false,
     title: '',
     description: '',
+    stringlength: 0,
+  });
+
+  const [referenceElement, setReferenceElement] = useState(null);
+  const [popperElement, setPopperElement] = useState(null);
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: 'auto',
   });
 
   const onOpenFileDialog = () => {
     fileInput.current.click();
   };
 
-  const { title, description } = formData;
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-
   const onSubmit = (e) => {
     e.preventDefault();
-    if (file === null) {
+    if (state.file === null) {
       setAlert('Select File', 'danger', 1000);
-    } else if (formData.title === '') {
+    } else if (state.title === '') {
       setAlert('Please add a Title ', 'danger', 1000);
-    } else if (formData.description === '') {
+    } else if (state.description === '') {
       setAlert('Please add a Description', 'danger', 1000);
     } else {
-      setUpload(true);
-      setDisplay(preview);
+      setState({
+        ...state,
+        upload: true,
+      });
     }
   };
 
   const handleChange = (e) => {
     let selected = e.target.files[0];
     if (selected) {
-      setDisplay(URL.createObjectURL(e.target.files[0]));
-      setFile(selected);
-      setError('');
+      setState({
+        ...state,
+        display: URL.createObjectURL(e.target.files[0]),
+        file: e.target.files[0],
+        error: '',
+      });
     } else {
-      setFile(null);
-      setError('Please select an image file (png or jpg)');
+      setState({
+        ...state,
+        file: null,
+        error: 'Please select an image file (png or jpg)',
+      });
     }
   };
 
@@ -56,20 +70,19 @@ const AddPhoto = ({ setAlert }) => {
         <div>
           <h2 className='des mb'>Upload Files (.Jpg, Png,Gifs)</h2>
 
-          <img src={display} className='preview' alt='' />
+          <img src={state.display} className='preview' alt='' />
           <br />
           <div>
-            {upload && (
+            {state.upload && (
               <ProgressBar
                 className='box4 blue-text'
-                file={file}
-                setFile={setFile}
+                file={state.file}
                 type={'Picture'}
-                title={formData.title}
-                description={formData.description}
+                title={state.title}
+                description={state.description}
                 setAlert={setAlert}
-                setUpload={setUpload}
-                setFormData={setFormData}
+                setState={setState}
+                stringlength={state.stringlength}
               />
             )}
           </div>
@@ -87,7 +100,7 @@ const AddPhoto = ({ setAlert }) => {
           <span onClick={onOpenFileDialog} className='btn-blue pos'>
             Select
           </span>
-          {error && <div className='error'>{error}</div>}
+          {state.error && <div className='error'>{state.error}</div>}
         </div>
         <form onSubmit={(e) => onSubmit(e)}>
           <div>
@@ -96,21 +109,62 @@ const AddPhoto = ({ setAlert }) => {
               type='text'
               className='search-btn'
               name='title'
-              value={title}
+              value={state.title}
               placeholder='add a title'
-              onChange={(e) => onChange(e)}
+              onChange={(e) =>
+                setState({
+                  ...state,
+                  title: e.target.value,
+                })
+              }
             />
           </div>
           <div>
             <h2 className='des'>Description</h2>
             <textarea
               type='text'
+              id='portfolio-description'
               className='search-btn'
               name='description'
-              value={description}
+              value={state.description}
               placeholder='add description'
-              onChange={(e) => onChange(e)}
+              onChange={(e) => {
+                setState({
+                  ...state,
+                  description: e.target.value,
+                });
+                if (e.target.value.includes('@')) {
+                  setState({ ...state, show: true });
+                }
+              }}
+              ref={setReferenceElement}
             ></textarea>
+            {state.show && (
+              <ul
+                className='acknowledge-tooltip'
+                ref={setPopperElement}
+                style={styles.popper}
+                {...attributes.popper}
+              >
+                {suggestions.map((x, index) => (
+                  <Fragment key={index}>
+                    <li
+                      onClick={() => {
+                        setState({
+                          ...state,
+                          description: state.description.concat(`${x + ' '}`),
+                          stringlength: x.length,
+                          show: false,
+                        });
+                      }}
+                    >
+                      {x}
+                    </li>
+                    <hr />
+                  </Fragment>
+                ))}
+              </ul>
+            )}
           </div>
           <div className='prof-flex-btn'>
             <button type='submit' className='btn-yellow'>
@@ -123,5 +177,4 @@ const AddPhoto = ({ setAlert }) => {
   );
 };
 
-const mapStateToProps = (state) => ({});
-export default connect(mapStateToProps, { setAlert })(AddPhoto);
+export default connect(null, { setAlert })(AddPhoto);

@@ -65,7 +65,6 @@ const Createprofile = ({ createProfile, history }) => {
             ...formData,
             avatar: url,
           });
-          createProfile({ ...formData, avatar: url }, history);
           setProgress(0);
           setShow(false);
         });

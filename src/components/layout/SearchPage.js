@@ -84,19 +84,22 @@ const SearchPage = () => {
                     if (input === '') {
                       return null;
                     } else if (
-                      (val.user.fullName &&
-                        val.user.fullName
+                      (val?.user?.fullName &&
+                        val?.user?.fullName
                           .toLowerCase()
                           .includes(input.toLowerCase())) ||
-                      val.user.userName
-                        .toLowerCase()
-                        .includes(input.toLowerCase()) ||
-                      (val.user.groupName &&
-                        val.user.groupName
+                      (val?.user?.userName &&
+                        val?.user?.userName
                           .toLowerCase()
                           .includes(input.toLowerCase())) ||
-                      val.bio.toLowerCase().includes(input.toLowerCase()) ||
-                      val.status.toLowerCase().includes(input.toLowerCase())
+                      (val?.user?.groupName &&
+                        val?.user?.groupName
+                          .toLowerCase()
+                          .includes(input.toLowerCase())) ||
+                      (val?.bio &&
+                        val?.bio.toLowerCase().includes(input.toLowerCase())) ||
+                      (val?.status &&
+                        val?.status.toLowerCase().includes(input.toLowerCase()))
                     ) {
                       return val;
                     } else {

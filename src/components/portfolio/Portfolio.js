@@ -31,10 +31,9 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import { Link } from 'react-router-dom';
 import { ShepherdTourContext } from 'react-shepherd';
-import Fab from '@material-ui/core/Fab';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import 'react-circular-progressbar/dist/styles.css';
-import Tooltip from '@material-ui/core/Tooltip';
+import PortfolioStrength from './PortfolioStrength';
+import UseFirestore from '../addportfolio/UseFireStore';
+
 const Portfolio = ({
   getProjects,
   getBuddies,
@@ -44,14 +43,11 @@ const Portfolio = ({
 }) => {
   useEffect(() => {
     getProjects(user?._id);
-  }, [getProjects, user?._id]);
-
-  useEffect(() => {
     getBuddies();
-  }, [getBuddies]);
+  }, [getProjects, getBuddies, user?._id]);
 
   const tour = useContext(ShepherdTourContext);
-
+  const { docs } = UseFirestore('images');
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
   const [displayPortfolio, tooglePortfolio] = useState(true);
@@ -62,49 +58,8 @@ const Portfolio = ({
   const [viewAll3, setViewAll3] = useState(false);
   const [viewAll4, setViewAll4] = useState(false);
   const [viewAll5, setViewAll5] = useState(false);
-  const [progress, setProgress] = useState(0);
-  const [progress1, setProgress1] = useState(0);
-  const [progress2, setProgress2] = useState(0);
 
-  useEffect(() => {
-    if (
-      profile?.location !== '' &&
-      profile?.avatar !== '' &&
-      profile?.bio !== '' &&
-      profile?.status !== '' &&
-      profile?.founder.length !== 0 &&
-      profile?.dob !== '' &&
-      profile?.gender !== '' &&
-      profile?.hometown !== '' &&
-      profile?.languageknown !== ''
-    ) {
-      setProgress(30);
-    }
-    if (
-      profile?.experience.length !== 0 &&
-      profile?.education.length !== 0 &&
-      profile?.awards.length !== 0 &&
-      profile?.events.length !== 0 &&
-      profile?.skills.length !== 0
-    ) {
-      setProgress1(30);
-    }
-  }, [
-    profile?.location,
-    profile?.avatar,
-    profile?.bio,
-    profile?.status,
-    profile?.founder,
-    profile?.dob,
-    profile?.gender,
-    profile?.hometown,
-    profile?.languageknown,
-    profile?.experience,
-    profile?.education,
-    profile?.awards,
-    profile?.events,
-    profile?.skills,
-  ]);
+  const xyz = docs.filter((i) => i.userId === user?._id);
 
   const onClick1 = (e) => {
     toogleLeft(true);
@@ -160,7 +115,15 @@ const Portfolio = ({
                     <div id='left-sidebar'>
                       <div className='left-container'>
                         <PortfolioLeftTop profile={profile} />
-                        <EditButton profile={profile} />
+                        <div className='btns'>
+                          <span className='profile-tour-button'>
+                            <Link to='profile' className={`btn-white `}>
+                              Add/Edit Profile
+                            </Link>
+                          </span>
+                          <EditButton profile={profile} />
+                        </div>
+
                         <PortfolioLeftAbout profile={profile} />
                         {profile?.founder.length > 0 && (
                           <div className='prof-exp'>
@@ -640,13 +603,14 @@ const Portfolio = ({
                             </div>
                           </div>
                         </div>
-
+                        <PortfolioStrength
+                          user={user}
+                          profile={profile}
+                          xyz={xyz}
+                        />
                         <div className='main-grid-body'>
                           {displayPortfolio && profile !== null && (
-                            <PortfolioRightBody
-                              setProgress={setProgress2}
-                              profile={profile}
-                            />
+                            <PortfolioRightBody docs={docs} profile={profile} />
                           )}
                           {displayBuddies && (
                             <Fragment>
@@ -714,16 +678,6 @@ const Portfolio = ({
                   Take a Tour to get to know about features of website
                 </span>
               </button>
-              {progress + progress1 + progress2 < 100 && (
-                <Tooltip title='Profile Completed Percentage' placement='top'>
-                  <Fab className='timeline-progress'>
-                    <CircularProgressbar
-                      value={progress + progress1 + progress2}
-                      text={`${progress + progress1 + progress2}%`}
-                    />
-                  </Fab>
-                </Tooltip>
-              )}
             </Fragment>
           ) : (
             <Loader data-aos-duration='1000' />

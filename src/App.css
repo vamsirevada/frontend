@@ -3608,6 +3608,10 @@ input.search-btn:focus {
 }
 /* iphone6.7.8 potrait */
 @media (max-width: 420px) {
+  .navbar .nav-icons .search-dis .search-dis-container {
+    display: flex;
+    flex-direction: column;
+  }
   .navbar .container.blog {
     width: 100%;
     display: flex;
@@ -4372,6 +4376,10 @@ input.search-btn:focus {
 }
 
 @media (max-width: 375px) {
+  .navbar .nav-icons .search-dis .search-dis-container {
+    display: flex;
+    flex-direction: column;
+  }
   .chat-popup-1 .form-container-2 .flex-c .flex-c-r {
     display: grid;
     grid-template-columns: 80% 10%;
@@ -4547,6 +4555,10 @@ input.search-btn:focus {
 }
 
 @media (max-width: 320px) {
+  .navbar .nav-icons .search-dis .search-dis-container {
+    display: flex;
+    flex-direction: column;
+  }
   .memberpopupscreen .memberpopup {
     z-index: 101;
     background: #fff;
@@ -4841,6 +4853,10 @@ input.search-btn:focus {
 }
 /* iphone-x */
 @media (max-width: 375px) and (max-height: 812px) {
+  .navbar .nav-icons .search-dis .search-dis-container {
+    display: flex;
+    flex-direction: column;
+  }
   /* sign up */
   #signup,
   .signup {
@@ -4893,6 +4909,10 @@ input.search-btn:focus {
 }
 /* iphone 6/7/8 plus */
 @media (max-width: 736px) and (max-height: 414px) {
+  .navbar .nav-icons .search-dis .search-dis-container {
+    display: flex;
+    flex-direction: column;
+  }
   .page .container .nav {
     display: flex;
     align-items: center;

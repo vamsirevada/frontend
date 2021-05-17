@@ -1,16 +1,32 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import AddPhoto from './AddPhoto';
 import AddVideo from './AddVideos';
 import AddSound from './AddSoundTracks';
 import AddBlog from './AddBlog';
 import { connect } from 'react-redux';
+import api from '../../utils/api';
 
 const AddPortfolio = ({ auth: { user } }) => {
   const [displayPhoto, tooglePhoto] = useState(true);
   const [displayVideo, toogleVideo] = useState(false);
   const [displaySound, toogleSound] = useState(false);
   const [displayBlog, toogleBlog] = useState(false);
+  const [users, setUsers] = useState([]);
+
+  const fetchData = async () => {
+    return await api.get('/profile').then((data) => {
+      setUsers(data.data);
+    });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const suggestions = users.map((user) =>
+    user.user.fullName ? user.user.fullName : user.user.groupName
+  );
 
   const onClick1 = (e) => {
     tooglePhoto(true);
@@ -91,10 +107,10 @@ const AddPortfolio = ({ auth: { user } }) => {
                   </a>
                 </ul>
               </div>
-              {displayPhoto && <AddPhoto />}
-              {displayVideo && <AddVideo />}
-              {displaySound && <AddSound />}
-              {displayBlog && <AddBlog />}
+              {displayPhoto && <AddPhoto suggestions={suggestions} />}
+              {displayVideo && <AddVideo suggestions={suggestions} />}
+              {displaySound && <AddSound suggestions={suggestions} />}
+              {displayBlog && <AddBlog suggestions={suggestions} />}
             </div>
           </div>
         </div>

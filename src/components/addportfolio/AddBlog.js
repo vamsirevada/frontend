@@ -4,6 +4,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { setAlert } from '../../actions/alert';
 import { connect } from 'react-redux';
 import api from '../../utils/api';
+import { usePopper } from 'react-popper';
+import { Fragment } from 'react';
 
 const parseJwt = (token) => {
   var base64Url = token.split('.')[1];
@@ -20,23 +22,25 @@ const parseJwt = (token) => {
   return JSON.parse(jsonPayload);
 };
 
-const AddBlog = ({ setAlert }) => {
-  const [formData, setFormData] = useState({
+const AddBlog = ({ suggestions, setAlert }) => {
+  const [state, setState] = useState({
     description: '',
+    link: '',
+    show: false,
+    stringlength: 0,
   });
-
-  const [link, setLink] = useState('');
-
-  const { description } = formData;
-  const onChange = (e) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const [referenceElement, setReferenceElement] = useState(null);
+  const [popperElement, setPopperElement] = useState(null);
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: 'auto',
+  });
 
   const onSubmit = async (e) => {
     e.preventDefault();
     const collectionRef = projectFirestore.collection('images');
-    if (link === '') {
+    if (state.link === '') {
       setAlert('Blog Link is required', 'danger');
-    } else if (description === '') {
+    } else if (state.description === '') {
       setAlert('Description is required', 'danger');
     } else {
       const createdAt = await timestamp();
@@ -45,8 +49,8 @@ const AddBlog = ({ setAlert }) => {
       const userId = user?.user?.id;
       const Id = uuidv4();
       const body = {
-        text: description,
-        url: link,
+        text: state.description,
+        url: state.link,
         type: 'Blog',
         user: userId,
       };
@@ -55,17 +59,17 @@ const AddBlog = ({ setAlert }) => {
         .then(async (res) => {
           await collectionRef.add({
             type: 'Blog',
-            url: link,
-            description: description,
+            url: state.link,
+            description: state.description,
             createdAt,
             userId,
             Id,
           });
-          setLink('');
-          setFormData({
-            description: '',
-          });
           await setAlert('Portfolio updated Successfully', 'success');
+          setState({
+            description: '',
+            link: '',
+          });
         })
 
         .catch((err) => {
@@ -83,8 +87,13 @@ const AddBlog = ({ setAlert }) => {
             type='url'
             name='link'
             className='search-btn'
-            value={link}
-            onChange={(e) => setLink(e.target.value)}
+            value={state.link}
+            onChange={(e) =>
+              setState({
+                ...state,
+                link: e.target.value,
+              })
+            }
             placeholder='Add Link'
           />
         </div>
@@ -95,13 +104,48 @@ const AddBlog = ({ setAlert }) => {
               type='text'
               className='search-btn'
               name='description'
-              value={description}
+              value={state.description}
               placeholder='add description'
-              onChange={(e) => onChange(e)}
+              onChange={(e) => {
+                setState({
+                  ...state,
+                  description: e.target.value,
+                });
+                if (e.target.value.includes('@')) {
+                  setState({ ...state, show: true });
+                }
+              }}
+              ref={setReferenceElement}
             >
               Lorem ipsum dolor, sit amet consectetur adipisicing elit.
               Suscipit, fugiat.
             </textarea>
+            {state.show && (
+              <ul
+                className='acknowledge-tooltip'
+                ref={setPopperElement}
+                style={styles.popper}
+                {...attributes.popper}
+              >
+                {suggestions.map((x, index) => (
+                  <Fragment key={index}>
+                    <li
+                      onClick={() => {
+                        setState({
+                          ...state,
+                          description: state.description.concat(`${x + ' '}`),
+                          stringlength: x.length,
+                          show: false,
+                        });
+                      }}
+                    >
+                      {x}
+                    </li>
+                    <hr />
+                  </Fragment>
+                ))}
+              </ul>
+            )}
           </div>
           <div className='prof-flex-btn'>
             <button type='submit' className='btn-yellow'>
@@ -113,5 +157,4 @@ const AddBlog = ({ setAlert }) => {
     </div>
   );
 };
-const mapStateToProps = (state) => ({});
-export default connect(mapStateToProps, { setAlert })(AddBlog);
+export default connect(null, { setAlert })(AddBlog);

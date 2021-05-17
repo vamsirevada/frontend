@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect } from 'react';
-import UseFirestore from './UseFireStore';
+import React, { useState } from 'react';
 import api from '../../utils/api';
 import { motion } from 'framer-motion';
 import path from '../../images/path.svg';
@@ -13,10 +12,9 @@ import { connect, useDispatch } from 'react-redux';
 import VideoModal from './VideoModal';
 import AudioModal from './AudioModal';
 
-const ImageGrid = ({ auth: { user }, id, profile, guest, setProgress }) => {
+const ImageGrid = ({ auth: { user }, id, profile, docs, guest }) => {
   const dispatch = useDispatch();
   const [edit, setEdit] = useState('');
-  const { docs } = UseFirestore('images');
   const [viewAllImg, setViewAllImg] = useState(false);
   const [viewAllVideo, setViewAllVideo] = useState(false);
   const [viewAllAudio, setViewAllAudio] = useState(false);
@@ -56,17 +54,6 @@ const ImageGrid = ({ auth: { user }, id, profile, guest, setProgress }) => {
   const blogs =
     docs && docs.filter((i) => i?.userId === id && i?.type === 'Blog');
 
-  useEffect(() => {
-    if (
-      videos.length !== 0 &&
-      images.length !== 0 &&
-      audios.length !== 0 &&
-      blogs.length !== 0
-    ) {
-      setProgress(40);
-    }
-  });
-
   const displayImage = (index) => {
     const image = images[index];
     setDispImage({
@@ -94,6 +81,7 @@ const ImageGrid = ({ auth: { user }, id, profile, guest, setProgress }) => {
   };
 
   const displayAudio = (index) => {
+    console.log('object');
     const audio = audios[index];
     setDispAudio({
       audioUrl: audio.url,

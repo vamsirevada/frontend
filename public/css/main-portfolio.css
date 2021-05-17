@@ -384,6 +384,152 @@
   right: 0px;
 }
 
+.acknowledgepopupscreen::after {
+  content: '';
+  z-index: 1000000000;
+}
+
+.acknowledgepopupscreen {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  background: rgba(6, 6, 6, 0.8);
+  z-index: 2000000000;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.acknowledgepopup {
+  position: absolute;
+  left: 35%;
+  top: 10%;
+  z-index: 101;
+  background: #fff;
+  display: block;
+  width: 480px;
+  height: 540px;
+  border-radius: 10px;
+  overflow: auto;
+  background-color: #f2f2f2;
+}
+
+.acknowledge-heading {
+  border-radius: 10px 10px 0px 0px;
+  background-color: #f2f2f2;
+  color: #272727;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  width: inherit;
+  z-index: 100;
+  align-items: center;
+  padding: 1rem;
+}
+
+.acknowledge-heading .acknowledge-cross:hover {
+  opacity: 0.8;
+}
+
+.acknowledge-heading img {
+  filter: invert(13%) sepia(5%) saturate(68%) hue-rotate(314deg) brightness(90%)
+    contrast(92%);
+}
+
+.acknowledge-body {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem 1rem;
+}
+
+.acknowledge-body a,
+.acknowledge-body p {
+  font-size: 15px;
+  line-height: 1rem;
+}
+
+.acknowledge-body .dp {
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  margin-right: 1rem;
+  border-radius: 10px;
+}
+
+.acknowledge-body .dp::before {
+  content: '';
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: transparent;
+  z-index: 10;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
+
+.acknowledge-body-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.acknowledge-user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.acknowledge-form form {
+  display: grid;
+  grid-template-columns: 100%;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+}
+
+.acknowledge-form .remark {
+  margin-bottom: 0.75rem;
+}
+
+.acknowledge-form input {
+  font-size: 12px;
+  color: #272727;
+  font-family: 'Raleway', sans-serif;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  width: 100%;
+  border: none;
+  outline: none;
+  margin-right: 1rem;
+}
+
+.acknowledge-form textarea {
+  width: 100%;
+  color: #5d5d5d;
+  font-size: 14px;
+  font-family: 'Raleway', sans-serif;
+  padding: 1.5rem 0rem;
+  background-color: #f8f8f8;
+  border: none;
+  outline: none;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  border-radius: 10px;
+}
+
+.acknowledge-form button {
+  font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+  color: #fff;
+  background-color: #7480ff;
+  padding: 0.8rem 2rem;
+  border-radius: 15px;
+  margin-top: 0.5rem;
+  float: right;
+  border: none;
+}
+
 .noticepopupscreen::after {
   z-index: 1000000000;
 }

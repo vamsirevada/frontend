@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getProjects } from '../../actions/project';
 import Spinner from '../layout/Spinner';
-import loc from '../../images/icons/noun_Location_3139654.svg';
+import gps from '../../images/icons/noun_Location_3139654 copy.svg';
 import logo from '../../images/dummyimage.jpg';
 import { connect } from 'react-redux';
 
@@ -35,7 +35,7 @@ const MiniPortfolio = ({
             <p> {profile?.user?.userName}</p>
             <p className='status'> {profile?.status}</p>
             <p>
-              <img className='resize gps' src={loc} alt='' />{' '}
+              <img className='resize' src={gps} alt='' />{' '}
               <span className='gray'> {profile?.location} </span>
             </p>
           </div>
