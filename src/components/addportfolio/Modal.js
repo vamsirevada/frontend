@@ -47,7 +47,7 @@ const Modal = ({
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   // const [open, setOpen] = useState(false);
-  const [viewAll, setViewAll] = useState(false);
+  // const [viewAll, setViewAll] = useState(false);
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('');
   const [edit, setEdit] = useState(false);
@@ -446,7 +446,7 @@ const Modal = ({
                     )}
                   </div>
                 )}
-                {portfolio.acknowledgements && (
+                {/* {portfolio.acknowledgements && (
                   <div
                     style={{
                       borderRadius: '15px',
@@ -507,7 +507,7 @@ const Modal = ({
                         {viewAll ? 'View Less' : 'View All'}
                       </div>
                     </div>
-                  )}
+                  )} */}
                 {!guest && (
                   <>
                     <div className='comment-box'>
