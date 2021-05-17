@@ -13,7 +13,7 @@ import heart from '../../images/heart.svg';
 import yheart from '../../images/liked.png';
 import com from '../../images/noun_comment_767203 copy.svg';
 import plane from '../../images/noun_paper plane_367806 copy.svg';
-import medal from '../../images/icons/noun_Medal_22448.svg';
+// import medal from '../../images/icons/noun_Medal_22448.svg';
 import bin from '../../images/icons/noun_bin_2832480.svg';
 import {
   getRealtimeData,
@@ -30,9 +30,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import PortfolioLikesPopup from './PortfolioLikesPopup';
-import PortfolioAcknowledgePopup from './PortfolioAcknowledgePopup';
-import { usePopper } from 'react-popper';
-import api from '../../utils/api';
+// import PortfolioAcknowledgePopup from './PortfolioAcknowledgePopup';
+// import { usePopper } from 'react-popper';
+// import api from '../../utils/api';
 
 const AudioModal = ({
   auth,
@@ -47,7 +47,7 @@ const AudioModal = ({
 }) => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
   const [viewAll, setViewAll] = useState(false);
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('');
@@ -56,31 +56,31 @@ const AudioModal = ({
   const [des, setDes] = useState('');
   const [ptitle, setPtitle] = useState('');
 
-  const [users, setUsers] = useState([]);
-  const [referenceElement, setReferenceElement] = useState(null);
-  const [popperElement, setPopperElement] = useState(null);
-  const [stringlength, setStringLength] = useState(0);
-  const { styles, attributes } = usePopper(referenceElement, popperElement, {
-    placement: 'auto',
-  });
+  // const [users, setUsers] = useState([]);
+  // const [referenceElement, setReferenceElement] = useState(null);
+  // const [popperElement, setPopperElement] = useState(null);
+  // const [stringlength, setStringLength] = useState(0);
+  // const { styles, attributes } = usePopper(referenceElement, popperElement, {
+  //   placement: 'auto',
+  // });
 
-  const fetchData = async () => {
-    return await api.get('/profile').then((data) => {
-      setUsers(data.data);
-    });
-  };
+  // const fetchData = async () => {
+  //   return await api.get('/profile').then((data) => {
+  //     setUsers(data.data);
+  //   });
+  // };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
 
-  const suggestions = users.map((user) =>
-    user.user.fullName ? user.user.fullName : user.user.groupName
-  );
+  // const suggestions = users.map((user) =>
+  //   user.user.fullName ? user.user.fullName : user.user.groupName
+  // );
 
-  const close1 = () => {
-    setOpen(false);
-  };
+  // const close1 = () => {
+  //   setOpen(false);
+  // };
 
   const hide = () => {
     setShow(false);
@@ -114,7 +114,7 @@ const AudioModal = ({
   const updateEditMode = () => {
     projectFirestore.collection('images').doc(portfolio.id).update({
       description: des,
-      stringlength: stringlength,
+      // stringlength: stringlength,
     });
     setEdit(false);
     dispatch(getRealtimeData(portfolio.id));
@@ -184,13 +184,13 @@ const AudioModal = ({
   return (
     <>
       {show && <PortfolioLikesPopup hide={hide} likes={portfolio.likes} />}
-      {open && (
+      {/* {open && (
         <PortfolioAcknowledgePopup
           auth={auth}
           file={audios[value]}
           close={close1}
         />
-      )}
+      )} */}
       {loading ? (
         <div className='post-pop-up'>
           <Loader />
@@ -363,7 +363,7 @@ const AudioModal = ({
                     </div>
                   </div>
                 )}
-                <div className='acknowledged-box'>
+                {/* <div className='acknowledged-box'>
                   <div>
                     {portfolio.acknowledgements && (
                       <div className='acknowledged-box-1'>
@@ -392,7 +392,7 @@ const AudioModal = ({
                     <img src={medal} alt='' />
                     Acknowledge
                   </div>
-                </div>
+                </div> */}
 
                 {edit ? (
                   <div className='popup-description'>
@@ -401,9 +401,9 @@ const AudioModal = ({
                       rows='2'
                       defaultValue={portfolio.description}
                       onChange={(e) => setDes(e.target.value)}
-                      ref={setReferenceElement}
+                      // ref={setReferenceElement}
                     />
-                    {des !== '' && des.includes('@') && (
+                    {/* {des !== '' && des.includes('@') && (
                       <ul
                         className={
                           des !== '' &&
@@ -428,7 +428,7 @@ const AudioModal = ({
                           </Fragment>
                         ))}
                       </ul>
-                    )}
+                    )} */}
                     <div className='popup-editbutton'>
                       <div onClick={updateEditMode}>
                         <CheckIcon color='primary' />
