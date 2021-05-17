@@ -13,7 +13,7 @@ import heart from '../../images/heart.svg';
 import yheart from '../../images/liked.png';
 import com from '../../images/noun_comment_767203 copy.svg';
 import plane from '../../images/noun_paper plane_367806 copy.svg';
-// import medal from '../../images/icons/noun_Medal_22448.svg';
+import medal from '../../images/icons/noun_Medal_22448.svg';
 import bin from '../../images/icons/noun_bin_2832480.svg';
 import {
   getRealtimeData,
@@ -29,9 +29,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import PortfolioLikesPopup from './PortfolioLikesPopup';
-// import PortfolioAcknowledgePopup from './PortfolioAcknowledgePopup';
-// import { usePopper } from 'react-popper';
-// import api from '../../utils/api';
+import PortfolioAcknowledgePopup from './PortfolioAcknowledgePopup';
+import { usePopper } from 'react-popper';
+import api from '../../utils/api';
 
 const VideoModal = ({
   auth,
@@ -46,39 +46,39 @@ const VideoModal = ({
 }) => {
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
-  // const [open, setOpen] = useState(false);
-  // const [viewAll, setViewAll] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [viewAll, setViewAll] = useState(false);
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('');
   const [edit, setEdit] = useState(false);
   const [titleedit, setTitleEdit] = useState(false);
   const [des, setDes] = useState('');
   const [ptitle, setPtitle] = useState('');
-  // const [users, setUsers] = useState([]);
-  // const [referenceElement, setReferenceElement] = useState(null);
-  // const [popperElement, setPopperElement] = useState(null);
-  // const [stringlength, setStringLength] = useState(0);
-  // const { styles, attributes } = usePopper(referenceElement, popperElement, {
-  //   placement: 'auto',
-  // });
+  const [users, setUsers] = useState([]);
+  const [referenceElement, setReferenceElement] = useState(null);
+  const [popperElement, setPopperElement] = useState(null);
+  const [stringlength, setStringLength] = useState(0);
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: 'auto',
+  });
 
-  // const fetchData = async () => {
-  //   return await api.get('/profile').then((data) => {
-  //     setUsers(data.data);
-  //   });
-  // };
+  const fetchData = async () => {
+    return await api.get('/profile').then((data) => {
+      setUsers(data.data);
+    });
+  };
 
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    fetchData();
+  }, []);
 
-  // const suggestions = users.map((user) =>
-  //   user.user.fullName ? user.user.fullName : user.user.groupName
-  // );
+  const suggestions = users.map((user) =>
+    user.user.fullName ? user.user.fullName : user.user.groupName
+  );
 
-  // const close1 = () => {
-  //   setOpen(false);
-  // };
+  const close1 = () => {
+    setOpen(false);
+  };
 
   const hide = () => {
     setShow(false);
@@ -112,7 +112,7 @@ const VideoModal = ({
   const updateEditMode = () => {
     projectFirestore.collection('images').doc(portfolio.id).update({
       description: des,
-      // stringlength: stringlength,
+      stringlength: stringlength,
     });
     setEdit(false);
     dispatch(getRealtimeData(portfolio.id));
@@ -182,13 +182,13 @@ const VideoModal = ({
   return (
     <>
       {show && <PortfolioLikesPopup hide={hide} likes={portfolio.likes} />}
-      {/* {open && (
+      {open && (
         <PortfolioAcknowledgePopup
           auth={auth}
           file={videos[value]}
           close={close1}
         />
-      )} */}
+      )}
       {loading ? (
         <div className='post-pop-up'>
           <Loader />
@@ -361,7 +361,7 @@ const VideoModal = ({
                     </div>
                   </div>
                 )}
-                {/* <div className='acknowledged-box'>
+                <div className='acknowledged-box'>
                   <div>
                     {portfolio.acknowledgements && (
                       <div className='acknowledged-box-1'>
@@ -390,7 +390,7 @@ const VideoModal = ({
                     <img src={medal} alt='' />
                     Acknowledge
                   </div>
-                </div> */}
+                </div>
                 {edit ? (
                   <div className='popup-description'>
                     <textarea
@@ -398,9 +398,9 @@ const VideoModal = ({
                       rows='2'
                       defaultValue={portfolio.description}
                       onChange={(e) => setDes(e.target.value)}
-                      // ref={setReferenceElement}
+                      ref={setReferenceElement}
                     />
-                    {/* {des !== '' && des.includes('@') && (
+                    {des !== '' && des.includes('@') && (
                       <ul
                         className={
                           des !== '' &&
@@ -425,7 +425,7 @@ const VideoModal = ({
                           </Fragment>
                         ))}
                       </ul>
-                    )} */}
+                    )}
                     <div className='popup-editbutton'>
                       <div onClick={updateEditMode}>
                         <CheckIcon color='primary' />
@@ -445,7 +445,7 @@ const VideoModal = ({
                     )}
                   </div>
                 )}
-                {/* {portfolio.acknowledgements && (
+                {portfolio.acknowledgements && (
                   <div
                     style={{
                       borderRadius: '15px',
@@ -506,7 +506,7 @@ const VideoModal = ({
                         {viewAll ? 'View Less' : 'View All'}
                       </div>
                     </div>
-                  )} */}
+                  )}
                 {!guest && (
                   <>
                     <hr className='Hori' />

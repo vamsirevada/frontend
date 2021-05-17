@@ -31,7 +31,7 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import { Link } from 'react-router-dom';
 import { ShepherdTourContext } from 'react-shepherd';
-// import PortfolioStrength from './PortfolioStrength';
+import PortfolioStrength from './PortfolioStrength';
 import UseFirestore from '../addportfolio/UseFireStore';
 
 const Portfolio = ({
@@ -59,7 +59,7 @@ const Portfolio = ({
   const [viewAll4, setViewAll4] = useState(false);
   const [viewAll5, setViewAll5] = useState(false);
 
-  // const xyz = docs.filter((i) => i.userId === user?._id);
+  const xyz = docs.filter((i) => i.userId === user?._id);
 
   const onClick1 = (e) => {
     toogleLeft(true);
@@ -603,11 +603,11 @@ const Portfolio = ({
                             </div>
                           </div>
                         </div>
-                        {/* <PortfolioStrength
+                        <PortfolioStrength
                           user={user}
                           profile={profile}
                           xyz={xyz}
-                        /> */}
+                        />
                         <div className='main-grid-body'>
                           {displayPortfolio && profile !== null && (
                             <PortfolioRightBody docs={docs} profile={profile} />
