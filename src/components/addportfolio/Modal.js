@@ -12,9 +12,12 @@ import Moment from 'react-moment';
 import heart from '../../images/heart.svg';
 import yheart from '../../images/liked.png';
 import com from '../../images/noun_comment_767203 copy.svg';
-import plane from '../../images/noun_paper plane_367806 copy.svg';
 import bin from '../../images/icons/noun_bin_2832480.svg';
 import medal from '../../images/icons/noun_Medal_22448.svg';
+<<<<<<< HEAD
+=======
+
+>>>>>>> ec3a361618bfb91483ba91328be5d20e602d6eae
 import {
   getRealtimeData,
   portfolioDisLike,
@@ -32,7 +35,10 @@ import PortfolioLikesPopup from './PortfolioLikesPopup';
 import PortfolioAcknowledgePopup from './PortfolioAcknowledgePopup';
 import { usePopper } from 'react-popper';
 import api from '../../utils/api';
+<<<<<<< HEAD
 import firebase from 'firebase/app';
+=======
+>>>>>>> ec3a361618bfb91483ba91328be5d20e602d6eae
 
 const Modal = ({
   auth,
@@ -259,12 +265,12 @@ const Modal = ({
                       <p>
                         by <span className='blue'>{user.fullName}</span>
                         {', '}
-                        <Moment format='DD MMM YY'>
+                        <Moment className='date' format='DD MMM YY'>
                           {portfolio?.createdAt &&
                             portfolio?.createdAt.toDate()}
                         </Moment>{' '}
                         {', '}
-                        <Moment format='hh:mm A'>
+                        <Moment className='date' format='hh:mm A'>
                           {portfolio?.createdAt &&
                             portfolio?.createdAt.toDate()}
                         </Moment>
@@ -317,7 +323,7 @@ const Modal = ({
               </div>
               <div className='des-comm-box'>
                 {!guest && (
-                  <div className='flex-des'>
+                  <div className='flex-des modal'>
                     <div className='flex-des-box'>
                       <div className='pic-des-1'>
                         <div>
@@ -377,6 +383,13 @@ const Modal = ({
                         )}
                       </div>
                     </div>
+                    <div
+                      onClick={() => setOpen(true)}
+                      className='acknowledge-box'
+                    >
+                      <img src={medal} alt='' />
+                      Acknowledge
+                    </div>
                   </div>
                 )}
                 <div className='acknowledged-box'>
@@ -401,6 +414,7 @@ const Modal = ({
                       </div>
                     )}
                   </div>
+<<<<<<< HEAD
                   <div
                     onClick={() => setOpen(true)}
                     className='acknowledge-box'
@@ -408,6 +422,8 @@ const Modal = ({
                     <img src={medal} alt='' />
                     Acknowledge
                   </div>
+=======
+>>>>>>> ec3a361618bfb91483ba91328be5d20e602d6eae
                 </div>
                 {edit ? (
                   <div className='popup-description'>
@@ -464,6 +480,7 @@ const Modal = ({
                   </div>
                 )}
                 {portfolio.acknowledgements && (
+<<<<<<< HEAD
                   <div
                     style={{
                       borderRadius: '15px',
@@ -471,8 +488,11 @@ const Modal = ({
                     }}
                     className='comments'
                   >
+=======
+                  <div className='comments'>
+>>>>>>> ec3a361618bfb91483ba91328be5d20e602d6eae
                     <div className='comment-box-heading'>
-                      <h5>Testimonals</h5>
+                      <h5>Testimonials</h5>
                     </div>
                     {portfolio.acknowledgements
                       .slice(0, viewAll ? portfolio.acknowledgements.length : 2)
@@ -563,13 +583,9 @@ const Modal = ({
                   )}
                 {!guest && (
                   <>
-                    <div className='comment-box'>
+                    <div className='comment-box modal'>
                       <div>
-                        <img
-                          className='comment-pic'
-                          src={auth?.user?.avatar}
-                          alt=''
-                        />
+                        <h3>Post Comment</h3>
                       </div>
                       <div className='cmt-1'>
                         <form
@@ -587,7 +603,7 @@ const Modal = ({
                           />
 
                           <button type='submit' className='btn-blue'>
-                            <img src={plane} alt='' />
+                            Post
                           </button>
                         </form>
                       </div>

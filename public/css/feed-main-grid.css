@@ -252,6 +252,9 @@
   border: 1px #fcfcfc solid;
   border-radius: 0px 0px 15px 15px;
   padding: 0rem 1rem;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  align-items: center;
 }
 
 .flex-des-box {
@@ -267,19 +270,17 @@
 
 .acknowledge-box {
   display: flex;
-  flex-direction: row;
   justify-content: space-evenly;
   justify-self: auto;
+  width: 92%;
   background-color: #ff9391;
   color: #ffffff;
-  border-radius: 15px;
-  padding: 5px;
+  border-radius: 8px;
+  padding: 8px 4px;
   font-size: 12px;
-  height: 32px;
   align-self: center;
   cursor: pointer;
 }
-
 .acknowledge-tooltip {
   background-color: #f2f2f2;
   box-shadow: 0px 3px 3px #00000040;
@@ -308,17 +309,20 @@
 }
 
 .acknowledged-box {
-  display: grid;
-  grid-template-columns: 80% 20%;
-  margin: 25px;
+  padding: 1.5rem 1rem;
+  width: 95%;
+  margin: auto;
+  border-bottom: 1px solid #c9c9c9;
 }
 
 .acknowledged-box-1 {
   display: flex;
+  align-items: center;
 }
 
 .acknowledged-box h3 {
-  margin-right: 5px;
+  margin-right: 1rem;
+  font-size: 1rem;
 }
 
 .acknowledged-avatars {
@@ -642,8 +646,8 @@
 
 .comment-box .btn-blue img {
   position: absolute;
-  top: 30%;
-  left: 35%;
+  top: 25%;
+  left: 32%;
   width: 35%;
 }
 

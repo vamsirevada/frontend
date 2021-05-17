@@ -12,7 +12,6 @@ import Moment from 'react-moment';
 import heart from '../../images/heart.svg';
 import yheart from '../../images/liked.png';
 import com from '../../images/noun_comment_767203 copy.svg';
-import plane from '../../images/noun_paper plane_367806 copy.svg';
 import medal from '../../images/icons/noun_Medal_22448.svg';
 import bin from '../../images/icons/noun_bin_2832480.svg';
 import {
@@ -240,12 +239,12 @@ const VideoModal = ({
                       <p>
                         by <span className='blue'>{user.fullName}</span>
                         {', '}
-                        <Moment format='DD MMM YY'>
+                        <Moment className='date' format='DD MMM YY'>
                           {portfolio?.createdAt &&
                             portfolio?.createdAt.toDate()}
                         </Moment>{' '}
                         {', '}
-                        <Moment format='hh:mm A'>
+                        <Moment className='date' format='hh:mm A'>
                           {portfolio?.createdAt &&
                             portfolio?.createdAt.toDate()}
                         </Moment>
@@ -304,7 +303,7 @@ const VideoModal = ({
 
               <div className='des-comm-box'>
                 {!guest && (
-                  <div className='flex-des'>
+                  <div className='flex-des modal'>
                     <div className='flex-des-box'>
                       <div className='pic-des-1'>
                         <div>
@@ -359,6 +358,13 @@ const VideoModal = ({
                         )}
                       </div>
                     </div>
+                    <div
+                      onClick={() => setOpen(true)}
+                      className='acknowledge-box'
+                    >
+                      <img src={medal} alt='' />
+                      Acknowledge
+                    </div>
                   </div>
                 )}
                 <div className='acknowledged-box'>
@@ -382,13 +388,6 @@ const VideoModal = ({
                         </div>
                       </div>
                     )}
-                  </div>
-                  <div
-                    onClick={() => setOpen(true)}
-                    className='acknowledge-box'
-                  >
-                    <img src={medal} alt='' />
-                    Acknowledge
                   </div>
                 </div>
                 {edit ? (
@@ -446,15 +445,9 @@ const VideoModal = ({
                   </div>
                 )}
                 {portfolio.acknowledgements && (
-                  <div
-                    style={{
-                      borderRadius: '15px',
-                      backgroundColor: '#f8f8f8',
-                    }}
-                    className='comments'
-                  >
+                  <div className='comments'>
                     <div className='comment-box-heading'>
-                      <h5>Testimonals</h5>
+                      <h5>Testimonials</h5>
                     </div>
                     {portfolio.acknowledgements
                       .slice(0, viewAll ? portfolio.acknowledgements.length : 2)
@@ -509,14 +502,9 @@ const VideoModal = ({
                   )}
                 {!guest && (
                   <>
-                    <hr className='Hori' />
-                    <div className='comment-box'>
+                    <div className='comment-box modal'>
                       <div>
-                        <img
-                          className='comment-pic'
-                          src={auth?.user?.avatar}
-                          alt=''
-                        />
+                        <h3>Post Comment</h3>
                       </div>
                       <div className='cmt-1'>
                         <form
@@ -532,9 +520,8 @@ const VideoModal = ({
                             value={text}
                             onChange={(e) => setText(e.target.value)}
                           />
-
                           <button type='submit' className='btn-blue'>
-                            <img src={plane} alt='' />
+                            Post
                           </button>
                         </form>
                       </div>

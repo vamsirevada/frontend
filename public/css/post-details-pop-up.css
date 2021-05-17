@@ -86,6 +86,13 @@ a:hover {
   justify-content: space-between;
 }
 
+.post-pop-up-container .flex .flex-1 .lh-title .blue {
+  font-size: 14px;
+}
+.post-pop-up-container .flex .flex-1 .lh-title .date {
+  font-family: 'Lato', sans-serif;
+}
+
 .popup-title input {
   width: 100%;
   color: #272727;
@@ -129,23 +136,30 @@ a:hover {
   width: 75%;
   margin: auto;
 }
-.post-pop-up-container .main-post-container .des-comm-box .flex-des {
+.post-pop-up-container .main-post-container .des-comm-box .flex-des.modal {
   width: 93%;
   margin: auto;
-  border-radius: 15px;
+  border: none;
   margin-top: 1rem;
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: 80% 20%;
+  background: none;
+  padding: 0px;
 }
 .post-pop-up-container .main-post-container .des-comm-box .popup-description {
   font-size: 0.8rem;
   color: #5d5d5d;
-  margin: 1rem 0rem;
-  padding: 0rem 2.75rem;
+  width: 95%;
+  margin: auto;
+  padding: 1.5rem 1rem;
   text-align: justify;
   word-break: break-word;
   display: flex;
   justify-content: space-between;
   align-items: center;
   white-space: pre-line;
+  border-bottom: 1px solid #c9c9c9;
 }
 
 .popup-description textarea {
@@ -166,7 +180,11 @@ a:hover {
 }
 
 .post-pop-up-container .main-post-container .des-comm-box .comments {
-  margin-top: 1rem;
+  width: 95%;
+  margin: auto;
+}
+.post-pop-up-container .main-post-container .des-comm-box .comments h5 {
+  font-size: 1rem;
 }
 .post-pop-up-container
   .main-post-container
