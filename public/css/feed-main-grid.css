@@ -309,15 +309,12 @@
 }
 
 .acknowledged-box {
+  display: flex;
+  align-items: center;
   padding: 1.5rem 1rem;
   width: 95%;
   margin: auto;
   border-bottom: 1px solid #c9c9c9;
-}
-
-.acknowledged-box-1 {
-  display: flex;
-  align-items: center;
 }
 
 .acknowledged-box h3 {

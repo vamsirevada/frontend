@@ -182,6 +182,9 @@ a:hover {
 .post-pop-up-container .main-post-container .des-comm-box .comments {
   width: 95%;
   margin: auto;
+  padding: 1.5rem 1rem;
+  white-space: pre-line;
+  border-bottom: 1px solid #c9c9c9;
 }
 .post-pop-up-container .main-post-container .des-comm-box .comments h5 {
   font-size: 1rem;

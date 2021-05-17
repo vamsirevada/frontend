@@ -14,6 +14,8 @@ import yheart from '../../images/liked.png';
 import com from '../../images/noun_comment_767203 copy.svg';
 import medal from '../../images/icons/noun_Medal_22448.svg';
 import bin from '../../images/icons/noun_bin_2832480.svg';
+
+import { useHistory } from 'react-router-dom';
 import {
   getRealtimeData,
   portfolioDisLike,
@@ -44,9 +46,12 @@ const VideoModal = ({
   guest,
 }) => {
   const dispatch = useDispatch();
+
+  const history = useHistory();
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
   const [viewAll, setViewAll] = useState(false);
+  const [viewAllComments, setViewAllComments] = useState(false);
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState('');
   const [edit, setEdit] = useState(false);
@@ -134,6 +139,7 @@ const VideoModal = ({
       likedUserAvatar: auth?.user?.avatar,
     };
     dispatch(portfolioLike(file.id, likeObj));
+    dispatch(getRealtimeData(file.id));
   };
 
   const unlike = (file) => {
@@ -341,7 +347,12 @@ const VideoModal = ({
                       </div>
                       <div className='des-right'>
                         {portfolio.likes && portfolio.likes.length > 0 && (
-                          <a className='d-1'>
+                          <a
+                            onClick={() => {
+                              setShow(true);
+                            }}
+                            className='d-1'
+                          >
                             <span className='f-1'>
                               {portfolio.likes.length}
                             </span>{' '}
@@ -367,29 +378,31 @@ const VideoModal = ({
                     </div>
                   </div>
                 )}
-                <div className='acknowledged-box'>
-                  <div>
-                    {portfolio.acknowledgements && (
-                      <div className='acknowledged-box-1'>
-                        <h3>Acknowledged by</h3>
-                        <div className='acknowledged-avatars'>
-                          {portfolio.acknowledgements
-                            .slice(0, 3)
-                            .map((x, index) => (
-                              <span key={index} className='acknowledged-avatar'>
-                                <img src={x?.acknowledgedUserAvatar} alt='' />
-                              </span>
-                            ))}
-                          {portfolio.acknowledgements.length > 3 && (
-                            <span className='acknowledged-count'>
-                              +{portfolio.acknowledgements.length - 3}
-                            </span>
-                          )}
-                        </div>
-                      </div>
-                    )}
+                {portfolio.acknowledgements && (
+                  <div className='acknowledged-box'>
+                    <h3>Acknowledged by</h3>
+                    <div className='acknowledged-avatars'>
+                      {portfolio.acknowledgements
+                        .slice(0, 3)
+                        .map((x, index) => (
+                          <span
+                            onClick={() => {
+                              history.push(`/portfolio/${x.user}`);
+                            }}
+                            key={index}
+                            className='acknowledged-avatar'
+                          >
+                            <img src={x?.acknowledgedUserAvatar} alt='' />
+                          </span>
+                        ))}
+                      {portfolio.acknowledgements.length > 3 && (
+                        <span className='acknowledged-count'>
+                          +{portfolio.acknowledgements.length - 3}
+                        </span>
+                      )}
+                    </div>
                   </div>
-                </div>
+                )}
                 {edit ? (
                   <div className='popup-description'>
                     <textarea
@@ -444,104 +457,27 @@ const VideoModal = ({
                     )}
                   </div>
                 )}
-                {portfolio.acknowledgements && (
-                  <div className='comments'>
-                    <div className='comment-box-heading'>
-                      <h5>Testimonials</h5>
-                    </div>
-                    {portfolio.acknowledgements
-                      .slice(0, viewAll ? portfolio.acknowledgements.length : 2)
-                      .map((x, index) => (
-                        <Fragment key={index}>
-                          <div className='comment-box'>
-                            <div>
-                              <Link to={`portfolio/${x.user}`}>
-                                <img
-                                  className='comment-pic'
-                                  src={
-                                    x.acknowledgedUserAvatar
-                                      ? x.acknowledgedUserAvatar
-                                      : logo
-                                  }
-                                  alt=''
-                                />
-                              </Link>
-                            </div>
-                            <div className='cmt-1 list'>
-                              <div>
-                                <div>
-                                  <Link to={`portfolio/${x?.user}`}>
-                                    <span className='d-1'>
-                                      {x?.fullName && x?.fullName}
-                                    </span>{' '}
-                                  </Link>
-                                </div>
-                                <div className='d-3'>
-                                  <p>{x.acknowledgedComment}</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <hr className='Hori' />
-                        </Fragment>
-                      ))}
-                  </div>
-                )}
                 {portfolio.acknowledgements &&
-                  portfolio.acknowledgements.length > 2 && (
-                    <div
-                      className='load'
-                      onClick={() => {
-                        setViewAll(!viewAll);
-                      }}
-                    >
-                      <div className='loadmore'>
-                        {viewAll ? 'View Less' : 'View All'}
+                  portfolio.acknowledgements.length > 0 && (
+                    <div className='comments'>
+                      <div className='comment-box-heading'>
+                        <h5>Testimonials</h5>
                       </div>
-                    </div>
-                  )}
-                {!guest && (
-                  <>
-                    <div className='comment-box modal'>
-                      <div>
-                        <h3>Post Comment</h3>
-                      </div>
-                      <div className='cmt-1'>
-                        <form
-                          onSubmit={(e) => {
-                            e.preventDefault();
-                            comment(videos[value]);
-                          }}
-                        >
-                          <input
-                            type='text'
-                            name='comment'
-                            placeholder='Write a Comment...'
-                            value={text}
-                            onChange={(e) => setText(e.target.value)}
-                          />
-                          <button type='submit' className='btn-blue'>
-                            Post
-                          </button>
-                        </form>
-                      </div>
-                    </div>
-                    <hr className='Hori' />
-                    {portfolio.comments && portfolio.comments.length > 0 && (
-                      <div className='comments'>
-                        <div className='comment-box-heading'>
-                          <h5>Comments</h5>
-                        </div>
-                        {portfolio.comments.map((comment, index) => (
+                      {portfolio.acknowledgements
+                        .slice(
+                          0,
+                          viewAll ? portfolio.acknowledgements.length : 2
+                        )
+                        .map((x, index) => (
                           <Fragment key={index}>
                             <div className='comment-box'>
                               <div>
-                                <Link to={`portfolio/${comment?.user}`}>
+                                <Link to={`portfolio/${x.user}`}>
                                   <img
                                     className='comment-pic'
                                     src={
-                                      comment?.commentedUserAvatar
-                                        ? comment?.commentedUserAvatar
+                                      x.acknowledgedUserAvatar
+                                        ? x.acknowledgedUserAvatar
                                         : logo
                                     }
                                     alt=''
@@ -551,38 +487,126 @@ const VideoModal = ({
                               <div className='cmt-1 list'>
                                 <div>
                                   <div>
-                                    <Link to={`portfolio/${comment?.user}`}>
+                                    <Link to={`portfolio/${x?.user}`}>
                                       <span className='d-1'>
-                                        {comment?.fullName && comment?.fullName}
+                                        {x?.fullName && x?.fullName}
                                       </span>{' '}
                                     </Link>
                                   </div>
                                   <div className='d-3'>
-                                    <p>{comment.commentText}</p>
+                                    <p>{x.acknowledgedComment}</p>
                                   </div>
-                                </div>
-                                <div>
-                                  {!auth.loading &&
-                                    comment?.user === auth.user._id && (
-                                      <button
-                                        type='button'
-                                        className='btn-blue btn-red'
-                                        onClick={() =>
-                                          removeComment(videos[value])
-                                        }
-                                      >
-                                        <img src={bin} alt='' />
-                                      </button>
-                                    )}
                                 </div>
                               </div>
                             </div>
                             <hr className='Hori' />
                           </Fragment>
                         ))}
+                      {portfolio.acknowledgements.length > 2 && (
+                        <div
+                          className='load'
+                          onClick={() => {
+                            setViewAll(!viewAll);
+                          }}
+                        >
+                          <div className='loadmore'>
+                            {viewAll ? 'View Less' : 'View All'}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                {portfolio.comments && portfolio.comments.length > 0 && (
+                  <div className='comments'>
+                    <div className='comment-box-heading'>
+                      <h5>Comments</h5>
+                    </div>
+                    {portfolio.comments.map((comment, index) => (
+                      <Fragment key={index}>
+                        <div className='comment-box'>
+                          <div>
+                            <Link to={`portfolio/${comment?.user}`}>
+                              <img
+                                className='comment-pic'
+                                src={
+                                  comment?.commentedUserAvatar
+                                    ? comment?.commentedUserAvatar
+                                    : logo
+                                }
+                                alt=''
+                              />
+                            </Link>
+                          </div>
+                          <div className='cmt-1 list'>
+                            <div>
+                              <div>
+                                <Link to={`portfolio/${comment?.user}`}>
+                                  <span className='d-1'>
+                                    {comment?.fullName && comment?.fullName}
+                                  </span>{' '}
+                                </Link>
+                              </div>
+                              <div className='d-3'>
+                                <p>{comment.commentText}</p>
+                              </div>
+                            </div>
+                            <div>
+                              {!auth.loading &&
+                                comment?.user === auth.user._id && (
+                                  <button
+                                    type='button'
+                                    className='btn-blue btn-red'
+                                    onClick={() => removeComment(videos[value])}
+                                  >
+                                    <img src={bin} alt='' />
+                                  </button>
+                                )}
+                            </div>
+                          </div>
+                        </div>
+                        <hr className='Hori' />
+                      </Fragment>
+                    ))}
+                    {portfolio.comments.length > 3 && (
+                      <div
+                        className='load'
+                        onClick={() => {
+                          setViewAllComments(!viewAllComments);
+                        }}
+                      >
+                        <div className='loadmore'>
+                          {viewAllComments ? 'View Less' : 'View All'}
+                        </div>
                       </div>
                     )}
-                  </>
+                  </div>
+                )}
+                {!guest && (
+                  <div className='comment-box modal'>
+                    <div>
+                      <h3>Post Comment</h3>
+                    </div>
+                    <div className='cmt-1'>
+                      <form
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          comment(videos[value]);
+                        }}
+                      >
+                        <input
+                          type='text'
+                          name='comment'
+                          placeholder='Write a Comment...'
+                          value={text}
+                          onChange={(e) => setText(e.target.value)}
+                        />
+                        <button type='submit' className='btn-blue'>
+                          Post
+                        </button>
+                      </form>
+                    </div>
+                  </div>
                 )}
               </div>
             </div>
