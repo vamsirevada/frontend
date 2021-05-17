@@ -408,7 +408,7 @@
   background: #fff;
   display: block;
   width: 480px;
-  height: 540px;
+  /* height: 540px; */
   border-radius: 10px;
   overflow: auto;
   background-color: #f2f2f2;
@@ -442,10 +442,23 @@
   padding: 0.5rem 1rem;
 }
 
+.acknowledge-body .acknowledge-body-container {
+  width: 90%;
+  margin: auto;
+}
+
+.acknowledge-body .acknowledge-body-container .acknowledge-form {
+  margin: 1rem 0rem;
+}
+.acknowledge-body .acknowledge-body-container .acknowledge-form label {
+  color: #272727;
+}
+
 .acknowledge-body a,
 .acknowledge-body p {
   font-size: 15px;
   line-height: 1rem;
+  color: #272727;
 }
 
 .acknowledge-body .dp {
@@ -484,8 +497,6 @@
   display: grid;
   grid-template-columns: 100%;
   align-items: center;
-  padding: 0.5rem 1rem;
-  margin: 1rem;
 }
 
 .acknowledge-form .remark {
@@ -493,7 +504,7 @@
 }
 
 .acknowledge-form input {
-  font-size: 12px;
+  font-size: 14px;
   color: #272727;
   font-family: 'Raleway', sans-serif;
   padding: 0.5rem 1rem;
@@ -501,7 +512,7 @@
   width: 100%;
   border: none;
   outline: none;
-  margin-right: 1rem;
+  margin-top: 1rem;
 }
 
 .acknowledge-form textarea {
@@ -510,23 +521,22 @@
   font-size: 14px;
   font-family: 'Raleway', sans-serif;
   padding: 1.5rem 0rem;
-  background-color: #f8f8f8;
+  /* background-color: #f8f8f8; */
   border: none;
   outline: none;
-  margin-right: 0.5rem;
+  margin-top: 1rem;
   vertical-align: middle;
   border-radius: 10px;
 }
 
 .acknowledge-form button {
   font-family: 'Raleway', sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   color: #fff;
   background-color: #7480ff;
-  padding: 0.8rem 2rem;
+  padding: 0.8rem 1rem;
   border-radius: 15px;
   margin-top: 0.5rem;
-  float: right;
   border: none;
 }
 

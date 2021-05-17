@@ -2550,6 +2550,42 @@ input.search-btn:focus {
   align-items: flex-start;
   padding: 0.75rem 1rem;
 }
+.comment-box.modal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 95%;
+  margin: auto;
+  padding: 12px 8px;
+}
+.comment-box.modal h3 {
+  padding: 12px 16px;
+}
+
+.comment-box.modal .cmt-1 {
+  align-self: flex-start;
+  padding: 0px 16px;
+  width: 100%;
+}
+
+.comment-box.modal .cmt-1 input {
+  background: #ececec;
+  border-radius: 15px;
+  width: 100%;
+  padding: 1.5rem 1rem;
+  margin: 1rem 0rem;
+  word-break: break-word;
+}
+.comment-box.modal .cmt-1 .btn-blue {
+  padding: 0.5rem 1rem;
+  margin: auto;
+  position: relative;
+  vertical-align: middle;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  float: none;
+  width: inherit;
+}
 .comment-box div:nth-child(1) {
   justify-self: center;
   vertical-align: middle;

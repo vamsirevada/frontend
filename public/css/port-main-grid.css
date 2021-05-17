@@ -48,7 +48,7 @@ a {
   /* background-color: #7480ff; */
   background-color: #fad500;
   padding: 1rem;
-  border-radius: 20px;
+  border-radius: 16px;
   line-height: 1.3rem;
   /* width: 250px; */
 }
@@ -197,55 +197,74 @@ a {
 }
 
 .profile-strength {
+  background-color: #f9f6f2;
+  border-radius: 16px;
+  width: 100%;
+}
+
+.profile-strength .profile-strength-container {
+  width: 92%;
+  margin: auto;
+  padding: 1.5rem 0rem;
   display: flex;
   flex-direction: column;
+}
+.profile-strength .profile-strength-container .profile-strength-text {
+  display: flex;
   justify-content: space-between;
-  background-color: #f9f6f2;
-  padding: inherit;
-  border-radius: 15px;
+  align-items: center;
+}
+.profile-strength .profile-strength-container .profile-strength-text img {
+  width: 120%;
 }
 
 .ps-stepper {
-  margin-top: 20px;
+  margin-top: 1rem;
   background-color: #f9f6f2 !important;
 }
 
-.profile-strength-bar {
+/* .profile-strength-bar {
   height: 8px;
   background-color: #7480ff;
   color: #ffffff;
   border-radius: 5px;
   margin: 0.5rem;
+} */
+
+.ps-description {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .ps-text {
-  margin: 20px 50px;
+  justify-self: flex-start;
 }
 
 .ps-button {
-  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-family: 'Raleway', sans-serif;
   cursor: pointer;
   font-size: 14px;
   padding: 0.4rem 0.8rem;
   opacity: 1;
   position: relative;
-  background-color: #7480ff;
+  background-color: #fad300;
   border: none;
-  color: #fff;
-  float: right;
+  color: #272727;
   border-radius: 10px;
 }
 
 .strength-bold {
-  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-family: 'Lato', sans-serif;
   font-weight: 600;
   font-size: 16px;
   color: #272727;
 }
 
 .strength-light {
-  font-size: 0.875rem;
-  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-size: 1rem;
+  font-family: 'Raleway', sans-serif;
+  /* font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif; */
   white-space: pre-line;
   color: rgba(0, 0, 0, 0.87);
   font-weight: 500;
