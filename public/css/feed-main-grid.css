@@ -266,6 +266,7 @@
   font-size: 12px;
   height: 32px;
   align-self: center;
+  cursor: pointer;
 }
 
 .acknowledge-tooltip {

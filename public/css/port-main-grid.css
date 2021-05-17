@@ -200,6 +200,14 @@ a {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-color: #f9f6f2;
+  padding: inherit;
+  border-radius: 15px;
+}
+
+.ps-stepper {
+  margin-top: 20px;
+  background-color: #f9f6f2 !important;
 }
 
 .profile-strength-bar {
@@ -210,18 +218,37 @@ a {
   margin: 0.5rem;
 }
 
+.ps-text {
+  margin: 20px 50px;
+}
+
+.ps-button {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0.4rem 0.8rem;
+  opacity: 1;
+  position: relative;
+  background-color: #7480ff;
+  border: none;
+  color: #fff;
+  float: right;
+  border-radius: 10px;
+}
+
 .strength-bold {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   font-weight: 600;
   font-size: 16px;
   color: #272727;
 }
 
 .strength-light {
-  font-family: var(--Raleway);
-  font-weight: 500;
-  font-size: 14px;
-  color: #5d5d5d;
+  font-size: 0.875rem;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
   white-space: pre-line;
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: 500;
 }
 
 /* Main portfolio grid */

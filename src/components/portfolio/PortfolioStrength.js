@@ -97,18 +97,11 @@ const PortfolioStrength = ({ profile, xyz, setAlert }) => {
       case 0:
         return (
           <div>
-            <p style={{ marginBottom: '20px' }}>
-              Add Professional Experience, Education to make your portfolio more
-              Professional{''}
+            <p className='ps-text'>
+              Add Experience, Education to make your portfolio more Professional
+              {''}
             </p>
-            <Link
-              style={{
-                float: 'right',
-                marginRight: '40px',
-              }}
-              to='/profile'
-              className='btn-white'
-            >
+            <Link to='/profile' className='ps-button'>
               Add/Edit Profile
             </Link>
           </div>
@@ -116,18 +109,11 @@ const PortfolioStrength = ({ profile, xyz, setAlert }) => {
       case 1:
         return (
           <div>
-            <p style={{ marginBottom: '20px' }}>
+            <p className='ps-text'>
               Add your pictures, videos, soundtracks, or your blogs to make your
               portfolio more Professional{''}
             </p>
-            <Link
-              style={{
-                float: 'right',
-                marginRight: '40px',
-              }}
-              to='/addfiles'
-              className='btn-white'
-            >
+            <Link to='/addfiles' className='ps-button'>
               Add to Portfolio
             </Link>
           </div>
@@ -135,19 +121,11 @@ const PortfolioStrength = ({ profile, xyz, setAlert }) => {
       case 2:
         return (
           <div>
-            <p style={{ marginBottom: '20px' }}>
-              You're good to share your portfolio to others by clicking the left
-              side visible Share Button{''}
+            <p className='ps-text'>
+              You're good to share your portfolio to others. Let's get Started!
             </p>
-            <a
-              style={{
-                float: 'right',
-                marginRight: '40px',
-              }}
-              onClick={() => getStatus()}
-              className='btn-white'
-            >
-              Profile Completed
+            <a onClick={() => getStatus()} className='ps-button'>
+              Get's Started!
             </a>
           </div>
         );
@@ -178,6 +156,7 @@ const PortfolioStrength = ({ profile, xyz, setAlert }) => {
           </div>
 
           <Stepper
+            className='ps-stepper'
             alternativeLabel
             activeStep={activeStep}
             connector={<QontoConnector />}

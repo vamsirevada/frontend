@@ -375,9 +375,11 @@ const Modal = ({
                                 <img src={x?.acknowledgedUserAvatar} alt='' />
                               </span>
                             ))}
-                          <span className='acknowledged-count'>
-                            +{portfolio.acknowledgements.length - 3}
-                          </span>
+                          {portfolio.acknowledgements.length > 3 && (
+                            <span className='acknowledged-count'>
+                              +{portfolio.acknowledgements.length - 3}
+                            </span>
+                          )}
                         </div>
                       </div>
                     )}

@@ -31,6 +31,8 @@ import CheckIcon from '@material-ui/icons/Check';
 import CloseIcon from '@material-ui/icons/Close';
 import PortfolioLikesPopup from './PortfolioLikesPopup';
 import PortfolioAcknowledgePopup from './PortfolioAcknowledgePopup';
+import { usePopper } from 'react-popper';
+import api from '../../utils/api';
 
 const AudioModal = ({
   auth,
@@ -53,6 +55,28 @@ const AudioModal = ({
   const [titleedit, setTitleEdit] = useState(false);
   const [des, setDes] = useState('');
   const [ptitle, setPtitle] = useState('');
+
+  const [users, setUsers] = useState([]);
+  const [referenceElement, setReferenceElement] = useState(null);
+  const [popperElement, setPopperElement] = useState(null);
+  const [stringlength, setStringLength] = useState(0);
+  const { styles, attributes } = usePopper(referenceElement, popperElement, {
+    placement: 'auto',
+  });
+
+  const fetchData = async () => {
+    return await api.get('/profile').then((data) => {
+      setUsers(data.data);
+    });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const suggestions = users.map((user) =>
+    user.user.fullName ? user.user.fullName : user.user.groupName
+  );
 
   const close1 = () => {
     setOpen(false);
@@ -90,6 +114,7 @@ const AudioModal = ({
   const updateEditMode = () => {
     projectFirestore.collection('images').doc(portfolio.id).update({
       description: des,
+      stringlength: stringlength,
     });
     setEdit(false);
     dispatch(getRealtimeData(portfolio.id));
@@ -351,9 +376,11 @@ const AudioModal = ({
                                 <img src={x?.acknowledgedUserAvatar} alt='' />
                               </span>
                             ))}
-                          <span className='acknowledged-count'>
-                            +{portfolio.acknowledgements.length - 3}
-                          </span>
+                          {portfolio.acknowledgements.length > 3 && (
+                            <span className='acknowledged-count'>
+                              +{portfolio.acknowledgements.length - 3}
+                            </span>
+                          )}
                         </div>
                       </div>
                     )}
@@ -374,7 +401,34 @@ const AudioModal = ({
                       rows='2'
                       defaultValue={portfolio.description}
                       onChange={(e) => setDes(e.target.value)}
+                      ref={setReferenceElement}
                     />
+                    {des !== '' && des.includes('@') && (
+                      <ul
+                        className={
+                          des !== '' &&
+                          des.includes('@') &&
+                          'acknowledge-tooltip'
+                        }
+                        ref={setPopperElement}
+                        style={styles.popper}
+                        {...attributes.popper}
+                      >
+                        {suggestions.map((x, index) => (
+                          <Fragment key={index}>
+                            <li
+                              onClick={() => {
+                                setDes(des.replace('@', '').concat(x));
+                                setStringLength(x.length);
+                              }}
+                            >
+                              {x}
+                            </li>
+                            <hr />
+                          </Fragment>
+                        ))}
+                      </ul>
+                    )}
                     <div className='popup-editbutton'>
                       <div onClick={updateEditMode}>
                         <CheckIcon color='primary' />
