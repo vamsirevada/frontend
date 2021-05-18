@@ -159,7 +159,7 @@ a:hover {
   justify-content: space-between;
   align-items: center;
   white-space: pre-line;
-  border-bottom: 1px solid #c9c9c9;
+  border-bottom: 1px solid rgba(201, 201, 201, 0.18);
 }
 
 .popup-description textarea {
@@ -182,12 +182,13 @@ a:hover {
 .post-pop-up-container .main-post-container .des-comm-box .comments {
   width: 95%;
   margin: auto;
-  padding: 1.5rem 1rem;
+  /* padding: 1.5rem 1rem; */
   white-space: pre-line;
-  border-bottom: 1px solid #c9c9c9;
+  border-bottom: 1px solid rgba(201, 201, 201, 0.18);
 }
 .post-pop-up-container .main-post-container .des-comm-box .comments h5 {
-  font-size: 1rem;
+  font-size: 0.9rem;
+  color: #272727;
 }
 .post-pop-up-container
   .main-post-container
