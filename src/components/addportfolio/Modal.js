@@ -31,6 +31,7 @@ import PortfolioAcknowledgePopup from './PortfolioAcknowledgePopup';
 import { usePopper } from 'react-popper';
 import api from '../../utils/api';
 import { Link } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 // import firebase from 'firebase/app';
 
 const Modal = ({
@@ -155,7 +156,6 @@ const Modal = ({
     };
 
     dispatch(portfolioLike(file.id, likeObj));
-    dispatch(getRealtimeData(file.id));
   };
 
   const unlike = (file) => {
@@ -167,11 +167,11 @@ const Modal = ({
       likedUserAvatar: auth?.user?.avatar,
     };
     dispatch(portfolioDisLike(file.id, unlikeObj));
-    dispatch(getRealtimeData(file.id));
   };
 
   const comment = (file) => {
     const commentObj = {
+      Id: uuidv4(),
       user: auth?.user?._id,
       fullName: auth?.user?.fullName
         ? auth?.user?.fullName
@@ -182,22 +182,10 @@ const Modal = ({
     };
     dispatch(portfolioComment(file.id, commentObj));
     setText('');
-    dispatch(getRealtimeData(file.id));
   };
 
-  const removeComment = (file) => {
-    const uncommentObj = {
-      user: auth?.user?._id,
-      fullName: auth?.user?.fullName
-        ? auth?.user?.fullName
-        : auth?.user?.groupName,
-      commentedUserAvatar: auth?.user?.avatar,
-      commentText: text,
-      commentedTime: new Date(),
-    };
-
-    dispatch(portfolioUnComment(file.id, uncommentObj));
-    dispatch(getRealtimeData(file.id));
+  const removeComment = (file, comment) => {
+    dispatch(portfolioUnComment(file.id, comment));
   };
 
   return (
@@ -325,6 +313,7 @@ const Modal = ({
                       <div className='pic-des-1'>
                         <div>
                           {portfolio.likes &&
+                          portfolio.likes.length > 0 &&
                           portfolio.likes
                             .map((x) => x.user === auth?.user?._id)
                             .find((x) => x === true) ? (
@@ -662,7 +651,11 @@ const Modal = ({
                                         type='button'
                                         className='btn-blue btn-red'
                                         onClick={() =>
-                                          removeComment(images[value])
+                                          removeComment(
+                                            images[value],
+                                            comment
+                                            // comment.Id
+                                          )
                                         }
                                       >
                                         <img src={bin} alt='' />

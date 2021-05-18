@@ -14,7 +14,6 @@ import yheart from '../../images/liked.png';
 import com from '../../images/noun_comment_767203 copy.svg';
 import medal from '../../images/icons/noun_Medal_22448.svg';
 import bin from '../../images/icons/noun_bin_2832480.svg';
-
 import { Link } from 'react-router-dom';
 import {
   getRealtimeData,
@@ -33,6 +32,7 @@ import PortfolioLikesPopup from './PortfolioLikesPopup';
 import PortfolioAcknowledgePopup from './PortfolioAcknowledgePopup';
 import { usePopper } from 'react-popper';
 import api from '../../utils/api';
+import { v4 as uuidv4 } from 'uuid';
 // import firebase from 'firebase/app';
 
 const AudioModal = ({
@@ -158,7 +158,6 @@ const AudioModal = ({
       likedUserAvatar: auth?.user?.avatar,
     };
     dispatch(portfolioLike(file.id, likeObj));
-    dispatch(getRealtimeData(file.id));
   };
 
   const unlike = (file) => {
@@ -170,11 +169,11 @@ const AudioModal = ({
       likedUserAvatar: auth?.user?.avatar,
     };
     dispatch(portfolioDisLike(file.id, unlikeObj));
-    dispatch(getRealtimeData(file.id));
   };
 
   const comment = (file) => {
     const commentObj = {
+      Id: uuidv4(),
       user: auth?.user?._id,
       fullName: auth?.user?.fullName
         ? auth?.user?.fullName
@@ -185,22 +184,10 @@ const AudioModal = ({
     };
     dispatch(portfolioComment(file.id, commentObj));
     setText('');
-    dispatch(getRealtimeData(file.id));
   };
 
-  const removeComment = (file) => {
-    const uncommentObj = {
-      user: auth?.user?._id,
-      fullName: auth?.user?.fullName
-        ? auth?.user?.fullName
-        : auth?.user?.groupName,
-      commentedUserAvatar: auth?.user?.avatar,
-      commentText: text,
-      commentedTime: new Date(),
-    };
-
-    dispatch(portfolioUnComment(file.id, uncommentObj));
-    dispatch(getRealtimeData(file.id));
+  const removeComment = (file, comment) => {
+    dispatch(portfolioUnComment(file.id, comment));
   };
 
   return (
@@ -333,6 +320,7 @@ const AudioModal = ({
                       <div className='pic-des-1'>
                         <div>
                           {portfolio.likes &&
+                          portfolio.likes.length > 0 &&
                           portfolio.likes
                             .map((x) => x.user === auth?.user?._id)
                             .find((x) => x === true) ? (
@@ -665,7 +653,7 @@ const AudioModal = ({
                                       type='button'
                                       className='btn-blue btn-red'
                                       onClick={() =>
-                                        removeComment(audios[value])
+                                        removeComment(audios[value], comment)
                                       }
                                     >
                                       <img src={bin} alt='' />

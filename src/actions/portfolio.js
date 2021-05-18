@@ -24,10 +24,8 @@ export const portfolioLike = (fileId, likeObj) => {
       .doc(fileId)
       .update({
         likes: firebase.firestore.FieldValue.arrayUnion(likeObj),
-      })
-      .catch((error) => {
-        console.error(error);
       });
+    dispatch(getRealtimeData(fileId));
   };
 };
 
@@ -38,10 +36,8 @@ export const portfolioComment = (fileId, commentObj) => {
       .doc(fileId)
       .update({
         comments: firebase.firestore.FieldValue.arrayUnion(commentObj),
-      })
-      .catch((error) => {
-        console.error(error);
       });
+    dispatch(getRealtimeData(fileId));
   };
 };
 
@@ -53,20 +49,19 @@ export const portfolioDisLike = (fileId, unlikeObj) => {
       .update({
         likes: firebase.firestore.FieldValue.arrayRemove(unlikeObj),
       });
+    dispatch(getRealtimeData(fileId));
   };
 };
 
-export const portfolioUnComment = (fileId, uncommentObj) => {
+export const portfolioUnComment = (fileId, comment) => {
   return async (dispatch) => {
     projectFirestore
       .collection('images')
       .doc(fileId)
       .update({
-        comments: firebase.firestore.FieldValue.arrayRemove(uncommentObj),
-      })
-      .catch((error) => {
-        console.error(error);
+        comments: firebase.firestore.FieldValue.arrayRemove(comment),
       });
+    dispatch(getRealtimeData(fileId));
   };
 };
 
@@ -78,9 +73,7 @@ export const portfolioAcknowledge = (fileId, acknowledgeObj) => {
       .update({
         acknowledgements:
           firebase.firestore.FieldValue.arrayUnion(acknowledgeObj),
-      })
-      .catch((error) => {
-        console.error(error);
       });
+    dispatch(getRealtimeData(fileId));
   };
 };
