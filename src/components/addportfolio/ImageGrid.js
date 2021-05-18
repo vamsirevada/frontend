@@ -81,7 +81,6 @@ const ImageGrid = ({ auth: { user }, id, profile, docs, guest }) => {
   };
 
   const displayAudio = (index) => {
-    console.log('object');
     const audio = audios[index];
     setDispAudio({
       audioUrl: audio.url,
@@ -317,7 +316,7 @@ const ImageGrid = ({ auth: { user }, id, profile, docs, guest }) => {
                     </>
                   )}
                 </div>
-                <motion.video
+                <motion.audio
                   className='img-wrap-audio'
                   onClick={() => {
                     displayAudio(index);
@@ -330,7 +329,7 @@ const ImageGrid = ({ auth: { user }, id, profile, docs, guest }) => {
                   initial={{ opacity: 1 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1 }}
-                ></motion.video>
+                ></motion.audio>
                 <p className='video-desc'>{doc.title}</p>
               </motion.div>
             ))}
