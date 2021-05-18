@@ -6,7 +6,8 @@ import { connect, useDispatch } from 'react-redux';
 import logo from '../../images/dummyimage.jpg';
 import backward from '../../images/Group 6054.svg';
 import forward from '../../images/Group 6056.svg';
-import cancel from '../../images/close.svg';
+import closebutton from '../../images/close.svg';
+import cancel from '../../images/icons/noun_Plus_2310779.svg';
 import Moment from 'react-moment';
 import heart from '../../images/heart.svg';
 import yheart from '../../images/liked.png';
@@ -14,7 +15,7 @@ import com from '../../images/noun_comment_767203 copy.svg';
 import medal from '../../images/icons/noun_Medal_22448.svg';
 import bin from '../../images/icons/noun_bin_2832480.svg';
 
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   getRealtimeData,
   portfolioDisLike,
@@ -46,8 +47,6 @@ const AudioModal = ({
   guest,
 }) => {
   const dispatch = useDispatch();
-
-  const history = useHistory();
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
   const [viewAll, setViewAll] = useState(false);
@@ -279,7 +278,7 @@ const AudioModal = ({
                   </div>
                 </div>
                 <div className='flex-right'>
-                  <img src={cancel} onClick={close} alt='' />
+                  <img src={closebutton} onClick={close} alt='' />
                 </div>
               </div>
               <hr className='hori' />
@@ -327,154 +326,219 @@ const AudioModal = ({
                   <img src={forward} alt='' />
                 </div>
               </div>
-              <div className='des-comm-box'>
-                {edit ? (
-                  <div className='popup-description'>
-                    <textarea
-                      cols='15'
-                      rows='2'
-                      defaultValue={portfolio.description}
-                      onChange={(e) => setDes(e.target.value)}
-                      ref={setReferenceElement}
-                    />
-                    {des !== '' && des.includes('@') && (
-                      <ul
-                        className={
-                          des !== '' &&
-                          des.includes('@') &&
-                          'acknowledge-tooltip'
-                        }
-                        ref={setPopperElement}
-                        style={styles.popper}
-                        {...attributes.popper}
-                      >
-                        {suggestions.map((x, index) => (
-                          <div key={index}>
-                            <li
-                              onClick={() => {
-                                setDes(des.replace('@', '').concat(x));
-                                setStringLength(x.length);
-                              }}
-                            >
-                              {x}
-                            </li>
-                            <hr />
-                          </div>
-                        ))}
-                      </ul>
-                    )}
-                    <div className='popup-editbutton'>
-                      <div onClick={updateEditMode}>
-                        <CheckIcon color='primary' />
-                      </div>
-                      <div onClick={cancelEditMode}>
-                        <CloseIcon color='secondary' />
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className='popup-description'>
-                    <p>{portfolio.description}</p>
-                    {auth?.user?._id === portfolio.userId && (
-                      <div onClick={changeEditMode}>
-                        <EditIcon />
-                      </div>
-                    )}
-                  </div>
-                )}
-
-                {!guest && (
-                  <>
-                    <div className='flex-des modal'>
-                      <div className='flex-des-box'>
-                        <div className='pic-des-1'>
-                          <div>
-                            {portfolio.likes &&
-                            portfolio.likes
-                              .map((x) => x.user === auth?.user?._id)
-                              .find((x) => x === true) ? (
-                              <div>
-                                <div
-                                  onClick={() => {
-                                    unlike(audios[value]);
-                                  }}
-                                >
-                                  <img className='r-1' src={yheart} alt='' />
-                                  <span className='d-1'>Apperciated</span>
-                                </div>
-                              </div>
-                            ) : (
+              {!guest && (
+                <div className='des-comm-box'>
+                  <div className='flex-des modal'>
+                    <div className='flex-des-box'>
+                      <div className='pic-des-1'>
+                        <div>
+                          {portfolio.likes &&
+                          portfolio.likes
+                            .map((x) => x.user === auth?.user?._id)
+                            .find((x) => x === true) ? (
+                            <div>
                               <div
                                 onClick={() => {
-                                  like(audios[value]);
+                                  unlike(audios[value]);
                                 }}
                               >
-                                <img className='r-1' src={heart} alt='' />
-                                <span className='d-1'>Apperciate</span>
+                                <img className='r-1' src={yheart} alt='' />
+                                <span className='d-1'>Apperciated</span>
                               </div>
-                            )}
-                          </div>
-                          <div>
-                            <img className='r-1' src={com} alt='' />
-                            <a href='#comment-box-modal' className='d-1'>
-                              Comment
-                            </a>
-                          </div>
-                        </div>
-                        <div className='des-right'>
-                          {portfolio.likes && portfolio.likes.length > 0 && (
-                            <a
+                            </div>
+                          ) : (
+                            <div
                               onClick={() => {
-                                setShow(true);
+                                like(audios[value]);
                               }}
-                              className='d-1'
                             >
-                              <span className='f-1'>
-                                {portfolio.likes.length}
-                              </span>{' '}
-                              Appreciations
-                            </a>
+                              <img className='r-1' src={heart} alt='' />
+                              <span className='d-1'>Apperciate</span>
+                            </div>
                           )}
-                          {portfolio.comments && portfolio.comments.length > 0 && (
-                            <a href='#post-comments' className='d-1'>
-                              <span className='f-1'>
-                                {portfolio.comments.length}
-                              </span>{' '}
-                              Comments
-                            </a>
-                          )}
+                        </div>
+                        <div>
+                          <img className='r-1' src={com} alt='' />
+                          <a href='#comment-box-modal' className='d-1'>
+                            Comment
+                          </a>
                         </div>
                       </div>
-                      <div
-                        onClick={() => setOpen(true)}
-                        className='acknowledge-box'
-                      >
-                        <img src={medal} alt='' />
-                        Acknowledge
+                      <div className='des-right'>
+                        {portfolio.likes && portfolio.likes.length > 0 && (
+                          <a
+                            onClick={() => {
+                              setShow(true);
+                            }}
+                            className='d-1'
+                          >
+                            <span className='f-1'>
+                              {portfolio.likes.length}
+                            </span>{' '}
+                            Appreciations
+                          </a>
+                        )}
+                        {portfolio.comments && portfolio.comments.length > 0 && (
+                          <a href='#post-comments' className='d-1'>
+                            <span className='f-1'>
+                              {portfolio.comments.length}
+                            </span>{' '}
+                            Comments
+                          </a>
+                        )}
                       </div>
                     </div>
-
-                    {portfolio.acknowledgements &&
-                      portfolio.acknowledgements.length > 0 && (
-                        <div>
-                          {view ? (
-                            <div className='comments'>
-                              <div className='comment-box-heading'>
-                                <h5>Acknowledged by</h5>
-                                <span
-                                  className='ack-cross'
-                                  onClick={() => setView(false)}
+                    <div
+                      onClick={() => setOpen(true)}
+                      className='acknowledge-box'
+                    >
+                      <img src={medal} alt='' />
+                      Acknowledge
+                    </div>
+                  </div>
+                  {edit ? (
+                    <div className='popup-description'>
+                      <textarea
+                        cols='15'
+                        rows='2'
+                        defaultValue={portfolio.description}
+                        onChange={(e) => setDes(e.target.value)}
+                        ref={setReferenceElement}
+                      />
+                      {des !== '' && des.includes('@') && (
+                        <ul
+                          className={
+                            des !== '' &&
+                            des.includes('@') &&
+                            'acknowledge-tooltip'
+                          }
+                          ref={setPopperElement}
+                          style={styles.popper}
+                          {...attributes.popper}
+                        >
+                          {suggestions.map((x, index) => (
+                            <div key={index}>
+                              <li
+                                onClick={() => {
+                                  setDes(des.replace('@', '').concat(x));
+                                  setStringLength(x.length);
+                                }}
+                              >
+                                {x}
+                              </li>
+                              <hr />
+                            </div>
+                          ))}
+                        </ul>
+                      )}
+                      <div className='popup-editbutton'>
+                        <div onClick={updateEditMode}>
+                          <CheckIcon color='primary' />
+                        </div>
+                        <div onClick={cancelEditMode}>
+                          <CloseIcon color='secondary' />
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className='popup-description'>
+                      <p>{portfolio.description}</p>
+                      {auth?.user?._id === portfolio.userId && (
+                        <div onClick={changeEditMode}>
+                          <EditIcon />
+                        </div>
+                      )}
+                    </div>
+                  )}
+                  {portfolio.acknowledgements &&
+                    portfolio.acknowledgements.length > 0 && (
+                      <div>
+                        {view ? (
+                          <div className='comments'>
+                            <div className='comment-box-heading'>
+                              <h5>Acknowledged by</h5>
+                              <span
+                                className='ack-cross'
+                                onClick={() => setView(false)}
+                              >
+                                <img src={cancel} alt='' />
+                              </span>
+                            </div>
+                            {portfolio.acknowledgements.map((x, index) => (
+                              <div key={index} className='comment-box'>
+                                <Link
+                                  target='_blank'
+                                  to={`/portfolio/${x.user}`}
                                 >
-                                  <img src={cancel} alt='' />
-                                </span>
+                                  <img
+                                    className='comment-pic'
+                                    src={
+                                      x.acknowledgedUserAvatar
+                                        ? x.acknowledgedUserAvatar
+                                        : logo
+                                    }
+                                    alt=''
+                                  />
+                                </Link>
+                                <div className='cmt-1 list'>
+                                  <Link
+                                    target='_blank'
+                                    to={`/portfolio/${x.user}`}
+                                    className='d-1'
+                                  >
+                                    {x?.fullName && x?.fullName}
+                                  </Link>{' '}
+                                  <p className='d-3'>{x.acknowledgedText}</p>
+                                </div>
                               </div>
-                              {portfolio.acknowledgements.map((x, index) => (
-                                <div key={index} className='comment-box'>
-                                  <div
-                                    onClick={() => {
-                                      close();
-                                      history.push(`/portfolio/${x.user}`);
-                                    }}
+                            ))}
+                          </div>
+                        ) : (
+                          <div className='acknowledged-box'>
+                            <h3>Acknowledged by</h3>
+                            <div className='acknowledged-avatars'>
+                              {portfolio.acknowledgements
+                                .slice(0, 3)
+                                .map((x, index) => (
+                                  <Link
+                                    target='_blank'
+                                    to={`/portfolio/${x.user}`}
+                                    key={index}
+                                    className='acknowledged-avatar'
+                                  >
+                                    <img
+                                      src={x?.acknowledgedUserAvatar}
+                                      alt=''
+                                    />
+                                  </Link>
+                                ))}
+                              {portfolio.acknowledgements.length > 3 && (
+                                <span
+                                  onClick={() => setView(true)}
+                                  className='acknowledged-count'
+                                >
+                                  +{portfolio.acknowledgements.length - 3}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                        <div className='comments'>
+                          <div className='comment-box-heading'>
+                            <h5>Testimonials</h5>
+                          </div>
+                          {portfolio.acknowledgements
+                            .slice(
+                              0,
+                              viewAll ? portfolio.acknowledgements.length : 2
+                            )
+                            .map((x, index) => (
+                              <div key={index}>
+                                <div className='comment-box'>
+                                  <Link
+                                    target='_blank'
+                                    to={`/portfolio/${x.user}`}
                                   >
                                     <img
                                       className='comment-pic'
@@ -485,97 +549,20 @@ const AudioModal = ({
                                       }
                                       alt=''
                                     />
-                                  </div>
+                                  </Link>
                                   <div className='cmt-1 list'>
-                                    <span
-                                      onClick={() => {
-                                        close();
-                                        history.push(`/portfolio/${x.user}`);
-                                      }}
-                                      className='d-1'
-                                    >
-                                      {x?.fullName && x?.fullName}
-                                    </span>{' '}
-                                    <p className='d-3'>{x.acknowledgedText}</p>
-                                  </div>
-                                </div>
-                              ))}
-                            </div>
-                          ) : (
-                            <div className='acknowledged-box'>
-                              <h3>Acknowledged by</h3>
-                              <div className='acknowledged-avatars'>
-                                {portfolio.acknowledgements
-                                  .slice(0, 3)
-                                  .map((x, index) => (
-                                    <span
-                                      onClick={() => {
-                                        close();
-                                        history.push(`/portfolio/${x.user}`);
-                                      }}
-                                      key={index}
-                                      className='acknowledged-avatar'
-                                    >
-                                      <img
-                                        src={x?.acknowledgedUserAvatar}
-                                        alt=''
-                                      />
-                                    </span>
-                                  ))}
-                                {portfolio.acknowledgements.length > 3 && (
-                                  <span
-                                    onClick={() => setView(true)}
-                                    className='acknowledged-count'
-                                  >
-                                    +{portfolio.acknowledgements.length - 3}
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                          )}
-
-                          <div className='comments'>
-                            <div className='comment-box-heading'>
-                              <h5>Testimonials</h5>
-                            </div>
-                            {portfolio.acknowledgements
-                              .slice(
-                                0,
-                                viewAll ? portfolio.acknowledgements.length : 2
-                              )
-                              .map((x, index) => (
-                                <div key={index}>
-                                  <div className='comment-box'>
-                                    <div
-                                      onClick={() => {
-                                        close();
-                                        history.push(`/portfolio/${x.user}`);
-                                      }}
-                                    >
-                                      <img
-                                        className='comment-pic'
-                                        src={
-                                          x.acknowledgedUserAvatar
-                                            ? x.acknowledgedUserAvatar
-                                            : logo
-                                        }
-                                        alt=''
-                                      />
-                                    </div>
-                                    <div className='cmt-1 list'>
-                                      <div>
-                                        <span
-                                          onClick={() => {
-                                            close();
-                                            history.push(
-                                              `/portfolio/${x.user}`
-                                            );
-                                          }}
-                                          className='d-1'
-                                        >
-                                          {x?.fullName && x?.fullName}
-                                        </span>{' '}
-                                        {/* {tedit ? (
+                                    <div>
+                                      <Link
+                                        target='_blank'
+                                        to={`/portfolio/${x.user}`}
+                                        className='d-1'
+                                      >
+                                        {x?.fullName && x?.fullName},{' '}
+                                      </Link>{' '}
+                                      <span className='d-1'>
+                                        {x.acknowledgedText}
+                                      </span>
+                                      {/* {tedit ? (
                                           <div className='d-3'>
                                             <textarea
                                               name='tedit'
@@ -595,12 +582,12 @@ const AudioModal = ({
                                             />
                                           </div>
                                         ) : ( */}
-                                        <div className='d-3'>
-                                          <p>{x.acknowledgedComment}</p>
-                                        </div>
-                                        {/* )} */}
+                                      <div className='d-3'>
+                                        <p>{x.acknowledgedComment}</p>
                                       </div>
-                                      {/* <div>
+                                      {/* )} */}
+                                    </div>
+                                    {/* <div>
                                         {!tedit && (
                                           <EditIcon
                                             onClick={editTCommentMode}
@@ -615,130 +602,123 @@ const AudioModal = ({
                                           <img src={bin} alt='' />
                                         </button>
                                       </div> */}
-                                    </div>
-                                  </div>
-                                  <hr className='Hori' />
-                                </div>
-                              ))}
-                            {portfolio.acknowledgements.length > 2 && (
-                              <div
-                                className='load'
-                                onClick={() => {
-                                  setViewAll(!viewAll);
-                                }}
-                              >
-                                <div className='loadmore'>
-                                  {viewAll ? 'View Less' : 'View All'}
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      )}
-
-                    {portfolio.comments && portfolio.comments.length > 0 && (
-                      <div id='post-comments' className='comments'>
-                        <div className='comment-box-heading'>
-                          <h5>Comments</h5>
-                        </div>
-                        {portfolio.comments.map((comment, index) => (
-                          <div key={index}>
-                            <div className='comment-box'>
-                              <div
-                                onClick={() => {
-                                  close();
-                                  history.push(`/portfolio/${comment?.user}`);
-                                }}
-                              >
-                                <img
-                                  className='comment-pic'
-                                  src={
-                                    comment?.commentedUserAvatar
-                                      ? comment?.commentedUserAvatar
-                                      : logo
-                                  }
-                                  alt=''
-                                />
-                              </div>
-                              <div className='cmt-1 list'>
-                                <div>
-                                  <span
-                                    onClick={() => {
-                                      close();
-                                      history.push(
-                                        `/portfolio/${comment?.user}`
-                                      );
-                                    }}
-                                    className='d-1'
-                                  >
-                                    {comment?.fullName && comment?.fullName}
-                                  </span>{' '}
-                                  <div className='d-3'>
-                                    <p>{comment.commentText}</p>
                                   </div>
                                 </div>
-                                <div>
-                                  {!auth.loading &&
-                                    comment?.user === auth.user._id && (
-                                      <button
-                                        type='button'
-                                        className='btn-blue btn-red'
-                                        onClick={() =>
-                                          removeComment(audios[value])
-                                        }
-                                      >
-                                        <img src={bin} alt='' />
-                                      </button>
-                                    )}
-                                </div>
+                                <hr className='Hori' />
+                              </div>
+                            ))}
+                          {portfolio.acknowledgements.length > 2 && (
+                            <div
+                              className='load'
+                              onClick={() => {
+                                setViewAll(!viewAll);
+                              }}
+                            >
+                              <div className='loadmore'>
+                                {viewAll ? 'View Less' : 'View All'}
                               </div>
                             </div>
-                            <hr className='Hori' />
-                          </div>
-                        ))}
-                        {portfolio.comments.length > 3 && (
-                          <div
-                            className='load'
-                            onClick={() => {
-                              setViewAllComments(!viewAllComments);
-                            }}
-                          >
-                            <div className='loadmore'>
-                              {viewAllComments ? 'View Less' : 'View All'}
-                            </div>
-                          </div>
-                        )}
+                          )}
+                        </div>
                       </div>
                     )}
 
-                    <div id='comment-box-modal' className='comment-box modal'>
-                      <div>
-                        <h3>Post Comment</h3>
+                  {portfolio.comments && portfolio.comments.length > 0 && (
+                    <div id='post-comments' className='comments'>
+                      <div className='comment-box-heading'>
+                        <h5>Comments</h5>
                       </div>
-                      <div className='cmt-1'>
-                        <form
-                          onSubmit={(e) => {
-                            e.preventDefault();
-                            comment(audios[value]);
+                      {portfolio.comments.map((comment, index) => (
+                        <div key={index}>
+                          <div className='comment-box'>
+                            <Link
+                              target='_blank'
+                              to={`/portfolio/${comment.user}`}
+                            >
+                              <img
+                                className='comment-pic'
+                                src={
+                                  comment?.commentedUserAvatar
+                                    ? comment?.commentedUserAvatar
+                                    : logo
+                                }
+                                alt=''
+                              />
+                            </Link>
+                            <div className='cmt-1 list'>
+                              <div>
+                                <Link
+                                  target='_blank'
+                                  to={`/portfolio/${comment.user}`}
+                                  className='d-1'
+                                >
+                                  {comment?.fullName && comment?.fullName}
+                                </Link>{' '}
+                                <div className='d-3'>
+                                  <p>{comment.commentText}</p>
+                                </div>
+                              </div>
+                              <div>
+                                {!auth.loading &&
+                                  comment?.user === auth.user._id && (
+                                    <button
+                                      type='button'
+                                      className='btn-blue btn-red'
+                                      onClick={() =>
+                                        removeComment(audios[value])
+                                      }
+                                    >
+                                      <img src={bin} alt='' />
+                                    </button>
+                                  )}
+                              </div>
+                            </div>
+                          </div>
+                          <hr className='Hori' />
+                        </div>
+                      ))}
+                      {portfolio.comments.length > 3 && (
+                        <div
+                          className='load'
+                          onClick={() => {
+                            setViewAllComments(!viewAllComments);
                           }}
                         >
-                          <input
-                            type='text'
-                            name='comment'
-                            placeholder='Write a Comment...'
-                            value={text}
-                            onChange={(e) => setText(e.target.value)}
-                          />
-
-                          <button type='submit' className='btn-blue'>
-                            Post
-                          </button>
-                        </form>
-                      </div>
+                          <div className='loadmore'>
+                            {viewAllComments ? 'View Less' : 'View All'}
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  </>
-                )}
-              </div>
+                  )}
+
+                  <div id='comment-box-modal' className='comment-box modal'>
+                    <div>
+                      <h3>Post Comment</h3>
+                    </div>
+                    <div className='cmt-1'>
+                      <form
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          comment(audios[value]);
+                        }}
+                      >
+                        <input
+                          type='text'
+                          name='comment'
+                          placeholder='Write a Comment...'
+                          value={text}
+                          onChange={(e) => setText(e.target.value)}
+                        />
+
+                        <button type='submit' className='btn-blue'>
+                          Post
+                        </button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
