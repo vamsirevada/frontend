@@ -599,6 +599,7 @@
   font-size: 14px;
   color: #272727;
   margin: 0px;
+  cursor: pointer;
 }
 .comment-box .cmt-1.list .d-2 {
   font-family: 'Lato', sans-serif;
