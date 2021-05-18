@@ -218,6 +218,15 @@ a {
   width: 120%;
 }
 
+.ps-cross {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.ps-cross:hover {
+  opacity: 1;
+}
+
 .ps-stepper {
   margin-top: 1rem;
   background-color: #f9f6f2 !important;

@@ -311,33 +311,35 @@ export const getProfileById = (userId) => async (dispatch) => {
 };
 
 //Create or Update Profile
-export const createProfile = (formData, history, edit = false) => async (
-  dispatch
-) => {
-  try {
-    const res = await api.post('/profile', formData);
-    dispatch({
-      type: GET_PROFILE,
-      payload: res.data,
-    });
+export const createProfile =
+  (formData, history, edit = false) =>
+  async (dispatch) => {
+    try {
+      const res = await api.post('/profile', formData);
+      dispatch({
+        type: GET_PROFILE,
+        payload: res.data,
+      });
 
-    dispatch(setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success'));
+      dispatch(
+        setAlert(edit ? 'Profile Updated' : 'Profile Created', 'success')
+      );
 
-    if (!edit) {
-      history.push('/portfolio');
+      if (!edit) {
+        history.push('/portfolio');
+      }
+    } catch (err) {
+      const errors = err.response.data.errors;
+
+      if (errors) {
+        errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      }
+      dispatch({
+        type: PROFILE_ERROR,
+        payload: { msg: err.response.statusText, status: err.response.status },
+      });
     }
-  } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
-    dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
-    });
-  }
-};
+  };
 
 // Add Experience
 export const addExperience = (formData) => async (dispatch) => {

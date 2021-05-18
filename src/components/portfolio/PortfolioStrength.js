@@ -10,8 +10,8 @@ import cancel from '../../images/icons/noun_Plus_2310779.svg';
 import clsx from 'clsx';
 import { Link } from 'react-router-dom';
 import api from '../../utils/api';
-import { setAlert } from '../../actions/alert';
-import { connect } from 'react-redux';
+import store from '../../store';
+import { getCurrentProfile } from '../../actions/profile';
 
 const QontoConnector = withStyles({
   alternativeLabel: {
@@ -86,7 +86,7 @@ function QontoStepIcon(props) {
   );
 }
 
-const PortfolioStrength = ({ profile, xyz, setAlert }) => {
+const PortfolioStrength = ({ profile, xyz }) => {
   const [activeStep, setActiveStep] = useState(1);
 
   function getSteps() {
@@ -95,7 +95,8 @@ const PortfolioStrength = ({ profile, xyz, setAlert }) => {
 
   const getStatus = async () => {
     return await api.get('/profile/status').then((data) => {
-      setAlert(data.data.message, 'success');
+      console.log(data.data.message);
+      store.dispatch(getCurrentProfile());
     });
   };
 
@@ -187,7 +188,7 @@ const PortfolioStrength = ({ profile, xyz, setAlert }) => {
                 <span className='strength-light'>{steps[activeStep - 1]}</span>
               </h6>
               {activeStep === 3 && (
-                <div>
+                <div className='ps-cross'>
                   <img onClick={() => getStatus()} src={cancel} alt='' />
                 </div>
               )}
@@ -215,4 +216,4 @@ const PortfolioStrength = ({ profile, xyz, setAlert }) => {
   );
 };
 
-export default connect(null, { setAlert })(PortfolioStrength);
+export default PortfolioStrength;
