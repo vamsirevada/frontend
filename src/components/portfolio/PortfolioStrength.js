@@ -171,7 +171,6 @@ const PortfolioStrength = ({ profile, xyz }) => {
     if (profile.experience.length !== 0 || profile.education.length !== 0) {
       setActiveStep(2);
     }
-
     if (xyz.length > 0) {
       setActiveStep(3);
     }

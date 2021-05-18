@@ -261,6 +261,7 @@ a {
   border: none;
   color: #272727;
   border-radius: 10px;
+  white-space: nowrap;
 }
 
 .strength-bold {
