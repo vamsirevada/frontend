@@ -87,7 +87,7 @@ function QontoStepIcon(props) {
 }
 
 const PortfolioStrength = ({ profile, xyz, setAlert }) => {
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setActiveStep] = useState(1);
 
   function getSteps() {
     return ['Beginner', 'Intermediate', 'Professional'];
@@ -103,7 +103,7 @@ const PortfolioStrength = ({ profile, xyz, setAlert }) => {
 
   function getStepContent(stepIndex) {
     switch (stepIndex) {
-      case 0:
+      case 1:
         return (
           <div className='ps-description'>
             <p className='ps-text'>
@@ -115,7 +115,7 @@ const PortfolioStrength = ({ profile, xyz, setAlert }) => {
             </Link>
           </div>
         );
-      case 1:
+      case 2:
         return (
           <div className='ps-description'>
             <p className='ps-text'>
@@ -127,29 +127,52 @@ const PortfolioStrength = ({ profile, xyz, setAlert }) => {
             </Link>
           </div>
         );
-      case 2:
+      case 3:
         return (
           <div className='ps-description'>
             <p className='ps-text'>
               You're good to share your portfolio to others.
             </p>
-            <a onClick={() => getStatus()} className='ps-button'>
-              Get's Started!
+            <a
+              href={`mailto:?subject=Vanity Portfilo&body=Dear Sir/Madam,
+                  %0D%0A
+                  %0D%0AI'm ${profile?.user?.fullName}, ${profile?.status}. I came to know through [name of website/poster] that you’re looking for new talent for [so and so role] and I'm suitable for what you're looking for. You can also view my portfolio to see my work.
+                  %0D%0A
+                  %0D%0ACheck out this portfolio link http://www.vanity.ac/portfolio/guest/${profile?.user?._id}
+                  %0D%0A
+                  %0D%0ARegards
+                  `}
+              className='ps-button'
+            >
+              Share Via Mail
+            </a>
+            <a
+              href={`sms:?&body=Dear Sir/Madam,
+             %0D%0A
+             %0D%0AI'm ${profile?.user?.fullName}, ${profile?.status}. I came to know through [name of website/poster] that you’re looking for new talent for [so and so role] and I'm suitable for what you're looking for. You can also view my portfolio to see my work.
+             %0D%0A
+             %0D%0ACheck out this portfolio link http://www.vanity.ac/portfolio/guest/${profile?.user?._id} 
+             %0D%0A
+             %0D%0ARegards
+             `}
+              className='ps-button'
+            >
+              Share Via Mobile
             </a>
           </div>
         );
       default:
-        return 'null';
+        return null;
     }
   }
 
   useEffect(() => {
     if (profile.experience.length !== 0 || profile.education.length !== 0) {
-      setActiveStep(1);
+      setActiveStep(2);
     }
 
     if (xyz.length > 0) {
-      setActiveStep(2);
+      setActiveStep(3);
     }
   }, [profile.experience.length, profile.education.length, xyz.length]);
 
@@ -161,11 +184,13 @@ const PortfolioStrength = ({ profile, xyz, setAlert }) => {
             <div className='profile-strength-text'>
               <h6 className='strength-bold'>
                 Profile Strength:{' '}
-                <span className='strength-light'>{steps[activeStep]}</span>
+                <span className='strength-light'>{steps[activeStep - 1]}</span>
               </h6>
-              <div>
-                <img src={cancel} alt='' />
-              </div>
+              {activeStep === 3 && (
+                <div>
+                  <img onClick={() => getStatus()} src={cancel} alt='' />
+                </div>
+              )}
             </div>
 
             <Stepper

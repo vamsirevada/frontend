@@ -24,6 +24,7 @@ import GPortfolioLeftContact from './GPortfolioLeftContact';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import NavbarGuest from '../layout/NavbarGuest';
+import UseFirestore from '../addportfolio/UseFireStore';
 
 const Portfolio2 = ({
   getProfileById,
@@ -37,6 +38,7 @@ const Portfolio2 = ({
   const [viewAll3, setViewAll3] = useState(false);
   const [viewAll4, setViewAll4] = useState(false);
   const [viewAll5, setViewAll5] = useState(false);
+  const { docs } = UseFirestore('images');
 
   useEffect(() => {
     getProfileById(match.params.id);
@@ -485,6 +487,7 @@ const Portfolio2 = ({
                         <div className='main-grid-container'>
                           <div className='main-grid-body'>
                             <PortfolioRightBody
+                              docs={docs}
                               guest={true}
                               profile={profile1}
                             />

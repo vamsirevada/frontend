@@ -195,6 +195,8 @@ a:hover {
   .comments
   .comment-box-heading {
   padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .post-pop-up-container .main-post-container .main-post-top .prev {

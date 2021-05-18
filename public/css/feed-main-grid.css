@@ -357,6 +357,18 @@
   bottom: -2px;
   right: 12px;
   color: #ffffff;
+  cursor: pointer;
+}
+
+.ack-cross {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.ack-cross img {
+  width: 2.5rem;
+  height: 2.5rem;
+  vertical-align: middle;
 }
 
 .post-pic .pic-des-1 {
