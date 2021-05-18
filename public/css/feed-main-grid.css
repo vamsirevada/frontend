@@ -314,12 +314,12 @@
   padding: 1.5rem 1rem;
   width: 95%;
   margin: auto;
-  border-bottom: 1px solid #c9c9c9;
+  border-bottom: 1px solid rgba(201, 201, 201, 0.18);
 }
 
 .acknowledged-box h3 {
   margin-right: 1rem;
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .acknowledged-avatars {
@@ -686,7 +686,15 @@
   font-size: 12px;
   font-family: 'Raleway', sans-serif;
   padding: 0.25rem 0.75rem;
-  border: 2px solid #7480ff;
+  /* border: 2px solid #7480ff; */
   border-radius: 10px;
   outline: none;
+}
+
+.comments .load {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-content: center;
+  margin: 1rem 0rem;
 }
