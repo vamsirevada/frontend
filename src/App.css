@@ -3644,6 +3644,45 @@ input.search-btn:focus {
 }
 /* iphone6.7.8 potrait */
 @media (max-width: 420px) {
+  .acknowledgepopup {
+    position: absolute;
+    left: 15%;
+    top: 10%;
+    z-index: 101;
+    background: #fff;
+    display: block;
+    width: 300px;
+    /* height: 540px; */
+    border-radius: 10px;
+    overflow: auto;
+    background-color: #f2f2f2;
+  }
+  .comment-box {
+    display: grid;
+    grid-template-columns: 12% 88%;
+    align-items: flex-start;
+    padding: 0.75rem 1rem;
+  }
+  .acknowledge-box {
+    width: 40%;
+    justify-self: end;
+  }
+  .post-pop-up-container .main-post-container .des-comm-box .flex-des.modal {
+    grid-template-columns: 100%;
+    margin-bottom: 2rem;
+  }
+  .ps-text {
+    margin-left: 1rem;
+  }
+  .ps-button {
+    margin-top: 0.5rem;
+  }
+  .ps-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
   .navbar .nav-icons .search-dis .search-dis-container {
     display: flex;
     flex-direction: column;
