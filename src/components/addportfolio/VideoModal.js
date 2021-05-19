@@ -497,7 +497,10 @@ const VideoModal = ({
                                   </Link>
                                 ))}
                               {portfolio.acknowledgements.length > 3 && (
-                                <span className='acknowledged-count'>
+                                <span
+                                  onClick={() => setView(true)}
+                                  className='acknowledged-count'
+                                >
                                   +{portfolio.acknowledgements.length - 3}
                                 </span>
                               )}
