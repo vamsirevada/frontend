@@ -128,18 +128,15 @@ const AddPhoto = ({ suggestions, setAlert }) => {
               name='description'
               value={state.description}
               placeholder='add description'
-              onChange={(e) => {
+              onChange={(e) =>
                 setState({
                   ...state,
                   description: e.target.value,
-                });
-                if (e.target.value.includes('@')) {
-                  setState({ ...state, show: true });
-                }
-              }}
+                })
+              }
               ref={setReferenceElement}
             ></textarea>
-            {state.show && (
+            {state.description.includes('@') && (
               <ul
                 className='acknowledge-tooltip'
                 ref={setPopperElement}
@@ -152,9 +149,10 @@ const AddPhoto = ({ suggestions, setAlert }) => {
                       onClick={() => {
                         setState({
                           ...state,
-                          description: state.description.concat(`${x + ' '}`),
+                          description: state.description
+                            .replace('@', '')
+                            .concat(`${x + ' '}`),
                           stringlength: x.length,
-                          show: false,
                         });
                       }}
                     >

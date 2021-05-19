@@ -316,7 +316,7 @@ const ImageGrid = ({ auth: { user }, id, profile, docs, guest }) => {
                     </>
                   )}
                 </div>
-                <motion.audio
+                <motion.video
                   className='img-wrap-audio'
                   onClick={() => {
                     displayAudio(index);
@@ -329,7 +329,7 @@ const ImageGrid = ({ auth: { user }, id, profile, docs, guest }) => {
                   initial={{ opacity: 1 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 1 }}
-                ></motion.audio>
+                ></motion.video>
                 <p className='video-desc'>{doc.title}</p>
               </motion.div>
             ))}
