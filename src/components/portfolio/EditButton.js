@@ -1,11 +1,20 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import share from '../../images/icons/noun_Share_3136056 copy.svg';
 import store from '../../store';
 import { setAlert } from '../../actions/alert';
 
 const EditButton = ({ profile }) => {
   const [displayAdd, toogleAdd] = useState(false);
+
+  useEffect(() => {
+    const t = setTimeout(() => {
+      toogleAdd(false);
+    }, 5000);
+    return () => {
+      clearTimeout(t);
+    };
+  });
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(
