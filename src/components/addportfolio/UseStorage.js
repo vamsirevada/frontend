@@ -8,21 +8,8 @@ import {
 } from '../../firebase/config';
 import preview from '../../images/preview.png';
 
-const parseJwt = (token) => {
-  var base64Url = token.split('.')[1];
-  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  var jsonPayload = decodeURIComponent(
-    atob(base64)
-      .split('')
-      .map(function (c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      })
-      .join('')
-  );
-
-  return JSON.parse(jsonPayload);
-};
 const UseStorage = (
+  user,
   file,
   type,
   title,
@@ -53,9 +40,9 @@ const UseStorage = (
       async () => {
         const url = await storageRef.getDownloadURL();
         const createdAt = await timestamp();
-        const token = await localStorage.getItem('token');
-        const user = await parseJwt(token);
-        const userId = user?.user?.id;
+        const userId = user?._id;
+        const userName = user?.fullName ? user?.fullName : user?.groupName;
+        const userAvatar = user?.avatar;
         const Id = uuidv4();
 
         const body = {
@@ -77,6 +64,8 @@ const UseStorage = (
               stringlength,
               createdAt,
               userId,
+              userName,
+              userAvatar,
               Id,
             });
             await setAlert('Portfolio updated Successfully', 'success');
@@ -96,7 +85,19 @@ const UseStorage = (
         setUrl(url);
       }
     );
-  }, [description, file, setAlert, title, type, stringlength, setState]);
+  }, [
+    description,
+    file,
+    setAlert,
+    title,
+    type,
+    stringlength,
+    setState,
+    user?._id,
+    user?.fullName,
+    user?.groupName,
+    user?.avatar,
+  ]);
 
   return { progress, url, error };
 };

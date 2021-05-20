@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import UseStorage from './UseStorage';
 import { motion } from 'framer-motion';
+import { connect } from 'react-redux';
 
 const ProgressBar = ({
+  auth: { user },
   file,
   type,
   title,
@@ -12,6 +14,7 @@ const ProgressBar = ({
   setState,
 }) => {
   const { progress, url } = UseStorage(
+    user,
     file,
     type,
     title,
@@ -40,4 +43,8 @@ const ProgressBar = ({
   );
 };
 
-export default ProgressBar;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps)(ProgressBar);

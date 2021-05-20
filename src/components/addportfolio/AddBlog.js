@@ -7,22 +7,7 @@ import api from '../../utils/api';
 import { usePopper } from 'react-popper';
 import { Fragment } from 'react';
 
-const parseJwt = (token) => {
-  var base64Url = token.split('.')[1];
-  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-  var jsonPayload = decodeURIComponent(
-    atob(base64)
-      .split('')
-      .map(function (c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      })
-      .join('')
-  );
-
-  return JSON.parse(jsonPayload);
-};
-
-const AddBlog = ({ suggestions, setAlert }) => {
+const AddBlog = ({ auth: { user }, suggestions, setAlert }) => {
   const [state, setState] = useState({
     description: '',
     link: '',
@@ -44,9 +29,9 @@ const AddBlog = ({ suggestions, setAlert }) => {
       setAlert('Description is required', 'danger');
     } else {
       const createdAt = await timestamp();
-      const token = await localStorage.getItem('token');
-      const user = await parseJwt(token);
-      const userId = user?.user?.id;
+      const userId = user?._id;
+      const userName = user?.fullName ? user?.fullName : user?.groupName;
+      const userAvatar = user?.avatar;
       const Id = uuidv4();
       const body = {
         text: state.description,
@@ -63,6 +48,8 @@ const AddBlog = ({ suggestions, setAlert }) => {
             description: state.description,
             createdAt,
             userId,
+            userName,
+            userAvatar,
             Id,
           });
           await setAlert('Portfolio updated Successfully', 'success');
@@ -157,4 +144,9 @@ const AddBlog = ({ suggestions, setAlert }) => {
     </div>
   );
 };
-export default connect(null, { setAlert })(AddBlog);
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { setAlert })(AddBlog);

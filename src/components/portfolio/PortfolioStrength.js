@@ -12,6 +12,7 @@ import { Link } from 'react-router-dom';
 import api from '../../utils/api';
 import store from '../../store';
 import { getCurrentProfile } from '../../actions/profile';
+import { setAlert } from '../../actions/alert';
 
 const QontoConnector = withStyles({
   alternativeLabel: {
@@ -100,6 +101,13 @@ const PortfolioStrength = ({ profile, xyz }) => {
     });
   };
 
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(
+      `http://www.vanity.ac/portfolio/guest/${profile?.user?._id} `
+    );
+    store.dispatch(setAlert('Copied to Clipboard!', 'success'));
+  };
+
   const steps = getSteps();
 
   function getStepContent(stepIndex) {
@@ -159,6 +167,9 @@ const PortfolioStrength = ({ profile, xyz }) => {
               className='ps-button'
             >
               Share Via Mobile
+            </a>
+            <a className='ps-button' onClick={copyToClipboard}>
+              Copy Url
             </a>
           </div>
         );
