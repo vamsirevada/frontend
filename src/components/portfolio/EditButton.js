@@ -27,7 +27,7 @@ const EditButton = ({ profile }) => {
 
       {displayAdd && (
         <Fragment>
-          <ul className='share-port'>
+          <ul onClick={() => toogleAdd(false)} className='share-port'>
             <li>
               {' '}
               <a
