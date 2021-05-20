@@ -1,9 +1,18 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { Fragment, useState } from 'react';
 import share from '../../images/icons/noun_Share_3136056 copy.svg';
+import store from '../../store';
+import { setAlert } from '../../actions/alert';
 
 const EditButton = ({ profile }) => {
   const [displayAdd, toogleAdd] = useState(false);
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(
+      `http://www.vanity.ac/portfolio/guest/${profile?.user?._id} `
+    );
+    store.dispatch(setAlert('Copied to Clipboard!', 'success'));
+  };
 
   return (
     <Fragment>
@@ -49,6 +58,12 @@ const EditButton = ({ profile }) => {
                   `}
               >
                 <img src={share} alt='zx' /> Via Mobile
+              </a>
+            </li>
+            <hr />
+            <li>
+              <a id='share-port-1' onClick={copyToClipboard}>
+                <img src={share} alt='zx' /> Copy Url
               </a>
             </li>
           </ul>
