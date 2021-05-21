@@ -95,7 +95,7 @@ const AddEducation = ({ profile: { profile }, addEducation }) => {
                       />
                     </div>
                     <div>
-                      <label htmlFor='duration'>Duration :</label>
+                      <label htmlFor='duration'>Duration (month/year) :</label>
                       <div className='grid'>
                         <input
                           className='experience-input b-1'

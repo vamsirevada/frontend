@@ -65,7 +65,7 @@ const AddEvents = ({ profile: { profile }, addEvent }) => {
                       />
                     </div>
                     <div>
-                      <label htmlFor='date'>Date :</label> <br />
+                      <label htmlFor='date'>Date(month/year) :</label> <br />
                       <input
                         className='b-1'
                         type='month'

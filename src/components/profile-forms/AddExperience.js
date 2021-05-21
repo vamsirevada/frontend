@@ -188,7 +188,7 @@ const AddExperience = ({ addExperience }) => {
                     </div>
 
                     <div className='last'>
-                      <label htmlFor='duration'>Duration :</label>
+                      <label htmlFor='duration'>Duration (month/year) :</label>
                       <div className='grid'>
                         <input
                           className='experience-input b-1'

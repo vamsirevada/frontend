@@ -68,7 +68,8 @@ const AddAward = ({ profile: { profile, display }, addAward }) => {
                       />
                     </div>
                     <div>
-                      <label htmlFor='duration'>Date :</label> <br />
+                      <label htmlFor='duration'>Date(month/year) :</label>
+                      <br />
                       <input
                         className='b-1'
                         type='month'
