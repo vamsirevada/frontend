@@ -192,7 +192,7 @@ const AddExperience = ({ addExperience }) => {
                       <div className='grid'>
                         <input
                           className='experience-input b-1'
-                          type='date'
+                          type='month'
                           name='from'
                           value={from}
                           onChange={(e) => onChange(e)}
@@ -202,7 +202,7 @@ const AddExperience = ({ addExperience }) => {
                         <span className='c-align'>to</span>
                         <input
                           className='experience-input b-1'
-                          type='date'
+                          type='month'
                           name='to'
                           value={to}
                           onChange={(e) => onChange(e)}

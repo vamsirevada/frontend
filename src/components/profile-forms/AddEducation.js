@@ -66,6 +66,7 @@ const AddEducation = ({ profile: { profile }, addEducation }) => {
                       </label>
                       <input
                         type='text'
+                        className='experience-input'
                         name='school'
                         value={school}
                         onChange={(e) => onChange(e)}
@@ -76,6 +77,7 @@ const AddEducation = ({ profile: { profile }, addEducation }) => {
                       <label htmlFor='organisation'>Degree/ Board</label>
                       <input
                         type='text'
+                        className='experience-input'
                         name='degree'
                         value={degree}
                         onChange={(e) => onChange(e)}
@@ -86,6 +88,7 @@ const AddEducation = ({ profile: { profile }, addEducation }) => {
                       <label htmlFor='organisation'>Stream of Education</label>
                       <input
                         type='text'
+                        className='experience-input'
                         name='fieldofstudy'
                         value={fieldofstudy}
                         onChange={(e) => onChange(e)}
@@ -95,8 +98,8 @@ const AddEducation = ({ profile: { profile }, addEducation }) => {
                       <label htmlFor='duration'>Duration :</label>
                       <div className='grid'>
                         <input
-                          className='b-1'
-                          type='date'
+                          className='experience-input b-1'
+                          type='month'
                           name='from'
                           value={from}
                           onChange={(e) => onChange(e)}
@@ -106,8 +109,8 @@ const AddEducation = ({ profile: { profile }, addEducation }) => {
 
                         <span className='c-align'>to</span>
                         <input
-                          className='b-1'
-                          type='date'
+                          className='experience-input b-1'
+                          type='month'
                           name='to'
                           value={to}
                           onChange={(e) => onChange(e)}

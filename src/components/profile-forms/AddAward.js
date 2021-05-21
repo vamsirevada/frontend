@@ -71,7 +71,7 @@ const AddAward = ({ profile: { profile, display }, addAward }) => {
                       <label htmlFor='duration'>Date :</label> <br />
                       <input
                         className='b-1'
-                        type='date'
+                        type='month'
                         name='date'
                         value={date}
                         onChange={(e) => onChange(e)}

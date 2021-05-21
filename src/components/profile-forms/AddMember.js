@@ -85,7 +85,7 @@ const AddMember = ({ profile: { profile }, addMembers }) => {
                       <div className='grid'>
                         <input
                           className='b-1'
-                          type='date'
+                          type='month'
                           name='from'
                           value={from}
                           onChange={(e) => onChange(e)}
@@ -96,7 +96,7 @@ const AddMember = ({ profile: { profile }, addMembers }) => {
                         <span className='c-align'>to</span>
                         <input
                           className='b-1'
-                          type='date'
+                          type='month'
                           name='to'
                           value={to}
                           onChange={(e) => onChange(e)}
