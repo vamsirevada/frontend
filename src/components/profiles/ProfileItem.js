@@ -146,14 +146,7 @@ const ProfileItem = ({ item, displayAdd, docs }) => {
         </div>
       </div>
 
-      {start ? (
-        <PersonalMessage
-          userUid={item?.user?._id}
-          chatUserName={item?.user?.fullName}
-          chatUserImage={item?.avatar}
-          chatClose={chatClose}
-        />
-      ) : null}
+      {start && <PersonalMessage member={item} chatClose={chatClose} />}
     </>
   );
 };

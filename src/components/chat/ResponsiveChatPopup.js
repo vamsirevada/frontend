@@ -1,9 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { createRef, useState } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Close from '../../images/Group 6054.svg';
 import sendbutton from '../../images/sendbutton.svg';
-import { getRealtimeConversations, updateMessage } from '../../actions/chat';
+import {
+  getRealtimeConversations,
+  updateMessage,
+  messageNotificationsRead,
+} from '../../actions/chat';
 import { projectStorage } from '../../firebase/config';
 import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -25,8 +29,6 @@ const _gettype = (type) => {
 const ResponsiveChatPopup = ({
   auth: { user },
   chatProfile,
-  userUid,
-  chatUserImage,
   conversations,
   chatClose,
 }) => {
@@ -37,6 +39,8 @@ const ResponsiveChatPopup = ({
   const fileInput = createRef();
   const [url, setUrl] = useState(null);
   const [filetype, setFileType] = useState(null);
+  const [preview, setPreview] = useState(null);
+  const [res, setRes] = useState(null);
 
   const onOpenFileDialog = () => {
     fileInput.current.click();
@@ -44,60 +48,119 @@ const ResponsiveChatPopup = ({
 
   const handleChange = async (e) => {
     const file = e.target.files[0];
+    setRes(file);
     const type = _gettype(file.type.split('/')[0]);
     setFileType(type);
     const storageRef = projectStorage.ref(file.name);
-    storageRef.put(file).on(
-      'state_changed',
-      (snap) => {
-        let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
-        setProgress(Math.round(percentage));
-        setShow(true);
-      },
-      (err) => {
-        console.log(err);
-      },
-      async () => {
-        const url = await storageRef.getDownloadURL();
-        setUrl(`${url}`);
-      }
-    );
+    if (filetype === 'photo') {
+      setPreview(URL.createObjectURL(e.target.files[0]));
+      storageRef.put(file).on(
+        'state_changed',
+        (snap) => {
+          let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+          setProgress(Math.round(percentage));
+          setShow(true);
+        },
+        (error) => {
+          switch (error.code) {
+            case 'storage/canceled':
+              return setShow(false) && console.log('cancelled');
+            default:
+              return console.log(error);
+          }
+        },
+        async () => {
+          await storageRef.getDownloadURL().then((x) => {
+            setUrl(x);
+          });
+        }
+      );
+    } else {
+      const blob = file.slice(0, file.size, file.type);
+      const newFile = new File([blob], file.name, {
+        type: 'video/mp4',
+      });
+      setPreview(URL.createObjectURL(newFile));
+      storageRef.put(newFile).on(
+        'state_changed',
+        (snap) => {
+          let percentage = (snap.bytesTransferred / snap.totalBytes) * 100;
+          setProgress(Math.round(percentage));
+          setShow(true);
+        },
+        (error) => {
+          switch (error.code) {
+            case 'storage/canceled':
+              return setShow(false) && console.log('cancelled');
+            default:
+              return console.log(error);
+          }
+        },
+        async () => {
+          await storageRef.getDownloadURL().then((x) => {
+            setUrl(x);
+          });
+        }
+      );
+    }
+  };
+
+  const unreadMessageIds = conversations
+    .filter((conv) => !conv.isView)
+    .map((x) => x.id);
+
+  const uno = conversations
+    .filter((conv) => !conv.isView)
+    .map((x) => x.user_uid_2);
+
+  const isRight = uno.filter((item, key) => {
+    return uno.indexOf(item) === key;
+  });
+
+  const messageRead = () => {
+    if (isRight[0] === user?._id) {
+      dispatch(messageNotificationsRead(unreadMessageIds));
+      dispatch(
+        getRealtimeConversations({
+          uid_1: user?._id,
+          uid_2: chatProfile?.user?._id,
+        })
+      );
+    }
   };
 
   const sendMessage = async (e) => {
     e.preventDefault();
     const msgObj = {
       user_uid_1: user?._id,
-      user_uid_2: userUid,
+      user_uid_2: chatProfile.projectname
+        ? chatProfile?._id
+        : chatProfile?.user?._id,
       formValue,
       url,
       filetype,
     };
     if (formValue !== '') {
       dispatch(updateMessage(msgObj)).then(() => {
-        if (chatProfile.projectname) {
-          dispatch(
-            getRealtimeConversations({
-              uid_1: user?._id,
-              uid_2: chatProfile?._id,
-            })
-          );
-        } else {
-          dispatch(
-            getRealtimeConversations({
-              uid_1: user?._id,
-              uid_2: chatProfile?.user?._id,
-            })
-          );
-        }
+        dispatch(
+          getRealtimeConversations({
+            uid_1: user?._id,
+            uid_2: chatProfile.projectname
+              ? chatProfile?._id
+              : chatProfile?.user?._id,
+          })
+        );
         setFormValue('');
+        setUrl(null);
         setShow(false);
+        setPreview(null);
+        setFileType(null);
       });
     }
   };
 
   return (
-    <div id='main-open-chatpopup' data-aos='fade-left'>
+    <div onClick={messageRead} id='main-open-chatpopup' data-aos='fade-left'>
       <div className='chat-popup-1' id='myForm1'>
         <div className='chatbox-top'>
           <div className='chatboxtop-left'>
@@ -115,7 +178,7 @@ const ResponsiveChatPopup = ({
             <span
               style={{
                 background: `url(${
-                  chatUserImage ? chatUserImage : logo
+                  chatProfile?.avatar ? chatProfile?.avatar : logo
                 }) no-repeat center center/cover`,
               }}
               className='dp-1'
@@ -124,9 +187,11 @@ const ResponsiveChatPopup = ({
               <h4>
                 {chatProfile?.projectname
                   ? chatProfile?.projectname
-                  : chatProfile?.user?.fullName}
+                  : chatProfile?.user?.fullName || chatProfile?.user?.groupName}
               </h4>
-              {user?.activityStatus === 'online' && <small>Active Now</small>}
+              {chatProfile?.user?.activityStatus === 'online' && (
+                <small>Active Now</small>
+              )}
             </div>
           </div>
         </div>
@@ -144,7 +209,7 @@ const ResponsiveChatPopup = ({
                   {user?._id !== con?.user_uid_1 && (
                     <span
                       style={{
-                        background: `url(${chatUserImage}) no-repeat center center/cover`,
+                        background: `url(${chatProfile?.avatar}) no-repeat center center/cover`,
                       }}
                       className='dp-2'
                     ></span>
@@ -229,6 +294,31 @@ const ResponsiveChatPopup = ({
         <form className='chatpopup-type' onSubmit={sendMessage}>
           <div className='form-grid'>
             <div className='form-flex-left'>
+              {preview !== null && (
+                <div className='message-preview'>
+                  {filetype === 'photo' ? (
+                    <img
+                      className='message-preview-image'
+                      src={preview}
+                      alt=''
+                    />
+                  ) : (
+                    <video>
+                      <source src={preview} type='video/mp4' />
+                    </video>
+                  )}
+                  <span
+                    onClick={() => {
+                      setPreview(null);
+                      projectStorage.ref(res.name).put(res).cancel();
+                      setShow(false);
+                    }}
+                    className='message-preview-close'
+                  >
+                    x
+                  </span>
+                </div>
+              )}
               <input
                 type='text'
                 name='typemessage'
@@ -271,9 +361,4 @@ const ResponsiveChatPopup = ({
   );
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-  profile: state.profile,
-});
-
-export default connect(mapStateToProps)(ResponsiveChatPopup);
+export default ResponsiveChatPopup;

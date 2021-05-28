@@ -2121,6 +2121,10 @@ input.search-btn:focus {
   cursor: pointer;
 }
 
+.no-search-results {
+  text-align: center;
+}
+
 .search-dis-container .search-header {
   display: flex;
   justify-content: space-between;
@@ -3775,6 +3779,7 @@ input.search-btn:focus {
   .search-dis .connect-main {
     display: grid;
     grid-template-columns: 100%;
+    background-color: #fff;
   }
   .navbar .nav-icons .search-dis {
     position: fixed;

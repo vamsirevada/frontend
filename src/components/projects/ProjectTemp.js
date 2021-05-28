@@ -24,26 +24,10 @@ const ProjectTemp = ({
     <div>
       <div className='projectitem'>
         <div className='p-container'>
-          <div className='project-head'>
+          <div className='project-head experience-head'>
             <p className='list list-1'>
               Project Name: <span className='list-4'> {' ' + projectname}</span>
             </p>
-
-            {/* <p className='list list-2'>
-              Timeline:{' '}
-              <span className='list-4'>
-                {' '}
-                <Moment format='DD MMM YYYY'>{date}</Moment>-{' '}
-                {to === null ? 'Now' : <Moment format='MMM YYYY'>{to}</Moment>}
-              </span>
-            </p> */}
-            {/* <p className='list list-1'>
-                Project Status:{' '}
-                <span className='list-4'>
-                  {' '}
-                  {to === null ? 'Active' : 'Completed'}
-                </span>
-              </p>  */}
             {isCommonMember.length !== 0 && (
               <Link to={`/project/${_id}`}>
                 <button className='list list-1 b'>

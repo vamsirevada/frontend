@@ -25,14 +25,7 @@ const _gettype = (type) => {
   }
 };
 
-const ChatRight = ({
-  auth,
-  conversations,
-  userUid,
-  chatProfile,
-  chatUserImage,
-  setChatStarted,
-}) => {
+const ChatRight = ({ auth, conversations, chatProfile, setChatStarted }) => {
   const [formValue, setFormValue] = useState('');
   const dispatch = useDispatch();
   const [progress, setProgress] = useState(0);
@@ -133,28 +126,23 @@ const ChatRight = ({
     e.preventDefault();
     const msgObj = {
       user_uid_1: auth?.user?._id,
-      user_uid_2: userUid,
+      user_uid_2: chatProfile.projectname
+        ? chatProfile?._id
+        : chatProfile?.user?._id,
       formValue,
       url,
       filetype,
     };
     if (formValue || url !== '') {
       dispatch(updateMessage(msgObj)).then(() => {
-        if (chatProfile.projectname) {
-          dispatch(
-            getRealtimeConversations({
-              uid_1: auth?.user?._id,
-              uid_2: chatProfile?._id,
-            })
-          );
-        } else {
-          dispatch(
-            getRealtimeConversations({
-              uid_1: auth?.user?._id,
-              uid_2: chatProfile?.user?._id,
-            })
-          );
-        }
+        dispatch(
+          getRealtimeConversations({
+            uid_1: auth?.user?._id,
+            uid_2: chatProfile.projectname
+              ? chatProfile?._id
+              : chatProfile?.user?._id,
+          })
+        );
         setFormValue('');
         setUrl(null);
         setShow(false);
@@ -171,7 +159,7 @@ const ChatRight = ({
           <div
             style={{
               background: `url(${
-                chatUserImage ? chatUserImage : logo
+                chatProfile?.avatar ? chatProfile?.avatar : logo
               }) no-repeat center center/cover`,
             }}
             className='dp-4'
@@ -213,7 +201,7 @@ const ChatRight = ({
                 {auth?.user?._id !== con?.user_uid_1 && (
                   <span
                     style={{
-                      background: `url(${chatUserImage}) no-repeat center center/cover`,
+                      background: `url(${chatProfile?.avatar}) no-repeat center center/cover`,
                     }}
                     className='dp-2'
                   ></span>

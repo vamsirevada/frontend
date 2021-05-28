@@ -16,7 +16,11 @@ const UseStorage = (
   description,
   stringlength,
   setAlert,
-  setState
+  setUpload,
+  setTitle,
+  setDescription,
+  setStringLength,
+  setDisplay
 ) => {
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
@@ -69,13 +73,11 @@ const UseStorage = (
               Id,
             });
             await setAlert('Portfolio updated Successfully', 'success');
-            await setState({
-              upload: false,
-              title: '',
-              description: '',
-              stringlength: 0,
-              display: preview,
-            });
+            await setUpload(false);
+            await setTitle('');
+            await setDescription('');
+            await setStringLength(0);
+            await setDisplay(preview);
           })
 
           .catch((err) => {
@@ -92,11 +94,15 @@ const UseStorage = (
     title,
     type,
     stringlength,
-    setState,
     user?._id,
     user?.fullName,
     user?.groupName,
     user?.avatar,
+    setUpload,
+    setTitle,
+    setDescription,
+    setStringLength,
+    setDisplay,
   ]);
 
   return { progress, url, error };

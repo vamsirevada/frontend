@@ -678,14 +678,7 @@ const Portfolio1 = ({
           </Fragment>
         </Fragment>
       )}
-      {start ? (
-        <PersonalMessage
-          userUid={profile1?.user?._id}
-          chatUserName={profile1?.user?.fullName}
-          chatUserImage={profile1?.avatar}
-          chatClose={chatClose}
-        />
-      ) : null}
+      {start && <PersonalMessage member={profile1} chatClose={chatClose} />}
     </>
   );
 };

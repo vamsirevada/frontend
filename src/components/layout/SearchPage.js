@@ -1,38 +1,68 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
-import api from '../../utils/api';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import searchIcon from '../../images/searchIcon.svg';
-import logo from '../../images/dummyimage.jpg';
-import mail from '../../images/mail.svg';
 import cancel from '../../images/close.svg';
 import PersonalMessage from '../chat/PersonalMessage';
-import CRequest from '../profiles/CRequest';
-import Tooltip from '@material-ui/core/Tooltip';
+import { connect } from 'react-redux';
+import { getProfiles } from '../../actions/profile';
+import SearchResults from './SearchResults';
 
-const SearchPage = () => {
-  const history = useHistory();
+const SearchPage = ({ getProfiles, profile: { profiles } }) => {
   const [start, setStart] = useState(false);
   const [input, setInput] = useState('');
-  const [users, setUsers] = useState([]);
-  const [chatUserName, setChatUserName] = useState('');
-  const [chatUserStatus, setChatUserStatus] = useState('');
-  const [chatUserImage, setChatUserImage] = useState(logo);
-  const [userUid, setUserUid] = useState(null);
-
-  const fetchData = async () => {
-    return await api.get('/profile').then((data) => {
-      setUsers(data.data);
-    });
-  };
+  const [member, setMember] = useState(null);
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    getProfiles();
+  }, [getProfiles]);
 
   const chatClose = () => {
     setStart(false);
   };
+
+  const searchResults = profiles.filter((val) => {
+    if (input === '') {
+      return null;
+    } else if (
+      (val?.user?.fullName &&
+        val?.user?.fullName.toLowerCase().includes(input.toLowerCase())) ||
+      (val?.user?.userName &&
+        val?.user?.userName.toLowerCase().includes(input.toLowerCase())) ||
+      (val?.user?.groupName &&
+        val?.user?.groupName.toLowerCase().includes(input.toLowerCase())) ||
+      (val?.bio && val?.bio.toLowerCase().includes(input.toLowerCase())) ||
+      (val?.status && val?.status.toLowerCase().includes(input.toLowerCase()))
+    ) {
+      return val;
+    } else {
+      return null;
+    }
+  });
+
+  const inputHandler = () => {
+    setInput('');
+  };
+
+  const onClickHandler = (res) => {
+    setStart(true);
+    setMember(res);
+  };
+
+  let searchResultsContent = (
+    <p className='no-search-results'>No Results found</p>
+  );
+
+  if (searchResults.length > 0) {
+    searchResultsContent = searchResults.map((res, key) => (
+      <SearchResults
+        key={key}
+        res={res}
+        inputHandler={inputHandler}
+        onClickHandler={onClickHandler}
+      />
+    ));
+  }
 
   return (
     <>
@@ -56,159 +86,35 @@ const SearchPage = () => {
                 <h2>
                   Search Result for <span className='blue'>'{input}'</span>
                 </h2>
-
                 <div className='flex-right'>
-                  <div
-                    onClick={() => {
-                      setInput('');
-                      history.push('/profiles');
-                    }}
+                  <Link
+                    to='/profiles'
+                    onClick={inputHandler}
                     className='search-seeall'
                   >
                     see all
-                  </div>
+                  </Link>
                   <img
                     className='closesearch'
                     src={cancel}
-                    onClick={() => {
-                      setInput('');
-                    }}
+                    onClick={inputHandler}
                     alt=''
                   />
                 </div>
               </div>
               <hr className='hori' />
-              <div className='search-buddy-grid'>
-                {users
-                  .filter((val) => {
-                    if (input === '') {
-                      return null;
-                    } else if (
-                      (val?.user?.fullName &&
-                        val?.user?.fullName
-                          .toLowerCase()
-                          .includes(input.toLowerCase())) ||
-                      (val?.user?.userName &&
-                        val?.user?.userName
-                          .toLowerCase()
-                          .includes(input.toLowerCase())) ||
-                      (val?.user?.groupName &&
-                        val?.user?.groupName
-                          .toLowerCase()
-                          .includes(input.toLowerCase())) ||
-                      (val?.bio &&
-                        val?.bio.toLowerCase().includes(input.toLowerCase())) ||
-                      (val?.status &&
-                        val?.status.toLowerCase().includes(input.toLowerCase()))
-                    ) {
-                      return val;
-                    } else {
-                      return null;
-                    }
-                  })
-                  .map((val, key) => {
-                    return (
-                      <div key={key} className='buddy-grid'>
-                        <div className='connect-left'>
-                          <div className='connect-left-top'>
-                            <div
-                              style={{
-                                background: `url(${
-                                  val.avatar ? val.avatar : logo
-                                }) no-repeat center center/cover`,
-                              }}
-                              className='display-pic'
-                            ></div>
-                            <div className='flex-c'>
-                              <p>
-                                <span
-                                  onClick={() => {
-                                    setInput('');
-                                    history.push(
-                                      `/portfolio/${val?.user?._id}`
-                                    );
-                                  }}
-                                  className='bold'
-                                >
-                                  {val.user.fullName && val.user.fullName}
-                                  {val.user.groupName && val.user.groupName}
-                                </span>{' '}
-                                <br />
-                                <span className='second-bold'></span>{' '}
-                                <span className='second-bold'>
-                                  {val.status}
-                                </span>{' '}
-                                <br />
-                                <span className='second-bold'>
-                                  {val.location}
-                                </span>
-                                <br />
-                                <span className='third-bold'>
-                                  Connections :{' '}
-                                  <span className='f-1'>
-                                    {val.buddies.length}
-                                  </span>
-                                </span>
-                              </p>
-                            </div>
-                          </div>
-                          <div className='connect-left-bottom'>
-                            <div className='btn-b'>
-                              {' '}
-                              <a
-                                onClick={() => {
-                                  setInput('');
-                                  history.push(`/portfolio/${val?.user?._id}`);
-                                }}
-                                className='btn-blue'
-                              >
-                                Portfolio
-                              </a>
-                            </div>
-                            <CRequest item={val} />
-                            <div className='btn-g'>
-                              <Tooltip title='Chat' placement='top'>
-                                <a
-                                  onClick={() => {
-                                    setStart(true);
-                                    setUserUid(val?.user?._id);
-                                    setChatUserName(
-                                      val?.user?.fullName
-                                        ? val?.user?.fullName
-                                        : val?.user?.groupName
-                                    );
-                                    setChatUserImage(val?.avatar);
-                                    setChatUserStatus(
-                                      val?.user?.activityStatus
-                                    );
-                                  }}
-                                  className='btn-blue g-1'
-                                >
-                                  <img className='g-1' src={mail} alt='' />
-                                </a>
-                              </Tooltip>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-              </div>
+              <div className='search-buddy-grid'>{searchResultsContent}</div>
             </div>
           </div>
         </div>
       )}
-      {start ? (
-        <PersonalMessage
-          userUid={userUid}
-          chatUserStatus={chatUserStatus}
-          chatUserName={chatUserName}
-          chatUserImage={chatUserImage}
-          chatClose={chatClose}
-        />
-      ) : null}
+      {start && <PersonalMessage member={member} chatClose={chatClose} />}
     </>
   );
 };
 
-export default SearchPage;
+const mapStateToProps = (state) => ({
+  profile: state.profile,
+});
+
+export default connect(mapStateToProps, { getProfiles })(SearchPage);
