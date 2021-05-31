@@ -84,7 +84,7 @@ const PostForm = ({ addPost }) => {
       <div className='postForm'>
         <textarea
           type='text'
-          placeholder='Write Something New...'
+          placeholder='Post about work, art, interests & new learnings'
           value={text}
           onChange={(e) => setText(e.target.value)}
         ></textarea>

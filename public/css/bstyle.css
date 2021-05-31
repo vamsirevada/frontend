@@ -190,8 +190,8 @@ a {
   margin: auto;
   border-radius: 10px;
   position: fixed;
-  top: 82px;
-  right: 10px;
+  /* top: 82px;
+  right: 10px; */
   z-index: 100;
 }
 

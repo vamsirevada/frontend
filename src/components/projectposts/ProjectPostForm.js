@@ -98,7 +98,7 @@ const ProjectPostForm = ({ addProjectPost, setAlert, singleproject }) => {
       <div className='postForm'>
         <input
           type='text'
-          placeholder='Write Something New...'
+          placeholder='Post about project work & updates'
           value={text}
           onChange={(e) => setText(e.target.value)}
         />

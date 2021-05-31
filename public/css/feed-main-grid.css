@@ -253,7 +253,7 @@
   border-radius: 0px 0px 15px 15px;
   padding: 0rem 1rem;
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 60% 40%;
   align-items: center;
 }
 

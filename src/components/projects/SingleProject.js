@@ -9,7 +9,7 @@ import ProjectPostForm from '../projectposts/ProjectPostForm';
 import ProjectPosts from '../projectposts/ProjectPosts';
 import MiniProjectInfo from './MiniProjectInfo';
 import BallotIcon from '@material-ui/icons/Ballot';
-// import AdminMoney from './AdminMoney';
+import AdminMoney from './AdminMoney';
 // import { useHistory } from 'react-router';
 
 const SingleProject = ({
@@ -28,9 +28,9 @@ const SingleProject = ({
     getProjectBudget(match.params.id);
   }, [getProject, getProjectBudget, match.params.id]);
 
-  // const budgets = budget.map((x) => x.budget);
+  const budgets = budget.map((x) => x.budget);
 
-  // const total = budgets.reduce((acc, item) => (acc += item), 0).toFixed(2);
+  const total = budgets.reduce((acc, item) => (acc += item), 0).toFixed(2);
 
   const onClick1 = (e) => {
     toogleLeft(true);
@@ -74,10 +74,10 @@ const SingleProject = ({
                       .find((x) => x === true) && (
                       <>
                         <ProjectAdd singleproject={singleproject} />
-                        {/* <AdminMoney
+                        <AdminMoney
                           budget={total}
                           singleproject={singleproject}
-                        /> */}
+                        />
                       </>
                     )}
                   <ProjectPostForm singleproject={singleproject} />
