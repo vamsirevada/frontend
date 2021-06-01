@@ -13,7 +13,13 @@ const LikesPopup = ({ hide, likes }) => {
         }
       }}
     >
-      <div className='memberpopup'>
+      <div
+        className='memberpopup'
+        data-aos='zoom-in'
+        data-aos-delay='10'
+        data-aos-duration='500'
+        data-aos-easing='ease-in'
+      >
         <div className='mem-heading'>
           <h3>Appreciators</h3>
           <a href='#!' className='member-cross' onClick={hide}>
