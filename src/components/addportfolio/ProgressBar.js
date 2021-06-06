@@ -11,7 +11,12 @@ const ProgressBar = ({
   description,
   stringlength,
   setAlert,
-  setState,
+  setFile,
+  setUpload,
+  setTitle,
+  setDescription,
+  setStringLength,
+  setDisplay,
 }) => {
   const { progress, url } = UseStorage(
     user,
@@ -21,16 +26,18 @@ const ProgressBar = ({
     description,
     stringlength,
     setAlert,
-    setState
+    setUpload,
+    setTitle,
+    setDescription,
+    setStringLength,
+    setDisplay
   );
   useEffect(() => {
     if (url) {
-      setState({
-        file: null,
-        upload: false,
-      });
+      setFile(null);
+      setUpload(false);
     }
-  }, [url, setState]);
+  }, [url, setFile, setUpload]);
 
   return (
     <motion.div

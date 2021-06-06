@@ -8,12 +8,10 @@ import { usePopper } from 'react-popper';
 import { Fragment } from 'react';
 
 const AddBlog = ({ auth: { user }, suggestions, setAlert }) => {
-  const [state, setState] = useState({
-    description: '',
-    link: '',
-    show: false,
-    stringlength: 0,
-  });
+  const [description, setDescription] = useState('');
+  const [link, setLink] = useState('');
+  const [show, setShow] = useState(false);
+  const [stringlength, setStringLength] = useState(0);
   const [referenceElement, setReferenceElement] = useState(null);
   const [popperElement, setPopperElement] = useState(null);
   const { styles, attributes } = usePopper(referenceElement, popperElement, {
@@ -23,9 +21,9 @@ const AddBlog = ({ auth: { user }, suggestions, setAlert }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const collectionRef = projectFirestore.collection('images');
-    if (state.link === '') {
+    if (link === '') {
       setAlert('Blog Link is required', 'danger');
-    } else if (state.description === '') {
+    } else if (description === '') {
       setAlert('Description is required', 'danger');
     } else {
       const createdAt = await timestamp();
@@ -34,8 +32,8 @@ const AddBlog = ({ auth: { user }, suggestions, setAlert }) => {
       const userAvatar = user?.avatar;
       const Id = uuidv4();
       const body = {
-        text: state.description,
-        url: state.link,
+        text: description,
+        url: link,
         type: 'Blog',
         user: userId,
       };
@@ -44,8 +42,9 @@ const AddBlog = ({ auth: { user }, suggestions, setAlert }) => {
         .then(async (res) => {
           await collectionRef.add({
             type: 'Blog',
-            url: state.link,
-            description: state.description,
+            url: link,
+            description: description,
+            stringlength,
             createdAt,
             userId,
             userName,
@@ -53,10 +52,8 @@ const AddBlog = ({ auth: { user }, suggestions, setAlert }) => {
             Id,
           });
           await setAlert('Portfolio updated Successfully', 'success');
-          setState({
-            description: '',
-            link: '',
-          });
+          setDescription('');
+          setLink('');
         })
 
         .catch((err) => {
@@ -74,13 +71,8 @@ const AddBlog = ({ auth: { user }, suggestions, setAlert }) => {
             type='url'
             name='link'
             className='search-btn'
-            value={state.link}
-            onChange={(e) =>
-              setState({
-                ...state,
-                link: e.target.value,
-              })
-            }
+            value={link}
+            onChange={(e) => setLink(e.target.value)}
             placeholder='Add Link'
           />
         </div>
@@ -91,15 +83,12 @@ const AddBlog = ({ auth: { user }, suggestions, setAlert }) => {
               type='text'
               className='search-btn'
               name='description'
-              value={state.description}
+              value={description}
               placeholder='add description'
               onChange={(e) => {
-                setState({
-                  ...state,
-                  description: e.target.value,
-                });
+                setDescription(e.target.value);
                 if (e.target.value.includes('@')) {
-                  setState({ ...state, show: true });
+                  setShow(true);
                 }
               }}
               ref={setReferenceElement}
@@ -107,7 +96,7 @@ const AddBlog = ({ auth: { user }, suggestions, setAlert }) => {
               Lorem ipsum dolor, sit amet consectetur adipisicing elit.
               Suscipit, fugiat.
             </textarea>
-            {state.show && (
+            {show && (
               <ul
                 className='acknowledge-tooltip'
                 ref={setPopperElement}
@@ -118,12 +107,9 @@ const AddBlog = ({ auth: { user }, suggestions, setAlert }) => {
                   <Fragment key={index}>
                     <li
                       onClick={() => {
-                        setState({
-                          ...state,
-                          description: state.description.concat(`${x + ' '}`),
-                          stringlength: x.length,
-                          show: false,
-                        });
+                        setDescription(description.concat(`${x + ' '}`));
+                        setStringLength(x.length);
+                        setShow(false);
                       }}
                     >
                       {x}

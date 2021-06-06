@@ -115,15 +115,7 @@ const Portfolio = ({
                     <div id='left-sidebar'>
                       <div className='left-container'>
                         <PortfolioLeftTop profile={profile} />
-                        <div className='btns'>
-                          <span className='profile-tour-button'>
-                            <Link to='profile' className={`btn-white `}>
-                              Add/Edit Profile
-                            </Link>
-                          </span>
-                          <EditButton profile={profile} />
-                        </div>
-
+                        <EditButton profile={profile} />
                         <PortfolioLeftAbout profile={profile} />
                         {profile?.founder.length > 0 && (
                           <div className='prof-exp'>
