@@ -283,9 +283,9 @@ const NotificationPopup = ({
               </div> */}
             </div>
             {notificationsMarkup}
-            <div className='notify-seeall'>
+            {/* <div className='notify-seeall'>
               <h4>All Caught Up</h4>
-            </div>
+            </div> */}
           </div>
         </div>
       )}
