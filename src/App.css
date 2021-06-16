@@ -3672,6 +3672,11 @@ input.search-btn:focus {
 }
 /* iphone6.7.8 potrait */
 @media (max-width: 420px) {
+  .add-portfolio .container {
+    max-width: 1240px;
+    margin: auto;
+    padding: 0.5rem;
+  }
   .prof-flex-btn .btn-yellow {
     margin-top: 1rem;
   }
@@ -4043,7 +4048,7 @@ input.search-btn:focus {
     height: 100%;
   }
   .main-add .main-right {
-    height: 80vh;
+    height: 100vh;
     padding: 1rem 1.5rem;
   }
   .main-add .main-right .main-right-container {
@@ -4686,6 +4691,10 @@ input.search-btn:focus {
 }
 
 @media (max-width: 320px) {
+  .main-add .main-right {
+    height: 115vh;
+    padding: 1rem 1.5rem;
+  }
   .navbar .nav-icons .search-dis .search-dis-container {
     display: flex;
     flex-direction: column;

@@ -22,7 +22,7 @@
 .add-portfolio {
   position: relative;
   top: 72px;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .add-portfolio .container {
