@@ -56,46 +56,49 @@ const AddPhoto = ({ suggestions, setAlert }) => {
   return (
     <div className='main-right'>
       <div className='main-right-container'>
-        <div>
-          <h2 className='des mb'>Upload Files (.Jpg, Png,Gifs)</h2>
-
-          <img src={display} className='preview' alt='' />
-          <br />
+        <div className='main-right-grid'>
           <div>
-            {upload && (
-              <ProgressBar
-                className='box4 blue-text'
-                file={file}
-                type={'Picture'}
-                title={title}
-                description={description}
-                setAlert={setAlert}
-                setFile={setFile}
-                setUpload={setUpload}
-                setTitle={setTitle}
-                setDescription={setDescription}
-                setStringLength={setStringLength}
-                setDisplay={setDisplay}
-                stringlength={stringlength}
-              />
-            )}
+            <h2 className='des mb'>Upload Files (.Jpg, Png,Gifs)</h2>
+
+            <img src={display} className='preview' alt='' />
+            <br />
+            <div>
+              {upload && (
+                <ProgressBar
+                  className='box4 blue-text'
+                  file={file}
+                  type={'Picture'}
+                  title={title}
+                  description={description}
+                  setAlert={setAlert}
+                  setFile={setFile}
+                  setUpload={setUpload}
+                  setTitle={setTitle}
+                  setDescription={setDescription}
+                  setStringLength={setStringLength}
+                  setDisplay={setDisplay}
+                  stringlength={stringlength}
+                />
+              )}
+            </div>
+          </div>
+          <div className='select'>
+            <div className='cloud pos'></div>
+            <input
+              accept='image/*'
+              onChange={handleChange}
+              onClick={(e) => (e.target.value = null)}
+              type='file'
+              hidden={true}
+              ref={fileInput}
+            />
+            <span onClick={onOpenFileDialog} className='btn-blue pos'>
+              Select
+            </span>
+            {error && <div className='error'>{error}</div>}
           </div>
         </div>
-        <div className='select'>
-          <div className='cloud pos'></div>
-          <input
-            accept='image/*'
-            onChange={handleChange}
-            onClick={(e) => (e.target.value = null)}
-            type='file'
-            hidden={true}
-            ref={fileInput}
-          />
-          <span onClick={onOpenFileDialog} className='btn-blue pos'>
-            Select
-          </span>
-          {error && <div className='error'>{error}</div>}
-        </div>
+
         <form onSubmit={(e) => onSubmit(e)}>
           <div>
             <h2 className='des'>Title</h2>

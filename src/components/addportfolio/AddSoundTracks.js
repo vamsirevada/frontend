@@ -55,50 +55,53 @@ const AddSoundTracks = ({ suggestions, setAlert }) => {
   return (
     <div className='main-right'>
       <div className='main-right-container'>
-        <div>
-          <h2 className='des mb'>Upload Files (Mp3,Mp4)</h2>
-          <video
-            width='250px'
-            height='150px'
-            poster={display}
-            controls
-            className={display ? '' : 'box1'}
-          />
-          <br />
-          {upload && (
-            <ProgressBar
-              className='box4 blue-text'
-              file={file}
-              type={'Audio'}
-              title={title}
-              description={description}
-              setAlert={setAlert}
-              setFile={setFile}
-              setUpload={setUpload}
-              setTitle={setTitle}
-              setDescription={setDescription}
-              setStringLength={setStringLength}
-              setDisplay={setDisplay}
-              stringlength={stringlength}
+        <div className='main-right-grid'>
+          <div>
+            <h2 className='des mb'>Upload Files (Mp3,Mp4)</h2>
+            <video
+              width='250px'
+              height='150px'
+              poster={display}
+              controls
+              className={display ? '' : 'box1'}
             />
-          )}
-        </div>
-        <div className='select'>
-          <div className='cloud pos'></div>
+            <br />
+            {upload && (
+              <ProgressBar
+                className='box4 blue-text'
+                file={file}
+                type={'Audio'}
+                title={title}
+                description={description}
+                setAlert={setAlert}
+                setFile={setFile}
+                setUpload={setUpload}
+                setTitle={setTitle}
+                setDescription={setDescription}
+                setStringLength={setStringLength}
+                setDisplay={setDisplay}
+                stringlength={stringlength}
+              />
+            )}
+          </div>
+          <div className='select'>
+            <div className='cloud pos'></div>
 
-          <input
-            accept='audio/*'
-            onChange={handleChange}
-            onClick={(e) => (e.target.value = null)}
-            type='file'
-            hidden={true}
-            ref={fileInput}
-          />
-          <span onClick={onOpenFileDialog} className='btn-blue pos'>
-            Select
-          </span>
-          {error && <div className='error'>{error}</div>}
+            <input
+              accept='audio/*'
+              onChange={handleChange}
+              onClick={(e) => (e.target.value = null)}
+              type='file'
+              hidden={true}
+              ref={fileInput}
+            />
+            <span onClick={onOpenFileDialog} className='btn-blue pos'>
+              Select
+            </span>
+            {error && <div className='error'>{error}</div>}
+          </div>
         </div>
+
         <form onSubmit={(e) => onSubmit(e)}>
           <div>
             <h2 className='des'>Title</h2>

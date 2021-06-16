@@ -87,7 +87,7 @@
 .main-add .main-right {
   padding: 1.6rem;
   margin: auto;
-  width: 85%;
+  width: 100%;
   position: relative;
 }
 
@@ -130,10 +130,16 @@
 }
 
 .main-add .main-right .main-right-container {
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(2, 50%);
+  grid-gap: 1rem; */
+  width: 85%;
+  margin: auto;
+}
+.main-add .main-right .main-right-container .main-right-grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
   grid-gap: 1rem;
-  width: 80%;
 }
 
 .main-add .main-right .main-right-container.blog {
