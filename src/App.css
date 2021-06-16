@@ -4464,7 +4464,7 @@ input.search-btn:focus {
     top: 124px;
   }
   .main-add .main-right .main-right-container .box1 {
-    display: none;
+    /* display: none; */
   }
   /* Chat */
   #full-chat {
