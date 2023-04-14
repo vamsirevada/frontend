@@ -18,6 +18,18 @@ import {
   GROUP_REGISTER_SUCCESS,
 } from './types';
 
+export const isAuthenticated = () => {
+  if (typeof window == 'undefined') {
+    return false;
+  }
+
+  if (localStorage.getItem('token')) {
+    return JSON.parse(localStorage.getItem('token'));
+  } else {
+    return false;
+  }
+};
+
 //Load User
 export const loadUser = () => async (dispatch) => {
   try {
@@ -120,22 +132,8 @@ export const loginWriter = (email, password) => async (dispatch) => {
 };
 
 //Register groupUser
-export const groupRegister = ({
-  groupName,
-  userName,
-  email,
-  password,
-  isGroup,
-  userpermission,
-  // code,
-}) => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-
-  const body = JSON.stringify({
+export const groupRegister =
+  ({
     groupName,
     userName,
     email,
@@ -143,119 +141,139 @@ export const groupRegister = ({
     isGroup,
     userpermission,
     // code,
-  });
+  }) =>
+  async (dispatch) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
 
-  try {
-    const res = await api.post('/users/group', body, config);
-
-    dispatch({
-      type: GROUP_REGISTER_SUCCESS,
-      payload: res.data,
+    const body = JSON.stringify({
+      groupName,
+      userName,
+      email,
+      password,
+      isGroup,
+      userpermission,
+      // code,
     });
-  } catch (err) {
-    const errors = err.response.data.errors;
 
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+    try {
+      const res = await api.post('/users/group', body, config);
+
+      dispatch({
+        type: GROUP_REGISTER_SUCCESS,
+        payload: res.data,
+      });
+    } catch (err) {
+      const errors = err.response.data.errors;
+
+      if (errors) {
+        errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      }
+      dispatch({
+        type: REGISTER_FAIL,
+      });
     }
-    dispatch({
-      type: REGISTER_FAIL,
-    });
-  }
-};
+  };
 
 //Register writer
-export const writerRegister = ({ name, email, password }) => async (
-  dispatch
-) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
+export const writerRegister =
+  ({ name, email, password }) =>
+  async (dispatch) => {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    const body = JSON.stringify({
+      name,
+      email,
+      password,
+    });
+
+    try {
+      const res = await api.post('/users/writer', body, config);
+
+      dispatch({
+        type: WRITER_REGISTER_SUCCESS,
+        payload: res.data,
+      });
+    } catch (err) {
+      const errors = err.response.data.errors;
+
+      if (errors) {
+        errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      }
+      dispatch({
+        type: WRITER_REGISTER_FAIL,
+      });
+    }
   };
 
-  const body = JSON.stringify({
-    name,
-    email,
-    password,
-  });
-
-  try {
-    const res = await api.post('/users/writer', body, config);
-
-    dispatch({
-      type: WRITER_REGISTER_SUCCESS,
-      payload: res.data,
+export const sendInvite =
+  ({ email }) =>
+  async (dispatch) => {
+    const body = JSON.stringify({
+      email: email,
     });
-  } catch (err) {
-    const errors = err.response.data.errors;
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      const res = await api.post('/auth/send-invite', body, config);
 
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      dispatch({
+        type: REFERRAL_SUCESS,
+        payload: res.data.message,
+      });
+      dispatch(setAlert(res.data.message, 'success'));
+    } catch (err) {
+      const errors = err.response.data.errors;
+
+      if (errors) {
+        errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      }
+      dispatch({
+        type: REGISTER_FAIL,
+      });
     }
-    dispatch({
-      type: WRITER_REGISTER_FAIL,
-    });
-  }
-};
-
-export const sendInvite = ({ email }) => async (dispatch) => {
-  const body = JSON.stringify({
-    email: email,
-  });
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
   };
-  try {
-    const res = await api.post('/auth/send-invite', body, config);
 
-    dispatch({
-      type: REFERRAL_SUCESS,
-      payload: res.data.message,
+export const sendReferral =
+  ({ email }) =>
+  async (dispatch) => {
+    const body = JSON.stringify({
+      email: email,
     });
-    dispatch(setAlert(res.data.message, 'success'));
-  } catch (err) {
-    const errors = err.response.data.errors;
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    try {
+      const res = await api.post('/auth/send-referral', body, config);
 
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      dispatch({
+        type: REFERRAL_SUCESS,
+        payload: res.data.message,
+      });
+      dispatch(setAlert(res.data.message, 'success'));
+    } catch (err) {
+      const errors = err.response.data.errors;
+
+      if (errors) {
+        errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
+      }
+      dispatch({
+        type: REGISTER_FAIL,
+      });
     }
-    dispatch({
-      type: REGISTER_FAIL,
-    });
-  }
-};
-
-export const sendReferral = ({ email }) => async (dispatch) => {
-  const body = JSON.stringify({
-    email: email,
-  });
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
   };
-  try {
-    const res = await api.post('/auth/send-referral', body, config);
-
-    dispatch({
-      type: REFERRAL_SUCESS,
-      payload: res.data.message,
-    });
-    dispatch(setAlert(res.data.message, 'success'));
-  } catch (err) {
-    const errors = err.response.data.errors;
-
-    if (errors) {
-      errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-    }
-    dispatch({
-      type: REGISTER_FAIL,
-    });
-  }
-};
 
 export const logout = () => async (dispatch) => {
   try {

@@ -1,6 +1,7 @@
 // import api from 'api';
 import api from '../utils/api';
 import { setAlert } from './alert';
+import { showLoader } from './application';
 import {
   ACCOUNT_DELETED,
   CLEAR_PROFILE,
@@ -302,6 +303,7 @@ export const getProfileById = (userId) => async (dispatch) => {
       type: GET_PROFILE_BY_ID,
       payload: res.data,
     });
+    dispatch(showLoader());
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,

@@ -11,8 +11,10 @@ import notice from './notice';
 import projectpost from './projectpost';
 import portfolio from './portfolio';
 import expense from './expense';
+import application from './application';
 
 export default combineReducers({
+  application,
   alert,
   auth,
   profile,

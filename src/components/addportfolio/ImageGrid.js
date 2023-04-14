@@ -5,27 +5,17 @@ import { motion } from 'framer-motion';
 import path from '../../images/path.svg';
 import poster from '../../images/poster.png';
 import { projectFirestore, projectStorage } from '../../firebase/config';
-import { getRealtimeData } from '../../actions/portfolio';
 import './Gallery.css';
-import Modal from './Modal';
-import { connect, useDispatch } from 'react-redux';
-import VideoModal from './VideoModal';
-import AudioModal from './AudioModal';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const ImageGrid = ({ auth: { user }, id, profile, docs, guest }) => {
-  const dispatch = useDispatch();
+  const history = useHistory();
   const [edit, setEdit] = useState('');
   const [viewAllImg, setViewAllImg] = useState(false);
   const [viewAllVideo, setViewAllVideo] = useState(false);
   const [viewAllAudio, setViewAllAudio] = useState(false);
   const [viewAllBlog, setViewAllBlog] = useState(false);
-  const [showImage, setShowImage] = useState(false);
-  const [showVideo, setShowVideo] = useState(false);
-  const [showAudio, setShowAudio] = useState(false);
-  const [value, setValue] = useState(0);
-  const [dispImage, setDispImage] = useState({ imageUrl: '' });
-  const [dispVideo, setDispVideo] = useState({ videoUrl: '' });
-  const [dispAudio, setDispAudio] = useState({ audioUrl: '' });
 
   const _remove = async (doc) => {
     if (doc?.type === 'Blog') {
@@ -45,6 +35,11 @@ const ImageGrid = ({ auth: { user }, id, profile, docs, guest }) => {
     }
   };
 
+  const showModal = (docId) => {
+    localStorage.setItem('location', history.location.pathname);
+    history.push(`/portfolio/${id}/view/${docId}`);
+  };
+
   const videos =
     docs && docs.filter((i) => i.userId === id && i?.type === 'Video');
   const images =
@@ -54,81 +49,8 @@ const ImageGrid = ({ auth: { user }, id, profile, docs, guest }) => {
   const blogs =
     docs && docs.filter((i) => i?.userId === id && i?.type === 'Blog');
 
-  const displayImage = (index) => {
-    const image = images[index];
-    setDispImage({
-      imageUrl: image.url,
-    });
-    setValue(index);
-    setShowImage(true);
-  };
-
-  const hideImage = () => {
-    setShowImage(false);
-  };
-
-  const displayVideo = (index) => {
-    const video = videos[index];
-    setDispVideo({
-      videoUrl: video.url,
-    });
-    setValue(index);
-    setShowVideo(true);
-  };
-
-  const hideVideo = () => {
-    setShowVideo(false);
-  };
-
-  const displayAudio = (index) => {
-    const audio = audios[index];
-    setDispAudio({
-      audioUrl: audio.url,
-    });
-    setValue(index);
-    setShowAudio(true);
-  };
-
-  const hideAudio = () => {
-    setShowAudio(false);
-  };
-
   return (
     <span className='img-grid-container'>
-      {showImage && (
-        <Modal
-          displayImage={displayImage}
-          dispImage={dispImage}
-          images={images}
-          profile={profile}
-          close={hideImage}
-          value={value}
-          guest={guest}
-        />
-      )}
-      {showVideo && (
-        <VideoModal
-          displayVideo={displayVideo}
-          dispVideo={dispVideo}
-          videos={videos}
-          profile={profile}
-          close={hideVideo}
-          value={value}
-          guest={guest}
-        />
-      )}
-      {showAudio && (
-        <AudioModal
-          displayAudio={displayAudio}
-          dispAudio={dispAudio}
-          audios={audios}
-          profile={profile}
-          close={hideAudio}
-          value={value}
-          guest={guest}
-        />
-      )}
-
       <div className='img-grid-heading'>
         <h3>
           Videos <span>({videos.length})</span>
@@ -175,10 +97,7 @@ const ImageGrid = ({ auth: { user }, id, profile, docs, guest }) => {
                   )}
                 </div>
                 <motion.video
-                  onClick={() => {
-                    displayVideo(index);
-                    dispatch(getRealtimeData(doc.id));
-                  }}
+                  onClick={() => showModal(doc.id)}
                   className='img-wrap-audio'
                   muted
                   autoPlay
@@ -246,10 +165,7 @@ const ImageGrid = ({ auth: { user }, id, profile, docs, guest }) => {
                 )}
               </div>
               <motion.img
-                onClick={() => {
-                  displayImage(index);
-                  dispatch(getRealtimeData(doc.id));
-                }}
+                onClick={() => showModal(doc.id)}
                 src={doc.url}
                 alt='uploaded pic'
                 initial={{ opacity: 0 }}
@@ -318,10 +234,7 @@ const ImageGrid = ({ auth: { user }, id, profile, docs, guest }) => {
                 </div>
                 <motion.video
                   className='img-wrap-audio'
-                  onClick={() => {
-                    displayAudio(index);
-                    dispatch(getRealtimeData(doc.id));
-                  }}
+                  onClick={() => showModal(doc.id)}
                   poster={poster}
                   controls
                   src={doc.url}

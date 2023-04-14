@@ -32,6 +32,7 @@ import steps from './steps';
 import './steps.css';
 import Portfolio2 from '../src/components/portfolio/Portfolio2';
 import TermsAndConditions from './components/auth/TermsAndConditions';
+import NewModal from './components/addportfolio/NewModal';
 
 const tourOptions = {
   defaultStepOptions: {
@@ -95,6 +96,11 @@ const App = () => {
                 component={CreateGroupProfile}
               />
               <Route exact path='/portfolio/guest/:id' component={Portfolio2} />
+              <Route
+                exact
+                path='/portfolio/:id/view/:docid'
+                component={NewModal}
+              />
               <PrivateRoute component={Routes} />
             </Switch>
           </Fragment>
