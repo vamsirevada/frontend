@@ -2,6 +2,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getProfileById } from '../../actions/profile';
+import { getProjects } from '../../actions/project';
 import Loader from '../layout/Loader';
 import briefcase from '../../images/icons/nounBriefcase.svg';
 import nounEducation from '../../images/icons/noun_education_2177318.svg';
@@ -25,14 +26,20 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import InsertPhotoIcon from '@material-ui/icons/InsertPhoto';
 import NavbarGuest from '../layout/NavbarGuest';
 import UseFirestore from '../addportfolio/UseFireStore';
+import ProjectTemp from '../projects/ProjectTemp';
+import ExpTemp from '../projects/ExpTemp';
 
 const Portfolio2 = ({
   getProfileById,
+  getProjects,
   profile: { profile1, loading },
+  project: { projects },
   match,
 }) => {
   const [displayLeft, toogleLeft] = useState(true);
   const [displayRight, toogleRight] = useState(true);
+  const [displayPortfolio, tooglePortfolio] = useState(true);
+  const [displayProjects, toogleProjects] = useState(false);
   const [viewAll1, setViewAll1] = useState(false);
   const [viewAll2, setViewAll2] = useState(false);
   const [viewAll3, setViewAll3] = useState(false);
@@ -42,7 +49,8 @@ const Portfolio2 = ({
 
   useEffect(() => {
     getProfileById(match.params.id);
-  }, [getProfileById, match.params.id]);
+    getProjects(match.params.id);
+  }, [getProfileById, getProjects, match.params.id]);
 
   const onClick1 = (e) => {
     toogleLeft(true);
@@ -51,6 +59,16 @@ const Portfolio2 = ({
   const onClick2 = (e) => {
     toogleLeft(false);
     toogleRight(true);
+  };
+
+  const PortOn = (e) => {
+    tooglePortfolio(true);
+    toogleProjects(false);
+  };
+
+  const ProjectOn = (e) => {
+    tooglePortfolio(false);
+    toogleProjects(true);
   };
 
   return (
@@ -485,12 +503,85 @@ const Portfolio2 = ({
                     <div className='portfolio-right'>
                       <div id='main-grid' className='port-grid'>
                         <div className='main-grid-container'>
+                          <div className='main-grid-top'>
+                            <div className='profile-info-box p-black'>
+                              <a href='#!' onClick={() => PortOn()}>
+                                <p className='border-1'>
+                                  View
+                                  <span
+                                    className={
+                                      displayPortfolio ? 'b-1 active' : 'b-1'
+                                    }
+                                  >
+                                    <br /> Portfolio
+                                  </span>
+                                </p>
+                              </a>
+                              <a href='#!' onClick={() => ProjectOn()}>
+                                <p>
+                                  <span className='f-1'>
+                                    {projects.length > 0 ||
+                                    profile1?.experience.length > 0
+                                      ? projects.length +
+                                        profile1?.experience.length
+                                      : '0'}
+                                  </span>
+                                  <span
+                                    className={
+                                      displayProjects ? 'b-1 active' : 'b-1'
+                                    }
+                                  >
+                                    <br /> Projects{' '}
+                                  </span>
+                                </p>
+                              </a>
+                            </div>
+                          </div>
                           <div className='main-grid-body'>
-                            <PortfolioRightBody
-                              docs={docs}
-                              guest={true}
-                              profile={profile1}
-                            />
+                            {displayPortfolio && profile1 !== null && (
+                              <PortfolioRightBody
+                                docs={docs}
+                                guest={true}
+                                profile={profile1}
+                              />
+                            )}
+                            {displayProjects && (
+                              <div className='project'>
+                                <div className='project-container'>
+                                  {projects.length > 0 && (
+                                    <Fragment>
+                                      <div>
+                                        {projects.map((project) => (
+                                          <ProjectTemp
+                                            key={project._id}
+                                            project={project}
+                                            profile={profile1}
+                                            user={profile1?.user}
+                                          />
+                                        ))}
+                                      </div>
+                                    </Fragment>
+                                  )}
+                                  {profile1?.experience.length > 0 && (
+                                    <Fragment>
+                                      <div>
+                                        {profile1?.experience.map(
+                                          (experience) => (
+                                            <ExpTemp
+                                              key={experience._id}
+                                              experience={experience}
+                                              profile={profile1}
+                                              user={profile1?.user}
+                                              showActions={false}
+                                            />
+                                          )
+                                        )}
+                                      </div>
+                                    </Fragment>
+                                  )}
+                                </div>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -510,8 +601,10 @@ const Portfolio2 = ({
 
 const mapStateToProps = (state) => ({
   profile: state.profile,
+  project: state.project,
 });
 
 export default connect(mapStateToProps, {
   getProfileById,
+  getProjects,
 })(Portfolio2);

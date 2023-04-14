@@ -5,3 +5,5 @@ build/
 .eslintcache
 
 .env
+
+vanityindia.pem
